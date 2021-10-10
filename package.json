@@ -1,9 +1,6 @@
 {
   "name": "venture-capitol",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "clean": "lerna run clean",
     "build": "lerna run build",
@@ -14,5 +11,9 @@
   },
   "dependencies": {
     "typescript": "^4.4.3"
-  }
+  },
+  "workspaces": [
+    "packages/*",
+    "packages/frontend"
+  ]
 }
