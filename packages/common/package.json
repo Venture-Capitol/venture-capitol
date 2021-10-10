@@ -1,7 +1,7 @@
 {
   "name": "@vc/common",
   "version": "0.1.0",
-  "main": "dist/index",
+  "main": "src/index",
   "types": "dist/index",
   "files": [
     "dist"

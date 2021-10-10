@@ -1,3 +1,3 @@
-import d from "@vc/common"
+import hello from "@vc/common"
 
-console.log(d)
+console.log(hello)
