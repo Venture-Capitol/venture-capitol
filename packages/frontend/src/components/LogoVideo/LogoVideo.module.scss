@@ -1,0 +1,36 @@
+.fill {
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  video, .video {
+    width: 100vw;
+    max-width: 800px;
+  }
+
+  video {
+
+    clip-path: url(#svgTextPathTwo);
+    grid-area: 1/ 1/ 2 /2;
+  }
+
+  .video {
+    aspect-ratio: 1920/1080;
+    clip-path: url(#svgTextPathTwo);
+    grid-area: 1/ 1/ 2 /2;
+    cursor: pointer;
+    z-index: 1;
+
+    &:hover .inner{
+      display: none;
+    }
+
+    .inner {
+      height: 100%;
+      width: 100%;
+      background: #000;
+    }
+  }
+
+}
