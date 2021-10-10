@@ -1,6 +1,6 @@
 {
   "name": "@vc/backend",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "npm run clean && npm run compile",
