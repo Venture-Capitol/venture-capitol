@@ -10,15 +10,15 @@
   }
 
   video {
-
     clip-path: url(#svgTextPathTwo);
-    grid-area: 1/ 1/ 2 /2;
+    grid-area: 1 / 1 / 2 / 2;
+    z-index: -1;
   }
 
   .video {
     aspect-ratio: 1920/1080;
     clip-path: url(#svgTextPathTwo);
-    grid-area: 1/ 1/ 2 /2;
+    grid-area: 1 / 1 / 2 / 2;
     cursor: pointer;
     z-index: 1;
 
