@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "start": "vite",
+    "start": "vite --host 0.0.0.0",
     "build": "tsc && vite build",
     "serve": "vite preview"
   },

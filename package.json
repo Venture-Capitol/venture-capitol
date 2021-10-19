@@ -4,7 +4,8 @@
   "scripts": {
     "clean": "lerna run clean",
     "build": "lerna run build",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "start:fe": "npm start --workspace=apps/frontend"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
@@ -13,7 +14,7 @@
     "typescript": "^4.4.3"
   },
   "workspaces": [
-    "packages/*",
-    "packages/frontend"
+    "apps/*",
+    "packages/*"
   ]
 }

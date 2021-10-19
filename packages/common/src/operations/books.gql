@@ -1,0 +1,5 @@
+query {
+  getBooks {
+    title
+  }
+}

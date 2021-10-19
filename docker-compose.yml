@@ -1,0 +1,7 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - "5000:5000"
+  backend:
+    image: "redis:alpine"
