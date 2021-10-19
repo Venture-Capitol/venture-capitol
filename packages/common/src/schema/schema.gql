@@ -1,13 +1,22 @@
-type Book {
-  title: String
-  author: Author
+type Dog {
+  name: String!
+  owner: Human
 }
 
-type Author {
-  name: String
-  books: [Book]
+type Human {
+  name: String!
+}
+
+type Mutation {
+  add(x: Int!, y: Int!): Int!
+  createNotification(message: String!): Boolean!
 }
 
 type Query {
-  getBooks: [Book]!
+  Hello: String!
+  dogs: [Dog!]!
+}
+
+type Subscription {
+  newNotification: String!
 }

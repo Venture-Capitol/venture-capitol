@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_PASSWORD: $DB_PWD
+      POSTGRES_USER: $DB_USER
+      POSTGRES_DB: $DB_NAME
+    ports:
+      - "127.0.0.1:5432:5432"

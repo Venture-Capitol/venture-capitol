@@ -5,16 +5,16 @@
     "clean": "lerna run clean",
     "build": "lerna run build",
     "test": "lerna run test",
-    "start:fe": "npm start --workspace=apps/frontend"
+    "bootstrap": "lerna bootstrap",
+    "start": "lerna run start --stream",
+    "start:fe": "lerna run start --scope @vc/frontend --stream",
+    "start:be": "lerna run start --scope @vc/backend --stream"
   },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "prettier": "^2.4.1"
   },
   "dependencies": {
     "typescript": "^4.4.3"
-  },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  }
 }
