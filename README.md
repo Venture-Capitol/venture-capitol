@@ -18,6 +18,15 @@ Optimizing the founding process for startups in Germany
 
 You can start the frontend and backend individually using `npm run start:fe` and `npm run start:be` or at the same time using `npm start`
 
+### Enhancing:
+
+There are some Visual Studio Code Extensions that are not needed but are pretty useful for working with this project:
+
+- [SASS](https://marketplace.visualstudio.com/items?itemName=Syler.sass-indented)
+- [Prisma](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [GraphQL](https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql)
+
 ## Folder Structure
 
 ```
