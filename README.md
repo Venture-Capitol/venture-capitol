@@ -5,14 +5,17 @@ Optimizing the founding process for startups in Germany
 ## Installing & Running
 
 ### Prerequisites:
-  - Node v16 or later (check version using `node -v`)
-  - Docker v20 or later & Docker Compose (check using `docker -v`)
+
+- Node v16 or later (check version using `node -v`)
+- Docker v20 or later & Docker Compose (check using `docker -v`)
 
 ### Installation:
+
 1. Install initial dependencies using `npm i`
 2. Install nested dependencies and link apps and packages together using `npm run bootstrap`
 
 ### Running:
+
 You can start the frontend and backend individually using `npm run start:fe` and `npm run start:be` or at the same time using `npm start`
 
 ## Folder Structure
@@ -29,6 +32,7 @@ You can start the frontend and backend individually using `npm run start:fe` and
 ```
 
 ## ToDo:
+
 ```
   [ ] graphql codegen
     [x] Backend Codegen
