@@ -123,6 +123,7 @@ app.register(mercurius, {
 	schema,
 	resolvers,
 	loaders,
+	graphiql: true,
 	context: buildContext,
 	subscription: true,
 });
