@@ -1,8 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Video from "../../assets/money-video.mp4";
 import s from "./LogoVideo.module.scss";
 
 const LogoVideo: React.FunctionComponent = () => {
+	let history = useHistory();
+
 	return (
 		<>
 			<svg
@@ -28,9 +31,9 @@ const LogoVideo: React.FunctionComponent = () => {
 				</clipPath>
 			</svg>
 
-			<div className={s.fill}>
+			<div className={s.fill} onClick={() => history.push("/demo")}>
 				<video src={Video} muted autoPlay loop></video>
-				<div className={s.video}>
+				<div className={s.video} onClick={() => history.push("/demo")}>
 					<div className={s.inner}></div>
 				</div>
 			</div>

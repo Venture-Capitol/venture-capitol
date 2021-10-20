@@ -19,7 +19,8 @@
 		"paths": {
 			"@vc/frontend/component/*": ["components/*"],
 			"@vc/frontend/asset/*": ["assets/*"],
-			"@vc/frontend/page/*": ["pages/*"]
+			"@vc/frontend/page/*": ["pages/*"],
+			"@vc/frontend/util/*": ["utils/*"]
 		}
 	},
 	"include": ["./src"]

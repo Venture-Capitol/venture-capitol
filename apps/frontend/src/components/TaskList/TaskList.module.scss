@@ -1,0 +1,26 @@
+.taskList {
+	max-width: 600px;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.rows {
+	display: flex;
+	flex-direction: column;
+	gap: 4rem;
+	z-index: 1;
+}
+
+.row {
+	display: flex;
+	gap: 0.2rem;
+	justify-content: space-around;
+	padding: 0 0.2rem;
+}
