@@ -62,8 +62,6 @@ const TaskTree: FunctionComponent = () => {
 			});
 		});
 
-		console.log(rows, rowsWithBoxes);
-
 		draw.clear();
 		draw.size(svgContainerRect.width, svgContainerRect.height);
 
