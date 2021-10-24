@@ -3,10 +3,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id String @id
-}
-
-model Step {
-  id Int @id @default(autoincrement())
+generator client {
+  provider = "prisma-client-js"
 }

@@ -17,6 +17,7 @@
 	"dependencies": {
 		"@prisma/client": "^3.3.0",
 		"@vc/common": "^0",
-		"mercurius-codegen": "^3.2.0"
+		"mercurius-codegen": "^3.2.0",
+		"prisma": "^3.3.0"
 	}
 }
