@@ -1,15 +1,20 @@
 {
 	"defaultCommandTimeout": 10000,
-	"video": true,
+	"video": false,
+	"screenshotOnRunFailure": false,
 	"videoCompression": false,
 	"retries": {
 		"runMode": 2,
 		"openMode": 0
 	},
-	"viewportWidth": 1920,
-	"viewportHeight": 1080,
+	"e2e": {
+		"componentFolder": "src",
+		"testFiles": "**/*.spec.{ts,tsx}",
+		"viewportWidth": 1920,
+		"viewportHeight": 1080
+	},
 	"component": {
 		"componentFolder": "src",
-		"testFiles": "**/*spec.{ts,tsx}"
+		"testFiles": "**/*.test.{ts,tsx}"
 	}
 }
