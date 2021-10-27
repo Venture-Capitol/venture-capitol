@@ -1,0 +1,36 @@
+{
+	"name": "utr-backend",
+	"version": "0.1.0",
+	"description": "Backend für das Unternehmensregister",
+	"author": "Malte <skyguardian42@gmail.com>",
+	"homepage": "https://github.com/Venture-Capitol/venture-capitol#readme",
+	"license": "ISC",
+	"main": "src/index.ts",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Venture-Capitol/venture-capitol.git"
+	},
+	"scripts": {
+		"start": "docker-compose up -d && ts-node-dev src/index.ts",
+		"build": "npm run clean && npm run compile",
+		"clean": "rm -rf ./dist",
+		"compile": "tsc -p tsconfig.build.json",
+		"test": "npm run build"
+	},
+	"bugs": {
+		"url": "https://github.com/Venture-Capitol/venture-capitol/issues"
+	},
+	"devDependencies": {
+		"ts-node": "^10.2.1",
+		"ts-node-dev": "^1.1.8",
+		"tsconfig-paths": "^3.11.0",
+		"typescript": "^4.4.3"
+	}
+}
