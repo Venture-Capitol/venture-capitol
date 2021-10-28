@@ -40,6 +40,10 @@ There are some Visual Studio Code Extensions that are not needed but are pretty 
 └─ README.md        # This file :)
 ```
 
+## Using Lerna
+
+Installing a dependency has to be done through lerna using `npx lerna add <package> --scope @vc/<app>`
+
 ## ToDo:
 
 ```
