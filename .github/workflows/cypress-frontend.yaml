@@ -10,12 +10,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install
+        uses: cypress-io/github-action@v2
         with:
-          project: apps/frontend
+          runTests: false
       - name: Run Component Tests
         uses: cypress-io/github-action@v2
         with:
-          project: apps/frontend
+          install: false
+          working-directory: apps/frontend
           command: npm run cypress:run-ct
       - name: Run Integration Tests
         uses: cypress-io/github-action@v2
