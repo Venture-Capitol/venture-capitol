@@ -5,12 +5,25 @@ on:
       - "apps/frontend/**"
       - .github/workflows/cypress-frontend.yaml
 jobs:
-  cypress-run:
+  setup:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - run: npm ci
       - run: lerna bootstrap
+  cypress-ct:
+    runs-on: ubuntu-20.04
+    needs: setup
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - run: npm run cypress:run-ct
+  cypress-e2e:
+    runs-on: ubuntu-20.04
+    needs: setup
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - run: npm run cypress:run
+
