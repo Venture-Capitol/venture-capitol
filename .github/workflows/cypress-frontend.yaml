@@ -10,17 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - run: npm install
+      - run: npm ci
       - run: lerna bootstrap
-      - name: Run Component Tests
-        uses: cypress-io/github-action@v2
-        with:
-          install: false
-          project: apps/frontend
-          command: npm run cypress:run-ct
-      - name: Run Integration Tests
-        uses: cypress-io/github-action@v2
-        with:
-          install: false
-          project: apps/frontend
-          start: npm start
+      - run: npm run cypress:run-ct
+      - run: npm run cypress:run
