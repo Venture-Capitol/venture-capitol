@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - "apps/frontend/**"
-      - .github/workflows/cypress-frontend.yml
+      - .github/workflows/cypress-frontend.yaml
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
