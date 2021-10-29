@@ -14,7 +14,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           runTests: false
-          start: lerna bootstrap
+      - run: lerna bootstrap
       - name: Run Component Tests
         uses: cypress-io/github-action@v2
         with:
