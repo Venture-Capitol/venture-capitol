@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          project: apps/frontend
       - name: Run Component Tests
         uses: cypress-io/github-action@v2
         with:
