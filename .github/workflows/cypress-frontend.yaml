@@ -10,10 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install
-        uses: cypress-io/github-action@v2
-        with:
-          runTests: false
+      - run: npm install
       - run: lerna bootstrap
       - name: Run Component Tests
         uses: cypress-io/github-action@v2
