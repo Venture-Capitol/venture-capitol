@@ -14,11 +14,12 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           runTests: false
+          start: lerna bootstrap
       - name: Run Component Tests
         uses: cypress-io/github-action@v2
         with:
           install: false
-          working-directory: apps/frontend
+          project: apps/frontend
           command: npm run cypress:run-ct
       - name: Run Integration Tests
         uses: cypress-io/github-action@v2
