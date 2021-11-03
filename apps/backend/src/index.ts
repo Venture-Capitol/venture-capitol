@@ -2,10 +2,14 @@ import Fastify, { FastifyReply, FastifyRequest } from "fastify";
 import mercurius, { IResolvers, MercuriusLoaders } from "mercurius";
 import mercuriusCodegen, { loadSchemaFiles } from "mercurius-codegen";
 import { buildSchema } from "graphql";
+import { initializeApp } from "firebase-admin/app";
+import { DecodedIdToken, getAuth } from "firebase-admin/auth";
 
 export const app = Fastify({
 	logger: true,
 });
+
+initializeApp();
 
 const { schema } = loadSchemaFiles(
 	"node_modules/@vc/common/src/schema/**/*.gql",
@@ -25,9 +29,22 @@ const { schema } = loadSchemaFiles(
 	}
 );
 
-const buildContext = async (req: FastifyRequest, _reply: FastifyReply) => {
+const buildContext = async (
+	req: FastifyRequest,
+	_reply: FastifyReply
+): Promise<{
+	user?: DecodedIdToken;
+}> => {
+	let user: DecodedIdToken | undefined;
+
+	try {
+		user = await getAuth().verifyIdToken(req.headers.authorization);
+	} catch (e) {
+		console.log("Error Decoding token:", e);
+	}
+
 	return {
-		authorization: req.headers.authorization,
+		user,
 	};
 };
 
@@ -66,12 +83,18 @@ const resolvers: IResolvers = {
 			root;
 			// args ~ {}
 			args;
-			// ctx.authorization ~ string | undefined
-			ctx.authorization;
 			// info ~ GraphQLResolveInfo
 			info;
 
-			return "world";
+			// if(!ctx.authorization) {
+			// 	throw new Error("No Authorization given")
+			//   // throw new mercurius.ErrorWithProps('Invalid User ID', {
+			//   //   code: 'NO_AUTH_TOKEN',
+			//   //   timestamp: Math.round(new Date().getTime() / 1000)
+			//   // })
+			// }
+
+			return ctx.user?.toString();
 		},
 		dogs() {
 			return dogs;
@@ -86,7 +109,6 @@ const resolvers: IResolvers = {
 			// x ~ string
 			y;
 			// ctx.authorization ~ string | undefined
-			ctx.authorization;
 			// info ~ GraphQLResolveInfo
 			info;
 
