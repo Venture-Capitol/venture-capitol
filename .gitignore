@@ -11,3 +11,5 @@ dist
 **/cypress/videos/*
 **/cypress/logs/*
 
+
+firebase.json
