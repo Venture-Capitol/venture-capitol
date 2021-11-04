@@ -86,15 +86,8 @@ const resolvers: IResolvers = {
 			// info ~ GraphQLResolveInfo
 			info;
 
-			// if(!ctx.authorization) {
-			// 	throw new Error("No Authorization given")
-			//   // throw new mercurius.ErrorWithProps('Invalid User ID', {
-			//   //   code: 'NO_AUTH_TOKEN',
-			//   //   timestamp: Math.round(new Date().getTime() / 1000)
-			//   // })
-			// }
-
-			return ctx.user?.toString();
+			const greeting: string = `Hello, ${ctx.user?.email || "Anonymous User"}`;
+			return greeting;
 		},
 		dogs() {
 			return dogs;
