@@ -3,6 +3,8 @@ node_modules
 dist
 .env
 .idea
+*.local
+*.log
 
 # Cypress
 **/cypress/results/*
