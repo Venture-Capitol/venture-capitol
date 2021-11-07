@@ -5,11 +5,12 @@ import { buildSchema } from "graphql";
 import { initializeApp } from "firebase-admin/app";
 import { DecodedIdToken, getAuth } from "firebase-admin/auth";
 
+// initialize firebase
+initializeApp();
+
 export const app = Fastify({
 	logger: true,
 });
-
-initializeApp({});
 
 const { schema } = loadSchemaFiles(
 	"node_modules/@vc/common/src/schema/**/*.gql",
@@ -37,8 +38,6 @@ const buildContext = async (
 }> => {
 	let user: DecodedIdToken;
 
-	console.log(await getAuth().listUsers());
-
 	try {
 		user = await getAuth().verifyIdToken(req.headers.authorization);
 	} catch (e) {
@@ -57,6 +56,9 @@ declare module "mercurius" {
 		extends PromiseType<ReturnType<typeof buildContext>> {}
 }
 
+/**
+ * example graphql usage
+ */
 const dogs = [
 	{ name: "Max" },
 	{ name: "Charlie" },
@@ -153,4 +155,4 @@ mercuriusCodegen(app, {
 	},
 }).catch(console.error);
 
-app.listen(8000);
+app.listen(process.env.PORT || 8000);
