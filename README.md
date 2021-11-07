@@ -13,6 +13,7 @@ Optimizing the founding process for startups in Germany
 
 1. Install initial dependencies using `npm i`
 2. Install nested dependencies and link apps and packages together using `npm run bootstrap`
+3. Get the firebase.json file for firebase admin access
 
 ### Running:
 

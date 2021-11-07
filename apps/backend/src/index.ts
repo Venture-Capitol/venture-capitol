@@ -9,7 +9,7 @@ export const app = Fastify({
 	logger: true,
 });
 
-initializeApp();
+initializeApp({});
 
 const { schema } = loadSchemaFiles(
 	"node_modules/@vc/common/src/schema/**/*.gql",
@@ -35,7 +35,9 @@ const buildContext = async (
 ): Promise<{
 	user?: DecodedIdToken;
 }> => {
-	let user: DecodedIdToken | undefined;
+	let user: DecodedIdToken;
+
+	console.log(await getAuth().listUsers());
 
 	try {
 		user = await getAuth().verifyIdToken(req.headers.authorization);
