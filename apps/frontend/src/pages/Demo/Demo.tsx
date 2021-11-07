@@ -1,6 +1,6 @@
 import TaskList from "@vc/frontend/component/TaskList/TaskList";
 import React from "react";
-import { FirebaseUIComponent } from "@vc/auth";
+import { AuthUI } from "@vc/auth";
 
 export default function Demo() {
 	return (
@@ -16,7 +16,7 @@ export default function Demo() {
 						"radial-gradient(95.33% 88.77% at 100% 25.99%, #F3EAE4 0%, #F5EBDF 11.12%, #F6F5F8 33.47%)",
 				}}
 			>
-				<FirebaseUIComponent />
+				<AuthUI />
 				<TaskList />
 			</div>
 		</React.Fragment>
