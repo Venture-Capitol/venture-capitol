@@ -7,3 +7,11 @@ services:
       POSTGRES_DB: $DB_NAME
     ports:
       - "127.0.0.1:5432:5432"
+  backend:
+    build:
+      context: ../../
+      dockerfile: ./apps/backend/Dockerfile.esbuild
+    environment:
+      HOST: 0.0.0.0
+    ports:
+      - "127.0.0.1:8101:8101"

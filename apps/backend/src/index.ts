@@ -13,7 +13,7 @@ export const app = Fastify({
 });
 
 const { schema } = loadSchemaFiles(
-	"node_modules/@vc/common/src/schema/**/*.gql",
+	process.env.GQL_SCHEMA_DIR ?? "node_modules/@vc/common/src/schema/**/*.gql",
 	{
 		watchOptions: {
 			enabled: process.env.NODE_ENV === "development",
@@ -155,4 +155,4 @@ mercuriusCodegen(app, {
 	},
 }).catch(console.error);
 
-app.listen(process.env.PORT || 8000);
+app.listen(process.env.PORT || 8000, process.env.HOST || "127.0.0.1");
