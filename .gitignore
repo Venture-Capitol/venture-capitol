@@ -1,7 +1,6 @@
 node_modules
 .DS_Store
 dist
-.env
 .idea
 
 # Cypress
@@ -11,3 +10,5 @@ dist
 **/cypress/videos/*
 **/cypress/logs/*
 
+
+firebase.json
