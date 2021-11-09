@@ -2,6 +2,11 @@ import Fastify, { FastifyReply, FastifyRequest } from "fastify";
 import mercurius, { IResolvers, MercuriusLoaders } from "mercurius";
 import mercuriusCodegen, { loadSchemaFiles } from "mercurius-codegen";
 import { buildSchema } from "graphql";
+import { initializeApp } from "firebase-admin/app";
+import { DecodedIdToken, getAuth } from "firebase-admin/auth";
+
+// initialize firebase
+initializeApp();
 
 export const app = Fastify({
 	logger: true,
@@ -25,9 +30,22 @@ const { schema } = loadSchemaFiles(
 	}
 );
 
-const buildContext = async (req: FastifyRequest, _reply: FastifyReply) => {
+const buildContext = async (
+	req: FastifyRequest,
+	_reply: FastifyReply
+): Promise<{
+	user?: DecodedIdToken;
+}> => {
+	let user: DecodedIdToken;
+
+	try {
+		user = await getAuth().verifyIdToken(req.headers.authorization);
+	} catch (e) {
+		console.log("Error Decoding token:", e);
+	}
+
 	return {
-		authorization: req.headers.authorization,
+		user,
 	};
 };
 
@@ -38,6 +56,9 @@ declare module "mercurius" {
 		extends PromiseType<ReturnType<typeof buildContext>> {}
 }
 
+/**
+ * example graphql usage
+ */
 const dogs = [
 	{ name: "Max" },
 	{ name: "Charlie" },
@@ -66,12 +87,11 @@ const resolvers: IResolvers = {
 			root;
 			// args ~ {}
 			args;
-			// ctx.authorization ~ string | undefined
-			ctx.authorization;
 			// info ~ GraphQLResolveInfo
 			info;
 
-			return "world";
+			const greeting: string = `Hello, ${ctx.user?.email || "Anonymous User"}`;
+			return greeting;
 		},
 		dogs() {
 			return dogs;
@@ -86,7 +106,6 @@ const resolvers: IResolvers = {
 			// x ~ string
 			y;
 			// ctx.authorization ~ string | undefined
-			ctx.authorization;
 			// info ~ GraphQLResolveInfo
 			info;
 
@@ -136,4 +155,4 @@ mercuriusCodegen(app, {
 	},
 }).catch(console.error);
 
-app.listen(8000);
+app.listen(process.env.PORT || 8000);

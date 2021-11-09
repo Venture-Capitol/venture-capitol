@@ -13,6 +13,8 @@ Optimizing the founding process for startups in Germany
 
 1. Install initial dependencies using `npm i`
 2. Install nested dependencies and link apps and packages together using `npm run bootstrap`
+3. To get firebase in the backend working, you'll need a firebase service account key. You can either get it yourself following [this](https://firebase.google.com/docs/admin/setup) guide if you have access to the firebase project, or ask in slack for it
+4. Put the firebase.json file in the `apps/backend` folder
 
 ### Running:
 
@@ -43,18 +45,3 @@ There are some Visual Studio Code Extensions that are not needed but are pretty 
 ## Using Lerna
 
 Installing a dependency has to be done through lerna using `npx lerna add <package> --scope @vc/<app>`
-
-## ToDo:
-
-```
-  [ ] graphql codegen
-    [x] Backend Codegen
-    [ ] Frontend Codegen
-  [ ] storybook
-  [ ] Docker-compose database Database
-  [ ] Sentry
-  [ ] Hotjar
-  [ ] Deployment
-    [ ] Dockerize Backend
-    [ ] Dockerize Frontend / Generate Static Site
-```
