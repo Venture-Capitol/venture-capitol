@@ -3,4 +3,5 @@ import { AuthUI } from "./AuthUI";
 import { signOut } from "./firebase";
 import firebase from "firebase/compat/app";
 
-export { AuthContext, AuthProvider, AuthUI, signOut, firebase };
+export { AuthContext, AuthProvider, AuthUI, signOut };
+export type User = firebase.User;

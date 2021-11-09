@@ -1,9 +1,9 @@
 import React, { FC, useContext } from "react";
-import { AuthContext, AuthUI, firebase } from "@vc/auth";
+import { AuthContext, AuthUI, User } from "@vc/auth";
 import { signOut } from "@vc/auth";
 
 const DemoAuth: FC = () => {
-	const currentUser = useContext<firebase.User | null>(AuthContext);
+	const currentUser = useContext<User | null>(AuthContext);
 	const userInfoPanel = (
 		<div>
 			{currentUser && "Hello, " + currentUser.displayName}
