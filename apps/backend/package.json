@@ -2,7 +2,7 @@
 	"name": "@vc/backend",
 	"version": "0.1.0",
 	"scripts": {
-		"start": "docker-compose up -d && ts-node-dev src/index.ts",
+		"start": "docker-compose up -d && ts-node-dev -r dotenv/config src/index.ts",
 		"build": "npm run clean && npm run compile",
 		"clean": "rm -rf ./dist",
 		"compile": "tsc -p tsconfig.build.json",
@@ -17,6 +17,8 @@
 	"dependencies": {
 		"@prisma/client": "^3.3.0",
 		"@vc/common": "^0",
+		"dotenv": "^10.0.0",
+		"firebase-admin": "^10.0.0",
 		"mercurius-codegen": "^3.2.0",
 		"prisma": "^3.3.0"
 	}
