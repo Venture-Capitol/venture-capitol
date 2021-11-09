@@ -10,6 +10,8 @@ const firebaseConfig = {
 	appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-const app = firebase.initializeApp(firebaseConfig);
+export const app = firebase.initializeApp(firebaseConfig);
 
-export default app;
+export const signOut = () => {
+	app.auth().signOut();
+};
