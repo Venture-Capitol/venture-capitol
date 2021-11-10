@@ -2,7 +2,7 @@
 	"name": "@vc/backend",
 	"version": "0.1.0",
 	"scripts": {
-		"start": "docker-compose up -d && ts-node-dev -r dotenv/config src/index.ts",
+		"start": "docker-compose up -d db && ts-node-dev -r dotenv/config src/index.ts",
 		"build": "npm run clean && esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node16",
 		"serve": "ts-node src/index.ts",
 		"clean": "rm -rf ./dist && mkdir -p ./dist/schema && cp node_modules/@vc/common/src/schema/** dist/schema/",

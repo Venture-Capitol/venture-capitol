@@ -98,6 +98,9 @@ const resolvers: IResolvers = {
 		dogs() {
 			return dogs;
 		},
+		humans() {
+			return Object.values(owners);
+		},
 	},
 	Mutation: {
 		add(root, { x, y }, ctx, info) {
@@ -157,4 +160,4 @@ mercuriusCodegen(app, {
 	},
 }).catch(console.error);
 
-app.listen(process.env.PORT || 8000, process.env.HOST || "127.0.0.1");
+app.listen(process.env.PORT || 8101, process.env.HOST || "127.0.0.1");

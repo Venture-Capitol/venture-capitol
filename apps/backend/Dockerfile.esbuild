@@ -19,7 +19,6 @@ RUN npx lerna run build --scope @vc/backend
 # Run the app
 FROM node:16-alpine as runner
 ENV NODE_ENV=production
-ENV PORT=8101
 ENV GQL_SCHEMA_DIR=./schema/**/*.gql
 
 WORKDIR /app

@@ -61,6 +61,7 @@ export type Query = {
 	__typename?: "Query";
 	Hello: Scalars["String"];
 	dogs: Array<Dog>;
+	humans: Array<Human>;
 };
 
 export type Subscription = {
@@ -231,6 +232,7 @@ export type QueryResolvers<
 > = {
 	Hello?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 	dogs?: Resolver<Array<ResolversTypes["Dog"]>, ParentType, ContextType>;
+	humans?: Resolver<Array<ResolversTypes["Human"]>, ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<
