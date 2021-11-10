@@ -8,6 +8,8 @@ import { DecodedIdToken, getAuth } from "firebase-admin/auth";
 // initialize firebase
 initializeApp();
 
+console.log("hello!");
+
 export const app = Fastify({
 	logger: true,
 });
