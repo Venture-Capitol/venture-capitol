@@ -15,6 +15,7 @@ type Mutation {
 type Query {
 	Hello: String!
 	dogs: [Dog!]!
+	humans: [Human!]!
 }
 
 type Subscription {
