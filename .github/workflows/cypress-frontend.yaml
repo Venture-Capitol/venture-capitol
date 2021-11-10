@@ -1,0 +1,26 @@
+name: Frontend Cypress Test
+on:
+  pull_request:
+    branches:
+    - main
+    - develop
+  push:
+    paths:
+    - "apps/frontend/**"
+    - ".github/workflows/cypress-frontend.yaml"
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16
+    - run: npm ci
+    - run: npm run bootstrap
+    - run: npm run cypress:run-ct
+    - uses: cypress-io/github-action@v2
+      with:
+        start: npm start
+        wait-on: "http://localhost:3000"
+        command: npm run cypress:run
