@@ -13,7 +13,7 @@ export const AuthUI: FC = () => {
 
 	const loader = <div id='loader'></div>;
 
-	var uiConfig = {
+	const uiConfig = {
 		callbacks: {
 			signInSuccessWithAuthResult: function (
 				authResult: any,
@@ -30,7 +30,7 @@ export const AuthUI: FC = () => {
 	};
 
 	useEffect(() => {
-		var ui = new firebaseui.auth.AuthUI(app.auth());
+		const ui = new firebaseui.auth.AuthUI(app.auth());
 		ui.start("#firebaseui-auth-container", uiConfig);
 		return () => {
 			ui.delete();
