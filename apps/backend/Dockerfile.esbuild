@@ -20,8 +20,9 @@ RUN npx lerna run build --scope @vc/backend
 FROM node:16-alpine as runner
 ENV NODE_ENV=production
 ENV GQL_SCHEMA_DIR=./schema/**/*.gql
+ENV HOST=0.0.0.0
 
-WORKDIR /app
+WORKDIR /app7
 COPY --from=builder /app/apps/backend/dist ./
 
 CMD node index.js
