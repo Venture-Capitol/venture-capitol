@@ -2,7 +2,7 @@
 
 describe("test demo page", () => {
 	it("successfully loads", () => {
-		cy.visit("http://localhost:3000");
+		cy.visit("/");
 	});
 	it("background video present", () => {
 		cy.visit("/");
