@@ -1,4 +1,5 @@
 import TaskList from "@vc/frontend/component/TaskList/TaskList";
+import React from "react";
 
 export default function Demo() {
 	return (
@@ -6,6 +7,7 @@ export default function Demo() {
 			style={{
 				height: "100%",
 				display: "flex",
+				flexDirection: "column",
 				alignItems: "center",
 				justifyContent: "center",
 				background:
