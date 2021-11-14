@@ -1,5 +1,5 @@
 {
-	"name": "utr-backend",
+	"name": "@vc/utr-backend",
 	"version": "0.1.0",
 	"description": "Backend für das Unternehmensregister",
 	"author": "Malte <skyguardian42@gmail.com>",
