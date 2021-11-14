@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import Button from "../lib/button";
 
 export default {
-	title: "Button",
+	title: "GPF Button",
 	component: Button,
 };
 
