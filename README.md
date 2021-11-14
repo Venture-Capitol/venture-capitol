@@ -45,3 +45,17 @@ There are some Visual Studio Code Extensions that are not needed but are pretty 
 ## Using Lerna
 
 Installing a dependency has to be done through lerna using `npx lerna add <package> --scope @vc/<app>`
+
+## Reserved Ports
+
+Ports reserved for each service, all interchangeable by setting the `PORT` environment variable.
+
+service      | port
+--|--
+frontend     | 8100
+backend      | 8101
+utr-frontend | 8102
+utr-backend  | 8103
+storybook    | 8104
+database     | 5432
+utr-database | 5433

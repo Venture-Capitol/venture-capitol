@@ -17,5 +17,5 @@
 		"componentFolder": "src",
 		"testFiles": "**/*.test.{ts,tsx}"
 	},
-	"baseUrl": "http://localhost:8100"
+	"baseUrl": "http://localhost:8102"
 }

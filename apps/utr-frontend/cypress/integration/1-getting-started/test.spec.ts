@@ -4,8 +4,8 @@ describe("test demo page", () => {
 	it("successfully loads", () => {
 		cy.visit("/");
 	});
-	it("background video present", () => {
+	it("react logo present", () => {
 		cy.visit("/");
-		cy.get("#root > div > video").should("exist");
+		cy.get("#root > div > header > img").should("exist");
 	});
 });
