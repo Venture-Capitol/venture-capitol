@@ -11,8 +11,8 @@ module.exports = {
 		"../../../apps/utr-frontend/components/**/*.stories.@(js|jsx|ts|tsx)",
 
 		// --- Global components ---
-		"../../components/**/*.stories.mdx",
-		"../../components/**/*.stories.@(js|jsx|ts|tsx)",
+		"../../ui/**/*.stories.mdx",
+		"../../ui/**/*.stories.@(js|jsx|ts|tsx)",
 	],
 	addons: ["@storybook/addon-links", "@storybook/addon-essentials"],
 };
