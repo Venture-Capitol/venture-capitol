@@ -11,9 +11,18 @@ COPY apps/backend/package.json apps/backend/package-lock.json apps/backend/prism
 COPY packages ./packages
 RUN npx lerna bootstrap
 
-FROM node:16-alpine as runner
-WORKDIR /app
-COPY --from=builder /app/apps/backend ./
-WORKDIR /app/backend
+# Copy source files
+COPY apps/backend/src ./apps/backend/src/
 
-CMD npm run serve
+RUN npx lerna run build --scope @vc/backend
+
+# Run the app
+FROM node:16-alpine as runner
+ENV NODE_ENV=production
+ENV GQL_SCHEMA_DIR=./schema/**/*.gql
+ENV HOST=0.0.0.0
+
+WORKDIR /app
+COPY --from=builder /app/apps/backend/dist ./
+
+CMD node index.js

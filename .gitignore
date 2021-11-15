@@ -12,5 +12,10 @@ dist
 **/cypress/videos/*
 **/cypress/logs/*
 
+# Terraform
+**/.terraform
+deploy/*credentials.json
+*.tfstate*
+secret.tfvars
 
 firebase.json
