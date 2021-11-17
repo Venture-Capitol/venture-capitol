@@ -11,11 +11,13 @@ variable "zone" {
   default = "europe-west1-b"
 }
 
+variable "db_name" {
+  type = string
+  default = "backend"
+}
+
 variable "db_user" {
   type = string
   default = "backend_user"
 }
 
-variable "db_password" {
-  type = string
-}
