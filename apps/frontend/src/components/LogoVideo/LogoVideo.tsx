@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import Video from "../../assets/money-video.mp4";
-import s from "./LogoVideo.module.scss";
+import Video from "../../../../assets/money-video.mp4";
+import s from "LogoVideo.module.scss";
 
 const LogoVideo: React.FunctionComponent = () => {
 	let history = useHistory();
