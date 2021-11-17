@@ -1,9 +1,0 @@
-{
-	"name": "@vc/ui",
-	"version": "1.0.0",
-	"description": "shared ui for venture capitol",
-	"main": "/src/index.ts",
-	"scripts": {},
-	"author": "",
-	"license": "ISC"
-}
