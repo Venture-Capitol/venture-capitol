@@ -4,6 +4,7 @@ ENV NODE_ENV=production
 
 # Install shared dependencies
 COPY tsconfig.json tsconfig.build.json package.json package-lock.json lerna.json ./
+RUN npm set-script prepare ""
 RUN npm ci
 
 # Install project dependencies
