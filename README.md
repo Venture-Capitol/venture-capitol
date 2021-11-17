@@ -1,4 +1,4 @@
-<h1 align="center"><a href="https://venture-capitol.de/" target="_blank" noopener>Venture Capitol</a></h1>
+<h1 align="center"><a href="https://venturecapitol.de/" target="_blank" noopener>Venture Capitol</a></h1>
 
 Optimizing the founding process for startups in Germany
 
