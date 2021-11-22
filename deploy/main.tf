@@ -7,8 +7,15 @@ provider "google" {
 
 # Enable required APIs
 
+## Secret Manager
 resource "google_project_service" "secretmanager" {
   service            = "secretmanager.googleapis.com"
+  disable_on_destroy = false
+}
+
+## Cloud Run
+resource "google_project_service" "run" {
+  service            = "run.googleapis.com"
   disable_on_destroy = false
 }
 
@@ -21,7 +28,7 @@ locals {
   backend_serviceaccount = "serviceAccount:${google_service_account.backend_sa.email}"
 }
 
-# Grant access to databases and cloud run
+# Grant the service account access to databases and cloud run
 resource "google_project_iam_binding" "service_permissions" {
   project = var.project
   for_each = toset([
@@ -66,9 +73,12 @@ resource "random_password" "database_password" {
 
 resource "google_secret_manager_secret" "db_connection_string" {
   secret_id = "db_connection_string"
+
   replication {
     automatic = true
   }
+
+  depends_on = [google_project_service.secretmanager]
 }
 
 resource "google_secret_manager_secret_version" "db_connection_string_data" {
@@ -110,21 +120,6 @@ resource "google_cloud_run_service" "backend" {
       containers {
         image = "us-docker.pkg.dev/cloudrun/container/hello"
 
-        # env {
-        #   name  = "DB_HOST"
-        #   value = "/cloudsql/${google_sql_database_instance.vc_db.connection_name}"
-        # }
-
-        # env {
-        #   name  = "DB_NAME"
-        #   value = "backend"
-        # }
-
-        # env {
-        #   name  = "DB_USER"
-        #   value = var.db_user
-        # }
-
         env {
           name = "DATABASE_URL"
 
@@ -152,8 +147,7 @@ resource "google_cloud_run_service" "backend" {
     latest_revision = true
   }
 
-    depends_on = [google_secret_manager_secret_version.db_connection_string_data]
-
+  depends_on = [google_secret_manager_secret_version.db_connection_string_data, google_project_service.run ]
 }
 
 # Create IAM Policy to enable http connections to backend service without authentication
