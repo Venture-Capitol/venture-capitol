@@ -20,6 +20,7 @@
 
 .row {
 	padding: 0 0.2rem;
+	gap: 50px;
 	align-items: center;
 	display: grid;
 	grid-template-rows: 1fr;
@@ -31,5 +32,5 @@
 }
 
 .g_2 {
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
 }

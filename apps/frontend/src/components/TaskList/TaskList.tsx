@@ -216,16 +216,7 @@ const TaskList: FC = () => {
 								if (node.id == 0) {
 									return <EmptyNode id={node.id} />;
 								} else {
-									let spacer;
-									if (index == 1) {
-										spacer = <div>&nbsp;</div>;
-									}
-									return (
-										<>
-											{spacer}
-											<Task id={node.id}>{node.name}</Task>
-										</>
-									);
+									return <Task id={node.id}>{node.name}</Task>;
 								}
 							})}
 						</div>
