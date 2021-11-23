@@ -16,6 +16,8 @@
 		"cypress:run-ct": "cypress run-ct"
 	},
 	"dependencies": {
+		"@sentry/react": "^6.15.0",
+		"@sentry/tracing": "^6.15.0",
 		"@svgdotjs/svg.js": "^3.1.1",
 		"@vc/auth": "^1.0.0",
 		"react": "^17.0.0",
