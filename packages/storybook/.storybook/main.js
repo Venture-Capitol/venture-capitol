@@ -10,8 +10,6 @@ module.exports = {
 		},
 	},
 	stories: [
-		// TODO: make all stories visible at the same time
-
 		// --- GPF components ---
 		"../../../apps/frontend/src/components/**/*.stories.mdx",
 		"../../../apps/frontend/src/components/**/*.stories.@(js|jsx|ts|tsx)",
