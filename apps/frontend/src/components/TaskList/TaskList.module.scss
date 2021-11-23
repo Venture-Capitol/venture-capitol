@@ -1,7 +1,6 @@
 .taskList {
 	max-width: 600px;
-	width: 100%;
-	overflow: hidden;
+	width: fit-content;
 	position: relative;
 }
 
@@ -20,8 +19,17 @@
 }
 
 .row {
-	display: flex;
-	gap: 0.2rem;
-	justify-content: space-around;
 	padding: 0 0.2rem;
+	align-items: center;
+	display: grid;
+	grid-template-rows: 1fr;
+	justify-items: center;
+}
+
+.g_1 {
+	grid-template-columns: 1fr;
+}
+
+.g_2 {
+	grid-template-columns: 1fr 1fr 1fr;
 }
