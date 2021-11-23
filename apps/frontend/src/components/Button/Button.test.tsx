@@ -4,5 +4,5 @@ import Button from "./Button";
 
 it("Button", () => {
 	mount(<Button />);
-	cy.get("button").contains("Hello").click();
+	cy.get("button").contains("Click me!").click();
 });
