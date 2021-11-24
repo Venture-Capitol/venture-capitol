@@ -24,36 +24,39 @@ components:
         job:
           type: string
           description: Der Job, welchen das Unternehmen ausführt.
+          example: Webentwickler
         company:
           type: string
           description: Der Name des Unternehmens.
+          example: VentureWeb
         street:
           type: string
           description: Die Straße, an der das Unternehmen seinen Sitz hat.
+          example: Luxemburger Straße
         streetnr:
           type: string
           description: Die Hausnummer der Straße, an der das Unternehmen seinen Sitz hat.
+          example: 10
         plz:
           type: number
           description: Postleitzahl des Bereiches, in dem das Unternehmen seinen Sitz hat.
+          example: 13353
         location:
           type: string
           description: Name des Ortes, in dem das Unternehmen seinen Sitz hat.
+          example: Berlin
         email:
           type: string
           description: Die Email-Adresse unter der das Unternehmen erreichbar ist.
+          example: example@ventureweb.de
         telefon:
           type: string
           description: Die Telefonnummer unter der das Unternehmen erreichbar ist.
+          example: 12345678
         website:
           type: string
           description: Die Webseite des Unternehmens.
-        rating:
-          type: number
-          description: Die Bewertung des Unternehmens.
-        price:
-          type: string
-          description: Preisliche Einordnung des Unternehmens.
+          example: https://www.ventureweb.com
     CompanyResponse:
       title: Ein Unternehmen, welches in json zurückgegeben wird.
       type: object
@@ -63,9 +66,11 @@ components:
             id:
               type: integer
               description: Die ID des Unternehmens.
+              example: 1
             verified:
               type: boolean
               description: Der Status, ob das Unternehmen verifiziert ist oder nicht.
+              example: true
           required:
             - id
             - job
@@ -73,23 +78,6 @@ components:
             - email
             - verified
         - $ref: "#/components/schemas/Company"
-  examples:
-    CompanyExampleResponse:
-      summary: Ein Beispiel Unternehmen
-      value:
-        id: 1
-        verified: true
-        job: "Webentwickler"
-        company: "VentureWeb"
-        street: "Luxemburger Straße"
-        streetnr: "10"
-        plz: 13353
-        location: "Berlin"
-        email: "example@ventureweb.de"
-        telefon: "12345678"
-        website: "https://www.ventureweb.com"
-        rating: 4.5
-        price: "Medium"
 paths:
   /search:
     get:
@@ -145,27 +133,19 @@ paths:
                   id:
                     type: integer
                     description: Die ID des Unternehmens.
+                    example: 1
                   company:
                     type: string
                     description: Der Name des Unternehmens.
+                    example: VentureWeb
                   email:
                     type: string
                     description: Die Email-Adresse unter der das Unternehmen erreichbar ist.
+                    example: example@ventureweb.de
                   distance:
                     type: number
                     description: Entfernung des Unternehmens zum angegebenem Wohnort.
-                  rating:
-                    type: number
-                    description: Die Bewertung des Unternehmens.
-              examples:
-                CompanyExample:
-                  summary: Ein Beispiel Unternehmen
-                  value:
-                    id: 1
-                    company: "VentureWeb"
-                    email: "example@ventureweb.de"
-                    distance: 11.1
-                    rating: 4.5
+                    example: 11.1
         400:
           description: Die Anfrage war Fehlerhaft. Die Postleitzahl darf keine Buchstaben enthalten.
         404:
@@ -177,7 +157,7 @@ paths:
       tags:
         - Unternehmen
       summary: Gibt alle Unternehmen zurück.
-      description: Aus der Datenbank werden alle Unternehmen rausgesucht. Wenn der verified Parameter gesetzt wurde, werden die Daten entsprechend gefiltert und diese Teilmenge zurückgegeben. Wenn dies nicht der Fall ist, werden alle Unternehmen zurückgegeben.
+      description: Aus der Datenbank werden alle Unternehmen rausgesucht. Wenn der verified Parameter gesetzt wurde, werden die Daten entsprechend gefiltert und diese Teilmenge zurückgegeben. Durch den amount und page parameter wird diese Teilmenge erneut gefiltert. Damit der page Parameter Auswirkung hat, muss auch der amount Parameter gesetzt sein. Ist amount gesetzt, aber page nicht, dann wird die erste Seite zurückgegeben. Wenn dies nicht der Fall ist, werden alle Unternehmen zurückgegeben.
       security:
         - firebaseAuth: []
       parameters:
@@ -187,6 +167,18 @@ paths:
             type: boolean
           required: false
           description: Angabe, ob die Unternehmen verifiziert sein sollen oder nicht.
+        - in: query
+          name: amount
+          schema:
+            type: number
+          required: false
+          description: Angabe, wie viele Unternehmen zurückgegeben werden sollen.
+        - in: query
+          name: page
+          schema:
+            type: number
+          required: false
+          description: Angabe, die wievielte Seite (mit jeweils so vielen Elementen wie amount) zurückgegeben werden soll.
       responses:
         200:
           description: Success
@@ -196,9 +188,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/CompanyResponse"
-              examples:
-                CompanyExample:
-                  $ref: "#/components/examples/CompanyExampleResponse"
         400:
           description: Die Anfrage war Fehlerhaft. Der Parameter verified muss keinen Wert oder einen boolean Wert enthalten.
         401:
@@ -211,7 +200,7 @@ paths:
       tags:
         - Unternehmen
       summary: Erstellt ein Unternehmen.
-      description: In der Datenbank wird ein Unternehmen erstellt mit den Werten, die mitgeliefert werden im requestBody. Je nach Rechten des Nutzers wird das Unternehmen direkt verifiziert oder nicht. Außerdem ist es für normale Nutzer nicht möglich Werte für rating und price zu setzen.
+      description: In der Datenbank wird ein Unternehmen erstellt mit den Werten, die mitgeliefert werden im requestBody. Je nach Rechten des Nutzers wird das Unternehmen direkt verifiziert oder nicht.
       security:
         - {}
         - firebaseAuth: []
@@ -228,21 +217,6 @@ paths:
                     - job
                     - company
                     - email
-            examples:
-              CompanyExample:
-                summary: Ein Beispiel Unternehmen
-                value:
-                  job: "Webentwickler"
-                  company: "VentureWeb"
-                  street: "Luxemburger Straße"
-                  streetnr: "10"
-                  plz: 13353
-                  location: "Berlin"
-                  email: "example@ventureweb.de"
-                  telefon: "12345678"
-                  website: "https://www.ventureweb.com"
-                  rating: 4.5
-                  price: "Medium"
       responses:
         200:
           description: Success
@@ -270,9 +244,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CompanyResponse"
-              examples:
-                CompanyExample:
-                  $ref: "#/components/examples/CompanyExampleResponse"
         400:
           description: Die Anfrage war Fehlerhaft. Der Parameter id muss einen integer enthalten.
         default:
@@ -304,22 +275,6 @@ paths:
                       type: boolean
                       description: Der Status, ob das Unternehmen verifiziert ist oder nicht.
                 - $ref: "#/components/schemas/Company"
-            examples:
-              CompanyExample:
-                summary: Ein Beispiel Unternehmen
-                value:
-                  verified: true
-                  job: "Webentwickler"
-                  company: "VentureWeb"
-                  street: "Luxemburger Straße"
-                  streetnr: "10"
-                  plz: 13353
-                  location: "Berlin"
-                  email: "example@ventureweb.de"
-                  telefon: "12345678"
-                  website: "https://www.ventureweb.com"
-                  rating: 4.5
-                  price: "Medium"
       responses:
         200:
           description: Success
