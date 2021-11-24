@@ -1,0 +1,317 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: Unternehmensregister
+  description: API für das Unternehmensregister im Semesterprojekt.
+servers:
+  - url: https://api.example.com
+tags:
+  - name: Suche
+    description: Endpunkte, die für die Suche zuständig sind.
+  - name: Unternehmen
+    description: Endpunkte, die sich um die Unternehmen drehen.
+components:
+  securitySchemes:
+    firebaseAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Company:
+      title: Ein Unternehmen als json.
+      type: object
+      properties:
+        job:
+          type: string
+          description: Der Job, welchen das Unternehmen ausführt.
+          example: Webentwickler
+        company:
+          type: string
+          description: Der Name des Unternehmens.
+          example: VentureWeb
+        street:
+          type: string
+          description: Die Straße, an der das Unternehmen seinen Sitz hat.
+          example: Luxemburger Straße
+        streetnr:
+          type: string
+          description: Die Hausnummer der Straße, an der das Unternehmen seinen Sitz hat.
+          example: 10
+        plz:
+          type: number
+          description: Postleitzahl des Bereiches, in dem das Unternehmen seinen Sitz hat.
+          example: 13353
+        location:
+          type: string
+          description: Name des Ortes, in dem das Unternehmen seinen Sitz hat.
+          example: Berlin
+        email:
+          type: string
+          description: Die Email-Adresse unter der das Unternehmen erreichbar ist.
+          example: example@ventureweb.de
+        telefon:
+          type: string
+          description: Die Telefonnummer unter der das Unternehmen erreichbar ist.
+          example: 12345678
+        website:
+          type: string
+          description: Die Webseite des Unternehmens.
+          example: https://www.ventureweb.com
+    CompanyResponse:
+      title: Ein Unternehmen, welches in json zurückgegeben wird.
+      type: object
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+              description: Die ID des Unternehmens.
+              example: 1
+            verified:
+              type: boolean
+              description: Der Status, ob das Unternehmen verifiziert ist oder nicht.
+              example: true
+          required:
+            - id
+            - job
+            - company
+            - email
+            - verified
+        - $ref: "#/components/schemas/Company"
+paths:
+  /search:
+    get:
+      tags:
+        - Suche
+      summary: Gibt alle Unternehmen zurück, die den Job machen.
+      description: Aus der Datenbank werden alle Unternehmen rausgesucht, welche den gesuchten Job eingetragen haben und verifiziert sind. Je nach angegebenen Parametern, werden diese dann gefiltert und diese Teilmenge zurückgegeben.
+      parameters:
+        - in: query
+          name: jobname
+          schema:
+            type: string
+          required: true
+          description: Name des Jobs, nach dem der Nutzer sucht.
+        - in: query
+          name: street
+          schema:
+            type: string
+          required: false
+          description: Name der Straße, in der der Nutzer wohnt.
+        - in: query
+          name: streetnr
+          schema:
+            type: string
+          required: false
+          description: Hausnummer des Hauses, in dem der Nutzer wohnt.
+        - in: query
+          name: plz
+          schema:
+            type: integer
+          required: false
+          description: Postleitzahl des Bereiches, in dem der Nutzer wohnt.
+        - in: query
+          name: location
+          schema:
+            type: string
+          required: false
+          description: Name des Ortes, in dem der Nutzer wohnt.
+        - in: query
+          name: distance
+          schema:
+            type: string
+          required: false
+          description: Distanzradius, in dem der Nutzer nach diesem Job suchen will in Kilometern.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Die ID des Unternehmens.
+                    example: 1
+                  company:
+                    type: string
+                    description: Der Name des Unternehmens.
+                    example: VentureWeb
+                  email:
+                    type: string
+                    description: Die Email-Adresse unter der das Unternehmen erreichbar ist.
+                    example: example@ventureweb.de
+                  distance:
+                    type: number
+                    description: Entfernung des Unternehmens zum angegebenem Wohnort in Kilometern.
+                    example: 11.1
+        400:
+          description: Die Anfrage war Fehlerhaft. Die Postleitzahl darf keine Buchstaben enthalten.
+        404:
+          description: Es existiert keine Straße mit der Hausnummer in dem angegebenem Bereich.
+        default:
+          description: Es sind unerwartete Probleme bei der Suche aufgetreten.
+  /company:
+    get:
+      tags:
+        - Unternehmen
+      summary: Gibt alle Unternehmen zurück.
+      description: Aus der Datenbank werden alle Unternehmen rausgesucht. Wenn der verified Parameter gesetzt wurde, werden die Daten entsprechend gefiltert und diese Teilmenge zurückgegeben. Durch den amount und page parameter wird diese Teilmenge erneut gefiltert. Damit der page Parameter Auswirkung hat, muss auch der amount Parameter gesetzt sein. Ist amount gesetzt, aber page nicht, dann wird die erste Seite zurückgegeben. Wenn dies nicht der Fall ist, werden alle Unternehmen zurückgegeben.
+      security:
+        - firebaseAuth: []
+      parameters:
+        - in: query
+          name: verified
+          schema:
+            type: boolean
+          required: false
+          description: Angabe, ob die Unternehmen verifiziert sein sollen oder nicht.
+        - in: query
+          name: amount
+          schema:
+            type: number
+          required: false
+          description: Angabe, wie viele Unternehmen zurückgegeben werden sollen.
+        - in: query
+          name: page
+          schema:
+            type: number
+          required: false
+          description: Angabe, die wievielte Seite (mit jeweils so vielen Elementen wie amount) zurückgegeben werden soll.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CompanyResponse"
+        400:
+          description: Die Anfrage war Fehlerhaft. Der Parameter verified muss keinen Wert oder einen boolean Wert enthalten.
+        401:
+          description: Die Autorisierungsinformationen fehlen oder sind fehlerhaft.
+        403:
+          description: Der anfragende Nutzer hat nicht genug Rechte um diese Anfrage auszuführen.
+        default:
+          description: Es ist ein unerwarteter Fehler aufgetreten.
+    post:
+      tags:
+        - Unternehmen
+      summary: Erstellt ein Unternehmen.
+      description: In der Datenbank wird ein Unternehmen erstellt mit den Werten, die mitgeliefert werden im requestBody. Je nach Rechten des Nutzers wird das Unternehmen direkt verifiziert oder nicht.
+      security:
+        - {}
+        - firebaseAuth: []
+      requestBody:
+        description: Werte des einzutragenden Unternehmens in json.
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Company"
+                - type: object
+                  required:
+                    - job
+                    - company
+                    - email
+      responses:
+        200:
+          description: Success
+        400:
+          description: Die Anfrage war Fehlerhaft. Die Parameter company und email im requestBody müssen Werte enthalten.
+        default:
+          description: Es ist ein unerwarteter Fehler aufgetreten.
+  /company/{id}:
+    get:
+      tags:
+        - Unternehmen
+      summary: Gibt ein Unternehmen zurück.
+      description: Gibt genau das Unternehmen zurück, welches zu der id gehört, die als Parameter angegeben wurde.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Die id des Unternehmens, welches zurückgegeben werden soll.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyResponse"
+        400:
+          description: Die Anfrage war Fehlerhaft. Der Parameter id muss einen integer enthalten.
+        default:
+          description: Es ist ein unerwarteter Fehler aufgetreten.
+    put:
+      tags:
+        - Unternehmen
+      summary: Editiert ein Unternehmen.
+      description: Ändert die im requestBody angegebenen Werte beim Unternehmen, dessen id als Parameter angegeben wurde, in der Datenbank. Die anderen Werte bleiben unverändert.
+      security:
+        - firebaseAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Die id des Unternehmens, welches abgeändert werden soll.
+      requestBody:
+        description: Werte welche beim Unternehmen verändert werden sollen in json.
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - type: object
+                  properties:
+                    verified:
+                      type: boolean
+                      description: Der Status, ob das Unternehmen verifiziert ist oder nicht.
+                - $ref: "#/components/schemas/Company"
+      responses:
+        200:
+          description: Success
+        400:
+          description: Die Anfrage war Fehlerhaft. Der Parameter id muss einen integer enthalten und es muss ein requestBody vorhanden sein.
+        401:
+          description: Die Autorisierungsinformationen fehlen oder sind fehlerhaft.
+        403:
+          description: Der anfragende Nutzer hat nicht genug Rechte um diese Anfrage auszuführen.
+        404:
+          description: Es existiert kein Unternehmen mit dieser id.
+        default:
+          description: Es ist ein unerwarteter Fehler aufgetreten.
+    delete:
+      tags:
+        - Unternehmen
+      summary: Löscht ein Unternehmen.
+      description: Löscht das Unternehmen aus der Datenbank, dessen id angegeben wurde.
+      security:
+        - firebaseAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Die id des Unternehmens, welches gelöscht werden soll.
+      responses:
+        200:
+          description: Success
+        400:
+          description: Die Anfrage war Fehlerhaft. Der Parameter id muss einen integer enthalten.
+        401:
+          description: Die Autorisierungsinformationen fehlen oder sind fehlerhaft.
+        403:
+          description: Der anfragende Nutzer hat nicht genug Rechte um diese Anfrage auszuführen.
+        404:
+          description: Es existiert kein Unternehmen mit dieser id.
+        default:
+          description: Es ist ein unerwarteter Fehler aufgetreten.
