@@ -121,7 +121,7 @@ paths:
           schema:
             type: string
           required: false
-          description: Distanzradius, in dem der Nutzer nach diesem Job suchen will.
+          description: Distanzradius, in dem der Nutzer nach diesem Job suchen will in Kilometern.
       responses:
         200:
           description: Success
@@ -144,7 +144,7 @@ paths:
                     example: example@ventureweb.de
                   distance:
                     type: number
-                    description: Entfernung des Unternehmens zum angegebenem Wohnort.
+                    description: Entfernung des Unternehmens zum angegebenem Wohnort in Kilometern.
                     example: 11.1
         400:
           description: Die Anfrage war Fehlerhaft. Die Postleitzahl darf keine Buchstaben enthalten.
