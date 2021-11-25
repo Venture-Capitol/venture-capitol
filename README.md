@@ -35,7 +35,8 @@ There are some Visual Studio Code Extensions that are not needed but are pretty 
 .
 ├─ apps             # Everything that is a standalone application
 │  ├─ frontend      # Main frontend for Venture Capitol
-│  └─ backend       # Main Backend for Venture Capitol
+│  ├─ backend       # Main Backend for Venture Capitol
+│  └─ utr-backend   # Backend for the Company Register of Venture Capitol
 ├─ packages         # Shared Code and libraries
 │  └─ common        # Shared GraphQl API definition
 ├─ Dockerfile.*     # Dockerfiles used for deployment
@@ -50,12 +51,11 @@ Installing a dependency has to be done through lerna using `npx lerna add <packa
 
 Ports reserved for each service, all interchangeable by setting the `PORT` environment variable.
 
-service      | port
---|--
-frontend     | 8100
-backend      | 8101
-utr-frontend | 8102
-utr-backend  | 8103
-storybook    | 8104
-database     | 5432
-utr-database | 5433
+| service      | port |
+| ------------ | ---- |
+| frontend     | 8100 |
+| backend      | 8101 |
+| utr-backend  | 8103 |
+| storybook    | 8104 |
+| database     | 5432 |
+| utr-database | 5433 |
