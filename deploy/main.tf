@@ -1,3 +1,9 @@
+terraform {
+  backend "gcs" {
+    bucket      = "vc-tf-state"
+    prefix      = "terraform/state"
+  }
+}
 provider "google" {
   project     = var.project
   region      = var.region
@@ -46,7 +52,6 @@ resource "google_sql_database_instance" "vc_db" {
   region              = var.region
   database_version    = "POSTGRES_13"
   deletion_protection = false
-
 
   settings {
     tier              = "db-f1-micro"
@@ -147,7 +152,7 @@ resource "google_cloud_run_service" "backend" {
     latest_revision = true
   }
 
-  depends_on = [google_secret_manager_secret_version.db_connection_string_data, google_project_service.run ]
+  depends_on = [google_secret_manager_secret_version.db_connection_string_data, google_project_service.run]
 }
 
 # Create IAM Policy to enable http connections to backend service without authentication
@@ -167,43 +172,3 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
 
   policy_data = data.google_iam_policy.noauth.policy_data
 }
-
-
-
-
-
-
-# resource "google_compute_instance" "vm_instance" {
-#   name         = "terraform-instance"
-#   machine_type = "f1-micro"
-
-#   boot_disk {
-#     initialize_params {
-#       image = "debian-cloud/debian-9"
-#     }
-#   }
-
-#   network_interface {
-#     # A default network is created for all GCP projects
-#     network = google_compute_network.vpc_network.self_link
-#     access_config {
-#     }
-#   }
-# }
-
-# resource "google_compute_network" "vpc_network" {
-#   name                    = "vc-network"
-#   auto_create_subnetworks = "true" 
-# }
-
-# resource "google_project_service" "project" {
-#   # project = "your-project-id"
-#   service = "compute.googleapis.com"
-
-#   timeouts {
-#     create = "30m"
-#     update = "40m"
-#   }
-
-#   disable_dependent_services = true
-# }
