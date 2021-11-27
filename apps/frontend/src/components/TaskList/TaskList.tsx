@@ -218,7 +218,7 @@ const TaskList: FC = () => {
 								} else {
 									let spacer;
 									if (index == 1) {
-										spacer = <div>&nbsp;</div>;
+										spacer = <div></div>;
 									}
 									return (
 										<>
