@@ -17,5 +17,6 @@ dist
 deploy/*credentials.json
 *.tfstate*
 secret.tfvars
+terraform.tfvars
 
 firebase.json

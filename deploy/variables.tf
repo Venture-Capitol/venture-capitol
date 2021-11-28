@@ -1,5 +1,4 @@
 variable "project" {
-  default = "PROJECT_ID"
 }
 variable "credentials_file" {
   default = "./credentials.json"

@@ -8,7 +8,7 @@
 	],
 	"scripts": {
 		"start": "vite --host 0.0.0.0 --port 8100",
-		"build": "tsc && vite build",
+		"build": "vite build",
 		"serve": "vite preview",
 		"cypress:open": "cypress open",
 		"cypress:open-ct": "cypress open-ct",
