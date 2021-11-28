@@ -10,7 +10,11 @@ The following assumes that you already have a Project in Google Cloud with billi
 
 # Run Terraform
 
-2. Get Credentials as JSON from a service account with neccessary access rights from [IAM & Admin / Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts) and save as `gcp-credentials.json`
+1. Create a new service account for accessing google cloud using terraform from [IAM & Admin / Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts). For now we you should assign it the "editor" role, although we should probably restrict access event further. tbd.
+2. Click the account, go to the "KEYS"-Tab, click "ADD KEY" -> "CREATE NEW KEY" and create a new JSON key. Download it into this folder and name it `credentials.json`
+
+---
+
 3. Run `terraform init` to install dependencies
 4. Run `GOOGLE_APPLICATION_CREDENTIALS=./gcp-credentials.json terraform apply` to apply terraform state
 5. Use `terraform destroy` to remove all created infrastructure
