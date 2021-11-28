@@ -1,6 +1,13 @@
 .taskList {
 	max-width: 600px;
 	width: fit-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.taskListContainer {
 	position: relative;
 }
 
@@ -9,27 +16,4 @@
 	top: 0;
 	left: 0;
 	pointer-events: none;
-}
-
-.rows {
-	display: flex;
-	flex-direction: column;
-	gap: 4rem;
-	z-index: 1;
-}
-
-.row {
-	padding: 0 0.2rem;
-	align-items: center;
-	display: grid;
-	grid-template-rows: 1fr;
-	justify-items: center;
-}
-
-.g_1 {
-	grid-template-columns: 1fr;
-}
-
-.g_2 {
-	grid-template-columns: 1fr 1fr 1fr;
 }

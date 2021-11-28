@@ -2,13 +2,14 @@ import { FunctionComponent, useState } from "react";
 import styles from "./Task.module.scss";
 import checkmarkIcon from "../../../assets/checkmark.svg";
 
-interface TaskProps {
-	children: any;
-	id: number;
+export interface TaskProps {
+	children: string;
+	id: string;
+	next: string[];
 }
 
-const Task: FunctionComponent<TaskProps> = ({ children, id }) => {
-	const [idt] = useState(Math.random().toString());
+const Task: FunctionComponent<TaskProps> = ({ children, id, next }) => {
+	const [inputId] = useState(Math.random().toString());
 	const [checked, setChecked] = useState(false);
 
 	return (
@@ -17,15 +18,16 @@ const Task: FunctionComponent<TaskProps> = ({ children, id }) => {
 			data-task
 			data-checked={checked}
 			data-id={id}
+			data-next={next}
 		>
 			<input
 				checked={checked}
 				onChange={e => setChecked(!checked)}
 				type='checkbox'
 				name='task_checked'
-				id={idt}
+				id={inputId}
 			/>
-			<label htmlFor={idt}>
+			<label htmlFor={inputId}>
 				<img src={checkmarkIcon} alt='' />
 			</label>
 			<p>{children}</p>
