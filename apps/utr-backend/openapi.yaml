@@ -75,6 +75,10 @@ components:
             - id
             - job
             - company
+            - street
+            - streetnr
+            - plz
+            - location
             - email
             - verified
         - $ref: "#/components/schemas/Company"
@@ -116,12 +120,6 @@ paths:
             type: string
           required: false
           description: Name des Ortes, in dem der Nutzer wohnt.
-        - in: query
-          name: distance
-          schema:
-            type: string
-          required: false
-          description: Distanzradius, in dem der Nutzer nach diesem Job suchen will in Kilometern.
       responses:
         200:
           description: Success
@@ -146,6 +144,11 @@ paths:
                     type: number
                     description: Entfernung des Unternehmens zum angegebenem Wohnort in Kilometern.
                     example: 11.1
+                required:
+                  - id
+                  - company
+                  - email
+                  - distance
         400:
           description: Die Anfrage war Fehlerhaft. Die Postleitzahl darf keine Buchstaben enthalten.
         404:
@@ -215,6 +218,10 @@ paths:
                 - type: object
                   required:
                     - job
+                    - street
+                    - streetnr
+                    - plz
+                    - location
                     - company
                     - email
       responses:
