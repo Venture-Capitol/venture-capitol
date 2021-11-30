@@ -6,6 +6,7 @@
 
 import app = require("../app");
 import http = require("http");
+import logger = require("../config/winston");
 
 /**
  * Get port from environment and store in Express.
@@ -25,7 +26,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
-console.log("Server listening on port: " + port);
+logger.info("Server listening on port: " + port);
 
 /**
  * Normalize a port into a number, string, or false.
