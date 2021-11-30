@@ -27,6 +27,14 @@ const TaskList: FC = () => {
 	}, [svgContainerRef, containerRef]);
 
 	useEffect(() => {
+		renderArrows();
+	}, [svgContainerRef, taskListRef, containerRef, draw, svgContainerRect]);
+
+	function clamp(min: number, max: number, val: number): number {
+		return Math.max(min, Math.min(max, val));
+	}
+
+	function renderArrows() {
 		if (!containerRef.current) return;
 		if (!svgContainerRef.current) return;
 		if (!taskListRef.current) return;
@@ -41,6 +49,7 @@ const TaskList: FC = () => {
 			id: string;
 			type: string;
 			next: string[];
+			isDisabled: boolean;
 		}
 
 		const containerBoundingBox = containerRef.current?.getBoundingClientRect();
@@ -59,6 +68,16 @@ const TaskList: FC = () => {
 			}
 			const id = box.getAttribute("data-id") || "-1";
 
+			let isDisabled: boolean;
+			if (
+				box.hasAttribute("data-disabled") &&
+				box.getAttribute("data-disabled") == "true"
+			) {
+				isDisabled = true;
+			} else {
+				isDisabled = false;
+			}
+
 			let nextAtr = box.getAttribute("data-next");
 
 			let next: string[] = new Array();
@@ -75,6 +94,7 @@ const TaskList: FC = () => {
 				type: type,
 				id: id,
 				next: next,
+				isDisabled: isDisabled,
 			};
 			return relativeBoundingBox;
 		});
@@ -82,7 +102,13 @@ const TaskList: FC = () => {
 		draw.clear();
 		draw.size(svgContainerRect.width, svgContainerRect.height);
 
-		const drawPath = (a: BoundingRect, b: BoundingRect, drawArrow: boolean) => {
+		const drawPath = (
+			a: BoundingRect,
+			b: BoundingRect,
+			drawArrow: boolean,
+			isDisabled: boolean
+		) => {
+			const color = isDisabled ? "#D0CBDD" : "#ABA7B4";
 			let rAbs = (b.x + b.w / 2 - (a.x + a.w / 2)) / 2;
 			const r = Math.abs(clamp(0, 20, Math.abs(rAbs)));
 
@@ -101,7 +127,7 @@ const TaskList: FC = () => {
 					)
 					.fill("none")
 					.stroke({
-						color: "#C5C1CD",
+						color: color,
 						width: 1.2,
 						linecap: "round",
 						linejoin: "round",
@@ -116,7 +142,7 @@ const TaskList: FC = () => {
 							])
 							.move(5, 3)
 							.scale(1.2)
-							.fill("#C5C1CD");
+							.fill(color);
 					});
 			} else {
 				return draw
@@ -130,7 +156,7 @@ const TaskList: FC = () => {
 					)
 					.fill("none")
 					.stroke({
-						color: "#C5C1CD",
+						color: color,
 						width: 1.2,
 						linecap: "round",
 						linejoin: "round",
@@ -144,18 +170,16 @@ const TaskList: FC = () => {
 					return x.id == next;
 				});
 				if (nextBox) {
+					const isDisabled = box.isDisabled || nextBox.isDisabled;
+
 					if (nextBox.type == "empty") {
-						drawPath(box, nextBox, false);
+						drawPath(box, nextBox, false, isDisabled);
 					} else {
-						drawPath(box, nextBox, true);
+						drawPath(box, nextBox, true, isDisabled);
 					}
 				}
 			});
 		});
-	}, [svgContainerRef, taskListRef, containerRef, draw, svgContainerRect]);
-
-	function clamp(min: number, max: number, val: number): number {
-		return Math.max(min, Math.min(max, val));
 	}
 
 	return (
