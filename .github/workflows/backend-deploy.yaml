@@ -26,8 +26,13 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           export_default_credentials: true
 
-      # Build the Docker image
-      - name: Get previous dockerfile for using it as a cache
+      # Make the Google Artifact Registry available to Docker
+      - name: Configure Docker Client
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
+
+      # Get previous dockerfile for using it as a cache
+      - name: Get old Dockerfile
         continue-on-error: true
         run: docker pull $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
 
@@ -39,11 +44,6 @@ jobs:
           -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest \
           -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6} \
           -f ./apps/backend/Dockerfile .
-
-      # Make the Google Artifact Registry available to Docker
-      - name: Configure Docker Client
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
 
       - name: Push Docker Image to Artifact Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -113,15 +113,20 @@ jobs:
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
             <details><summary>Show Plan</summary>
-              ${process.env.PLAN}
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
             </details>
 
-
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+              
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: process.env.STDOUT
+              body: output
             })
 
       # On push to master, build or change infrastructure according to Terraform configuration files
