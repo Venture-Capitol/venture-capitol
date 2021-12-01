@@ -19,18 +19,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Get previous dockerfile for its cache
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        continue-on-error: true
-        run: docker pull $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
-
       # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
       - uses: google-github-actions/setup-gcloud@master
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           service_account_key: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
           export_default_credentials: true
+
+      # Build the Docker image
+      - name: Get previous dockerfile for using it as a cache
+        continue-on-error: true
+        run: docker pull $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
 
       # Build the Docker image
       - name: Build Docker Image
