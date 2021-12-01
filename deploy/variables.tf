@@ -1,8 +1,8 @@
 variable "project" {
+  default = "venture-capitol"
 }
-variable "credentials_file" {
-  default = "./credentials.json"
-}
+
+
 variable "region" {
   default = "europe-west1"
 }
@@ -11,12 +11,11 @@ variable "zone" {
 }
 
 variable "db_name" {
-  type = string
+  type    = string
   default = "backend"
 }
 
 variable "db_user" {
-  type = string
+  type    = string
   default = "backend_user"
 }
-

@@ -11,4 +11,10 @@ echo '{"rule": [{"action": {"type": "Delete"}, "condition": {"isLive": false, "n
 gsutil lifecycle set ./tfStateLifecycleRule.json gs://${PROJECT_ID}-tfstate
 rm ./tfStateLifecycleRule.json
 # Set terraform variable project id
-echo "project = \"${PROJECT_ID}\"" > terraform.tfvars
+# echo "project = \"${PROJECT_ID}\"" > terraform.tfvars
+# Create an Artifact Registry for Docker images
+gcloud artifacts repositories create images \
+    --repository-format=DOCKER \
+    --location=europe-west1 \
+    --description="Docker image repository for all venture capitol apps" \
+

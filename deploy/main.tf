@@ -1,15 +1,16 @@
+provider "google" {
+  project = var.project
+  region  = var.region
+  zone    = var.zone
+}
+
 terraform {
   backend "gcs" {
-    bucket      = "vc-tf-state"
-    prefix      = "terraform/state"
+    bucket = "venture-capitol-tfstate"
+    prefix = "terraform/state"
   }
 }
-provider "google" {
-  project     = var.project
-  region      = var.region
-  zone        = var.zone
-  credentials = file(var.credentials_file)
-}
+
 
 # Enable required APIs
 
@@ -25,9 +26,22 @@ resource "google_project_service" "run" {
   disable_on_destroy = false
 }
 
+## IAM
+resource "google_project_service" "iam" {
+  service            = "iam.googleapis.com"
+  disable_on_destroy = false
+}
+
+## Cloud SQL
+resource "google_project_service" "sql" {
+  service            = "sqladmin.googleapis.com"
+  disable_on_destroy = false
+}
+
 # Create a service account for cloud run
 resource "google_service_account" "backend_sa" {
   account_id = "backend-sa"
+  depends_on = [google_project_service.iam]
 }
 
 locals {
@@ -48,7 +62,7 @@ resource "google_project_iam_binding" "service_permissions" {
 
 # Create the sql database for Venture Capitol
 resource "google_sql_database_instance" "vc_db" {
-  name                = "vc-database"
+  name                = "vc-backend-database"
   region              = var.region
   database_version    = "POSTGRES_13"
   deletion_protection = false
@@ -68,6 +82,8 @@ resource "google_sql_database_instance" "vc_db" {
       start_time = "04:30"
     }
   }
+
+  depends_on = [google_project_service.sql]
 }
 
 # Create Database Password Secret and store it in secret manager
