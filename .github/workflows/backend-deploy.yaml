@@ -1,7 +1,7 @@
 name: Backend deploy process
 on:
   push:
-    branches: [main]
+    branches: [GPF-66-deployment-init]
 jobs:
   build-push-gcr:
     name: Build and Push Docker Image
@@ -41,6 +41,7 @@ jobs:
     name: "Terraform"
     runs-on: ubuntu-latest
     needs: [build-push-gcr]
+    # if docker build läuft übrhaupt, warte, sonst nicht
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -65,19 +66,23 @@ jobs:
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
+        working-directory: ./deploy
         run: terraform init
 
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
+        working-directory: ./deploy
         run: terraform fmt -check
 
       # Terraform validate
       - name: Terraform Validate
+        working-directory: ./deploy
         run: terraform validate
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
         id: plan
+        working-directory: ./deploy
         run: terraform plan -no-color
 
       - uses: actions/github-script@0.9.0
@@ -96,5 +101,6 @@ jobs:
 
       # On push to master, build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
+        working-directory: ./deploy
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: terraform apply -auto-approve
