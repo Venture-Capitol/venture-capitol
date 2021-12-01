@@ -12,15 +12,18 @@ jobs:
       REPO_ID: images
       GAR_HOSTNAME: europe-west1-docker.pkg.dev
     steps:
+      # Checkout the repository to the GitHub Actions runner
       - name: Checkout
         uses: actions/checkout@v2
 
-      # - uses: google-github-actions/setup-gcloud@master
-      #   with:
-      #     service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-      #     project_id: ${{ env.PROJECT_ID }}
-      #     export_default_credentials: true
+      # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+          export_default_credentials: true
 
+      # Build the Docker image
       - name: Build Docker Image
         run: |-
           docker build \
@@ -28,6 +31,7 @@ jobs:
           -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6} \
           -f ./apps/backend/Dockerfile .
 
+      # Make the Google Artifact Registry available to Docker
       - name: Configure Docker Client
         run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
 
@@ -48,16 +52,16 @@ jobs:
         shell: bash
 
     steps:
-      # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
-      # - uses: google-github-actions/setup-gcloud@master
-      #   with:
-      #     service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-      #     project_id: ${{ env.PROJECT_ID }}
-      #     export_default_credentials: true
-
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
         uses: actions/checkout@v2
+
+      # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+          export_default_credentials: true
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
@@ -84,6 +88,7 @@ jobs:
         working-directory: ./deploy
         run: terraform plan -no-color
 
+      # Show terraform plan as comment in PR
       - uses: actions/github-script@0.9.0
         if: github.event_name == 'pull_request'
         env:
