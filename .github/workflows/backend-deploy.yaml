@@ -34,7 +34,7 @@ jobs:
 
       - name: Push Docker Image to Artifact Registry
         run: |-
-          docker $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
+          docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
 
   terraform:
