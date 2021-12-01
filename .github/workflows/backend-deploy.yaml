@@ -1,7 +1,10 @@
 name: Backend deploy process
 on:
   push:
-    branches: [GPF-66-deployment-init]
+    branches: [main]
+  pull_request:
+    branches: [main, develop]
+
 jobs:
   build-push-gcr:
     name: Build and Push Docker Image
@@ -16,8 +19,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Get previous dockerfile for its cache
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        continue-on-error: true
+        run: docker pull $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
+
       # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
       - uses: google-github-actions/setup-gcloud@master
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         with:
           service_account_key: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
@@ -27,15 +36,18 @@ jobs:
       - name: Build Docker Image
         run: |-
           docker build \
+          --cache-from=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest \
           -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest \
           -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6} \
           -f ./apps/backend/Dockerfile .
 
       # Make the Google Artifact Registry available to Docker
       - name: Configure Docker Client
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
 
       - name: Push Docker Image to Artifact Registry
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |-
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
@@ -116,5 +128,5 @@ jobs:
       # On push to master, build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
         working-directory: ./deploy
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
