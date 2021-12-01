@@ -50,12 +50,14 @@ Installing a dependency has to be done through lerna using `npx lerna add <packa
 
 Ports reserved for each service, all interchangeable by setting the `PORT` environment variable.
 
-service      | port
---|--
-frontend     | 8100
-backend      | 8101
-utr-frontend | 8102
-utr-backend  | 8103
-storybook    | 8104
-database     | 5432
-utr-database | 5433
+| service      | port |
+| ------------ | ---- |
+| frontend     | 8100 |
+| backend      | 8101 |
+| utr-frontend | 8102 |
+| utr-backend  | 8103 |
+| storybook    | 8104 |
+| database     | 5432 |
+| utr-database | 5433 |
+
+On Windows: kill ports with `npm run kill`
