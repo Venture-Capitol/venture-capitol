@@ -78,18 +78,21 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
 
-      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-      - name: Terraform Init
-        working-directory: ./deploy
-        run: terraform init
-
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
+        id: fmt
         working-directory: ./deploy
         run: terraform fmt -check
 
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        id: init
+        working-directory: ./deploy
+        run: terraform init
+
       # Terraform validate
       - name: Terraform Validate
+        id: validate
         working-directory: ./deploy
         run: terraform validate -no-color
 
