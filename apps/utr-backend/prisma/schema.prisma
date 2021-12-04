@@ -18,8 +18,8 @@ model Entry {
     streetnr  String
     plz       Int
     location  String
-    latitude  Float
-    longitude Float
+    latitude  Float @default(0.0)
+    longitude Float @default(0.0)
     email     String  @unique
     telefon   String?
     website   String?
