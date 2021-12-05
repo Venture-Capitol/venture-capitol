@@ -1,16 +1,16 @@
 variable "project" {
-  type = string
+  type    = string
   default = "venture-capitol"
 }
 
 
 variable "region" {
-  type = string
+  type    = string
   default = "europe-west1"
 }
 
 variable "zone" {
-  type = string
+  type    = string
   default = "europe-west1-b"
 }
 
@@ -27,6 +27,6 @@ variable "db_user" {
 }
 
 variable "image_name" {
-  type = string
+  type    = string
   default = "us-docker.pkg.dev/cloudrun/container/hello"
 }
