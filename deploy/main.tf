@@ -139,7 +139,7 @@ resource "google_cloud_run_service" "backend" {
       service_account_name = google_service_account.backend_sa.email
 
       containers {
-        image = "us-docker.pkg.dev/cloudrun/container/hello"
+        image = var.image_name
 
         env {
           name = "DATABASE_URL"

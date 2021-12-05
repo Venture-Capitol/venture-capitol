@@ -1,43 +1,45 @@
-name: Backend deploy process
+name: Backend CI/CD
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main, develop]
 
+env:
+  IMAGE_NAME: backend
+  PROJECT_ID: venture-capitol
+  REPO_ID: images
+  GAR_HOSTNAME: europe-west1-docker.pkg.dev
+
 jobs:
   build-push-gcr:
-    name: Build and Push Docker Image
+    name: "Docker: Build and Push Container"
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: backend
-      PROJECT_ID: venture-capitol
-      REPO_ID: images
-      GAR_HOSTNAME: europe-west1-docker.pkg.dev
     steps:
       # Checkout the repository to the GitHub Actions runner
-      - name: Checkout
+      - name: Checkout Repository Files
         uses: actions/checkout@v2
 
       # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
-      - uses: google-github-actions/setup-gcloud@master
+      - name: Setup Google Cloud Credentials
+        uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
           export_default_credentials: true
 
       # Make the Google Artifact Registry available to Docker
-      - name: Configure Docker Client
+      - name: Setup to use Google Artifact Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
 
       # Get previous dockerfile for using it as a cache
-      - name: Get old Dockerfile
+      - name: Pull previous container file for using it as a cache
         continue-on-error: true
         run: docker pull $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
 
       # Build the Docker image
-      - name: Build Docker Image
+      - name: Build the Docker Image
         run: |-
           docker build \
           --cache-from=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest \
@@ -45,17 +47,18 @@ jobs:
           -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6} \
           -f ./apps/backend/Dockerfile .
 
-      - name: Push Docker Image to Artifact Registry
+      - name: Push the Docker Image to Google Artifact Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |-
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
 
   terraform:
-    name: "Terraform"
+    name: "Terraform: Validate, Plan and Apply"
     runs-on: ubuntu-latest
     needs: [build-push-gcr]
-    # if docker build läuft übrhaupt, warte, sonst nicht
+    env:
+      TF_VAR_image_name: $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -64,11 +67,12 @@ jobs:
 
     steps:
       # Checkout the repository to the GitHub Actions runner
-      - name: Checkout
+      - name: Checkout Repository Files
         uses: actions/checkout@v2
 
       # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
-      - uses: google-github-actions/setup-gcloud@master
+      - name: Setup Google Cloud Credentials
+        uses: google-github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
