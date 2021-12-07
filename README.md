@@ -54,7 +54,6 @@ Ports reserved for each service, all interchangeable by setting the `PORT` envir
 | ------------ | ---- |
 | frontend     | 8100 |
 | backend      | 8101 |
-| utr-frontend | 8102 |
 | utr-backend  | 8103 |
 | storybook    | 8104 |
 | database     | 5432 |
