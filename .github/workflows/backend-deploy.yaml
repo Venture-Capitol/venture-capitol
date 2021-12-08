@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-push-gcr]
     env:
-      TF_VAR_image_name: $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
+      TF_VAR_image_name: ${{ env.GAR_HOSTNAME }}/{{ $PROJECT_ID }}/${{ REPO_ID }}/${{ IMAGE_NAME }}:${{ GITHUB_SHA::6 }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
