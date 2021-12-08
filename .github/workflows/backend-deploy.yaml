@@ -70,6 +70,12 @@ jobs:
       - name: Checkout Repository Files
         uses: actions/checkout@v2
 
+      # Set the image name as an environment variable
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${{ GITHUB_SHA::6 }}" >> $GITHUB_ENV
+
       # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Setup Google Cloud Credentials
         uses: google-github-actions/setup-gcloud@master
