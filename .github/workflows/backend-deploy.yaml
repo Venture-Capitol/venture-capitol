@@ -30,7 +30,6 @@ jobs:
 
       # Make the Google Artifact Registry available to Docker
       - name: Setup to use Google Artifact Registry
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
 
       # Get previous dockerfile for using it as a cache
