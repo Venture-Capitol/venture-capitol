@@ -57,8 +57,6 @@ jobs:
     name: "Terraform: Validate, Plan and Apply"
     runs-on: ubuntu-latest
     needs: [build-push-gcr]
-    env:
-      TF_VAR_image_name: ${{ env.GAR_HOSTNAME }}/{{ $PROJECT_ID }}/${{ REPO_ID }}/${{ IMAGE_NAME }}:${{ GITHUB_SHA::6 }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -74,7 +72,7 @@ jobs:
       - name: Set the value
         id: step_one
         run: |
-          echo "$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${{ GITHUB_SHA::6 }}" >> $GITHUB_ENV
+          echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${{ GITHUB_SHA::6 }}" >> $GITHUB_ENV
 
       # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Setup Google Cloud Credentials
