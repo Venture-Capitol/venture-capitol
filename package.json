@@ -2,7 +2,7 @@
 	"name": "venture-capitol",
 	"private": true,
 	"scripts": {
-		"kill": "lerna run kill-ports",
+		"kill": "kill-port --port 8100,8101,8103,8104,5432,5433",
 		"clean": "lerna run clean",
 		"build": "lerna run build",
 		"test": "lerna run test",
