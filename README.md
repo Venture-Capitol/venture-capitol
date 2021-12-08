@@ -35,7 +35,8 @@ There are some Visual Studio Code Extensions that are not needed but are pretty 
 .
 ├─ apps             # Everything that is a standalone application
 │  ├─ frontend      # Main frontend for Venture Capitol
-│  └─ backend       # Main Backend for Venture Capitol
+│  ├─ backend       # Main Backend for Venture Capitol
+│  └─ utr-backend   # Backend for the Company Register of Venture Capitol
 ├─ packages         # Shared Code and libraries
 │  └─ common        # Shared GraphQl API definition
 ├─ Dockerfile.*     # Dockerfiles used for deployment
