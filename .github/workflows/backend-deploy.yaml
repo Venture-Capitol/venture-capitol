@@ -20,13 +20,17 @@ jobs:
       - name: Checkout Repository Files
         uses: actions/checkout@v2
 
-      # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
-      - name: Setup Google Cloud Credentials
-        uses: google-github-actions/setup-gcloud@master
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
         with:
-          service_account_key: ${{ secrets.DEPLOY_KEY }}
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
           export_default_credentials: true
+
+      # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.3.0
 
       # Make the Google Artifact Registry available to Docker
       - name: Setup to use Google Artifact Registry
@@ -73,13 +77,17 @@ jobs:
         run: |
           echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
 
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+          export_default_credentials: true
+
       # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Setup Google Cloud Credentials
         uses: google-github-actions/setup-gcloud@master
-        with:
-          service_account_key: ${{ secrets.DEPLOY_KEY }}
-          project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
