@@ -1,3 +1,21 @@
 body {
-	--background-grey: #fafafa;
+	// color
+	--background-gradient: radial-gradient(
+		95.33% 88.77% at 100% 25.99%,
+		#f3eae4 0%,
+		#f5ebdf 11.12%,
+		#f6f5f8 33.47%
+	);
+	--grey-900: #141414;
+	--grey-600: #6c655e;
+	--green-900: #136324;
+	--green-600: #abe4b7;
+	--green-300: #effff1;
+
+	// fonts
+	--font-weight-light: 300;
+	--font-weight-regular: normal;
+	--font-weight-medium: 500;
+	--font-weight-semi-bold: 600;
+	--font-weight-bold: bold;
 }
