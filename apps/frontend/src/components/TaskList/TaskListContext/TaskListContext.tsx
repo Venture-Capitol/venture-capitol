@@ -131,9 +131,73 @@ const TaskListProvider: FC = ({ children }) => {
 
 					nodes.push({
 						id: emptyId,
-						type: "emptyNode",
+						type: "empty",
 						decision: node.id,
 						path: "left",
+						name: "",
+						next: [nextId],
+					});
+
+					lastNextId = nextId;
+				}
+			}
+
+			// fill right side with empty nodes
+
+			if (
+				node.rightNodeCount != undefined &&
+				node.rightNodeCount < node.maxNodeCount
+			) {
+				let decisionLastNextId = "";
+				let firstEmptyId = nanoid();
+
+				if (node.rightNodeCount == 0) {
+					decisionLastNextId = node.next.splice(
+						node.next.indexOf(
+							nodes.find(x => {
+								return node.next.includes(x.id) && x.path == "right";
+							})?.id || ""
+						),
+						1
+					)[0];
+					node.next.push(firstEmptyId);
+				} else {
+					let nextId = nodes.find(x => {
+						return node.next.includes(x.id) && x.path == "right";
+					})?.id;
+					for (let index = 0; index < node.rightNodeCount; index++) {
+						let currentNode = nodes.find(x => {
+							return x.id == nextId;
+						});
+
+						nextId = currentNode?.next[0] || "";
+						if (index == node.rightNodeCount - 1) {
+							decisionLastNextId = currentNode?.next[0] || "";
+							if (currentNode) currentNode.next = [firstEmptyId];
+						}
+					}
+				}
+
+				let lastNextId = nanoid();
+				for (
+					let index = 0;
+					index < node.maxNodeCount - node.rightNodeCount;
+					index++
+				) {
+					let emptyId = lastNextId;
+					let nextId = nanoid();
+					if (index == 0) {
+						emptyId = firstEmptyId;
+					}
+					if (index == node.maxNodeCount - node.rightNodeCount - 1) {
+						nextId = decisionLastNextId;
+					}
+
+					nodes.push({
+						id: emptyId,
+						type: "empty",
+						decision: node.id,
+						path: "right",
 						name: "",
 						next: [nextId],
 					});

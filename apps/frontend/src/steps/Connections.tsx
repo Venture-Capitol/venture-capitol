@@ -1,9 +1,8 @@
 import React, { ReactElement } from "react";
 import Decision from "../components/TaskList/Decision/Decision";
-import DecisionNode from "../components/TaskList/DecisionNode/DecisionNode";
 import DecisionPath from "../components/TaskList/DecisionPath/DecisionPath";
 import EmptyNode from "../components/TaskList/EmptyNode/EmptyNode";
-import Task from "../components/TaskList/Task/Task";
+import TaskNode from "../components/TaskList/TaskNode/TaskNode";
 import {
 	useInitialNodeContext,
 	useNodesContext,
@@ -37,14 +36,14 @@ const Connections = () => {
 			if (nextNode != undefined) {
 				if (nextNode.type == "task") {
 					elements.push(
-						<Task
+						<TaskNode
 							key={nextNode.id}
 							id={nextNode.id}
 							next={nextNode.next}
 							name={nextNode.name}
 						/>
 					);
-				} else if (nextNode.type == "emptyNode") {
+				} else if (nextNode.type == "empty") {
 					elements.push(
 						<EmptyNode
 							key={nextNode.id}
@@ -53,7 +52,6 @@ const Connections = () => {
 						/>
 					);
 				}
-
 				nextNodeId = nextNode.next[0];
 			}
 		}
@@ -79,7 +77,12 @@ const Connections = () => {
 		if (node.type == "task" && node.decision == undefined) {
 			return (
 				<>
-					<Task key={node.id} id={node.id} next={node.next} name={node.name} />
+					<TaskNode
+						key={node.id}
+						id={node.id}
+						next={node.next}
+						name={node.name}
+					/>
 					{node.next.map(x => {
 						let nextNode = nodes?.nodes.find(y => {
 							return y.id == x;
@@ -103,7 +106,7 @@ const Connections = () => {
 					{getComponent(getNextFromDecision(node))}
 				</>
 			);
-		} else if (node.type == "emptyNode") {
+		} else if (node.type == "empty") {
 			return (
 				<>
 					{node.next.map(x => {

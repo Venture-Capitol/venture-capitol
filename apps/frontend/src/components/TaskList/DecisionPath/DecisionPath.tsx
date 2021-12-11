@@ -1,16 +1,15 @@
 import React, { FC, ReactElement } from "react";
 import EmptyNode, { EmptyNodeProps } from "../EmptyNode/EmptyNode";
-import { TaskProps } from "../Task/Task";
+import { TaskProps } from "../TaskNode/TaskNode";
 import styles from "./DecisionPath.module.scss";
 
 export interface DecisionPathProps {
-	children?: ReactElement<TaskProps> | Array<ReactElement<TaskProps>>;
-	emptyNodes?:
-		| ReactElement<EmptyNodeProps>
-		| Array<ReactElement<EmptyNodeProps>>;
+	children?:
+		| ReactElement<TaskProps | EmptyNodeProps>
+		| Array<ReactElement<TaskProps | EmptyNodeProps>>;
 }
 
-const DecisionPath: FC = ({ children }) => {
+const DecisionPath: FC<DecisionPathProps> = ({ children }) => {
 	return <div className={styles.decision_path}>{children}</div>;
 };
 

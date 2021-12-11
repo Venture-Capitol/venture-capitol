@@ -1,5 +1,5 @@
 import { FunctionComponent, useState } from "react";
-import styles from "./Task.module.scss";
+import styles from "./TaskNode.module.scss";
 import checkmarkIcon from "../../../assets/checkmark.svg";
 
 export interface TaskProps {
