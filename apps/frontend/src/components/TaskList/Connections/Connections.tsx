@@ -1,13 +1,13 @@
 import React, { ReactElement } from "react";
-import Decision from "../components/TaskList/Decision/Decision";
-import DecisionPath from "../components/TaskList/DecisionPath/DecisionPath";
-import EmptyNode from "../components/TaskList/EmptyNode/EmptyNode";
-import TaskNode from "../components/TaskList/TaskNode/TaskNode";
+import Decision from "../Decision/Decision";
+import DecisionPath from "../DecisionPath/DecisionPath";
+import EmptyNode from "../EmptyNode/EmptyNode";
+import TaskNode from "../TaskNode/TaskNode";
 import {
 	useInitialNodeContext,
 	useNodesContext,
-} from "../components/TaskList/TaskListContext/TaskListContext";
-import { Node } from "./connectons";
+} from "../TaskListContext/TaskListContext";
+import { Node } from "../../../steps/connectons";
 
 const Connections = () => {
 	const nodes = useNodesContext();

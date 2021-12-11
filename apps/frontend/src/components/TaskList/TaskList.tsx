@@ -1,7 +1,7 @@
 import { SVG, Svg } from "@svgdotjs/svg.js";
 import { useResizeObserver } from "@vc/frontend/util/useResizeObserver";
 import React, { FC, useEffect, useRef, useState } from "react";
-import Connections from "steps/Connections";
+import Connections from "./Connections/Connections";
 import styles from "./TaskList.module.scss";
 import TaskListProvider from "./TaskListContext/TaskListContext";
 
