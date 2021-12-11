@@ -1,73 +1,132 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Decision from "../components/TaskList/Decision/Decision";
 import DecisionNode from "../components/TaskList/DecisionNode/DecisionNode";
 import DecisionPath from "../components/TaskList/DecisionPath/DecisionPath";
+import EmptyNode from "../components/TaskList/EmptyNode/EmptyNode";
 import Task from "../components/TaskList/Task/Task";
+import {
+	useInitialNodeContext,
+	useNodesContext,
+} from "../components/TaskList/TaskListContext/TaskListContext";
+import { Node } from "./connectons";
 
 const Connections = () => {
-	return (
-		<>
-			<Task id='1' next={["2"]}>
-				Test 1
-			</Task>
-			<Decision>
-				<DecisionNode id='2' next={["3", "5"]}>
-					Test 2
-				</DecisionNode>
-				<DecisionPath></DecisionPath>
-				<DecisionPath>
-					<Task id='3' next={["4"]}>
-						Test 3
-					</Task>
-					<Task id='4' next={["5"]}>
-						Test 4
-					</Task>
-				</DecisionPath>
-			</Decision>
-			<Decision>
-				<DecisionNode id='5' next={["6", "7"]}>
-					Test 5
-				</DecisionNode>
-				<DecisionPath>
-					<Task id='6' next={["8"]}>
-						Test 6
-					</Task>
-				</DecisionPath>
-				<DecisionPath>
-					<Task id='7' next={["8"]}>
-						Test 7
-					</Task>
-				</DecisionPath>
-			</Decision>
-			<Decision>
-				<DecisionNode id='8' next={["9", "11"]}>
-					Test 8
-				</DecisionNode>
-				<DecisionPath>
-					<Task id='9' next={["10"]}>
-						Test 9
-					</Task>
-					<Task id='10' next={["14"]}>
-						Test 10123123 asdhjaksdh
-					</Task>
-				</DecisionPath>
-				<DecisionPath>
-					<Task id='11' next={["12"]}>
-						Test 11
-					</Task>
-					<Task id='12' next={["13"]}>
-						Test 12
-					</Task>
-					<Task id='13' next={["14"]}>
-						Test 13
-					</Task>
-				</DecisionPath>
-			</Decision>
-			<Task id='14' next={[]}>
-				Test 14
-			</Task>
-		</>
-	);
+	const nodes = useNodesContext();
+	const initialNodeId = useInitialNodeContext();
+
+	function getNodesForNodePath(decisionNode: Node, decisionPath: string) {
+		let elements: ReactElement[] = [];
+
+		let nextNodeId = nodes?.nodes.find(x => {
+			return (
+				x.decision == decisionNode.id &&
+				x.path == decisionPath &&
+				decisionNode.next.includes(x.id)
+			);
+		})?.id;
+
+		for (let index = 0; index < (decisionNode.maxNodeCount || 0); index++) {
+			let nextNode = nodes?.nodes.find(x => {
+				return (
+					x.decision == decisionNode.id &&
+					x.path == decisionPath &&
+					x.id == nextNodeId
+				);
+			});
+
+			if (nextNode != undefined) {
+				if (nextNode.type == "task") {
+					elements.push(
+						<Task
+							key={nextNode.id}
+							id={nextNode.id}
+							next={nextNode.next}
+							name={nextNode.name}
+						/>
+					);
+				} else if (nextNode.type == "emptyNode") {
+					elements.push(
+						<EmptyNode
+							key={nextNode.id}
+							id={nextNode.id}
+							next={nextNode.next}
+						/>
+					);
+				}
+
+				nextNodeId = nextNode.next[0];
+			}
+		}
+		return elements;
+	}
+
+	function getNextFromDecision(node: Node): Node {
+		let next = node.next[0];
+		for (let index = 0; index < (node.maxNodeCount || 0); index++) {
+			next =
+				nodes?.nodes.find(x => {
+					return x.id == next;
+				})?.next[0] || next;
+		}
+		return (
+			nodes?.nodes.find(x => {
+				return x.id == next;
+			}) || node
+		);
+	}
+
+	function getComponent(node: Node): ReactElement {
+		if (node.type == "task" && node.decision == undefined) {
+			return (
+				<>
+					<Task key={node.id} id={node.id} next={node.next} name={node.name} />
+					{node.next.map(x => {
+						let nextNode = nodes?.nodes.find(y => {
+							return y.id == x;
+						});
+						if (nextNode != undefined) return getComponent(nextNode);
+					})}
+				</>
+			);
+		} else if (node.type == "decision") {
+			return (
+				<>
+					<Decision
+						key={node.id}
+						id={node.id}
+						next={node.next}
+						name={node.name}
+					>
+						<DecisionPath>{getNodesForNodePath(node, "left")}</DecisionPath>
+						<DecisionPath>{getNodesForNodePath(node, "right")}</DecisionPath>
+					</Decision>
+					{getComponent(getNextFromDecision(node))}
+				</>
+			);
+		} else if (node.type == "emptyNode") {
+			return (
+				<>
+					{node.next.map(x => {
+						let nextNode = nodes?.nodes.find(y => {
+							return y.id == x;
+						});
+						if (nextNode != undefined) return getComponent(nextNode);
+					})}
+				</>
+			);
+		} else return <></>;
+	}
+
+	let initialNode = nodes?.nodes.find(x => {
+		return x.id == initialNodeId?.initialNode;
+	});
+
+	let nodeElement = <></>;
+	if (initialNode != undefined) {
+		nodeElement = getComponent(initialNode);
+	}
+
+	return <>{nodeElement}</>;
 };
 
 export default Connections;

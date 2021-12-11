@@ -1,43 +1,58 @@
 .decision_node {
 	display: flex;
 	align-items: center;
-	gap: 1rem;
-	font-size: 0.85rem;
+	justify-content: center;
+	font-size: 16px;
 	min-width: 100px;
-	padding: 1rem;
+	padding: 30px;
 	height: 50px;
 	background-color: #fff;
 	border-top: 1px solid #ddd6ec;
 	border-bottom: 1px solid #ddd6ec;
-	border-radius: 0.3rem;
+	border-radius: 8px;
 	box-shadow: 0px 12px 10px rgba(109, 112, 193, 0.05);
 	color: #333333;
 	transition-property: background-color, color, border-color;
 	transition: background-color 0.15s ease-out;
 	width: fit-content;
-	margin: 30px 0px;
+	margin: 50px 0px;
 	position: relative;
 	z-index: 0;
 
 	&::before,
 	&::after {
-		width: 37px;
-		height: 37px;
-		border-radius: 0.3rem;
+		width: 47px;
+		height: 47px;
+		border-radius: 8px;
 		content: "";
 		position: absolute;
-		top: 5px;
+		top: 6px;
 		z-index: -1;
 		border-top: 1px solid #ddd6ec;
 		border-right: 1px solid #ddd6ec;
+		background-color: red;
+		background-color: #fff;
+		clip-path: polygon(
+			100% 100%,
+			100% 0%,
+			0% 0%,
+			0% 5%,
+			1% 4%,
+			6% 4%,
+			11% 3%,
+			97% 90%,
+			96% 95%,
+			94% 98%,
+			92% 100%
+		);
 	}
 
 	&::before {
-		left: -15px;
+		left: -17px;
 		transform: rotate(-135deg);
 	}
 	&::after {
-		right: -15px;
+		right: -17px;
 		transform: rotate(45deg);
 	}
 }

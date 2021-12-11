@@ -3,6 +3,7 @@ import { useResizeObserver } from "@vc/frontend/util/useResizeObserver";
 import React, { FC, useEffect, useRef, useState } from "react";
 import Connections from "steps/Connections";
 import styles from "./TaskList.module.scss";
+import TaskListProvider from "./TaskListContext/TaskListContext";
 
 const TaskList: FC = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -183,12 +184,14 @@ const TaskList: FC = () => {
 	}
 
 	return (
-		<div className={styles.taskListContainer} ref={containerRef}>
-			<div className={styles.background} ref={svgContainerRef}></div>
-			<div className={styles.taskList} ref={taskListRef}>
-				<Connections />
+		<TaskListProvider>
+			<div className={styles.taskListContainer} ref={containerRef}>
+				<div className={styles.background} ref={svgContainerRef}></div>
+				<div className={styles.taskList} ref={taskListRef}>
+					<Connections />
+				</div>
 			</div>
-		</div>
+		</TaskListProvider>
 	);
 };
 

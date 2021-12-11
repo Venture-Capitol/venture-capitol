@@ -3,12 +3,12 @@ import styles from "./Task.module.scss";
 import checkmarkIcon from "../../../assets/checkmark.svg";
 
 export interface TaskProps {
-	children: string;
 	id: string;
+	name: string;
 	next: string[];
 }
 
-const Task: FunctionComponent<TaskProps> = ({ children, id, next }) => {
+const Task: FunctionComponent<TaskProps> = ({ id, name, next }) => {
 	const [inputId] = useState(Math.random().toString());
 	const [checked, setChecked] = useState(false);
 
@@ -30,7 +30,7 @@ const Task: FunctionComponent<TaskProps> = ({ children, id, next }) => {
 			<label htmlFor={inputId}>
 				<img src={checkmarkIcon} alt='' />
 			</label>
-			<p>{children}</p>
+			<p>{name}</p>
 		</div>
 	);
 };

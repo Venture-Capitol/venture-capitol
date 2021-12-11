@@ -10,13 +10,8 @@ export interface DecisionPathProps {
 		| Array<ReactElement<EmptyNodeProps>>;
 }
 
-const DecisionPath: FC<DecisionPathProps> = ({ children, emptyNodes }) => {
-	return (
-		<div className={styles.decision_path}>
-			{children}
-			{emptyNodes}
-		</div>
-	);
+const DecisionPath: FC = ({ children }) => {
+	return <div className={styles.decision_path}>{children}</div>;
 };
 
 export default DecisionPath;

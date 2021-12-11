@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import styles from "./DecisionNode.module.scss";
 export interface DecisionNodeProps {
-	children: string;
 	id: string;
+	name: string;
 	next: string[];
 }
-const DecisionNode: FC<DecisionNodeProps> = ({ children, id, next }) => {
+const DecisionNode: FC<DecisionNodeProps> = ({ id, name, next }) => {
 	return (
 		<div
 			className={styles.decision_node}
@@ -13,7 +13,7 @@ const DecisionNode: FC<DecisionNodeProps> = ({ children, id, next }) => {
 			data-id={id}
 			data-next={next}
 		>
-			{children}
+			{name}
 		</div>
 	);
 };
