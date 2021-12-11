@@ -1,0 +1,50 @@
+type User {
+	id: ID!
+	companies: [Company!]!
+}
+
+type Company {
+	id: ID!
+	name: String
+	users: [User!]!
+	completedTasks: [Task!]!
+	decisions: [Decision!]!
+}
+
+enum LegalForm {
+	GMBH
+	UG
+	EINZELUNTERNEHMEN
+	FREIBERUFLER
+}
+
+type Task {
+	id: ID!
+}
+
+type Decision {
+	id: ID!
+	selectedTask: Task
+}
+
+type CreateCompanyInput {
+	name: String
+	legalForm: LegalForm!
+}
+
+type Mutation {
+	# Users
+	userById(id: ID!): User
+
+	# Companies
+	companyById(id: ID!): Company
+	createCompany(input: CreateCompanyInput!): Company!
+
+	# Tasks
+	markTaskComplete(companyId: ID!, taskId: ID!): Task!
+	markTaskIncomplete(companyId: ID!, taskId: ID!): Task!
+
+	# Decisions
+	makeDecision(companyId: ID!, decisionId: ID!, selectedTaskId: ID!): Decision!
+	removeDecision(companyId: ID!, decisionId: ID!): Decision!
+}
