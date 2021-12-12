@@ -13,7 +13,7 @@ export const app = Fastify({
 });
 
 const { schema } = loadSchemaFiles(
-	process.env.GQL_SCHEMA_DIR ?? "node_modules/@vc/common/src/schema/**/*.gql",
+	process.env.GQL_SCHEMA_DIR ?? "node_modules/@vc/api/src/schema/**/*.gql",
 	{
 		watchOptions: {
 			enabled: process.env.NODE_ENV === "development",
@@ -36,7 +36,7 @@ const buildContext = async (
 ): Promise<{
 	user?: DecodedIdToken;
 }> => {
-	let user: DecodedIdToken;
+	let user: DecodedIdToken | undefined;
 
 	try {
 		user = await getAuth().verifyIdToken(req.headers.authorization);
@@ -56,89 +56,21 @@ declare module "mercurius" {
 		extends PromiseType<ReturnType<typeof buildContext>> {}
 }
 
-/**
- * example graphql usage
- */
-const dogs = [
-	{ name: "Max" },
-	{ name: "Charlie" },
-	{ name: "Buddy" },
-	{ name: "Max" },
-];
-
-const owners: Record<string, { name: string }> = {
-	Max: {
-		name: "Jennifer",
-	},
-	Charlie: {
-		name: "Sarah",
-	},
-	Buddy: {
-		name: "Tracy",
-	},
-};
-
-const NOTIFICATION = "notification";
-
 const resolvers: IResolvers = {
 	Query: {
-		Hello(root, args, ctx, info) {
-			// root ~ {}
-			root;
-			// args ~ {}
-			args;
-			// info ~ GraphQLResolveInfo
-			info;
-
-			const greeting: string = `Hello, ${ctx.user?.email || "Anonymous User"}`;
-			return greeting;
-		},
-		dogs() {
-			return dogs;
-		},
-		humans() {
-			return Object.values(owners);
+		userById(root, args, ctx, info) {
+			return null;
 		},
 	},
-	Mutation: {
-		add(root, { x, y }, ctx, info) {
-			// root ~ {}
-			root;
-			// x ~ string
-			x;
-			// x ~ string
-			y;
-			// ctx.authorization ~ string | undefined
-			// info ~ GraphQLResolveInfo
-			info;
-
-			return x + y;
-		},
-		createNotification(_root, { message }, { pubsub }) {
-			pubsub.publish({
-				topic: NOTIFICATION,
-				payload: {
-					newNotification: message,
-				},
-			});
-			return true;
-		},
-	},
-	Subscription: {
-		newNotification: {
-			subscribe: (_root, _args, { pubsub }) => {
-				return pubsub.subscribe(NOTIFICATION);
-			},
-		},
-	},
+	Mutation: {},
 };
 
 const loaders: MercuriusLoaders = {
-	Dog: {
-		async owner(queries, _ctx) {
-			return queries.map(({ obj }) => owners[obj.name]);
-		},
-	},
+	// Dog: {
+	// 	async owner(queries, _ctx) {
+	// 		return queries.map(({ obj }) => owners[obj.name]);
+	// 	},
+	// },
 };
 
 app.register(mercurius, {
@@ -147,7 +79,6 @@ app.register(mercurius, {
 	loaders,
 	graphiql: true,
 	context: buildContext,
-	subscription: true,
 });
 
 mercuriusCodegen(app, {

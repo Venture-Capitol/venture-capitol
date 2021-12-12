@@ -5,7 +5,7 @@
 		"start": "docker-compose up -d db && ts-node-dev -r dotenv/config src/index.ts",
 		"build": "npm run clean && esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node16",
 		"serve": "ts-node src/index.ts",
-		"clean": "rm -rf ./dist && mkdir -p ./dist/schema && cp node_modules/@vc/common/src/schema/** dist/schema/",
+		"clean": "rm -rf ./dist && mkdir -p ./dist/schema && cp node_modules/@vc/api/src/schema/** dist/schema/",
 		"compile": "tsc -p tsconfig.build.json",
 		"test": "npm run build"
 	},
@@ -17,7 +17,7 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^3.3.0",
-		"@vc/api": "^0",
+		"@vc/api": "^1",
 		"dotenv": "^10.0.0",
 		"fastify": "^3.24.1",
 		"firebase-admin": "^10.0.0",

@@ -9,6 +9,7 @@ type Company {
 	users: [User!]!
 	completedTasks: [Task!]!
 	decisions: [Decision!]!
+	legalForm: LegalForm!
 }
 
 enum LegalForm {
@@ -24,25 +25,29 @@ type Task {
 
 type Decision {
 	id: ID!
-	selectedTask: Task
+	selectedPath: Number!
 }
 
-type CreateCompanyInput {
-	name: String
-	legalForm: LegalForm!
-}
-
-type Mutation {
+type Query {
 	# Users
 	userById(id: ID!): User
 
 	# Companies
 	companyById(id: ID!): Company
+}
+
+input CreateCompanyInput {
+	name: String
+	legalForm: LegalForm!
+}
+
+type Mutation {
+	# Companies
 	createCompany(input: CreateCompanyInput!): Company!
 
 	# Tasks
-	markTaskComplete(companyId: ID!, taskId: ID!): Task!
-	markTaskIncomplete(companyId: ID!, taskId: ID!): Task!
+	markTaskComplete(companyId: ID!, taskId: ID!): Company!
+	markTaskIncomplete(companyId: ID!, taskId: ID!): Company!
 
 	# Decisions
 	makeDecision(companyId: ID!, decisionId: ID!, selectedTaskId: ID!): Decision!

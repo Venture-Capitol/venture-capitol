@@ -32,42 +32,90 @@ export type Scalars = {
 	_FieldSet: any;
 };
 
-export type Dog = {
-	__typename?: "Dog";
-	name: Scalars["String"];
-	owner?: Maybe<Human>;
+export type User = {
+	__typename?: "User";
+	id: Scalars["ID"];
+	companies: Array<Company>;
 };
 
-export type Human = {
-	__typename?: "Human";
-	name: Scalars["String"];
+export type Company = {
+	__typename?: "Company";
+	id: Scalars["ID"];
+	name?: Maybe<Scalars["String"]>;
+	users: Array<User>;
+	completedTasks: Array<Task>;
+	decisions: Array<Decision>;
 };
 
-export type Mutation = {
-	__typename?: "Mutation";
-	add: Scalars["Int"];
-	createNotification: Scalars["Boolean"];
+export enum LegalForm {
+	GMBH = "GMBH",
+	UG = "UG",
+	EINZELUNTERNEHMEN = "EINZELUNTERNEHMEN",
+	FREIBERUFLER = "FREIBERUFLER",
+}
+
+export type Task = {
+	__typename?: "Task";
+	id: Scalars["ID"];
 };
 
-export type MutationaddArgs = {
-	x: Scalars["Int"];
-	y: Scalars["Int"];
-};
-
-export type MutationcreateNotificationArgs = {
-	message: Scalars["String"];
+export type Decision = {
+	__typename?: "Decision";
+	id: Scalars["ID"];
+	selectedTask?: Maybe<Task>;
 };
 
 export type Query = {
 	__typename?: "Query";
-	Hello: Scalars["String"];
-	dogs: Array<Dog>;
-	humans: Array<Human>;
+	userById?: Maybe<User>;
+	companyById?: Maybe<Company>;
 };
 
-export type Subscription = {
-	__typename?: "Subscription";
-	newNotification: Scalars["String"];
+export type QueryuserByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type QuerycompanyByIdArgs = {
+	id: Scalars["ID"];
+};
+
+export type CreateCompanyInput = {
+	name?: InputMaybe<Scalars["String"]>;
+	legalForm: LegalForm;
+};
+
+export type Mutation = {
+	__typename?: "Mutation";
+	createCompany: Company;
+	markTaskComplete: Company;
+	markTaskIncomplete: Company;
+	makeDecision: Decision;
+	removeDecision: Decision;
+};
+
+export type MutationcreateCompanyArgs = {
+	input: CreateCompanyInput;
+};
+
+export type MutationmarkTaskCompleteArgs = {
+	companyId: Scalars["ID"];
+	taskId: Scalars["ID"];
+};
+
+export type MutationmarkTaskIncompleteArgs = {
+	companyId: Scalars["ID"];
+	taskId: Scalars["ID"];
+};
+
+export type MutationmakeDecisionArgs = {
+	companyId: Scalars["ID"];
+	decisionId: Scalars["ID"];
+	selectedTaskId: Scalars["ID"];
+};
+
+export type MutationremoveDecisionArgs = {
+	companyId: Scalars["ID"];
+	decisionId: Scalars["ID"];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -170,90 +218,151 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-	Dog: ResolverTypeWrapper<Dog>;
+	User: ResolverTypeWrapper<User>;
+	ID: ResolverTypeWrapper<Scalars["ID"]>;
+	Company: ResolverTypeWrapper<Company>;
 	String: ResolverTypeWrapper<Scalars["String"]>;
-	Human: ResolverTypeWrapper<Human>;
-	Mutation: ResolverTypeWrapper<{}>;
-	Int: ResolverTypeWrapper<Scalars["Int"]>;
-	Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
+	LegalForm: LegalForm;
+	Task: ResolverTypeWrapper<Task>;
+	Decision: ResolverTypeWrapper<Decision>;
 	Query: ResolverTypeWrapper<{}>;
-	Subscription: ResolverTypeWrapper<{}>;
+	CreateCompanyInput: CreateCompanyInput;
+	Mutation: ResolverTypeWrapper<{}>;
+	Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-	Dog: Dog;
+	User: User;
+	ID: Scalars["ID"];
+	Company: Company;
 	String: Scalars["String"];
-	Human: Human;
-	Mutation: {};
-	Int: Scalars["Int"];
-	Boolean: Scalars["Boolean"];
+	Task: Task;
+	Decision: Decision;
 	Query: {};
-	Subscription: {};
+	CreateCompanyInput: CreateCompanyInput;
+	Mutation: {};
+	Boolean: Scalars["Boolean"];
 };
 
-export type DogResolvers<
+export type UserResolvers<
 	ContextType = MercuriusContext,
-	ParentType extends ResolversParentTypes["Dog"] = ResolversParentTypes["Dog"]
+	ParentType extends ResolversParentTypes["User"] = ResolversParentTypes["User"]
 > = {
-	name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-	owner?: Resolver<Maybe<ResolversTypes["Human"]>, ParentType, ContextType>;
+	id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+	companies?: Resolver<
+		Array<ResolversTypes["Company"]>,
+		ParentType,
+		ContextType
+	>;
 	isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type HumanResolvers<
+export type CompanyResolvers<
 	ContextType = MercuriusContext,
-	ParentType extends ResolversParentTypes["Human"] = ResolversParentTypes["Human"]
+	ParentType extends ResolversParentTypes["Company"] = ResolversParentTypes["Company"]
 > = {
-	name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+	id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+	name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+	users?: Resolver<Array<ResolversTypes["User"]>, ParentType, ContextType>;
+	completedTasks?: Resolver<
+		Array<ResolversTypes["Task"]>,
+		ParentType,
+		ContextType
+	>;
+	decisions?: Resolver<
+		Array<ResolversTypes["Decision"]>,
+		ParentType,
+		ContextType
+	>;
 	isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type MutationResolvers<
+export type TaskResolvers<
 	ContextType = MercuriusContext,
-	ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
+	ParentType extends ResolversParentTypes["Task"] = ResolversParentTypes["Task"]
 > = {
-	add?: Resolver<
-		ResolversTypes["Int"],
+	id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+	isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type DecisionResolvers<
+	ContextType = MercuriusContext,
+	ParentType extends ResolversParentTypes["Decision"] = ResolversParentTypes["Decision"]
+> = {
+	id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+	selectedTask?: Resolver<
+		Maybe<ResolversTypes["Task"]>,
 		ParentType,
-		ContextType,
-		RequireFields<MutationaddArgs, "x" | "y">
+		ContextType
 	>;
-	createNotification?: Resolver<
-		ResolversTypes["Boolean"],
-		ParentType,
-		ContextType,
-		RequireFields<MutationcreateNotificationArgs, "message">
-	>;
+	isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<
 	ContextType = MercuriusContext,
 	ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
 > = {
-	Hello?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-	dogs?: Resolver<Array<ResolversTypes["Dog"]>, ParentType, ContextType>;
-	humans?: Resolver<Array<ResolversTypes["Human"]>, ParentType, ContextType>;
+	userById?: Resolver<
+		Maybe<ResolversTypes["User"]>,
+		ParentType,
+		ContextType,
+		RequireFields<QueryuserByIdArgs, "id">
+	>;
+	companyById?: Resolver<
+		Maybe<ResolversTypes["Company"]>,
+		ParentType,
+		ContextType,
+		RequireFields<QuerycompanyByIdArgs, "id">
+	>;
 };
 
-export type SubscriptionResolvers<
+export type MutationResolvers<
 	ContextType = MercuriusContext,
-	ParentType extends ResolversParentTypes["Subscription"] = ResolversParentTypes["Subscription"]
+	ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
 > = {
-	newNotification?: SubscriptionResolver<
-		ResolversTypes["String"],
-		"newNotification",
+	createCompany?: Resolver<
+		ResolversTypes["Company"],
 		ParentType,
-		ContextType
+		ContextType,
+		RequireFields<MutationcreateCompanyArgs, "input">
+	>;
+	markTaskComplete?: Resolver<
+		ResolversTypes["Company"],
+		ParentType,
+		ContextType,
+		RequireFields<MutationmarkTaskCompleteArgs, "companyId" | "taskId">
+	>;
+	markTaskIncomplete?: Resolver<
+		ResolversTypes["Company"],
+		ParentType,
+		ContextType,
+		RequireFields<MutationmarkTaskIncompleteArgs, "companyId" | "taskId">
+	>;
+	makeDecision?: Resolver<
+		ResolversTypes["Decision"],
+		ParentType,
+		ContextType,
+		RequireFields<
+			MutationmakeDecisionArgs,
+			"companyId" | "decisionId" | "selectedTaskId"
+		>
+	>;
+	removeDecision?: Resolver<
+		ResolversTypes["Decision"],
+		ParentType,
+		ContextType,
+		RequireFields<MutationremoveDecisionArgs, "companyId" | "decisionId">
 	>;
 };
 
 export type Resolvers<ContextType = MercuriusContext> = {
-	Dog?: DogResolvers<ContextType>;
-	Human?: HumanResolvers<ContextType>;
-	Mutation?: MutationResolvers<ContextType>;
+	User?: UserResolvers<ContextType>;
+	Company?: CompanyResolvers<ContextType>;
+	Task?: TaskResolvers<ContextType>;
+	Decision?: DecisionResolvers<ContextType>;
 	Query?: QueryResolvers<ContextType>;
-	Subscription?: SubscriptionResolvers<ContextType>;
+	Mutation?: MutationResolvers<ContextType>;
 };
 
 type Loader<TReturn, TObj, TParams, TContext> = (
@@ -278,13 +387,26 @@ export interface Loaders<
 		reply: import("fastify").FastifyReply;
 	}
 > {
-	Dog?: {
-		name?: LoaderResolver<Scalars["String"], Dog, {}, TContext>;
-		owner?: LoaderResolver<Maybe<Human>, Dog, {}, TContext>;
+	User?: {
+		id?: LoaderResolver<Scalars["ID"], User, {}, TContext>;
+		companies?: LoaderResolver<Array<Company>, User, {}, TContext>;
 	};
 
-	Human?: {
-		name?: LoaderResolver<Scalars["String"], Human, {}, TContext>;
+	Company?: {
+		id?: LoaderResolver<Scalars["ID"], Company, {}, TContext>;
+		name?: LoaderResolver<Maybe<Scalars["String"]>, Company, {}, TContext>;
+		users?: LoaderResolver<Array<User>, Company, {}, TContext>;
+		completedTasks?: LoaderResolver<Array<Task>, Company, {}, TContext>;
+		decisions?: LoaderResolver<Array<Decision>, Company, {}, TContext>;
+	};
+
+	Task?: {
+		id?: LoaderResolver<Scalars["ID"], Task, {}, TContext>;
+	};
+
+	Decision?: {
+		id?: LoaderResolver<Scalars["ID"], Decision, {}, TContext>;
+		selectedTask?: LoaderResolver<Maybe<Task>, Decision, {}, TContext>;
 	};
 }
 declare module "mercurius" {
