@@ -1,0 +1,29 @@
+{
+	"name": "storybook",
+	"version": "1.0.0",
+	"description": "React.js Components library",
+	"author": "luis-rieke",
+	"homepage": "",
+	"license": "MIT",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "microbundle watch --jsx React.createElement lib/*.js",
+		"start": "start-storybook -p 8104",
+		"build-storybook": "build-storybook"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.15.8",
+		"@storybook/addon-actions": "^6.3.12",
+		"@storybook/addon-essentials": "^6.3.12",
+		"@storybook/addon-links": "^6.3.12",
+		"@storybook/react": "^6.3.12",
+		"babel-loader": "^8.2.3",
+		"microbundle": "^0.14.1"
+	},
+	"dependencies": {
+		"@types/react": "^17.0.33",
+		"@types/react-dom": "^17.0.10",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
+	}
+}

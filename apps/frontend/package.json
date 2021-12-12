@@ -7,8 +7,8 @@
 		"dist"
 	],
 	"scripts": {
-		"start": "vite --host 0.0.0.0",
-		"build": "tsc && vite build",
+		"start": "vite --host 0.0.0.0 --port 8100",
+		"build": "vite build",
 		"serve": "vite preview",
 		"cypress:open": "cypress open",
 		"cypress:open-ct": "cypress open-ct",
@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@svgdotjs/svg.js": "^3.1.1",
+		"@vc/auth": "^1.0.0",
 		"react": "^17.0.0",
 		"react-dom": "^17.0.0",
 		"react-router-dom": "^5.3.0",

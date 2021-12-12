@@ -2,9 +2,10 @@
 	"name": "@vc/backend",
 	"version": "0.1.0",
 	"scripts": {
-		"start": "docker-compose up -d && ts-node-dev -r dotenv/config src/index.ts",
-		"build": "npm run clean && npm run compile",
-		"clean": "rm -rf ./dist",
+		"start": "docker-compose up -d db && ts-node-dev -r dotenv/config src/index.ts",
+		"build": "npm run clean && esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node16",
+		"serve": "ts-node src/index.ts",
+		"clean": "rm -rf ./dist && mkdir -p ./dist/schema && cp node_modules/@vc/common/src/schema/** dist/schema/",
 		"compile": "tsc -p tsconfig.build.json",
 		"test": "npm run build"
 	},
@@ -18,7 +19,10 @@
 		"@prisma/client": "^3.3.0",
 		"@vc/common": "^0",
 		"dotenv": "^10.0.0",
+		"fastify": "^3.24.1",
 		"firebase-admin": "^10.0.0",
+		"graphql": "^15",
+		"mercurius": "^8.11.2",
 		"mercurius-codegen": "^3.2.0",
 		"prisma": "^3.3.0"
 	}

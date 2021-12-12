@@ -1,4 +1,4 @@
-<h1 align="center"><a href="https://venture-capitol.de/" target="_blank" noopener>Venture Capitol</a></h1>
+<h1 align="center"><a href="https://venturecapitol.de/" target="_blank" noopener>Venture Capitol</a></h1>
 
 Optimizing the founding process for startups in Germany
 
@@ -35,7 +35,8 @@ There are some Visual Studio Code Extensions that are not needed but are pretty 
 .
 ├─ apps             # Everything that is a standalone application
 │  ├─ frontend      # Main frontend for Venture Capitol
-│  └─ backend       # Main Backend for Venture Capitol
+│  ├─ backend       # Main Backend for Venture Capitol
+│  └─ utr-backend   # Backend for the Company Register of Venture Capitol
 ├─ packages         # Shared Code and libraries
 │  └─ common        # Shared GraphQl API definition
 ├─ Dockerfile.*     # Dockerfiles used for deployment
@@ -45,3 +46,16 @@ There are some Visual Studio Code Extensions that are not needed but are pretty 
 ## Using Lerna
 
 Installing a dependency has to be done through lerna using `npx lerna add <package> --scope @vc/<app>`
+
+## Reserved Ports
+
+Ports reserved for each service, all interchangeable by setting the `PORT` environment variable.
+
+| service      | port |
+| ------------ | ---- |
+| frontend     | 8100 |
+| backend      | 8101 |
+| utr-backend  | 8103 |
+| storybook    | 8104 |
+| database     | 5432 |
+| utr-database | 5433 |
