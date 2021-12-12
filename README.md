@@ -59,3 +59,5 @@ Ports reserved for each service, all interchangeable by setting the `PORT` envir
 | storybook    | 8104 |
 | database     | 5432 |
 | utr-database | 5433 |
+
+On Windows: kill ports with `npm run kill`
