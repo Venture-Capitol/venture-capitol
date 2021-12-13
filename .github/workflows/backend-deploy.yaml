@@ -56,7 +56,7 @@ jobs:
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
 
   # ------------------------------------------ VALIDATE TF ------------------------------------------
-  validate-terraform:
+  validate-tf:
     name: "Validate Terraform Configuration"
     runs-on: ubuntu-latest
     steps:
@@ -141,7 +141,7 @@ jobs:
     environment:
       name: staging
       url: https://staging.venturecapitol.de
-    needs: [build-push-gcr]
+    needs: [build-push-gcr, validate-tf]
     outputs:
       currentRevision: ${{ steps.get-current-revision.outputs.json }}
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -186,8 +186,8 @@ jobs:
         run: terraform apply -auto-approve
 
   # ------------------------------------------ PROD ------------------------------------------
-  terraform-prod:
-    name: "Validate Terraform and Deploy to Production"
+  deploy-prodction:
+    name: "Deploy to Production"
     runs-on: ubuntu-latest
     environment:
       name: production

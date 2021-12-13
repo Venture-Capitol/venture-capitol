@@ -46,6 +46,6 @@ variable "staging_db_user" {
 
 
 variable "staging_image_name" {
-  type = string
+  type    = string
   default = "us-docker.pkg.dev/cloudrun/container/hello"
 }
