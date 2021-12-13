@@ -29,7 +29,6 @@ jobs:
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true
 
       - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v0.3.0
@@ -69,7 +68,6 @@ jobs:
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true
 
       - name: Export image names as environment variables
         id: step_one
@@ -136,7 +134,7 @@ jobs:
 
   # ------------------------------------------ STAGING ------------------------------------------
   deploy-staging:
-    name: "Deploy to staging"
+    name: "Deploy to Staging"
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -172,7 +170,6 @@ jobs:
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true
 
       - name: Terraform Init
         id: init
@@ -205,7 +202,6 @@ jobs:
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true
 
       - name: Export image names as environment variables
         run: |
