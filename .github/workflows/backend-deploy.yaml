@@ -1,9 +1,11 @@
 name: Backend CI/CD
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main, develop]
+    branches:
+      - main
 
 env:
   IMAGE_NAME: backend
@@ -12,36 +14,32 @@ env:
   GAR_HOSTNAME: europe-west1-docker.pkg.dev
 
 jobs:
+  # ------------------------------------------ DOCKER BUILD ------------------------------------------
   build-push-gcr:
     name: "Docker: Build and Push Container"
     runs-on: ubuntu-latest
     steps:
-      # Checkout the repository to the GitHub Actions runner
       - name: Checkout Repository Files
         uses: actions/checkout@v2
 
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Authenticate with Google Cloud
         id: auth
         uses: google-github-actions/auth@v0.4.3
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true
 
-      # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
-      - name: Set up Cloud SDK
+      - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v0.3.0
 
-      # Make the Google Artifact Registry available to Docker
-      - name: Setup to use Google Artifact Registry
+      - name: Configure Docker to use Google Artifact Registry
         run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
 
-      # Get previous dockerfile for using it as a cache
-      - name: Pull previous container file for using it as a cache
+      - name: Pull previous container file to use as cache
         continue-on-error: true
         run: docker pull $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
 
-      # Build the Docker image
       - name: Build the Docker Image
         run: |-
           docker build \
@@ -56,26 +54,13 @@ jobs:
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
 
-  terraform:
-    name: "Terraform: Validate, Plan and Apply"
+  # ------------------------------------------ VALIDATE TF ------------------------------------------
+  validate-tf:
+    name: "Validate Terraform Configuration"
     runs-on: ubuntu-latest
-    needs: [build-push-gcr]
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-
     steps:
-      # Checkout the repository to the GitHub Actions runner
       - name: Checkout Repository Files
         uses: actions/checkout@v2
-
-      # Set the image name as an environment variable
-      - name: Set the value
-        id: step_one
-        run: |
-          echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
 
       - name: Authenticate with Google Cloud
         id: auth
@@ -83,11 +68,12 @@ jobs:
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
-          export_default_credentials: true
 
-      # Setup Google cloud credentials and set GOOGLE_APPLICATION_CREDENTIALS environment variable
-      - name: Setup Google Cloud Credentials
-        uses: google-github-actions/setup-gcloud@master
+      - name: Export image names as environment variables
+        id: step_one
+        run: |
+          echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
@@ -113,6 +99,7 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
+        if: github.event_name == 'pull_request'
         id: plan
         working-directory: ./deploy
         run: terraform plan -no-color
@@ -144,6 +131,87 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
+
+  # ------------------------------------------ STAGING ------------------------------------------
+  deploy-staging:
+    name: "Deploy to Staging"
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.venturecapitol.de
+    needs: [build-push-gcr, validate-tf]
+    outputs:
+      currentRevision: ${{ steps.get-current-revision.outputs.json }}
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout Repository Files
+        uses: actions/checkout@v2
+
+      - name: Get the current revision description
+        id: get-current-revision
+        run: |
+          content=`gcloud run services describe vc-backend --region europe-west1 --format=json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=json::$content"
+
+      - name: Export image names as environment variables
+        run: |
+          echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_image_name=${{fromJson(steps.get-current-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
+
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Terraform Init
+        id: init
+        working-directory: ./deploy
+        run: terraform init
+
+      # On push to master, build or change infrastructure according to Terraform configuration files
+      - name: Terraform Apply
+        working-directory: ./deploy
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+
+  # ------------------------------------------ PROD ------------------------------------------
+  deploy-prodction:
+    name: "Deploy to Production"
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://venturecapitol.de
+    needs: [deploy-staging]
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout Repository Files
+        uses: actions/checkout@v2
+
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Export image names as environment variables
+        run: |
+          echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+
+      - name: Terraform Init
+        id: init
+        working-directory: ./deploy
+        run: terraform init
 
       # On push to master, build or change infrastructure according to Terraform configuration files
       - name: Terraform Apply
