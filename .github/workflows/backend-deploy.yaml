@@ -148,10 +148,17 @@ jobs:
       - name: Checkout Repository Files
         uses: actions/checkout@v2
 
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
       - name: Get the current revision description
         id: get-current-revision
         run: |
-          content=`gcloud run services describe vc-backend --region europe-west1 --format=json`
+          content=`gcloud run services describe vc-backend --region europe-west1 --project $PROJECT_ID --format=json`
           # the following lines are only required for multi line json
           content="${content//'%'/'%25'}"
           content="${content//$'\n'/'%0A'}"
@@ -163,13 +170,6 @@ jobs:
         run: |
           echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
           echo "TF_VAR_image_name=${{fromJson(steps.get-current-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
-
-      - name: Authenticate with Google Cloud
-        id: auth
-        uses: google-github-actions/auth@v0.4.3
-        with:
-          credentials_json: ${{ secrets.DEPLOY_KEY }}
-          project_id: ${{ env.PROJECT_ID }}
 
       - name: Terraform Init
         id: init
