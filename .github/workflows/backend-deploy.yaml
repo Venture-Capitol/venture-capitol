@@ -162,7 +162,6 @@ jobs:
           echo "::set-output name=json::$content"
 
       - name: Export image names as environment variables
-        id: step_one
         run: |
           echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
           echo "TF_VAR_image_name=${{fromJson(steps.get-current-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
@@ -208,9 +207,7 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           export_default_credentials: true
 
-      # Set the image name as an environment variable
-      - name: Set the value
-        id: step_one
+      - name: Export image names as environment variables
         run: |
           echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
           echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
