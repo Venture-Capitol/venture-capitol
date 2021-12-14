@@ -78,3 +78,16 @@ resource "google_cloud_run_service" "staging_backend" {
 
   depends_on = [google_secret_manager_secret_version.staging_db_connection_string, google_project_service.run]
 }
+
+resource "google_cloud_run_domain_mapping" "staging" {
+  location = var.region
+  name     = "staging.api.venturecapitol.de"
+
+  metadata {
+    namespace = var.project
+  }
+
+  spec {
+    route_name = google_cloud_run_service.staging_backend.name
+  }
+}
