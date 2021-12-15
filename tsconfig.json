@@ -6,6 +6,7 @@
 		"paths": {
 			"@vc/*": ["packages/*/src"]
 		},
-		"noEmit": true
+		"noEmit": true,
+		"noImplicitAny": true
 	}
 }
