@@ -2,21 +2,20 @@ import { FunctionComponent } from "react";
 import s from "./Button.module.scss";
 
 type ButtonProps = {
-	title?: string;
+	children?: React.ReactNode;
 	href?: string;
 	func?: (...args: any[]) => any;
 };
 
 const Button: FunctionComponent<ButtonProps> = ({
-	title,
+	children,
 	href,
 	func,
 }: ButtonProps) => {
-	if (title == null) title = "Click me!";
 	return (
 		<a href={href}>
 			<button className={s.default_btn} onClick={func}>
-				{title}
+				{children}
 			</button>
 		</a>
 	);

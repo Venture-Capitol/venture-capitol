@@ -3,16 +3,7 @@ import s from "./PopupDisclaimer.module.scss";
 import TextAbsatz from "@vc/frontend/component/TextBlock/TextAbsatz";
 import Button from "@vc/frontend/component/Button/Button";
 
-function methodDoesNotExist():
-	| import("react").MouseEventHandler<HTMLButtonElement>
-	| undefined {
-	throw new Error("Function not implemented.");
-}
-
 const PopupDisclaimer: React.FunctionComponent = () => {
-	//const [render, closePopup] = useState(true);
-
-	//if (render === false) return null;
 	return (
 		<div className={s.overlay} id='PopupDisclaimer'>
 			<div className={s.popup}>
