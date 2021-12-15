@@ -125,7 +125,7 @@ async function addManyEntries(callback: Function) {
 	}
 }
 
-function parseToBoolean(value) {
+function parseToBoolean(value: string) {
 	if (value === undefined) {
 		return value;
 	} else if (value === "true" || value === "false") {
@@ -135,7 +135,7 @@ function parseToBoolean(value) {
 	}
 }
 
-function parseToNumber(value) {
+function parseToNumber(value: string) {
 	if (value === undefined) {
 		return value;
 	} else {
