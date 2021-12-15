@@ -30,3 +30,22 @@ variable "image_name" {
   type    = string
   default = "us-docker.pkg.dev/cloudrun/container/hello"
 }
+
+
+# Staging Variables
+
+variable "staging_db_name" {
+  type    = string
+  default = "staging_backend"
+}
+
+variable "staging_db_user" {
+  type    = string
+  default = "staging_backend_user"
+}
+
+
+variable "staging_image_name" {
+  type    = string
+  default = "us-docker.pkg.dev/cloudrun/container/hello"
+}
