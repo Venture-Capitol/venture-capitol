@@ -167,7 +167,7 @@ jobs:
     environment:
       name: staging
       url: https://staging.venturecapitol.de
-    needs: [build-push-gcr, validate-tf]
+    needs: [build-push-gcr, validate-tf, build-fe]
     outputs:
       currentRevision: ${{ steps.get-current-revision.outputs.json }}
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
