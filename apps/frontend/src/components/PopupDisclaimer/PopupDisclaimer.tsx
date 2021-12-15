@@ -10,9 +10,6 @@ function methodDoesNotExist():
 }
 
 const PopupDisclaimer: React.FunctionComponent = () => {
-	//const [render, closePopup] = useState(true);
-
-	//if (render === false) return null;
 	return (
 		<div className={s.overlay} id='PopupDisclaimer'>
 			<div className={s.popup}>
@@ -22,7 +19,7 @@ const PopupDisclaimer: React.FunctionComponent = () => {
 					Steuerberater zu bemühen!
 				</TextAbsatz>
 				<div className={s.link_container}>
-					<Button title='Alles klar!' func={methodDoesNotExist} />
+					<Button func={methodDoesNotExist}>Alles klar!</Button>
 					<span className={s.legal_links}>
 						<a href='/textpages/impressum'>Impressum</a> |{" "}
 						<a href='textpages/datenschutz'>Datenschutz</a>

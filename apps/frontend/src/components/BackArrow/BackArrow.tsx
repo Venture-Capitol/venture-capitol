@@ -7,7 +7,7 @@ const BackArrow: React.FunctionComponent = () => {
 
 	return (
 		<>
-			<div className={s.back} onClick={() => history.push("/demo")}>
+			<div className={s.back} onClick={history.goBack}>
 				<svg
 					style={{ position: "absolute" }}
 					width='27'

@@ -1,6 +1,5 @@
 import { FunctionComponent } from "react";
 import s from "./TextAbsatz.module.scss";
-import parse from "html-react-parser";
 
 type AbsatzProps = {
 	title?: string;
