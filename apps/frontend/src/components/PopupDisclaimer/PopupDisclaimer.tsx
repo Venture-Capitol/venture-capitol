@@ -10,6 +10,9 @@ function methodDoesNotExist():
 }
 
 const PopupDisclaimer: React.FunctionComponent = () => {
+	//const [render, closePopup] = useState(true);
+
+	//if (render === false) return null;
 	return (
 		<div className={s.overlay} id='PopupDisclaimer'>
 			<div className={s.popup}>
