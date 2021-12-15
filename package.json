@@ -2,7 +2,6 @@
 	"name": "venture-capitol",
 	"private": true,
 	"scripts": {
-		"kill": "kill-port --port 8100,8101,8103,8104",
 		"clean": "lerna run clean",
 		"build": "lerna run build",
 		"test": "lerna run test",
@@ -10,22 +9,25 @@
 		"start": "lerna run start --stream",
 		"start:fe": "lerna run start --scope @vc/frontend --stream",
 		"start:be": "lerna run start --scope @vc/backend --stream",
+		"start:fe-utr": "lerna run start --scope @vc/utr-frontend --stream",
 		"start:be-utr": "lerna run start --scope @vc/utr-backend --stream",
 		"prepare": "husky install",
 		"cypress:open": "lerna run cypress:open --scope @vc/frontend --stream",
 		"cypress:open-ct": "lerna run cypress:open-ct --scope @vc/frontend --stream",
 		"cypress:run": "lerna run cypress:run --scope @vc/frontend --stream",
-		"cypress:run-ct": "lerna run cypress:run-ct --scope @vc/frontend --stream"
+		"cypress:run-ct": "lerna run cypress:run-ct --scope @vc/frontend --stream",
+		"cypress:open-utr": "lerna run cypress:open --scope @vc/utr-frontend --stream",
+		"cypress:open-ct-utr": "lerna run cypress:open-ct --scope @vc/utr-frontend --stream",
+		"cypress:run-utr": "lerna run cypress:run --scope @vc/utr-frontend --stream",
+		"cypress:run-ct-utr": "lerna run cypress:run-ct --scope @vc/utr-frontend --stream"
 	},
 	"devDependencies": {
 		"husky": "^7.0.0",
-		"kill-port": "^1.6.1",
+		"lerna": "^4.0.0",
 		"prettier": "^2.4.1",
 		"pretty-quick": "^3.1.1"
 	},
 	"dependencies": {
-		"esbuild": "^0.13.13",
-		"lerna": "^4.0.0",
 		"typescript": "^4.4.3"
 	}
 }

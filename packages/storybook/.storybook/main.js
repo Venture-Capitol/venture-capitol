@@ -1,15 +1,7 @@
 module.exports = {
-	typescript: {
-		check: false,
-		checkOptions: {},
-		reactDocgen: "react-docgen-typescript",
-		reactDocgenTypescriptOptions: {
-			shouldExtractLiteralValuesFromEnum: true,
-			propFilter: prop =>
-				prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
-		},
-	},
 	stories: [
+		// TODO: make all stories visible at the same time
+
 		// --- GPF components ---
 		"../../../apps/frontend/src/components/**/*.stories.mdx",
 		"../../../apps/frontend/src/components/**/*.stories.@(js|jsx|ts|tsx)",

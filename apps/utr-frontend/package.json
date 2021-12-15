@@ -1,13 +1,9 @@
 {
-	"name": "@vc/frontend",
-	"version": "0.1.0",
+	"name": "@vc/utr-frontend",
+	"version": "0.0.0",
 	"main": "src/main",
-	"types": "dist/index",
-	"files": [
-		"dist"
-	],
 	"scripts": {
-		"start": "vite --host 0.0.0.0 --port 8100",
+		"start": "vite --host 0.0.0.0 --port 8102",
 		"build": "tsc && vite build",
 		"serve": "vite preview",
 		"cypress:open": "cypress open",
@@ -16,26 +12,20 @@
 		"cypress:run-ct": "cypress run-ct"
 	},
 	"dependencies": {
-		"@svgdotjs/svg.js": "^3.1.1",
-		"@vc/auth": "^1.0.0",
-		"@vc/ui": "^1.0.0",
 		"react": "^17.0.0",
 		"react-dom": "^17.0.0",
-		"react-router-dom": "^5.3.0",
-		"sass": "^1.42.1"
+		"vite": "^2.6.14"
 	},
 	"devDependencies": {
 		"@cypress/react": "^5.10.1",
 		"@cypress/vite-dev-server": "^2.2.0",
 		"@types/react": "^17.0.0",
 		"@types/react-dom": "^17.0.0",
-		"@types/react-router-dom": "^5.3.1",
 		"@vitejs/plugin-react": "^1.0.0",
 		"cypress": "^8.7.0",
 		"path": "^0.12.7",
-		"prettier": "^2.4.1",
-		"typescript": "^4.4.3",
-		"vite": "^2.6.5",
-		"vite-tsconfig-paths": "^3.3.15"
+		"typescript": "^4.3.2",
+		"vite": "^2.6.4",
+		"vite-tsconfig-paths": "^3.3.17"
 	}
 }
