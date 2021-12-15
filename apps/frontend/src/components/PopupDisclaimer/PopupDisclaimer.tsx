@@ -19,7 +19,7 @@ const PopupDisclaimer: React.FunctionComponent = () => {
 					Steuerberater zu bemühen!
 				</TextAbsatz>
 				<div className={s.link_container}>
-					<Button func={methodDoesNotExist}>Alles klar!</Button>
+					<Button>Alles klar!</Button>
 					<span className={s.legal_links}>
 						<a href='/textpages/impressum'>Impressum</a> |{" "}
 						<a href='textpages/datenschutz'>Datenschutz</a>
