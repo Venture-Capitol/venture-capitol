@@ -12,6 +12,8 @@ env:
   PROJECT_ID: venture-capitol
   REPO_ID: images
   GAR_HOSTNAME: europe-west1-docker.pkg.dev
+  PROD_BUCKET_NAME: gs://vc-frontend
+  STAGING_BUCKET_NAME: gs://vc-frontend-staging
 
 jobs:
   # ------------------------------------------ DOCKER BUILD ------------------------------------------
@@ -53,6 +55,32 @@ jobs:
         run: |-
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
+
+  # ------------------------------------------ BUILD FE ------------------------------------------
+
+  build-fe:
+    name: "Docker: Build Frontend"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Files
+        uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "npm"
+          cache-dependency-path: |
+            apps/**/package-lock.json
+            packages/**/package-lock.json
+      - run: npm install
+      - run: npm run bootstrap
+      - run: npm run build
+        working-directory: ./apps/frontend
+      - name: Store build artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: frontend-build
+          path: ./apps/frontend/dist/
 
   # ------------------------------------------ VALIDATE TF ------------------------------------------
   validate-tf:
@@ -182,6 +210,19 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
 
+      # Get Artifact from frontend build
+      - name: Get frontend build
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-build
+          path: ./dist
+
+      - name: Clear storage bucket
+        run: gsutil -m rm -r $STAGING_BUCKET_NAME
+
+      - name: copy build files to storage bucket
+        run: gsutil -m cp -r dist/* $STAGING_BUCKET_NAME
+
   # ------------------------------------------ PROD ------------------------------------------
   deploy-prodction:
     name: "Deploy to Production"
@@ -218,3 +259,16 @@ jobs:
         working-directory: ./deploy
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
+
+      # Get Artifact from frontend build
+      - name: Get frontend build
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-build
+          path: ./dist
+
+      - name: Clear storage bucket
+        run: gsutil -m rm -r $PROD_BUCKET_NAME
+
+      - name: copy build files to storage bucket
+        run: gsutil -m cp -r dist/* $PROD_BUCKET_NAME
