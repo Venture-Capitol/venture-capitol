@@ -6,3 +6,50 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model User {
+  id        String          @id @unique
+  companies UserInCompany[]
+}
+
+model UserInCompany {
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+
+  @@id([userId, companyId])
+}
+
+model Company {
+  id            String          @id @default(uuid())
+  name          String?
+  users         UserInCompany[]
+  legalForm     LegalForm
+  completedTask completedTask[]
+  madeDecision  madeDecision[]
+}
+
+model completedTask {
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+  taskId    String
+
+  @@id([companyId, taskId])
+}
+
+model madeDecision {
+  decisionId   String
+  company      Company @relation(fields: [companyId], references: [id])
+  companyId    String
+  selectedPath Int
+
+  @@id([companyId, decisionId])
+}
+
+enum LegalForm {
+  GMBH
+  UG
+  EINZELUNTERNEHMEN
+  FREIBERUFLER
+}
