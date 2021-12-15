@@ -1,0 +1,34 @@
+### ----- GET BY ID: localhost:8103/entry/:id -----
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8103/entry/43
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8103/entry/12932
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8103/entry/4gustav
+
+
+### ----- GET ALL: localhost:8103/entry?verified={verified}&amount={amount}&page={page} -----
+
+### verified, amount and page set
+GET http://localhost:8103/entry?verified=false&amount=2&page=2
+
+### amount and page set | verified undefined | SHOULD IGNORE VERIFIED STATUS
+GET http://localhost:8103/entry?amount=5&page=1
+
+### verified and amount set | page undefined | SHOULD TAKE FIRST PAGE (SAME AS PAGE=0)
+GET http://localhost:8103/entry?verified=false&amount=3
+
+### only amount set | SHOULD TAKE FIRST AMOUNT RESULTS, IGNORE VERIFIED STATUS
+GET http://localhost:8103/entry?amount=7
+
+### only verified set 
+GET http://localhost:8103/entry?verified=false
+
+### nothing set | SHOULD RETURN ALL ENTRIES
+GET http://localhost:8103/entry
+
+### DOESNT WORK YET ---> verified content is parsed into undefined which is a valid, SHOULD RETURN 400 
+GET http://localhost:8103/entry?verified:gustav

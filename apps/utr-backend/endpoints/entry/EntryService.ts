@@ -1,114 +1,137 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-/*
- * 1. doesn't return distance to given location yet
- * 2. no error handling with code 400 for findMany when no entries found
- */
+// note: NOT TESTED YET
+// note: needs implementation of calcDistance to work properly
 async function searchEntries(
-	jobname,
-	street,
-	streetnr,
-	plz,
-	location,
-	callback
+	jobname: string,
+	street: string,
+	streetnr: string,
+	plz: string,
+	location: string,
+	callback: Function
 ) {
-	if (typeof plz !== "number") {
-		callback(404, null);
+	if (
+		typeof jobname !== "string" ||
+		typeof street !== "string" ||
+		typeof streetnr !== "string" ||
+		typeof plz !== "string" ||
+		typeof location !== "string"
+	) {
+		return callback("400", null);
+	} else if (
+		jobname !== "Notar" &&
+		jobname !== "Rechtsanwalt" &&
+		jobname !== "Steuerberater" &&
+		jobname !== "Webagentur"
+	) {
+		return callback("400", null);
 	} else {
-		const searchResults = await prisma.entry.findMany({
-			where: {
-				job: {
-					equals: jobname,
+		try {
+			const searchResults = await prisma.entry.findMany({
+				where: {
+					job: {
+						equals: jobname,
+					},
+					/*
+					verified: {
+						equals: true,
+					},
+					*/
 				},
-				verified: {
-					equals: true,
-				},
-			},
-		});
-		return callback(null, searchResults);
+			});
+			if (searchResults) {
+				/*
+				 * somehow calcDistance needs to be called for every entry in searchResults
+				 * and might also need to pass the distance back in a callback for error handling & saving
+				 * note: ATM THIS DOESNT WORK / DO ANYTHING!
+				 */
+				searchResults.forEach(element =>
+					calcDistance(element, street, streetnr, plz, location)
+				);
+			}
+			return callback(null, searchResults);
+		} catch (exception) {
+			//if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+			return callback("500", null);
+			//}
+		}
 	}
 }
 
-/*
- * 1. check for cases where verified not given in combination with other params
- * -> find more efficient way than 3 dozens if-cases
- * 2. no error handling for findMany with code 400
- */
-async function getAllEntries(verified, amount, page, callback) {
+// note: used in searchEntries
+// note: NOT TESTED YET
+function calcDistance(
+	element,
+	street: string,
+	streetnr: string,
+	plz: string,
+	location: string
+) {
+	// to be implemented - also needs efficient saving of these infos for each element
+}
+
+async function getAllEntries(
+	callback: Function,
+	verified?: boolean,
+	amount?: number,
+	page?: number
+) {
 	if (typeof verified == "boolean" || !verified) {
-		if ((!verified && !amount && !page) || (!verified && !amount && page)) {
-			const allEntries = await prisma.entry.findMany();
-			return callback(null, allEntries);
-		} else if (
-			(verified && !amount && !page) ||
-			(verified && !amount && page)
-		) {
-			const verifiedEntries = await prisma.entry.findMany({
-				where: {
-					verified: {
-						equals: true,
+		try {
+			// needed if case, otherwise multiplication with 'undefined' in skip param would fail
+			if (!page || !amount) {
+				const allEntries = await prisma.entry.findMany({
+					where: {
+						verified: {
+							equals: verified,
+						},
 					},
-				},
-			});
-			return callback(null, verifiedEntries);
-		} else if (!verified && amount && !page) {
-			const firstPageEntries = await prisma.entry.findMany({
-				where: {
-					verified: {
-						equals: true,
+					take: amount,
+				});
+				return callback(null, allEntries);
+			} else {
+				const allEntries = await prisma.entry.findMany({
+					where: {
+						verified: {
+							equals: verified,
+						},
 					},
-				},
-				take: amount,
-			});
-			return callback(null, firstPageEntries);
-		} else if (verified && amount && !page) {
-			const verifiedFirstPageEntries = await prisma.entry.findMany({
-				where: {
-					verified: {
-						equals: true,
-					},
-				},
-				take: amount,
-			});
-			return callback(null, verifiedFirstPageEntries);
-		} else if (verified && amount && page) {
-			const verifiedPagedEntries = await prisma.entry.findMany({
-				where: {
-					verified: {
-						equals: true,
-					},
-				},
-				skip: page * amount,
-				take: amount,
-			});
-			return callback(null, verifiedPagedEntries);
+					skip: page * amount,
+					take: amount,
+				});
+				return callback(null, allEntries);
+			}
+		} catch (exception) {
+			console.log(exception);
+			//if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+			return callback("500", null);
+			//}
 		}
 	} else {
-		callback(
-			"Die Anfrage war fehlerhaft. verified muss keinen Wert oder einen boolean Wert enthalten.",
-			null
-		);
+		return callback("400", null);
 	}
 }
 
+// note: doesnt differ between prisma errors and other exceptions yet
+// note: implement handling for wrong data types using npm express openapi validator
+// note: needs implementation of calculateLatLong to work properly
 async function createEntry(
-	job,
-	company,
-	street,
-	streetnr,
-	plz,
-	location,
-	email,
-	telefon,
-	website,
-	callback
+	job: string,
+	company: string,
+	street: string,
+	streetnr: string,
+	plz: string,
+	location: string,
+	email: string,
+	callback: Function,
+	telefon?: string,
+	website?: string,
+	description?: string
 ) {
-	if (!company || !email || !job || !street || !streetnr || !location || plz) {
-		callback(
-			"Die Anfrage war fehlerhaft. Company, E-Mail, Job, Street, StreetNr, PLZ & Location sind required."
-		);
+	if (!company || !email || !job || !street || !streetnr || !location || !plz) {
+		return callback("400", null);
 	} else {
 		calculateLatLong(
 			street,
@@ -119,53 +142,77 @@ async function createEntry(
 				if (error) {
 					console.log("There was an error calculating latitude and longitude");
 				} else {
-					// note: latitude and longitude will always be 0.0 atm, implement calculateLatLong to change
-					const createdEntry = await prisma.entry.create({
-						data: {
-							job: job,
-							company: company,
-							street: street,
-							streetnr: streetnr,
-							plz: plz,
-							location: location,
-							latitude: latitude,
-							longitude: longitude,
-							email: email,
-							telefon: telefon,
-							website: website,
-						},
-					});
-					return callback(null, createdEntry);
+					try {
+						// note: latitude and longitude will always be 0.0 atm, implement calculateLatLong to change
+						const createdEntry = await prisma.entry.create({
+							data: {
+								job: job,
+								company: company,
+								street: street,
+								streetnr: streetnr,
+								plz: plz,
+								location: location,
+								latitude: latitude,
+								longitude: longitude,
+								email: email,
+								telefon: telefon,
+								website: website,
+								description: description,
+							},
+						});
+						// note: PrismaClientValidationError would be wrong data type provided
+						return callback(null, createdEntry);
+					} catch (exception) {
+						//if (exception instanceof Prisma.???) {
+						return callback("500", null);
+						//}
+					}
 				}
 			}
 		);
 	}
 }
 
-// note: used in createEntry and searchEntries to calculate distance between entry data and user data
-function calculateLatLong(street, streetnr, plz, location, callback) {
+// note: used in createEntry and updateEntry to calculate distance between entry data and user data
+// note: NOT TESTED YET
+function calculateLatLong(
+	street: string,
+	streetnr: string,
+	plz: string,
+	location: string,
+	callback: Function
+) {
 	// to be implemented - need API
 	return callback(null, 0.0, 0.0);
 }
 
-// note: no error handling for prisma findUnique with 400 if no entry found
-async function getEntry(entryID, callback) {
-	if (typeof entryID !== "number") {
-		callback("Die Anfrage war Fehlerhaft. id muss vom typ number sein.", null);
+// note: NOT TESTED YET
+async function getEntry(entryID: number, callback: Function) {
+	if (isNaN(entryID)) {
+		return callback("400", null);
 	} else {
-		const foundEntry = await prisma.entry.findUnique({
-			where: {
-				id: entryID,
-			},
-		});
-		return callback(null, foundEntry);
+		try {
+			const foundEntry = await prisma.entry.findUnique({
+				where: {
+					id: entryID,
+				},
+			});
+			if (foundEntry == null) {
+				return callback("404", null);
+			} else {
+				return callback(null, foundEntry);
+			}
+		} catch (exception) {
+			return callback("500", null);
+		}
 	}
 }
 
-// note: no error handling for prisma update with code 400 yet
-async function updateEntry(id, body, callback) {
+// note: NOT TESTED YET
+// note: needs implementation of calculateLatLong to work properly
+async function updateEntry(id: number, body, callback: Function) {
 	if (typeof id !== "number" || !body) {
-		callback("400", null);
+		return callback("400", null);
 	} else {
 		calculateLatLong(
 			body.street,
@@ -176,43 +223,66 @@ async function updateEntry(id, body, callback) {
 				if (error) {
 					console.log("There was an error calculating latitude and longitude");
 				} else {
-					// note: latitude and longitude will always be 0.0 atm, implement calculateLatLong to change
-					const updatedEntry = await prisma.entry.update({
-						where: {
-							id: id,
-						},
-						data: {
-							job: body.job,
-							company: body.company,
-							street: body.street,
-							streetnr: body.streetnr,
-							plz: body.plz,
-							location: body.location,
-							latitude: latitude,
-							longitude: longitude,
-							email: body.email,
-							telefon: body.telefon,
-							website: body.website,
-						},
-					});
-					return callback(null, updatedEntry);
+					try {
+						// note: latitude and longitude will always be 0.0 atm, implement calculateLatLong to change
+						const updatedEntry = await prisma.entry.update({
+							where: {
+								id: id,
+							},
+							data: {
+								job: body.job,
+								company: body.company,
+								street: body.street,
+								streetnr: body.streetnr,
+								plz: body.plz,
+								location: body.location,
+								latitude: latitude,
+								longitude: longitude,
+								email: body.email,
+								telefon: body.telefon,
+								website: body.website,
+								description: body.description,
+							},
+						});
+						return callback(null, updatedEntry);
+					} catch (exception) {
+						if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+							if (exception.code === "P2001") {
+								// possibly inaccurate errorcode, see prisma ref
+								return callback("404", null);
+							} else {
+								return callback("500", null);
+							}
+						}
+					}
 				}
 			}
 		);
 	}
 }
 
-// note: no error handling for prisma delete with code 404 yet
-async function deleteEntry(id, callback) {
+// note: NOT TESTED YET
+async function deleteEntry(id: number, callback: Function) {
 	if (typeof id !== "number") {
 		return callback("400");
 	} else {
-		const deleteUser = await prisma.entry.delete({
-			where: {
-				id: id,
-			},
-		});
-		return callback(null);
+		try {
+			const deleteUser = await prisma.entry.delete({
+				where: {
+					id: id,
+				},
+			});
+			return callback(null);
+		} catch (exception) {
+			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+				if (exception.code === "P2001") {
+					// possibly inaccurate errorcode, see prisma ref
+					return callback("404", null);
+				} else {
+					return callback("500", null);
+				}
+			}
+		}
 	}
 }
 
