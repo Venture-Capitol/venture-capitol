@@ -11,6 +11,7 @@ datasource db {
 }
 
 model Entry {
+<<<<<<< HEAD
     id          Int     @id @default(autoincrement())
     job         String
     company     String @unique
@@ -25,4 +26,19 @@ model Entry {
     telefon     String?
     website     String?
     verified    Boolean @default(false) @db.Boolean
+=======
+    id        Int     @id @default(autoincrement())
+    job       String
+    company   String  @unique
+    street    String
+    streetnr  String
+    plz       Int
+    location  String
+    latitude  Float
+    longitude Float
+    email     String  @unique
+    telefon   String?
+    website   String?
+    verified  Boolean @default(false) @db.Boolean
+>>>>>>> projekt/main
 }

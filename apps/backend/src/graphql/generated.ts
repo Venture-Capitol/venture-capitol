@@ -1,6 +1,7 @@
 import type { GraphQLResolveInfo } from "graphql";
 import type { MercuriusContext } from "mercurius";
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
 	[K in keyof T]: T[K];
 };
@@ -61,6 +62,7 @@ export type Query = {
 	__typename?: "Query";
 	Hello: Scalars["String"];
 	dogs: Array<Dog>;
+	humans: Array<Human>;
 };
 
 export type Subscription = {
@@ -82,7 +84,7 @@ export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
 	args: TArgs,
 	context: TContext,
 	info: GraphQLResolveInfo
-) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
 
 export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
 	parent: TParent,
@@ -231,6 +233,7 @@ export type QueryResolvers<
 > = {
 	Hello?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 	dogs?: Resolver<Array<ResolversTypes["Dog"]>, ParentType, ContextType>;
+	humans?: Resolver<Array<ResolversTypes["Human"]>, ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<
