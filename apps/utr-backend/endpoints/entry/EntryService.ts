@@ -63,7 +63,7 @@ async function searchEntries(
 // note: used in searchEntries
 // note: NOT TESTED YET
 function calcDistance(
-	element,
+	element: any,
 	street: string,
 	streetnr: string,
 	plz: string,
@@ -138,7 +138,7 @@ async function createEntry(
 			streetnr,
 			plz,
 			location,
-			async function (error, latitude, longitude) {
+			async function (error: any, latitude: number, longitude: number) {
 				if (error) {
 					console.log("There was an error calculating latitude and longitude");
 				} else {
@@ -210,7 +210,7 @@ async function getEntry(entryID: number, callback: Function) {
 
 // note: NOT TESTED YET
 // note: needs implementation of calculateLatLong to work properly
-async function updateEntry(id: number, body, callback: Function) {
+async function updateEntry(id: number, body: any, callback: Function) {
 	if (typeof id !== "number" || !body) {
 		return callback("400", null);
 	} else {
@@ -219,7 +219,7 @@ async function updateEntry(id: number, body, callback: Function) {
 			body.streetnr,
 			body.plz,
 			body.location,
-			async function (error, latitude, longitude) {
+			async function (error: any, latitude: number, longitude: number) {
 				if (error) {
 					console.log("There was an error calculating latitude and longitude");
 				} else {

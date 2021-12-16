@@ -16,7 +16,7 @@ router.get("/search", function (req, res, next) {
 		query.streetnr,
 		query.plz,
 		query.location,
-		function (errorcode, result) {
+		function (errorcode: string, result: any) {
 			if (errorcode) {
 				if (errorcode == "404") {
 					console.log(
@@ -53,7 +53,7 @@ router.get("/", function (req, res, next) {
 	console.log(amountAsNumber);
 	console.log(pageAsNumber);
 	EntryService.getAllEntries(
-		function (errorcode, result) {
+		function (errorcode: string, result: any) {
 			if (errorcode) {
 				if (errorcode == "400") {
 					console.log(
@@ -98,7 +98,7 @@ router.post("/", function (req, res, next) {
 		body.plz,
 		body.location,
 		body.email,
-		function (errorcode, result) {
+		function (errorcode: string, result: any) {
 			if (errorcode) {
 				if (errorcode == "400") {
 					console.log(
@@ -125,7 +125,7 @@ router.post("/", function (req, res, next) {
 // get one company by its id
 router.get("/:id", function (req, res, next) {
 	const idAsNumber = Number(req.params.id);
-	EntryService.getEntry(idAsNumber, function (errorcode, result) {
+	EntryService.getEntry(idAsNumber, function (errorcode: string, result: any) {
 		if (errorcode) {
 			if (errorcode == "400") {
 				console.log("Die Anfrage war Fehlerhaft. id muss vom typ number sein.");
@@ -155,7 +155,7 @@ router.put("/:id", function (req, res, next) {
 	EntryService.updateEntry(
 		req.params.id,
 		req.body.entry,
-		function (errorcode, result) {
+		function (errorcode: string, result: any) {
 			if (errorcode) {
 				if (errorcode == "404") {
 					console.log("Es exisiert kein Eintrag für diese ID.");
@@ -190,7 +190,7 @@ router.put("/:id", function (req, res, next) {
 
 // delete one company, identified by its id
 router.delete("/:id", isAuthenticated, function (req, res, next) {
-	EntryService.deleteEntry(req.params.id, function (errorcode) {
+	EntryService.deleteEntry(req.params.id, function (errorcode: string) {
 		if (errorcode) {
 			if (errorcode == "404") {
 				console.log("Es exisiert kein Eintrag für diese ID");
@@ -223,7 +223,7 @@ router.delete("/:id", isAuthenticated, function (req, res, next) {
 // add isAuthenticated
 // create new entry for a company
 router.post("/addMany", function (req, res, next) {
-	EntryUtils.addManyEntries(function (errorcode) {
+	EntryUtils.addManyEntries(function (errorcode: string) {
 		if (errorcode) {
 			if (errorcode == "500") {
 				console.log("500 Error beim erstellen sinnvoller Starteintraege.");
