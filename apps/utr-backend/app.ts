@@ -1,5 +1,5 @@
 import express = require("express");
-import cors = require("cors");
+import cors from "cors";
 import { initializeApp } from "firebase-admin/app";
 
 var indexRouter = require("./endpoints/index/IndexRoute");

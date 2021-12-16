@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -47,9 +47,6 @@ async function searchEntries(
 				 * and might also need to pass the distance back in a callback for error handling & saving
 				 * note: ATM THIS DOESNT WORK / DO ANYTHING!
 				 */
-				searchResults.forEach(element =>
-					calcDistance(element, street, streetnr, plz, location)
-				);
 			}
 			return callback(null, searchResults);
 		} catch (exception) {
@@ -246,14 +243,9 @@ async function updateEntry(id: number, body: any, callback: Function) {
 						});
 						return callback(null, updatedEntry);
 					} catch (exception) {
-						if (exception instanceof Prisma.PrismaClientKnownRequestError) {
-							if (exception.code === "P2001") {
-								// possibly inaccurate errorcode, see prisma ref
-								return callback("404", null);
-							} else {
-								return callback("500", null);
-							}
-						}
+						//if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+						return callback("500", null);
+						//}
 					}
 				}
 			}
@@ -274,14 +266,9 @@ async function deleteEntry(id: number, callback: Function) {
 			});
 			return callback(null);
 		} catch (exception) {
-			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
-				if (exception.code === "P2001") {
-					// possibly inaccurate errorcode, see prisma ref
-					return callback("404", null);
-				} else {
-					return callback("500", null);
-				}
-			}
+			//if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+			return callback("500", null);
+			//}
 		}
 	}
 }
