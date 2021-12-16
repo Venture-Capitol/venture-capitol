@@ -182,6 +182,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
+          create_credentials_file: true
 
       - name: Get the current revision description
         id: get-current-revision
