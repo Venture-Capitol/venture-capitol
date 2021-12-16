@@ -182,7 +182,12 @@ jobs:
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
-          create_credentials_file: true
+          # create_credentials_file: true
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.3.0
+        with:
+          export_default_credentials: true
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.3.0
