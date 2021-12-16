@@ -199,6 +199,7 @@ jobs:
         run: |
           echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
           echo "TF_VAR_image_name=${{fromJson(steps.get-current-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{steps.auth.outputs.credentials_file_path}}" >> $GITHUB_ENV
 
       - name: Terraform Init
         id: init
