@@ -1,0 +1,68 @@
+### INTERNE TEST FUNKTION - ERSTRELLEN MEHERER STARTEINTRAEGE
+POST http://localhost:8103/entry/addMany
+
+### neuen Entry anlegen | Standard
+POST http://localhost:8103/entry/
+content-type: application/json
+
+{
+    "entry": {
+        "job": "Notar",
+        "company": "NotareDeutschland",
+        "street": "Eythstraße",
+        "streetnr": "14A",
+        "plz": "12105",
+        "location": "Berlin",
+        "email": "notare@deutschland.de",
+        "telefon": "+49 (0)15204847706",
+        "website": "notare-deutschland.de",
+        "description": "Die besten Notare in Deutschland mit allen wichtigen Services"
+    }
+}
+
+### neuen Entry anlegen | ohne optional params telefon, website und description
+POST http://localhost:8103/entry/
+content-type: application/json
+
+{
+    "entry": {
+        "job": "Webagentur",
+        "company": "Berlin4Web",
+        "street": "Coolestraße",
+        "streetnr": "27B",
+        "plz": "8729.B",
+        "location": "Hamburg",
+        "email": "berlin@web.org"
+    }
+}
+
+### neuen Entry anlegen | required param company fehlt | SHOULD FAIL & RETURN 400
+POST http://localhost:8103/entry/
+content-type: application/json
+
+{
+    "entry": {
+        "job": "Steuerberater",
+        "street": "Anderestraße",
+        "streetnr": "6",
+        "plz": "27392",
+        "location": "München", 
+        "email": "steuer@berater.com"
+    }
+}
+
+### neuen Entry anlegen | location hat falschen Datentyp | SHOULD FAIL & RETURN 400
+POST http://localhost:8103/entry/
+content-type: application/json
+
+{
+    "entry": {
+        "job": "Webagentur",
+        "company": "Berlin4Web",
+        "street": "Coolestraße",
+        "streetnr": "27B",
+        "plz": "8729.B",
+        "location": 392,
+        "email": "berlin@web.org"
+    }
+}

@@ -1,8 +1,9 @@
 import express = require("express");
-import cors = require("cors");
+import cors from "cors";
 import { initializeApp } from "firebase-admin/app";
 
 var indexRouter = require("./endpoints/index/IndexRoute");
+var entryRouter = require("./endpoints/entry/EntryRoute");
 
 initializeApp();
 
@@ -23,5 +24,6 @@ app.use(express.json()); //parses json body
 
 // Adding Routes
 app.use("/", indexRouter);
+app.use("/entry", entryRouter);
 
 export = app;
