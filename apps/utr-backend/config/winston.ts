@@ -30,7 +30,7 @@ var logger = winston.createLogger({
 	exitOnError: false,
 });
 
-function formatLogArguments(args) {
+function formatLogArguments(args: any) {
 	args = Array.prototype.slice.call(args);
 
 	var stackInfo = getStackInfo(1);
@@ -48,7 +48,7 @@ function formatLogArguments(args) {
 	return args;
 }
 
-function getStackInfo(stackIndex) {
+function getStackInfo(stackIndex: any) {
 	var stacklist = new Error().stack.split("\n").slice(3);
 
 	var stackReg = /at\s+(.*)\s+\((.*):(\d*):(\d*)\)/gi;
