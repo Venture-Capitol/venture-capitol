@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-import app = require("../app");
+import app = require("./app");
 import http = require("http");
-import logger = require("../config/winston");
+import logger = require("./config/winston");
 
 /**
  * Get port from environment and store in Express.
