@@ -16,16 +16,15 @@ RUN npx lerna bootstrap
 COPY apps/utr-backend/src ./apps/utr-backend/src
 RUN npx lerna run build --scope @vc/utr-backend
 RUN (cd apps/utr-backend && npx prisma generate)
-COPY /app/apps/utr-backend/node_modules/.prisma/client/*.node /app/dist/
-COPY /app/apps/utr-backend/node_modules/.prisma/client/schema.prisma /app/dist/
-CMD ls ./apps/utr-backend/node_modules/.prisma/client/
+RUN cp apps/utr-backend/node_modules/.prisma/client/libquery_engine-linux-musl.so.node /app/apps/utr-backend/dist
+RUN cp apps/utr-backend/node_modules/.prisma/client/schema.prisma /app/apps/utr-backend/dist
 
 # Run the app
-# FROM node:16-alpine as runner
-# ENV NODE_ENV=production
-# ENV HOST=0.0.0.0
+FROM node:16-alpine as runner
+ENV NODE_ENV=production
+ENV HOST=0.0.0.0
 
-# WORKDIR /app
-# COPY --from=builder /app/apps/utr-backend/dist ./
+WORKDIR /app
+COPY --from=builder /app/apps/utr-backend/dist ./
 
-# CMD node index.js
+CMD node index.js
