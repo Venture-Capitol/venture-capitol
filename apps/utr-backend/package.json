@@ -19,7 +19,7 @@
 	},
 	"scripts": {
 		"start": "docker-compose up -d && ts-node-dev -r dotenv/config src/index.ts",
-		"build": "npm run clean && npm run compile",
+		"build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node16",
 		"clean": "rm -rf ./dist",
 		"compile": "tsc -p tsconfig.build.json",
 		"test": "npm run build"

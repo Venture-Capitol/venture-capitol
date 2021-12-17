@@ -1,7 +1,7 @@
 import appRoot from "app-root-path";
 import winston = require("winston");
 import path = require("path");
-var PROJECT_ROOT = path.join(__dirname, "..");
+var PROJECT_ROOT = path.join(__dirname, "../..");
 
 var options = {
 	file: {
