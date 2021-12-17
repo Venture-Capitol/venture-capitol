@@ -240,12 +240,16 @@ jobs:
       - name: Checkout Repository Files
         uses: actions/checkout@v2
 
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Authenticate with Google Cloud
         id: auth
         uses: google-github-actions/auth@v0.4.3
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.3.0
 
       - name: Export image names as environment variables
         run: |
@@ -270,8 +274,6 @@ jobs:
           name: frontend-build
           path: ./dist
 
-      - name: Clear storage bucket
-        run: gsutil -m rm -r $PROD_BUCKET_NAME
-
-      - name: copy build files to storage bucket
-        run: gsutil -m cp -r dist/* $PROD_BUCKET_NAME
+      - name: Upload frontend build
+        run: gsutil -m rsync -d -r ./ $PROD_BUCKET_NAME
+        working-directory: ./dist
