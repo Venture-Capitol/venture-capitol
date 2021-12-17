@@ -222,11 +222,9 @@ jobs:
           name: frontend-build
           path: ./dist
 
-      - name: Clear storage bucket
-        run: gsutil -m rm -r $STAGING_BUCKET_NAME
-
-      - name: copy build files to storage bucket
-        run: gsutil -m cp -r dist/* $STAGING_BUCKET_NAME
+      - name: Upload frontend build
+        run: gsutil -m rsync -d -r ./ $STAGING_BUCKET_NAME
+        working-directory: ./dist
 
   # ------------------------------------------ PROD ------------------------------------------
   deploy-prodction:
