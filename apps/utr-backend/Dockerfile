@@ -13,7 +13,7 @@ COPY packages ./packages
 RUN npx lerna bootstrap
 
 # Copy source files
-COPY apps/utr-backend/src .apps/utr-backend/src
+COPY apps/utr-backend/src ./apps/utr-backend/src
 RUN npx lerna run build --scope @vc/utr-backend
 
 # Run the app
