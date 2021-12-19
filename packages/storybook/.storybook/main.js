@@ -14,10 +14,6 @@ module.exports = {
 		"../../../apps/frontend/src/components/**/*.stories.mdx",
 		"../../../apps/frontend/src/components/**/*.stories.@(js|jsx|ts|tsx)",
 
-		// --- UTR components ---
-		"../../../apps/utr-frontend/components/**/*.stories.mdx",
-		"../../../apps/utr-frontend/components/**/*.stories.@(js|jsx|ts|tsx)",
-
 		// --- Global components ---
 		"../../ui/**/*.stories.mdx",
 		"../../ui/**/*.stories.@(js|jsx|ts|tsx)",
