@@ -1,12 +1,4 @@
-* {
-	box-sizing: border-box;
-}
-
-body,
-html,
-#root {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	font-family: "Space Grotesk", sans-serif;
-}
+@import "@vc/ui/src/styles/reset.scss";
+@import "@vc/ui/src/styles/fonts.scss";
+@import "@vc/ui/src/styles/tokens.scss";
+@import "@vc/ui/src/styles/base.scss";
