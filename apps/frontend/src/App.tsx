@@ -3,6 +3,8 @@ import { AuthProvider } from "@vc/auth";
 import Demo from "./pages/Demo/Demo";
 import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
+import Content from "./components/Content/Content";
+import DemoAsyncContent from "./pages/Demo/DemoAsyncContent";
 
 function App() {
 	return (
@@ -18,6 +20,8 @@ function App() {
 					<Route path='/demoAuth'>
 						<DemoAuth />
 					</Route>
+					<Route path='/content' exact component={DemoAsyncContent} />
+					<Route path='/content/:id' component={Content}></Route>
 				</Switch>
 			</Router>
 		</AuthProvider>
