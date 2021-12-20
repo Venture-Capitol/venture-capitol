@@ -1,17 +1,17 @@
 body {
 	// color
-	--background-gradient: radial-gradient(
+	--color-background-gradient: radial-gradient(
 		95.33% 88.77% at 100% 25.99%,
 		#f3eae4 0%,
 		#f5ebdf 11.12%,
 		#f6f5f8 33.47%
 	);
-	--grey-900: #141414;
-	--grey-800: #343434;
-	--grey-600: #6c655e;
-	--green-900: #136324;
-	--green-600: #abe4b7;
-	--green-300: #effff1;
+	--color-grey-900: #141414;
+	--color-grey-800: #343434;
+	--color-grey-600: #6c655e;
+	--color-green-900: #136324;
+	--color-green-600: #abe4b7;
+	--color-green-300: #effff1;
 
 	// fonts
 	--font-weight-light: 300;
@@ -19,4 +19,24 @@ body {
 	--font-weight-medium: 500;
 	--font-weight-semi-bold: 600;
 	--font-weight-bold: bold;
+
+	// size -- https://tailwindcss.com/docs/customizing-spacing
+	--size-01px: 1px;
+	--size-02px: 0.125rem;
+	--size-04px: 0.25rem;
+	--size-06px: 0.375rem;
+	--size-08px: 0.5rem;
+	--size-10px: 0.625rem;
+	--size-12px: 0.75rem;
+	--size-14px: 0.875rem;
+	--size-16px: 1rem;
+	--size-18px: 1.125rem;
+	--size-20px: 1.25rem;
+	--size-24px: 1.5rem;
+	--size-28px: 1.75rem;
+	--size-32px: 2rem;
+	--size-36px: 2.25rem;
+	--size-40px: 2.5rem;
+	--size-44px: 2.75rem;
+	--size-48px: 3rem;
 }
