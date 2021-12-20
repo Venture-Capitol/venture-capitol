@@ -171,10 +171,9 @@ jobs:
     outputs:
       currentRevision: ${{ steps.get-current-revision.outputs.json }}
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    # Prevent two merged pull requests in quick succession overwriting each other 
-    concurrency: 
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
       group: deploy-staging
-      cancel-in-progress: true
 
     steps:
       - name: Checkout Repository Files
@@ -238,10 +237,9 @@ jobs:
       name: production
       url: https://venturecapitol.de
     needs: [deploy-staging]
-    # Prevent two merged pull requests in quick succession overwriting each other 
-    concurrency: 
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
       group: deploy-production
-      cancel-in-progress: true
 
     steps:
       # Checkout the repository to the GitHub Actions runner
