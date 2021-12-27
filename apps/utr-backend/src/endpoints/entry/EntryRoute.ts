@@ -1,7 +1,7 @@
 import express = require("express");
 import { Router } from "express";
 const router = Router();
-import { isAuthenticated } from "../utils/AuthenticationUtils";
+import { isAuthenticatedAsAdmin } from "../utils/AuthenticationUtils";
 
 const EntryService = require("./EntryService");
 const EntryUtils = require("../utils/EntryUtils");
@@ -189,7 +189,7 @@ router.put("/:id", function (req, res, next) {
 });
 
 // delete one company, identified by its id
-router.delete("/:id", isAuthenticated, function (req, res, next) {
+router.delete("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
 	EntryService.deleteEntry(req.params.id, function (errorcode: string) {
 		if (errorcode) {
 			if (errorcode == "404") {
