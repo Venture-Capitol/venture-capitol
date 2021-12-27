@@ -1,7 +1,7 @@
 import express = require("express");
 import { Router } from "express";
 const router = Router();
-import { isAuthenticatedAsAdmin } from "../utils/AuthenticationUtils";
+import { isAuthenticatedAsAdmin, getRole } from "../utils/AuthenticationUtils";
 
 const EntryService = require("./EntryService");
 const EntryUtils = require("../utils/EntryUtils");
@@ -44,8 +44,8 @@ router.get("/search", function (req, res, next) {
 
 // get all companies
 // note: how to make query params optional
-// note: add isAuthenticated
-router.get("/", function (req, res, next) {
+// note: add isAuthenticated - done, only lets admins pass
+router.get("/", isAuthenticatedAsAdmin, function (req, res, next) {
 	const verifiedAsBoolean = EntryUtils.parseToBoolean(req.query.verified);
 	const amountAsNumber = EntryUtils.parseToNumber(req.query.amount);
 	const pageAsNumber = EntryUtils.parseToNumber(req.query.page);
@@ -86,9 +86,9 @@ router.get("/", function (req, res, next) {
 	);
 });
 
-// add isAuthenticated
+// add isAuthenticated - no, used getRole which lets admins and users pass
 // create new entry for a company
-router.post("/", function (req, res, next) {
+router.post("/", getRole, function (req, res, next) {
 	const body = req.body.entry;
 	EntryService.createEntry(
 		body.job,
@@ -121,7 +121,7 @@ router.post("/", function (req, res, next) {
 	);
 });
 
-// add isAuthenticated
+// add isAuthenticated - no, because everybody should be able to get one entry
 // get one company by its id
 router.get("/:id", function (req, res, next) {
 	const idAsNumber = Number(req.params.id);
@@ -149,9 +149,9 @@ router.get("/:id", function (req, res, next) {
 	});
 });
 
-// add isAuthenticated
+// add isAuthenticated - done, only lets admins pass
 // change one company, identified by its id
-router.put("/:id", function (req, res, next) {
+router.put("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
 	EntryService.updateEntry(
 		req.params.id,
 		req.body.entry,
