@@ -1,6 +1,5 @@
 import { FunctionComponent } from "react";
 import s from "./TextBlock.module.scss";
-import TextAbsatz from "./TextAbsatz";
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
 
 type TextProps = {

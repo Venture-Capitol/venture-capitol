@@ -6,4 +6,10 @@
 	border-width: 1px;
 	background-color: #fff;
 	cursor: pointer;
+	transition: 0.3s ease-in-out;
+}
+
+.default_btn:hover {
+	background-color: #343434;
+	color: #fff;
 }
