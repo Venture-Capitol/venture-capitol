@@ -1,0 +1,17 @@
+.block {
+	max-width: 725px;
+	margin-bottom: 30px;
+
+	@media (max-width: 768px) {
+		margin-bottom: 15px;
+	}
+}
+
+.block_content {
+	white-space: pre-line;
+}
+
+.block_content a {
+	color: blue;
+	text-decoration: none;
+}
