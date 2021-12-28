@@ -1,14 +1,11 @@
 ### searching for NOTAR providing valid location data
-http://localhost:8103/entry/search?jobname=Notar&street=Eythstraße&streetnr=16&plz=12105&location=Berlin
+http://localhost:8103/entry/search?jobname=Notar&lat=137.29&long=293.123
 
 ### searching for RECHTSANWWALT providing valid location data
-http://localhost:8103/entry/search?jobname=Rechtsanwalt&street=Eythstraße&streetnr=16&plz=12105&location=Berlin
+http://localhost:8103/entry/search?jobname=Rechtsanwalt&lat=2393.29&long=192.12
 
-### searching for NOTAR without given street | SHOULD FAIL & RETURN 400
-http://localhost:8103/entry/search?jobname=Notar&streetnr=16&plz=12105&location=Berlin
+### searching for NOTAR without given lat | SHOULD FAIL & RETURN 400
+http://localhost:8103/entry/search?jobname=Notar&long=300.23
 
-### searching for NOTAR with non-existant street
-http://localhost:8103/entry/search?jobname=Notar&street=haskeiosas&streetnr=16&plz=12105&location=Berlin
-
-### searching for invalid job providing valid location data | SHOULD FAIL & RETURN
-http://localhost:8103/entry/search?jobname=Hausmeister&street=Eythstraße&streetnr=16&plz=12105&location=Berlin
+### searching for invalid job providing valid location data | SHOULD FAIL & RETURN 400
+http://localhost:8103/entry/search?jobname=Hausmeister&lat=137.29&long=293.123
