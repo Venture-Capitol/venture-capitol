@@ -25,11 +25,15 @@ module.exports = {
 		"@storybook/addon-essentials",
 		"@storybook/preset-scss",
 	],
-
 	webpackFinal: async (config, { configType }) => {
 		// `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
 		// You can change the configuration based on that.
 		// 'PRODUCTION' is used when building the static version of storybook.
+
+		config.resolve.alias = {
+      ...config.resolve.alias,
+      '@vc/frontend': path.resolve(__dirname, "../../../apps/frontend"),
+    };
 
 		config.module.rules.push({
 			test: /\.scss$/,

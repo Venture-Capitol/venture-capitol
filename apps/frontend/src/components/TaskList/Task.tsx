@@ -1,6 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import s from "./Task.module.scss";
 import checkmarkIcon from "./checkmark.svg";
+import Button from "@vc/frontend/src/components/Button/Button";
 
 const Task: FunctionComponent = ({ children }) => {
 	const [id] = useState(Math.random().toString());
@@ -19,6 +20,7 @@ const Task: FunctionComponent = ({ children }) => {
 				<img src={checkmarkIcon} alt='' />
 			</label>
 			<p>{children}</p>
+			<Button />
 		</div>
 	);
 };
