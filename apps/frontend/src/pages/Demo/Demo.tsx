@@ -1,6 +1,5 @@
 import TaskList from "@vc/frontend/component/TaskList/TaskList";
-import React from "react";
-import Button from "@vc/frontend/component/Button/Button";
+import DisclaimerPopup from "@vc/frontend/component/Popup/DisclaimerPopup";
 
 export default function Demo() {
 	return (
@@ -15,6 +14,7 @@ export default function Demo() {
 					"radial-gradient(95.33% 88.77% at 100% 25.99%, #F3EAE4 0%, #F5EBDF 11.12%, #F6F5F8 33.47%)",
 			}}
 		>
+			<DisclaimerPopup />
 			<TaskList />
 		</div>
 	);
