@@ -2,7 +2,7 @@
 	display: flex;
 	align-items: center;
 	gap: 30px;
-	font-size: 16px;
+	font-size: var(--size-16px);
 	min-width: 100px;
 	width: fit-content;
 	max-width: 100%;
@@ -26,8 +26,8 @@
 		height: 40px;
 		width: 40px;
 		flex-shrink: 0;
-		background: #fbf9fe;
-		border: 1px solid #ddd6ec;
+		background: var(--color-grey-100);
+		border: 1px solid var(--color-grey-200);
 		border-radius: 8px;
 		cursor: pointer;
 		display: flex;
@@ -69,8 +69,8 @@
 		box-shadow: 0px 12px 10px rgba(0, 204, 82, 0.05);
 
 		label {
-			background: #effff1;
-			border-color: #abe4b7;
+			background: var(--color-green-300);
+			border-color: var(--color-green-600);
 
 			img {
 				opacity: 1;
