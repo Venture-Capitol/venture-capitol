@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
-import { taskGraph, Node, Nodes } from "../../../steps/connections";
+import { taskGraph, Node, Nodes } from "../../steps/connections";
 
 type ProcessContextType = {
 	nodes: ProcessedTaskNodes;

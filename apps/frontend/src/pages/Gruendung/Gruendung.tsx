@@ -1,7 +1,7 @@
 import Button from "@vc/frontend/component/Button/Button";
 import ProcessProvider, {
 	useProcessContext,
-} from "@vc/frontend/component/TaskList/ProcessContext/ProcessContext";
+} from "@vc/frontend/component/ProcessContext/ProcessContext";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import TaskList from "../../components/TaskList/TaskList";
@@ -16,14 +16,12 @@ const Content = () => {
 	let { task } = useParams<{ task?: string }>();
 
 	async function setMarkDownComponent() {
-		console.log("test");
+		setLoadingState("loading");
 
 		try {
-			setLoadingState("loading");
 			const module = await import("../../steps/" + task + ".md");
 			setHtmlContent(module.html);
 			setLoadingState(undefined);
-			console.log(" no error");
 		} catch (error) {
 			setLoadingState("error");
 			setHtmlContent(undefined);
@@ -53,6 +51,7 @@ const Content = () => {
 				)}
 				{loadingState == "error" && (
 					<div>
+						<p>Fehler beim Laden der Seite...</p>
 						<button onClick={() => setMarkDownComponent()}>Neu Laden</button>
 					</div>
 				)}
@@ -64,7 +63,11 @@ const Content = () => {
 				{task &&
 					unprocessedNodes[task] &&
 					unprocessedNodes[task].next.map(next => {
-						return <Link to={next}>{unprocessedNodes[next].shortName}</Link>;
+						return (
+							<Link to={next}>
+								<button>Weiter zu {unprocessedNodes[next].shortName}</button>
+							</Link>
+						);
 					})}
 			</main>
 		</div>
