@@ -27,6 +27,7 @@ const Task: FunctionComponent<TaskProps> = ({ id, name, next, url }) => {
 			data-checked={checked}
 			data-id={id}
 			data-next={next}
+			onClick={handleClick}
 		>
 			<input
 				checked={checked}
@@ -38,7 +39,7 @@ const Task: FunctionComponent<TaskProps> = ({ id, name, next, url }) => {
 			<label htmlFor={inputId}>
 				<img src={checkmarkIcon} alt='' />
 			</label>
-			<span onClick={handleClick}>{name}</span>
+			<span>{name}</span>
 		</div>
 	);
 };

@@ -1,4 +1,4 @@
-# 02 Content
+# Überschrift für die zweite Folie
 
 ## Second header
 

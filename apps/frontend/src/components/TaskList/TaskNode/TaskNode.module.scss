@@ -16,6 +16,7 @@
 	border-radius: 8px;
 	transition-property: background-color, color, border-color;
 	transition: background-color 0.15s ease-out;
+	cursor: pointer;
 
 	input {
 		display: none;
@@ -47,7 +48,6 @@
 		user-select: none;
 		text-align: center;
 		font-weight: var(--font-weight-medium);
-		cursor: pointer;
 		margin: 0px auto;
 	}
 

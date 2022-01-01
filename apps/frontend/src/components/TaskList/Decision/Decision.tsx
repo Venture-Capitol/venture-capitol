@@ -1,9 +1,6 @@
-import { nanoid } from "nanoid";
-import path from "path";
-import React, { FC, ReactElement, useEffect, useState } from "react";
-import DecisionNode, { DecisionNodeProps } from "../DecisionNode/DecisionNode";
-import DecisionPath, { DecisionPathProps } from "../DecisionPath/DecisionPath";
-import EmptyNode, { EmptyNodeProps } from "../EmptyNode/EmptyNode";
+import React, { FC, ReactElement } from "react";
+import DecisionNode from "../DecisionNode/DecisionNode";
+import { DecisionPathProps } from "../DecisionPath/DecisionPath";
 import styles from "./Decision.module.scss";
 
 interface DecisionProps {

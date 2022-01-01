@@ -3,7 +3,6 @@ import { useResizeObserver } from "@vc/frontend/util/useResizeObserver";
 import React, { FC, useEffect, useRef, useState } from "react";
 import Nodes from "./Nodes/Nodes";
 import styles from "./TaskList.module.scss";
-import TaskListProvider from "./TaskListContext/TaskListContext";
 
 const TaskList: FC = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -55,7 +54,8 @@ const TaskList: FC = () => {
 			isDisabled: boolean;
 		}
 
-		const containerBoundingBox = containerRef.current?.getBoundingClientRect();
+		const containerBoundingBox =
+			svgContainerRef.current?.getBoundingClientRect();
 		const boxesHtml = taskListRef.current.querySelectorAll(
 			"[data-task], [data-decision], [data-empty]"
 		);
@@ -190,14 +190,12 @@ const TaskList: FC = () => {
 	}
 
 	return (
-		<TaskListProvider>
-			<div className={styles.taskListContainer} ref={containerRef}>
-				<div className={styles.background} ref={svgContainerRef}></div>
-				<div className={styles.taskList} ref={taskListRef}>
-					<Nodes />
-				</div>
+		<nav className={styles.taskListContainer} ref={containerRef}>
+			<div className={styles.background} ref={svgContainerRef}></div>
+			<div className={styles.taskList} ref={taskListRef}>
+				<Nodes />
 			</div>
-		</TaskListProvider>
+		</nav>
 	);
 };
 

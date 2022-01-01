@@ -1,35 +1,63 @@
 import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
-import {
-	ConnectionsData,
-	data as rawData,
-	Node,
-	Nodes,
-} from "../../../steps/connectons";
+import { taskGraph, Node, Nodes } from "../../../steps/connections";
 
-type NodesContextType = {
-	nodes: Nodes;
+type ProcessContextType = {
+	nodes: ProcessedTaskNodes;
 	initialNodeId: string;
+	unprocessedNodes: Nodes;
 };
 
-const NodesContext = React.createContext<NodesContextType>({
+const ProcessContext = React.createContext<ProcessContextType>({
 	initialNodeId: "",
 	nodes: {},
+	unprocessedNodes: taskGraph.nodes,
 });
 
-export function useNodesContext() {
-	return useContext(NodesContext);
+export function useProcessContext() {
+	return useContext(ProcessContext);
 }
 
-const TaskListProvider: FC = ({ children }) => {
-	const [nodes, setNodes] = useState<Nodes>({});
+export interface ProcessedTaskNode extends Node {
+	id: string;
+	decision?: string;
+	path?: number;
+	pathNodeCounts?: number[];
+	pathMaxNodeCount?: number;
+	prev: string[];
+}
+
+export interface ProcessedTaskNodes {
+	[key: string]: ProcessedTaskNode;
+}
+
+interface ProcessedTaskGraph {
+	initialNode: string;
+	nodes: ProcessedTaskNodes;
+}
+
+const ProcessProvider: FC = ({ children }) => {
+	const [nodes, setNodes] = useState<ProcessedTaskNodes>({});
 	const [initialNodeId, setInitialNodeId] = useState("");
 
+	let processedTaskGraph: ProcessedTaskGraph = {
+		initialNode: taskGraph.initialNode,
+		nodes: {},
+	};
+
+	// fill processedTaskGraph with nodes from taskGraph, add id and empty prev
+	for (const [key, value] of Object.entries(taskGraph.nodes)) {
+		processedTaskGraph.nodes[key] = {
+			...value,
+			next: [...value.next],
+			id: key,
+			prev: [],
+		};
+	}
+
 	useEffect(() => {
-		// deep copy original connections
-		const data: ConnectionsData = JSON.parse(JSON.stringify(rawData));
-		let nodes = data.nodes;
-		let initialNodeId = data.initialNode;
+		const nodes = processedTaskGraph.nodes;
+		const initialNodeId = processedTaskGraph.initialNode;
 
 		calcPrev();
 		calcPath();
@@ -49,30 +77,32 @@ const TaskListProvider: FC = ({ children }) => {
 			Object.keys(nodes).forEach(nodeId => {
 				nodes[nodeId].next.forEach(nextNodeId => {
 					const nextNode = nodes[nextNodeId];
-					if (nextNode) {
-						if (nextNode.prev == undefined) {
-							nextNode.prev = [nodeId];
-						} else {
-							nextNode.prev.push(nodeId);
-						}
+					if (!nextNode) {
+						throw new Error(
+							"Could not find node set as next with ID: " + nextNodeId
+						);
 					}
+
+					nextNode.prev.push(nodeId);
 				});
 			});
 		}
 
-		// calculate path for nodes in decision
+		// calculate path, in which nodes which come after a decision, land
 		function calcPath() {
+			// get all decision nodes
 			const decisionNodes = Object.values(nodes).filter(node => {
 				return node.next.length >= 2;
 			});
-			decisionNodes.forEach(node => {
+
+			decisionNodes.forEach(decisionNode => {
 				let pathNodeCounts: number[] = [];
-				node.next.forEach((nextNodeId, index) => {
+				decisionNode.next.forEach((nextNodeId, index) => {
 					const nodeCount = addPathToNode(index, nextNodeId, 0);
 					pathNodeCounts.push(nodeCount);
 				});
-				nodes[node.id].pathNodeCounts = pathNodeCounts;
-				nodes[node.id].pathMaxNodeCount = Math.max(...pathNodeCounts);
+				nodes[decisionNode.id].pathNodeCounts = pathNodeCounts;
+				nodes[decisionNode.id].pathMaxNodeCount = Math.max(...pathNodeCounts);
 			});
 		}
 
@@ -102,7 +132,7 @@ const TaskListProvider: FC = ({ children }) => {
 			});
 		}
 
-		function addEmptyNodes(node: Node) {
+		function addEmptyNodes(node: ProcessedTaskNode) {
 			if (
 				node.pathMaxNodeCount == undefined ||
 				node.pathNodeCounts == undefined
@@ -161,8 +191,8 @@ const TaskListProvider: FC = ({ children }) => {
 							path: index,
 							name: "",
 							shortName: "",
-							url: "",
 							next: [nextId],
+							prev: [],
 						};
 
 						lastNextId = nextId;
@@ -171,13 +201,15 @@ const TaskListProvider: FC = ({ children }) => {
 			});
 		}
 		return () => {};
-	}, [rawData]);
+	}, [taskGraph]);
 
 	return (
-		<NodesContext.Provider value={{ nodes, initialNodeId }}>
+		<ProcessContext.Provider
+			value={{ nodes, initialNodeId, unprocessedNodes: taskGraph.nodes }}
+		>
 			{children}
-		</NodesContext.Provider>
+		</ProcessContext.Provider>
 	);
 };
 
-export default TaskListProvider;
+export default ProcessProvider;
