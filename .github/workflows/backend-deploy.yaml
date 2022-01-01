@@ -17,7 +17,7 @@ env:
 
 jobs:
   # ------------------------------------------ DOCKER BUILD ------------------------------------------
-  build-push-gcr:
+  build-be:
     name: "Docker: Build and Push Container"
     runs-on: ubuntu-latest
     steps:
@@ -167,10 +167,13 @@ jobs:
     environment:
       name: staging
       url: https://staging.venturecapitol.de
-    needs: [build-push-gcr, validate-tf, build-fe]
+    needs: [build-be, validate-tf, build-fe]
     outputs:
       currentRevision: ${{ steps.get-current-revision.outputs.json }}
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
+      group: deploy-staging
 
     steps:
       - name: Checkout Repository Files
@@ -227,7 +230,7 @@ jobs:
         working-directory: ./dist
 
   # ------------------------------------------ PROD ------------------------------------------
-  deploy-prodction:
+  deploy-production:
     name: "Deploy to Production"
     runs-on: ubuntu-latest
     environment:
