@@ -1,4 +1,3 @@
-import { dropRight, keysIn } from "cypress/types/lodash";
 import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
 import {
@@ -10,44 +9,24 @@ import {
 
 type NodesContextType = {
 	nodes: Nodes;
-	setNodes: (value: Nodes) => void;
-};
-
-type InitialNodeContextType = {
 	initialNodeId: string;
-	setInitialNodeId: (value: string) => void;
-};
-
-type CurrentNodeContextType = {
-	currentNodeId: string;
-	setCurrentNodeId: (value: string) => void;
 };
 
 const NodesContext = React.createContext<NodesContextType>({
+	initialNodeId: "",
 	nodes: {},
-	setNodes: () => {},
 });
-const InitialNodeContext = React.createContext<InitialNodeContextType>(null!);
-const CurrentNodeContext = React.createContext<CurrentNodeContextType>(null!);
 
 export function useNodesContext() {
 	return useContext(NodesContext);
 }
 
-export function useInitialNodeContext() {
-	return useContext(InitialNodeContext);
-}
-
-export function useCurrentNodeContext() {
-	return useContext(CurrentNodeContext);
-}
-
 const TaskListProvider: FC = ({ children }) => {
 	const [nodes, setNodes] = useState<Nodes>({});
 	const [initialNodeId, setInitialNodeId] = useState("");
-	const [currentNodeId, setCurrentNodeId] = useState("");
 
 	useEffect(() => {
+		// deep copy original connections
 		const data: ConnectionsData = JSON.parse(JSON.stringify(rawData));
 		let nodes = data.nodes;
 		let initialNodeId = data.initialNode;
@@ -195,14 +174,8 @@ const TaskListProvider: FC = ({ children }) => {
 	}, [rawData]);
 
 	return (
-		<NodesContext.Provider value={{ nodes, setNodes }}>
-			<InitialNodeContext.Provider value={{ initialNodeId, setInitialNodeId }}>
-				<CurrentNodeContext.Provider
-					value={{ currentNodeId, setCurrentNodeId }}
-				>
-					{children}
-				</CurrentNodeContext.Provider>
-			</InitialNodeContext.Provider>
+		<NodesContext.Provider value={{ nodes, initialNodeId }}>
+			{children}
 		</NodesContext.Provider>
 	);
 };

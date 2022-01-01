@@ -1,17 +1,13 @@
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement } from "react";
 import Decision from "../Decision/Decision";
 import DecisionPath from "../DecisionPath/DecisionPath";
 import EmptyNode from "../EmptyNode/EmptyNode";
 import TaskNode from "../TaskNode/TaskNode";
-import {
-	useInitialNodeContext,
-	useNodesContext,
-} from "../TaskListContext/TaskListContext";
+import { useNodesContext } from "../TaskListContext/TaskListContext";
 import { Node } from "../../../steps/connectons";
 
-const Connections = () => {
-	const { nodes, setNodes } = useNodesContext();
-	const { initialNodeId, setInitialNodeId } = useInitialNodeContext();
+const Nodes = () => {
+	const { nodes, initialNodeId } = useNodesContext();
 
 	function getNodesForNodePath(decisionNode: Node, decisionPath: number) {
 		let elements: ReactElement[] = [];
@@ -126,4 +122,4 @@ const Connections = () => {
 	return <>{nodeElement}</>;
 };
 
-export default Connections;
+export default Nodes;

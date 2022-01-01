@@ -1,7 +1,7 @@
 import { SVG, Svg } from "@svgdotjs/svg.js";
 import { useResizeObserver } from "@vc/frontend/util/useResizeObserver";
 import React, { FC, useEffect, useRef, useState } from "react";
-import Connections from "./Connections/Connections";
+import Nodes from "./Nodes/Nodes";
 import styles from "./TaskList.module.scss";
 import TaskListProvider from "./TaskListContext/TaskListContext";
 
@@ -12,6 +12,7 @@ const TaskList: FC = () => {
 		useResizeObserver<HTMLDivElement>();
 	const [draw, setDaw] = useState<Svg>();
 
+	// If the refs to the HTML elements get updated, redraw and store SVG.js Object in state
 	useEffect(() => {
 		if (!svgContainerRef.current) return;
 		if (!containerRef.current) return;
@@ -27,6 +28,7 @@ const TaskList: FC = () => {
 		setDaw(draw);
 	}, [svgContainerRef, containerRef]);
 
+	// Render arrows when containers change
 	useEffect(() => {
 		renderArrows();
 	}, [svgContainerRef, taskListRef, containerRef, draw, svgContainerRect]);
@@ -116,6 +118,8 @@ const TaskList: FC = () => {
 			// if bottom box x-center is left of top box x-center, 1 else -1
 			const left = b.x + b.w / 2 - (a.x + a.w / 2) > 0 ? 1 : -1;
 
+			// if arrow should be drawn on line, remove arrow and assume connecting
+			// placeholder box, where line gets drawn through element instead of starting above
 			if (drawArrow) {
 				return draw
 					.path(
@@ -165,14 +169,16 @@ const TaskList: FC = () => {
 			}
 		};
 
+		// visit every box, and draw a line from it to its successors
 		boxes.forEach(box => {
 			box.next.forEach(next => {
-				let nextBox = boxes.find(x => {
+				const nextBox = boxes.find(x => {
 					return x.id == next;
 				});
 				if (nextBox) {
 					const isDisabled = box.isDisabled || nextBox.isDisabled;
 
+					// if box is placeholder, don't draw an arrow on the end of line
 					if (nextBox.type == "empty") {
 						drawPath(box, nextBox, false, isDisabled);
 					} else {
@@ -188,7 +194,7 @@ const TaskList: FC = () => {
 			<div className={styles.taskListContainer} ref={containerRef}>
 				<div className={styles.background} ref={svgContainerRef}></div>
 				<div className={styles.taskList} ref={taskListRef}>
-					<Connections />
+					<Nodes />
 				</div>
 			</div>
 		</TaskListProvider>
