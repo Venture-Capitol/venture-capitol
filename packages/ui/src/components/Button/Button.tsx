@@ -1,21 +1,19 @@
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import s from "./Button.module.scss";
 
 type ButtonProps = {
 	children?: React.ReactNode;
-	variant?: string;
-	href?: string;
+	variant?: "primary" | "secondary" | "tertiary";
 };
 
 const Button: FunctionComponent<ButtonProps> = ({
 	children,
-	variant,
-	href,
+	variant = "primary",
 }: ButtonProps) => {
 	return (
-		<a href={href} className={s.default_btn}>
+		<button className={s.default_btn} data-variant={variant}>
 			{children}
-		</a>
+		</button>
 	);
 };
 

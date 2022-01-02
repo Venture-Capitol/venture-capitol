@@ -1,5 +1,5 @@
 import Popup from "@vc/frontend/component/Popup/Popup";
-import Button from "@vc/frontend/component/Button/Button";
+import Button from "@vc/ui/src/components/Button/Button";
 
 const DisclaimerPopup: React.FunctionComponent = () => (
 	<Popup

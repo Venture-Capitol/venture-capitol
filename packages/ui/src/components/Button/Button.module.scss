@@ -1,13 +1,13 @@
 .default_btn {
-	padding: 7px 60px;
+	padding: 12px 60px;
 	font-family: "Space Grotesk";
-	font-weight: normal;
+	font-weight: 500;
 	border-radius: 10px;
 	border-width: 1px;
 	background-color: #fff;
 	cursor: pointer;
-}
 
-.red {
-	background-color: red;
+	// &[data-variant="primary"] {
+	// 	// border: 1px solid red;
+	// }
 }
