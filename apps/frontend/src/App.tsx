@@ -15,14 +15,7 @@ function App() {
 					<Route path='/' exact>
 						<Index />
 					</Route>
-					<Route path='/demo'>
-						<Demo />
-					</Route>
-					<Route path='/demoAuth'>
-						<DemoAuth />
-					</Route>
 
-					<Route path='/gruendung' exact component={DemoAsyncContent} />
 					<Route path='/gruendung/:task'>
 						<ProcessProvider>
 							<Gruendung />

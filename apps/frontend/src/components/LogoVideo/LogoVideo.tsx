@@ -31,9 +31,15 @@ const LogoVideo: React.FunctionComponent = () => {
 				</clipPath>
 			</svg>
 
-			<div className={s.fill} onClick={() => history.push("/gruendung")}>
+			<div
+				className={s.fill}
+				onClick={() => history.push("/gruendung/01_content")}
+			>
 				<video src={Video} muted autoPlay loop></video>
-				<div className={s.video} onClick={() => history.push("/gruendung")}>
+				<div
+					className={s.video}
+					onClick={() => history.push("/gruendung/01_content")}
+				>
 					<div className={s.inner}></div>
 				</div>
 			</div>
