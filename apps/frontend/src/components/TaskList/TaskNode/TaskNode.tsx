@@ -27,18 +27,32 @@ const Task: FunctionComponent<TaskProps> = ({ id, name, next, url }) => {
 			data-checked={checked}
 			data-id={id}
 			data-next={next}
+			onClick={handleClick}
 		>
 			<input
 				checked={checked}
 				onChange={e => setChecked(!checked)}
 				type='checkbox'
 				name='task_checked'
+				onClick={e => e.stopPropagation()}
 				id={inputId}
 			/>
-			<label htmlFor={inputId}>
-				<img src={checkmarkIcon} alt='' />
+			<label htmlFor={inputId} onClick={e => e.stopPropagation()}>
+				<svg
+					xmlns='http://www.w3.org/2000/svg'
+					fill='none'
+					viewBox='0 0 24 24'
+					stroke='currentColor'
+				>
+					<path
+						stroke-linecap='round'
+						stroke-linejoin='round'
+						stroke-width='2'
+						d='M5 13l4 4L19 7'
+					/>
+				</svg>{" "}
 			</label>
-			<span onClick={handleClick}>{name}</span>
+			<span>{name}</span>
 		</div>
 	);
 };

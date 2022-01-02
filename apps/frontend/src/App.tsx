@@ -3,6 +3,9 @@ import { AuthProvider } from "@vc/auth";
 import Demo from "./pages/Demo/Demo";
 import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
+import Gruendung from "./pages/Gruendung/Gruendung";
+import DemoAsyncContent from "./pages/Demo/DemoAsyncContent";
+import ProcessProvider from "./components/ProcessContext/ProcessContext";
 
 function App() {
 	return (
@@ -17,6 +20,13 @@ function App() {
 					</Route>
 					<Route path='/demoAuth'>
 						<DemoAuth />
+					</Route>
+
+					<Route path='/gruendung' exact component={DemoAsyncContent} />
+					<Route path='/gruendung/:task'>
+						<ProcessProvider>
+							<Gruendung />
+						</ProcessProvider>
 					</Route>
 				</Switch>
 			</Router>

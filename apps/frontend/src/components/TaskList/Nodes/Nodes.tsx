@@ -3,13 +3,18 @@ import Decision from "../Decision/Decision";
 import DecisionPath from "../DecisionPath/DecisionPath";
 import EmptyNode from "../EmptyNode/EmptyNode";
 import TaskNode from "../TaskNode/TaskNode";
-import { useNodesContext } from "../TaskListContext/TaskListContext";
-import { Node } from "../../../steps/connectons";
+import {
+	ProcessedTaskNode,
+	useProcessContext,
+} from "../../ProcessContext/ProcessContext";
 
 const Nodes = () => {
-	const { nodes, initialNodeId } = useNodesContext();
+	const { nodes, initialNodeId } = useProcessContext();
 
-	function getNodesForNodePath(decisionNode: Node, decisionPath: number) {
+	function getNodesForNodePath(
+		decisionNode: ProcessedTaskNode,
+		decisionPath: number
+	) {
 		let elements: ReactElement[] = [];
 
 		let nextNodeId = Object.values(nodes).find(x => {
@@ -37,7 +42,7 @@ const Nodes = () => {
 							id={nextNode.id}
 							next={nextNode.next}
 							name={nextNode.name}
-							url={nextNode.url}
+							url={nextNode.id}
 						/>
 					);
 				} else if (nextNode.type == "empty") {
@@ -55,7 +60,7 @@ const Nodes = () => {
 		return elements;
 	}
 
-	function getNextFromDecision(node: Node): Node {
+	function getNextFromDecision(node: ProcessedTaskNode): ProcessedTaskNode {
 		let next = node.next[0];
 		for (let index = 0; index < (node.pathMaxNodeCount || 0); index++) {
 			next = nodes[next].next[0];
@@ -63,7 +68,7 @@ const Nodes = () => {
 		return nodes[next];
 	}
 
-	function getComponent(node: Node): ReactElement {
+	function getComponent(node: ProcessedTaskNode): ReactElement {
 		if (node.type == "task" && node.decision == undefined) {
 			return (
 				<>
@@ -72,7 +77,7 @@ const Nodes = () => {
 						id={node.id}
 						next={node.next}
 						name={node.name}
-						url={node.url}
+						url={node.id}
 					/>
 					{node.next.map(nextNodeId => {
 						const nextNode = nodes[nextNodeId];
@@ -90,7 +95,7 @@ const Nodes = () => {
 						id={node.id}
 						next={node.next}
 						name={node.name}
-						url={node.url}
+						url={node.id}
 					>
 						{node.next.map((nodeNextId, index) => {
 							return (

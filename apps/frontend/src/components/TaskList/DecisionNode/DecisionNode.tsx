@@ -20,8 +20,9 @@ const DecisionNode: FC<DecisionNodeProps> = ({ id, name, next, url }) => {
 			data-decision
 			data-id={id}
 			data-next={next}
+			onClick={handleClick}
 		>
-			<span onClick={handleClick}>{name}</span>
+			<span>{name}</span>
 		</div>
 	);
 };
