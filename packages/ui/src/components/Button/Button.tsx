@@ -2,9 +2,9 @@ import React, { FunctionComponent, forwardRef } from "react";
 import s from "./Button.module.scss";
 
 type ButtonProps = {
-	children?: React.ReactNode;
 	variant?: "primary" | "secondary" | "tertiary";
 	width?: "auto" | "fullwidth";
+	children: React.ReactNode;
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

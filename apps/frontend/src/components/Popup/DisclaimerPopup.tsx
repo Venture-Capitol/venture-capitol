@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 const DisclaimerPopup: React.FunctionComponent = () => (
 	<AlertDialog
 		title={"Hey du!"}
-		action={<Button width='fullwidth'>Alles klar!</Button>}
+		action={
+			<div style={{ width: "100%" }}>
+				<Button width='fullwidth'>Alles klar!</Button>
+			</div>
+		}
 		defaultOpen={true}
 		preventEscape={true}
 	>
