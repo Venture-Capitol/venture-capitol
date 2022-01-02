@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Entry" ALTER COLUMN "plz" SET DATA TYPE TEXT;
