@@ -5,10 +5,8 @@ import EmptyNode from "../EmptyNode/EmptyNode";
 import TaskNode from "../TaskNode/TaskNode";
 import {
 	ProcessedTaskNode,
-	ProcessedTaskNodes,
 	useProcessContext,
-} from "../ProcessContext/ProcessContext";
-import { Node } from "../../../steps/connections";
+} from "../../ProcessContext/ProcessContext";
 
 const Nodes = () => {
 	const { nodes, initialNodeId } = useProcessContext();

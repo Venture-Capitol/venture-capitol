@@ -1,5 +1,3 @@
-# Überschrift für die zweite Folie
-
 ## Second header
 
 Hello `<a>something</a>` okay

@@ -1,5 +1,3 @@
-# 03 Content
-
 ## Second header
 
 Hello `<a>something</a>` okay

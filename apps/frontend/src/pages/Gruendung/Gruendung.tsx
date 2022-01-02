@@ -7,13 +7,14 @@ import { Link, useParams } from "react-router-dom";
 import TaskList from "../../components/TaskList/TaskList";
 // import "./markdown.scss";
 import s from "./Gruendung.module.scss";
+import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle";
 
 const Content = () => {
 	const [htmlContent, setHtmlContent] = useState<string | undefined>();
 	const [loadingState, setLoadingState] = useState<
 		undefined | "loading" | "error"
 	>();
-	let { task } = useParams<{ task?: string }>();
+	let { task } = useParams<{ task: string }>();
 
 	async function setMarkDownComponent() {
 		setLoadingState("loading");
@@ -41,6 +42,9 @@ const Content = () => {
 			</div>
 
 			<main className={s.content + " markdown-body"}>
+				<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
+				<CompletedToggle />
+
 				{loadingState == "loading" && (
 					<div className={s.loadingIndicator}>
 						<div></div>
