@@ -8,7 +8,11 @@ export async function isAuthenticatedAsAdmin(req: any, res: any, next: any) {
 			await getAuth()
 				.verifyIdToken(token)
 				.then((claims: any) => {
-					if (claims.role == "admin") {
+					if (
+						claims.isAdmin != null &&
+						claims.isAdmin != undefined &&
+						claims.isAdmin == true
+					) {
 						req.role = "admin";
 					} else {
 						req.role = "user";
@@ -38,7 +42,11 @@ export async function getRole(req: any, res: any, next: any) {
 			await getAuth()
 				.verifyIdToken(token)
 				.then((claims: any) => {
-					if (claims.role == "admin") {
+					if (
+						claims.isAdmin != null &&
+						claims.isAdmin != undefined &&
+						claims.isAdmin == true
+					) {
 						req.role = "admin";
 					} else {
 						req.role = "user";
