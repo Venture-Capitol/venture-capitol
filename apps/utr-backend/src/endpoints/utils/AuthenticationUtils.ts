@@ -1,4 +1,4 @@
-import { DecodedIdToken, getAuth } from "firebase-admin/auth";
+import { getAuth } from "firebase-admin/auth";
 
 export async function isAuthenticatedAsAdmin(req: any, res: any, next: any) {
 	if (typeof req.headers.authorization !== "undefined") {
@@ -9,7 +9,7 @@ export async function isAuthenticatedAsAdmin(req: any, res: any, next: any) {
 				.verifyIdToken(token)
 				.then((claims: any) => {
 					if (
-						claims.isAdmin != null &&
+						claims != undefined &&
 						claims.isAdmin != undefined &&
 						claims.isAdmin == true
 					) {
@@ -43,7 +43,7 @@ export async function getRole(req: any, res: any, next: any) {
 				.verifyIdToken(token)
 				.then((claims: any) => {
 					if (
-						claims.isAdmin != null &&
+						claims != undefined &&
 						claims.isAdmin != undefined &&
 						claims.isAdmin == true
 					) {
