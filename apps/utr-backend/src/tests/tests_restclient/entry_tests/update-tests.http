@@ -1,0 +1,76 @@
+### Update seems to ignore wrong-written property names & correct properties that have
+### the same data in them already stored -> stays the same
+
+### Update Adress & Lat Long on existing entry
+PUT http://localhost:8103/entry/1
+content-type: application/json
+
+{
+    "editedEntry": {
+        "address": "Amrumer Straße 17, 13353 Berlin, Deutschland",
+        "latitude": 129.2315,
+        "longitude": 19.3
+    }
+}
+
+### Add contact information on existing entry (was undefined before)
+PUT http://localhost:8103/entry/2
+content-type: application/json
+
+{
+    "editedEntry": {
+        "telefon": "012839239",
+        "website": "berlin-web.de",
+        "description": "Deine Webagentur in Berlin! Wir sind immer für dich da."
+    }
+}
+
+### Try to edit using inproper datatype for id | SHOULD FAIL & RETURN 400
+PUT http://localhost:8103/entry/oispws
+content-type: application/json
+
+{
+    "editedEntry": {
+        "telefon": "012839239",
+        "website": "berlin-web.de",
+        "description": "Deine Webagentur in Berlin! Wir sind immer für dich da."
+    }
+}
+
+### Try to edit entry with unknown id | SHOULD FAIL & RETURN 404
+PUT http://localhost:8103/entry/9203
+content-type: application/json
+
+{
+    "editedEntry": {
+        "telefon": "012839239",
+        "website": "berlin-web.de",
+        "description": "Deine Webagentur in Berlin! Wir sind immer für dich da."
+    }
+}
+
+### Try to edit without providing request body | SHOULD FAIL & RETURN 400
+PUT http://localhost:8103/entry/1
+
+### Try to edit unknown property | RETURNS 400
+PUT http://localhost:8103/entry/1
+content-type: application/json
+
+{
+    "editedEntry": {
+        "shoesize": 40,
+    }
+}
+
+### Try to edit known property using inproper datatype | RETURNS 400
+PUT http://localhost:8103/entry/1
+content-type: application/json
+
+{
+    "editedEntry": {
+        "company": 13,
+    }
+}
+
+
+

@@ -9,10 +9,9 @@ content-type: application/json
     "entry": {
         "job": "Notar",
         "company": "NotareDeutschland",
-        "street": "Eythstraße",
-        "streetnr": "14A",
-        "plz": "12105",
-        "location": "Berlin",
+        "address": "Luxemburger Str. 12, 15193 Berlin, Deutschland",
+        "latitude": 19.32932,
+        "longitude": 129.32912,
         "email": "notare@deutschland.de",
         "telefon": "+49 (0)15204847706",
         "website": "notare-deutschland.de",
@@ -28,10 +27,9 @@ content-type: application/json
     "entry": {
         "job": "Webagentur",
         "company": "Berlin4Web",
-        "street": "Coolestraße",
-        "streetnr": "27B",
-        "plz": "8729.B",
-        "location": "Hamburg",
+        "address": "Luxemburger Str. 20, 15193 Berlin, Deutschland",
+        "latitude": 12832.12312,
+        "longitude": 23923.2312839823,
         "email": "berlin@web.org"
     }
 }
@@ -43,15 +41,14 @@ content-type: application/json
 {
     "entry": {
         "job": "Steuerberater",
-        "street": "Anderestraße",
-        "streetnr": "6",
-        "plz": "27392",
-        "location": "München", 
+        "address": "Luxemburger Str. 2A, 15193 Berlin, Deutschland",
+        "latitude": 23892.12223,
+        "longitude": 32.2312,
         "email": "steuer@berater.com"
     }
 }
 
-### neuen Entry anlegen | location hat falschen Datentyp | SHOULD FAIL & RETURN 400
+### neuen Entry anlegen | address hat falschen Datentyp | SHOULD FAIL & RETURN 400
 POST http://localhost:8103/entry/
 content-type: application/json
 
@@ -59,10 +56,9 @@ content-type: application/json
     "entry": {
         "job": "Webagentur",
         "company": "Berlin4Web",
-        "street": "Coolestraße",
-        "streetnr": "27B",
-        "plz": "8729.B",
-        "location": 392,
+        "address": 1273,
+        "latitude": 92932.23,
+        "longitude": 128182.2334,
         "email": "berlin@web.org"
     }
 }

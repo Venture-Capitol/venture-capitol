@@ -1,0 +1,51 @@
+.wrapper {
+	input {
+		width: 0;
+		height: 0;
+		visibility: hidden;
+		position: absolute;
+		left: -9999px;
+
+		&:checked + label {
+			color: var(--color-green-900);
+
+			.checkbox {
+				background: var(--color-green-200);
+				border-color: var(--color-green-300);
+
+				svg {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	label {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: var(--size-14px);
+		user-select: none;
+
+		.checkbox {
+			content: "";
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: var(--size-40px);
+			width: var(--size-40px);
+			border-radius: var(--size-12px);
+			background: var(--color-purple-100);
+			border: 1px solid var(--color-purple-200);
+			transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+
+			svg {
+				opacity: 0;
+				height: var(--size-24px);
+				width: var(--size-24px);
+				transition: opacity 0.2s ease-out;
+				color: var(--color-green-900);
+			}
+		}
+	}
+}
