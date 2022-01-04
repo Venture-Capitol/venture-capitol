@@ -26,11 +26,11 @@ model Company {
   name          String?
   users         UserInCompany[]
   legalForm     LegalForm
-  completedTask completedTask[]
-  madeDecision  madeDecision[]
+  completedTask CompletedTask[]
+  madeDecision  MadeDecision[]
 }
 
-model completedTask {
+model CompletedTask {
   company   Company @relation(fields: [companyId], references: [id])
   companyId String
   taskId    String
@@ -38,7 +38,7 @@ model completedTask {
   @@id([companyId, taskId])
 }
 
-model madeDecision {
+model MadeDecision {
   decisionId   String
   company      Company @relation(fields: [companyId], references: [id])
   companyId    String
@@ -48,8 +48,10 @@ model madeDecision {
 }
 
 enum LegalForm {
-  GMBH
-  UG
-  EINZELUNTERNEHMEN
+  EINZELUNTERNEHMER
+  GBR
   FREIBERUFLER
+  PARTG
+  UG
+  GMBH
 }
