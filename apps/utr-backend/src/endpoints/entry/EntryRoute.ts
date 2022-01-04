@@ -1,4 +1,3 @@
-import express = require("express");
 import { Router } from "express";
 const router = Router();
 import { isAuthenticatedAsAdmin, getRole } from "../utils/AuthenticationUtils";
@@ -38,9 +37,6 @@ router.get("/search", function (req, res, next) {
 	);
 });
 
-// get all companies
-// note: how to make query params optional
-// note: add isAuthenticated - done, only lets admins pass
 router.get("/", isAuthenticatedAsAdmin, function (req, res, next) {
 	const verifiedAsBoolean = EntryUtils.parseToBoolean(req.query.verified);
 	const amountAsNumber = EntryUtils.parseToNumber(req.query.amount);
@@ -70,8 +66,6 @@ router.get("/", isAuthenticatedAsAdmin, function (req, res, next) {
 	);
 });
 
-// add isAuthenticated - no, used getRole which lets admins and users pass
-// create new entry for a company
 router.post("/", getRole, function (req, res, next) {
 	const body = req.body.entry;
 	EntryService.createEntry(
@@ -101,8 +95,6 @@ router.post("/", getRole, function (req, res, next) {
 	);
 });
 
-// add isAuthenticated - no, because everybody should be able to get one entry
-// get one company by its id
 router.get("/:id", function (req, res, next) {
 	const idAsNumber = Number(req.params.id);
 	EntryService.getEntry(
@@ -126,8 +118,6 @@ router.get("/:id", function (req, res, next) {
 	);
 });
 
-// add isAuthenticated - done, only lets admins pass
-// change one company, identified by its id
 router.put("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
 	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.updateEntry(
@@ -156,7 +146,6 @@ router.put("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
 	);
 });
 
-// delete one company, identified by its id
 router.delete("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
 	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.deleteEntry(
@@ -184,7 +173,6 @@ router.delete("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
 	);
 });
 
-// could add isAuthenticated when ready, but will be deleted before publish anyways
 router.post("/addMany", function (req, res, next) {
 	EntryUtils.addManyEntries(function (error: any, errorcode: string) {
 		if (error) {
