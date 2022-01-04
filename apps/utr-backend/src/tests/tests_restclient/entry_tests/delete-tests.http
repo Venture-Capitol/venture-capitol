@@ -1,0 +1,8 @@
+### delete using valid id for entry that exists
+DELETE http://localhost:8103/entry/16
+
+### delete using invalid datatype for id | SHOULD FAIL & RETURN 400
+DELETE http://localhost:8103/entry/stkra
+
+### delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
+DELETE http://localhost:8103/entry/476

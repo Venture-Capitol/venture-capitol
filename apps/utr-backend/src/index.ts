@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-import app = require("../app");
+import app = require("./app");
 import http = require("http");
-import logger = require("../config/winston");
+import logger = require("./config/winston");
 
 /**
  * Get port from environment and store in Express.
@@ -32,7 +32,7 @@ logger.info("Server listening on port: " + port);
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort(val: any) {
 	var port = parseInt(val, 10);
 
 	if (isNaN(port)) {

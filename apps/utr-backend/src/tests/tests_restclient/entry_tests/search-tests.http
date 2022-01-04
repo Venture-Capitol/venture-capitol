@@ -1,0 +1,11 @@
+### searching for NOTAR providing valid location data
+http://localhost:8103/entry/search?jobname=Notar&lat=137.29&long=293.123
+
+### searching for RECHTSANWWALT providing valid location data
+http://localhost:8103/entry/search?jobname=Rechtsanwalt&lat=2393.29&long=192.12
+
+### searching for NOTAR without given lat | SHOULD FAIL & RETURN 400
+http://localhost:8103/entry/search?jobname=Notar&long=300.23
+
+### searching for invalid job providing valid location data | SHOULD FAIL & RETURN 400
+http://localhost:8103/entry/search?jobname=Hausmeister&lat=137.29&long=293.123

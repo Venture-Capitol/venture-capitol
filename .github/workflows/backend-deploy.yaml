@@ -17,7 +17,7 @@ env:
 
 jobs:
   # ------------------------------------------ DOCKER BUILD ------------------------------------------
-  build-push-gcr:
+  build-be:
     name: "Docker: Build and Push Container"
     runs-on: ubuntu-latest
     steps:
@@ -167,21 +167,28 @@ jobs:
     environment:
       name: staging
       url: https://staging.venturecapitol.de
-    needs: [build-push-gcr, validate-tf, build-fe]
+    needs: [build-be, validate-tf, build-fe]
     outputs:
       currentRevision: ${{ steps.get-current-revision.outputs.json }}
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
+      group: deploy-staging
 
     steps:
       - name: Checkout Repository Files
         uses: actions/checkout@v2
 
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Authenticate with Google Cloud
         id: auth
         uses: google-github-actions/auth@v0.4.3
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.3.0
 
       - name: Get the current revision description
         id: get-current-revision
@@ -198,6 +205,7 @@ jobs:
         run: |
           echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
           echo "TF_VAR_image_name=${{fromJson(steps.get-current-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{steps.auth.outputs.credentials_file_path}}" >> $GITHUB_ENV
 
       - name: Terraform Init
         id: init
@@ -217,14 +225,12 @@ jobs:
           name: frontend-build
           path: ./dist
 
-      - name: Clear storage bucket
-        run: gsutil -m rm -r $STAGING_BUCKET_NAME
-
-      - name: copy build files to storage bucket
-        run: gsutil -m cp -r dist/* $STAGING_BUCKET_NAME
+      - name: Upload frontend build
+        run: gsutil -m rsync -d -r ./ $STAGING_BUCKET_NAME
+        working-directory: ./dist
 
   # ------------------------------------------ PROD ------------------------------------------
-  deploy-prodction:
+  deploy-production:
     name: "Deploy to Production"
     runs-on: ubuntu-latest
     environment:
@@ -237,12 +243,16 @@ jobs:
       - name: Checkout Repository Files
         uses: actions/checkout@v2
 
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Authenticate with Google Cloud
         id: auth
         uses: google-github-actions/auth@v0.4.3
         with:
           credentials_json: ${{ secrets.DEPLOY_KEY }}
           project_id: ${{ env.PROJECT_ID }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.3.0
 
       - name: Export image names as environment variables
         run: |
@@ -267,8 +277,6 @@ jobs:
           name: frontend-build
           path: ./dist
 
-      - name: Clear storage bucket
-        run: gsutil -m rm -r $PROD_BUCKET_NAME
-
-      - name: copy build files to storage bucket
-        run: gsutil -m cp -r dist/* $PROD_BUCKET_NAME
+      - name: Upload frontend build
+        run: gsutil -m rsync -d -r ./ $PROD_BUCKET_NAME
+        working-directory: ./dist

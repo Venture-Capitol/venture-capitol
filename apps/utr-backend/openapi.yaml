@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  version: 1.0.0
+  version: 1.0.1
   title: Unternehmensregister
   description: API für das Unternehmensregister im Semesterprojekt.
 servers:
@@ -8,8 +8,8 @@ servers:
 tags:
   - name: Suche
     description: Endpunkte, die für die Suche zuständig sind.
-  - name: Unternehmen
-    description: Endpunkte, die sich um die Unternehmen drehen.
+  - name: Entries
+    description: Endpunkte, die sich um die Eintraege im Register drehen.
 components:
   securitySchemes:
     firebaseAuth:
@@ -17,78 +17,67 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    Company:
-      title: Ein Unternehmen als json.
+    Entry:
+      title: Ein Eintrag im Register als json.
       type: object
       properties:
         job:
           type: string
-          description: Der Job, welchen das Unternehmen ausführt.
+          description: Der Job, welchen der Eintrag ausführt.
           example: Webentwickler
         company:
           type: string
-          description: Der Name des Unternehmens.
+          description: Der Name des Eintrags.
           example: VentureWeb
-        street:
+        address:
           type: string
-          description: Die Straße, an der das Unternehmen seinen Sitz hat.
-          example: Luxemburger Straße
-        streetnr:
-          type: string
-          description: Die Hausnummer der Straße, an der das Unternehmen seinen Sitz hat.
-          example: 10
-        plz:
-          type: number
-          description: Postleitzahl des Bereiches, in dem das Unternehmen seinen Sitz hat.
-          example: 13353
-        location:
-          type: string
-          description: Name des Ortes, in dem das Unternehmen seinen Sitz hat.
-          example: Berlin
+          description: Formatierte Adresse mit Straße, Straßennummer, PLZ und Ort.
+          example: Luxemburger Str. 10, 15193 Berlin, Deutschland
         email:
           type: string
-          description: Die Email-Adresse unter der das Unternehmen erreichbar ist.
+          description: Die Email-Adresse unter der der Eintrag erreichbar ist.
           example: example@ventureweb.de
         telefon:
           type: string
-          description: Die Telefonnummer unter der das Unternehmen erreichbar ist.
+          description: Die Telefonnummer unter der der Eintrag erreichbar ist.
           example: 12345678
         website:
           type: string
-          description: Die Webseite des Unternehmens.
+          description: Die Webseite des Eintrags.
           example: https://www.ventureweb.com
-    CompanyResponse:
-      title: Ein Unternehmen, welches in json zurückgegeben wird.
+        description:
+          type: string
+          description: Beschreibung des Eintrages und seiner Dienstleistungen.
+          example: VentureWeb hilft dir bei allen Angelegenheiten rund um die Unternehmensgründung.
+    EntryResponse:
+      title: Ein Eintrag, welcher in json zurückgegeben wird.
       type: object
       allOf:
         - type: object
           properties:
             id:
-              type: integer
-              description: Die ID des Unternehmens.
+              type: number
+              description: Die ID des Eintrages.
               example: 1
             verified:
               type: boolean
-              description: Der Status, ob das Unternehmen verifiziert ist oder nicht.
+              description: Der Status, ob der Eintrag verifiziert ist oder nicht.
               example: true
           required:
             - id
             - job
             - company
-            - street
-            - streetnr
-            - plz
-            - location
+            - address
             - email
             - verified
-        - $ref: "#/components/schemas/Company"
+        - $ref: "#/components/schemas/Entry"
 paths:
-  /search:
+  /entry/search:
     get:
       tags:
         - Suche
-      summary: Gibt alle Unternehmen zurück, die den Job machen.
-      description: Aus der Datenbank werden alle Unternehmen rausgesucht, welche den gesuchten Job eingetragen haben und verifiziert sind. Je nach angegebenen Parametern, werden diese dann gefiltert und diese Teilmenge zurückgegeben.
+      summary: Gibt alle Eintraege zurück, die den Job machen.
+      description: Aus der Datenbank werden alle Eintraege rausgesucht, welche den gesuchten Job eingetragen haben und verifiziert sind. Je nach angegebenen Parametern, werden diese dann gefiltert und diese Teilmenge zurückgegeben.
       parameters:
         - in: query
           name: jobname
@@ -97,29 +86,17 @@ paths:
           required: true
           description: Name des Jobs, nach dem der Nutzer sucht.
         - in: query
-          name: street
+          name: latitude
           schema:
-            type: string
+            type: number
           required: false
-          description: Name der Straße, in der der Nutzer wohnt.
+          description: Latitude-Koordinate des Nutzers
         - in: query
-          name: streetnr
+          name: longitude
           schema:
-            type: string
+            type: number
           required: false
-          description: Hausnummer des Hauses, in dem der Nutzer wohnt.
-        - in: query
-          name: plz
-          schema:
-            type: integer
-          required: false
-          description: Postleitzahl des Bereiches, in dem der Nutzer wohnt.
-        - in: query
-          name: location
-          schema:
-            type: string
-          required: false
-          description: Name des Ortes, in dem der Nutzer wohnt.
+          description: Longitude-Koordinate des Nutzers
       responses:
         200:
           description: Success
@@ -129,38 +106,47 @@ paths:
                 type: object
                 properties:
                   id:
-                    type: integer
-                    description: Die ID des Unternehmens.
+                    type: number
+                    description: Die ID des Eintrags.
                     example: 1
                   company:
                     type: string
-                    description: Der Name des Unternehmens.
+                    description: Der Name des Eintrags.
                     example: VentureWeb
-                  email:
+                  job:
                     type: string
-                    description: Die Email-Adresse unter der das Unternehmen erreichbar ist.
-                    example: example@ventureweb.de
+                    description: Der Job, welchen der Eintrag ausführt.
+                    example: Webagentur
+                  address:
+                    type: string
+                    description: Formatierte Adresse mit Straße, Straßennummer, PLZ und Ort.
+                    example: Luxemburger Str. 10, 15193 Berlin, Deutschland
                   distance:
                     type: number
-                    description: Entfernung des Unternehmens zum angegebenem Wohnort in Kilometern.
+                    description: Entfernung des Eintrags zum angegebenem Wohnort in Kilometern.
                     example: 11.1
+                  description:
+                    type: string
+                    description: Beschreibung des Eintrages und seiner Dienstleistungen.
+                    example: VentureWeb hilft dir bei allen Angelegenheiten rund um die Unternehmensgründung.
                 required:
                   - id
                   - company
-                  - email
+                  - job
+                  - address
                   - distance
         400:
-          description: Die Anfrage war Fehlerhaft. Die Postleitzahl darf keine Buchstaben enthalten.
+          description: Die Anfrage war Fehlerhaft. Jobname muss ein String, Latitude und Longitude müssen number sein.
         404:
-          description: Es existiert keine Straße mit der Hausnummer in dem angegebenem Bereich.
+          description: Es wurden keine Einträge gefunden die diesen Job machen
         default:
           description: Es sind unerwartete Probleme bei der Suche aufgetreten.
-  /company:
+  /entry:
     get:
       tags:
-        - Unternehmen
-      summary: Gibt alle Unternehmen zurück.
-      description: Aus der Datenbank werden alle Unternehmen rausgesucht. Wenn der verified Parameter gesetzt wurde, werden die Daten entsprechend gefiltert und diese Teilmenge zurückgegeben. Durch den amount und page parameter wird diese Teilmenge erneut gefiltert. Damit der page Parameter Auswirkung hat, muss auch der amount Parameter gesetzt sein. Ist amount gesetzt, aber page nicht, dann wird die erste Seite zurückgegeben. Wenn dies nicht der Fall ist, werden alle Unternehmen zurückgegeben.
+        - Entries
+      summary: Gibt alle Eintraege zurück.
+      description: Aus der Datenbank werden alle Eintraege rausgesucht. Wenn der verified Parameter gesetzt wurde, werden die Daten entsprechend gefiltert und diese Teilmenge zurückgegeben. Durch den amount und page parameter wird diese Teilmenge erneut gefiltert. Damit der page Parameter Auswirkung hat, muss auch der amount Parameter gesetzt sein. Ist amount gesetzt, aber page nicht, dann wird die erste Seite zurückgegeben. Wenn dies nicht der Fall ist, werden alle Eintraege zurückgegeben.
       security:
         - firebaseAuth: []
       parameters:
@@ -169,13 +155,13 @@ paths:
           schema:
             type: boolean
           required: false
-          description: Angabe, ob die Unternehmen verifiziert sein sollen oder nicht.
+          description: Angabe, ob die Eintraege verifiziert sein sollen oder nicht.
         - in: query
           name: amount
           schema:
             type: number
           required: false
-          description: Angabe, wie viele Unternehmen zurückgegeben werden sollen.
+          description: Angabe, wie viele Eintraege zurückgegeben werden sollen.
         - in: query
           name: page
           schema:
@@ -190,9 +176,9 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/CompanyResponse"
+                  $ref: "#/components/schemas/EntryResponse"
         400:
-          description: Die Anfrage war Fehlerhaft. Der Parameter verified muss keinen Wert oder einen boolean Wert enthalten.
+          description: Die Anfrage war Fehlerhaft. Der Parameter verified muss undefined oder boolean sein. page und amount number oder undefined.
         401:
           description: Die Autorisierungsinformationen fehlen oder sind fehlerhaft.
         403:
@@ -201,76 +187,75 @@ paths:
           description: Es ist ein unerwarteter Fehler aufgetreten.
     post:
       tags:
-        - Unternehmen
-      summary: Erstellt ein Unternehmen.
-      description: In der Datenbank wird ein Unternehmen erstellt mit den Werten, die mitgeliefert werden im requestBody. Je nach Rechten des Nutzers wird das Unternehmen direkt verifiziert oder nicht.
+        - Entries
+      summary: Erstellt einen Eintrag im Unternehmensregister.
+      description: In der Datenbank wird ein Eintrag erstellt mit den Werten, die mitgeliefert werden im requestBody. Je nach Rechten des Nutzers wird der Eintrag direkt verifiziert oder nicht.
       security:
         - {}
         - firebaseAuth: []
       requestBody:
-        description: Werte des einzutragenden Unternehmens in json.
+        description: Werte des zu erstellenden Eintrags in json.
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/Company"
+                - $ref: "#/components/schemas/Entry"
                 - type: object
                   required:
                     - job
-                    - street
-                    - streetnr
-                    - plz
-                    - location
+                    - address
                     - company
                     - email
       responses:
         200:
           description: Success
         400:
-          description: Die Anfrage war Fehlerhaft. Die Parameter company und email im requestBody müssen Werte enthalten.
+          description: Die Anfrage war Fehlerhaft. Die Parameter company, email, adress & job im requestBody müssen Werte enthalten.
         default:
           description: Es ist ein unerwarteter Fehler aufgetreten.
-  /company/{id}:
+  /entry/{id}:
     get:
       tags:
-        - Unternehmen
-      summary: Gibt ein Unternehmen zurück.
-      description: Gibt genau das Unternehmen zurück, welches zu der id gehört, die als Parameter angegeben wurde.
+        - Entries
+      summary: Gibt einen Eintrag zurück.
+      description: Gibt genau den Eintrag zurück, welcher zu der id gehört, die als Parameter angegeben wurde.
       parameters:
         - in: path
           name: id
           schema:
-            type: integer
+            type: number
           required: true
-          description: Die id des Unternehmens, welches zurückgegeben werden soll.
+          description: Die id des Eintrags, welches zurückgegeben werden soll.
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CompanyResponse"
+                $ref: "#/components/schemas/EntryResponse"
         400:
-          description: Die Anfrage war Fehlerhaft. Der Parameter id muss einen integer enthalten.
+          description: Die Anfrage war Fehlerhaft. Der Parameter id muss eine number enthalten.
+        404:
+          description: Fuer die angegebene id konnte kein Eintrag gefunden werden.
         default:
           description: Es ist ein unerwarteter Fehler aufgetreten.
     put:
       tags:
-        - Unternehmen
-      summary: Editiert ein Unternehmen.
-      description: Ändert die im requestBody angegebenen Werte beim Unternehmen, dessen id als Parameter angegeben wurde, in der Datenbank. Die anderen Werte bleiben unverändert.
+        - Entries
+      summary: Editiert einen Eintrag.
+      description: Ändert die im requestBody angegebenen Werte beim Eintrag, dessen id als Parameter angegeben wurde, in der Datenbank. Die anderen Werte bleiben unverändert.
       security:
         - firebaseAuth: []
       parameters:
         - in: path
           name: id
           schema:
-            type: integer
+            type: number
           required: true
-          description: Die id des Unternehmens, welches abgeändert werden soll.
+          description: Die id des Eintrages, welcher abgeändert werden soll.
       requestBody:
-        description: Werte welche beim Unternehmen verändert werden sollen in json.
+        description: Werte welche beim Eintrag verändert werden sollen in json.
         required: true
         content:
           application/json:
@@ -280,45 +265,45 @@ paths:
                   properties:
                     verified:
                       type: boolean
-                      description: Der Status, ob das Unternehmen verifiziert ist oder nicht.
-                - $ref: "#/components/schemas/Company"
+                      description: Der Status, ob der Eintrag verifiziert ist oder nicht.
+                - $ref: "#/components/schemas/Entry"
       responses:
         200:
           description: Success
         400:
-          description: Die Anfrage war Fehlerhaft. Der Parameter id muss einen integer enthalten und es muss ein requestBody vorhanden sein.
+          description: Die Anfrage war Fehlerhaft. Der Parameter id muss eine number enthalten und es muss ein requestBody vorhanden sein.
         401:
           description: Die Autorisierungsinformationen fehlen oder sind fehlerhaft.
         403:
           description: Der anfragende Nutzer hat nicht genug Rechte um diese Anfrage auszuführen.
         404:
-          description: Es existiert kein Unternehmen mit dieser id.
+          description: Es existiert kein Eintrag mit dieser id.
         default:
           description: Es ist ein unerwarteter Fehler aufgetreten.
     delete:
       tags:
-        - Unternehmen
-      summary: Löscht ein Unternehmen.
-      description: Löscht das Unternehmen aus der Datenbank, dessen id angegeben wurde.
+        - Entries
+      summary: Löscht einen Eintrag.
+      description: Löscht den Eintrages aus der Datenbank, dessen id angegeben wurde.
       security:
         - firebaseAuth: []
       parameters:
         - in: path
           name: id
           schema:
-            type: integer
+            type: number
           required: true
-          description: Die id des Unternehmens, welches gelöscht werden soll.
+          description: Die id des Eintrags, welcher gelöscht werden soll.
       responses:
         200:
           description: Success
         400:
-          description: Die Anfrage war Fehlerhaft. Der Parameter id muss einen integer enthalten.
+          description: Die Anfrage war Fehlerhaft. Der Parameter id muss eine number enthalten.
         401:
           description: Die Autorisierungsinformationen fehlen oder sind fehlerhaft.
         403:
           description: Der anfragende Nutzer hat nicht genug Rechte um diese Anfrage auszuführen.
         404:
-          description: Es existiert kein Unternehmen mit dieser id.
+          description: Es existiert kein Eintrag mit dieser id.
         default:
           description: Es ist ein unerwarteter Fehler aufgetreten.
