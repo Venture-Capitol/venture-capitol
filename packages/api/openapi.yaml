@@ -1,0 +1,430 @@
+swagger: "2.0"
+info:
+  description: "Open API specification for the Venture Capitol API"
+  version: 1.0.6
+  title: Venture Capitol API
+host: api.venturecapitol.com
+basePath: "/v2"
+tags:
+  - name: company
+    description: API for company information
+  - name: user
+    description: API for user information
+  - name: task
+    description: API for decision information
+  - name: decision
+    description: API for task information
+schemes:
+  - https
+  - http
+paths:
+  "/user/{userId}":
+    get:
+      tags:
+        - user
+      summary: Get a user by id
+      description: Returns a user with given id
+      operationId: findUserById
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/User"
+        "400":
+          description: Invalid status value
+      security:
+        - {}
+        - firebaseAuth: []
+  "/company":
+    post:
+      tags:
+        - company
+      summary: Adds a new company to Venture Capitol
+      description: Posts a company with given data
+      operationId: addCompany
+      parameters:
+        - in: body
+          name: name
+          description: Name of the company which will be founded
+          required: false
+          schema:
+            "$ref": "#/definitions/Company"
+        - in: body
+          name: LegalForm
+          description: Legal form of the company which will be founded
+          required: true
+          schema:
+            "$ref": "#/definitions/Company"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: The request was invalid. The parameters LegalForm and optional name must be set in the requestBody.
+      security:
+        - {}
+        - firebaseAuth: []
+  "/company/{companyId}":
+    get:
+      tags:
+        - company
+      summary: Get a company by id
+      description: Returns a company with given id
+      operationId: findCompanyById
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: id
+          in: path
+          description: ID of the company
+          required: true
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            "$ref": "#/definitions/Company"
+        "400":
+          description: Invalid status value
+      security:
+        - {}
+        - firebaseAuth: []
+    delete:
+      tags:
+        - company
+      summary: Delete a company by id
+      description: Deletes a company with given id
+      operationId: deleteCompanyById
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Company not found
+      security:
+        - {}
+        - firebaseAuth: []
+  "/company/{companyId}/tasks":
+    get:
+      tags:
+        - task
+      summary: Get all tasks of a company
+      description: Returns which tasks of a company are done
+      operationId: findAllTasksByCompanyId
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/CompletedTask"
+        "400":
+          description: Invalid status value
+      security:
+        - {}
+        - firebaseAuth: []
+  "/company/{companyId}/tasks/{taskId}":
+    post:
+      tags:
+        - task
+      summary: Add a checked task to a company
+      description: Adds a new finished task to a company
+      operationId: addTaskToCompany
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          type: string
+        - name: taskId
+          in: path
+          description: ID of the task
+          required: true
+          type: string
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+      security:
+        - {}
+        - firebaseAuth: []
+    delete:
+      tags:
+        - task
+      summary: Delete a task from a company
+      description: Deletes a task from a company
+      operationId: deleteTaskFromCompany
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          type: string
+        - name: taskId
+          in: path
+          description: ID of the task
+          required: true
+          type: string
+      responses:
+        "200":
+          description: successful deletion
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Company or task not found
+      security:
+        - {}
+        - firebaseAuth: []
+  "/company/{companyId}/decisions":
+    get:
+      tags:
+        - decision
+      summary: Get all decisions of a company
+      description: Returns all decisions of a company
+      operationId: findAllDecisionsByCompanyId
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/MadeDecision"
+        "400":
+          description: Invalid status value
+      security:
+        - {}
+        - firebaseAuth: []
+  "/company/{companyId}/decision/{decisionId}":
+    post:
+      tags:
+        - decision
+      summary: Add a decision to a company
+      description: Adds a new decision to a company
+      operationId: addDecisionToCompany
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          type: string
+        - name: decisionId
+          in: path
+          description: ID of the decision
+          required: true
+          type: string
+        - name: selectedPath
+          in: body
+          description: Selected path of the decision
+          required: true
+          schema:
+            "$ref": "#/definitions/MadeDecision"
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: Invalid status value
+      security:
+        - {}
+        - firebaseAuth: []
+    delete:
+      tags:
+        - decision
+      summary: Delete a decision from a company
+      description: Deletes a decision from a company
+      operationId: deleteDecisionFromCompany
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          type: string
+        - name: decisionId
+          in: path
+          description: ID of the decision
+          required: true
+          type: string
+      responses:
+        "200":
+          description: successful deletion
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Company or decision not found
+      security:
+        - {}
+        - firebaseAuth: []
+securityDefinitions:
+  firebase:
+    authorizationUrl: "https://google.de"
+    flow: "implicit"
+    type: "oauth2"
+    # Replace YOUR-PROJECT-ID with your project ID
+    x-google-issuer: "https://securetoken.google.com/YOUR-PROJECT-ID"
+    x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+    x-google-audiences: "YOUR-PROJECT-ID"
+definitions:
+  User:
+    type: object
+    required:
+      - id
+      - companies
+    properties:
+      id:
+        type: string
+      companies:
+        type: array
+        xml:
+          wrapped: true
+        items:
+          xml:
+            name: UserInCompany
+          "$ref": "#/definitions/UserInCompany"
+    xml:
+      name: User
+  UserInCompany:
+    type: object
+    required:
+      - user
+      - company
+    properties:
+      user:
+        type: object
+        "$ref": "#/definitions/User"
+      userId:
+        type: string
+      company:
+        type: object
+        "$ref": "#/definitions/Company"
+      companyId:
+        type: string
+  CompletedTask:
+    type: object
+    required:
+      - companyId
+      - taskId
+    properties:
+      company:
+        type: object
+        "$ref": "#/definitions/Company"
+      companyId:
+        type: string
+      taskId:
+        type: string
+    xml:
+      name: CompletedTask
+  MadeDecision:
+    type: object
+    required:
+      - companyId
+      - decisionId
+      - selectedPath
+    properties:
+      decisionId:
+        type: string
+      company:
+        type: object
+        "$ref": "#/definitions/Company"
+      companyId:
+        type: string
+      selectedPath:
+        type: integer
+        format: int32
+    xml:
+      name: MadeDecision
+  Company:
+    type: object
+    required:
+      - name
+      - id
+      - legalForm
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      users:
+        type: array
+        xml:
+          wrapped: true
+        items:
+          xml:
+            name: UserinCompany
+          "$ref": "#/definitions/UserInCompany"
+      legalForm:
+        "$ref": "#/definitions/LegalForm"
+      completedTask:
+        type: array
+        xml:
+          wrapped: true
+        items:
+          xml:
+            name: CompletedTask
+          "$ref": "#/definitions/CompletedTask"
+      madeDecision:
+        type: array
+        xml:
+          wrapped: true
+        items:
+          xml:
+            name: MadeDecision
+          "$ref": "#/definitions/MadeDecision"
+    xml:
+      name: Company
+  LegalForm:
+    type: string
+    enum:
+      - EINZELUNTERNEHMER
+      - GBR
+      - FREIBERUFLER
+      - PARTG
+      - UG
+      - GMBH

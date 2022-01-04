@@ -4,6 +4,41 @@ import mercuriusCodegen, { loadSchemaFiles } from "mercurius-codegen";
 import { buildSchema } from "graphql";
 import { initializeApp } from "firebase-admin/app";
 import { DecodedIdToken, getAuth } from "firebase-admin/auth";
+import express from "express";
+import { userRouter } from "./routes/user";
+import * as OpenApiValidator from "express-openapi-validator";
+
+const appExpress = express();
+const port = parseInt(process.env.PORT) || 8101;
+
+// Install the OpenApiValidator onto your express app
+appExpress.use(
+	OpenApiValidator.middleware({
+		apiSpec: "../node_modules/@vc/api/openapi.yaml",
+		validateRequests: true,
+		validateResponses: true,
+	})
+);
+
+// Define routes using Express
+appExpress.use("/api/user", userRouter);
+// app.use("/api/company", userRouter);
+
+// !!! TODO - fix error handling
+
+// Create an Express error handler
+appExpress.use((err, req, res, next) => {
+	// format error
+	console.error(err);
+	res.status(err.status || 500).json({
+		message: err.message,
+		errors: err.errors,
+	});
+});
+
+appExpress.listen(port, () => {
+	console.log(`Example app listening at http://localhost:${port}`);
+});
 
 // initialize firebase
 initializeApp();
