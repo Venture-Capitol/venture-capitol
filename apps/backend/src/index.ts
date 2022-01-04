@@ -1,24 +1,32 @@
-import { initializeApp } from "firebase-admin/app";
-import { DecodedIdToken, getAuth } from "firebase-admin/auth";
+import express from "express";
+import { userRouter } from "./routes/user";
+import * as OpenApiValidator from "express-openapi-validator";
+const app = express();
+const port = parseInt(process.env.PORT) || 8101;
 
-// initialize firebase
-initializeApp();
+// Install the OpenApiValidator onto your express app
+app.use(
+	OpenApiValidator.middleware({
+		apiSpec: "../node_modules/@vc/api/openapi.yaml",
+		validateRequests: true,
+		validateResponses: true,
+	})
+);
 
-const userMiddleware = async (
-	req: any,
-	res: any
-): Promise<{
-	user?: DecodedIdToken;
-}> => {
-	let user: DecodedIdToken;
+// Define routes using Express
+app.use("/api/user", userRouter);
+// app.use("/api/company", userRouter);
 
-	try {
-		user = await getAuth().verifyIdToken(req.headers.authorization);
-	} catch (e) {
-		console.log("Error Decoding token:", e);
-	}
+// Create an Express error handler
+app.use((err, req, res, next) => {
+	// format error
+	console.error(err);
+	res.status(err.status || 500).json({
+		message: err.message,
+		errors: err.errors,
+	});
+});
 
-	return {
-		user,
-	};
-};
+app.listen(port, () => {
+	console.log(`Example app listening at http://localhost:${port}`);
+});
