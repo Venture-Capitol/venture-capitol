@@ -1,7 +1,7 @@
 ### ----- GET BY ID: localhost:8103/entry/:id -----
 
 ### providing valid id of type number for entry that exists (check database)
-GET http://localhost:8103/entry/43
+GET http://localhost:8103/entry/12
 
 ### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
 GET http://localhost:8103/entry/12932
@@ -31,4 +31,4 @@ GET http://localhost:8103/entry?verified=false
 GET http://localhost:8103/entry
 
 ### DOESNT WORK YET ---> verified content is parsed into undefined which is a valid, SHOULD RETURN 400 
-GET http://localhost:8103/entry?verified:gustav
+GET http://localhost:8103/entry?verified=gustav

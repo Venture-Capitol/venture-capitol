@@ -9,4 +9,4 @@ export default {
 	title: "Components/Button",
 } as Meta;
 
-export const Primary: React.VFC<{}> = () => <Button />;
+export const Primary: React.VFC<{}> = () => <Button>Click me!</Button>;

@@ -38,6 +38,18 @@ resource "google_project_service" "sql" {
   disable_on_destroy = false
 }
 
+## Maps Javascript
+resource "google_project_service" "maps" {
+  service            = "maps-backend.googleapis.com"
+  disable_on_destroy = false
+}
+
+## Places
+resource "google_project_service" "places" {
+  service            = "places-backend.googleapis.com"
+  disable_on_destroy = false
+}
+
 # Create a service account for cloud run
 resource "google_service_account" "backend_sa" {
   account_id = "backend-sa"
