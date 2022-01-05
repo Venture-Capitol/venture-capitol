@@ -16,9 +16,15 @@
 		"@storybook/addon-actions": "^6.3.12",
 		"@storybook/addon-essentials": "^6.3.12",
 		"@storybook/addon-links": "^6.3.12",
+		"@storybook/preset-scss": "^1.0.3",
 		"@storybook/react": "^6.3.12",
 		"babel-loader": "^8.2.3",
-		"microbundle": "^0.14.1"
+		"css-loader": "^5.2.7",
+		"html-webpack-plugin": "^5.5.0",
+		"microbundle": "^0.14.1",
+		"sass": "^1.45.1",
+		"sass-loader": "^10.2.0",
+		"style-loader": "^2.0.0"
 	},
 	"dependencies": {
 		"@types/react": "^17.0.33",
