@@ -3,6 +3,8 @@ const router = Router();
 import { isAuthenticated } from "../utils/AuthenticationUtils";
 
 import logger = require("../../config/winston");
+import { Entry } from "@prisma/client";
+import ApplicationError from "../utils/ApplicationError";
 const EntryService = require("./EntryService");
 const EntryUtils = require("../utils/EntryUtils");
 
@@ -13,12 +15,17 @@ router.get("/search", function (req, res, next) {
 		req.query.jobname,
 		latAsNumber,
 		longAsNumber,
-		function (error: any, result: any) {
+		function (error: Error | ApplicationError, result: Entry[]) {
 			if (error) {
 				logger.error(error.message);
-				res.status(error.errorCode).end(error.message);
+				if (error instanceof ApplicationError) {
+					res.status(error.errorCode).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
 			} else {
 				for (const entry in result) {
+					// Array.map -> führt für jedes Element aus
 					const { id, job, company, address, description, ...partialObject } =
 						result[entry];
 					result[entry] = { id, job, company, address, description };
