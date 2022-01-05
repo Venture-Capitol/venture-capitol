@@ -1,4 +1,3 @@
-import express = require("express");
 import { Router } from "express";
 const router = Router();
 import { isAuthenticated } from "../utils/AuthenticationUtils";
@@ -80,6 +79,8 @@ router.get("/:id", function (req, res, next) {
 			logger.error(error.message);
 			res.status(error.errorCode).end(logger.error);
 		} else if (result) {
+			console.log(result);
+			console.log(typeof result);
 			res.send(result);
 		}
 	});
@@ -105,22 +106,19 @@ router.put("/:id", function (req, res, next) {
 // add isAuthenticated when ready
 router.delete("/:id", function (req, res, next) {
 	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
-	EntryService.deleteEntry(
-		idAsNumber,
-		function (error: any, errorcode: string) {
-			if (error) {
-				logger.error(error.message);
-				res.status(error.errorCode).end(error.message);
-			} else {
-				res.send("Eintrag mit ID: " + req.params.id + " geloescht.");
-			}
+	EntryService.deleteEntry(idAsNumber, function (error: any) {
+		if (error) {
+			logger.error(error.message);
+			res.status(error.errorCode).end(error.message);
+		} else {
+			res.send("Eintrag mit ID: " + req.params.id + " geloescht.");
 		}
-	);
+	});
 });
 
 // could add isAuthenticated when ready, but will be deleted before publish anyways
 router.post("/addMany", function (req, res, next) {
-	EntryUtils.addManyEntries(function (error: any, errorcode: string) {
+	EntryUtils.addManyEntries(function (error: any) {
 		if (error) {
 			logger.error(error.message);
 			res.status(error.errorCode).end(error.message);

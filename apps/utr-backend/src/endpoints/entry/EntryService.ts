@@ -5,9 +5,6 @@ import ApplicationError from "../utils/ApplicationError";
 
 const prisma = new PrismaClient();
 
-// note: needs implementation of calcDistance to work properly
-// note: needs differenciation between different 400 cases
-// needs stronger differenciation for internal logging (not responses, should all be 500)
 async function searchEntries(
 	jobname: string,
 	lat: number,
@@ -86,7 +83,6 @@ function calcDistance(element: any, lat: number, long: number) {
 	// to be implemented - also needs efficient saving of these infos for each element
 }
 
-// needs stronger differenciation for internal logging (not responses, should all be 500)
 async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
@@ -138,8 +134,6 @@ async function getAllEntries(
 	}
 }
 
-// note: doesnt differ between prisma errors and other exceptions yet
-// note: implement handling for wrong data types using npm express openapi validator
 async function createEntry(
 	job: string,
 	company: string,
@@ -177,7 +171,6 @@ async function createEntry(
 			});
 			return callback(null, createdEntry);
 		} catch (exception) {
-			//if (exception instanceof Prisma.???) {
 			return callback(
 				new ApplicationError(
 					"Es sind unerwartete Probleme bei der Erstellung eines Eintrags aufgetreten.",
@@ -185,7 +178,6 @@ async function createEntry(
 				),
 				null
 			);
-			//}
 		}
 	}
 }
@@ -231,7 +223,6 @@ async function getEntry(entryID: number, callback: Function) {
 	}
 }
 
-// note: NOT TESTED YET
 async function updateEntry(id: number, body: any, callback: Function) {
 	if (isNaN(id) || !body) {
 		return callback(

@@ -1,4 +1,12 @@
+import { Router } from "express";
+const router = Router();
+
 import { DecodedIdToken, getAuth } from "firebase-admin/auth";
+
+router.post("/testLogin", function (req, res, next) {
+	const testToken = "";
+	res.send(testToken);
+});
 
 export async function isAuthenticated(req: any, res: any, next: any) {
 	if (typeof req.headers.authorization !== "undefined") {
