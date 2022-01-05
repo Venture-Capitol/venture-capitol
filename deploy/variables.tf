@@ -31,6 +31,23 @@ variable "image_name" {
   default = "us-docker.pkg.dev/cloudrun/container/hello"
 }
 
+# UTR Configuration
+
+variable "utr_db_name" {
+  type    = string
+  default = "utrbackend"
+}
+
+variable "utr_db_user" {
+  type    = string
+  default = "utr_backend_user"
+}
+
+variable "utr_image_name" {
+  type    = string
+  default = "us-docker.pkg.dev/cloudrun/container/hello"
+}
+
 
 # Staging Variables
 

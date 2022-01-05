@@ -12,7 +12,9 @@ terraform {
 }
 
 
-# Enable required APIs
+#---------------------------------------------------------#
+# ------------------------ API's -------------------------#
+#---------------------------------------------------------#
 
 ## Secret Manager
 resource "google_project_service" "secretmanager" {
@@ -50,17 +52,32 @@ resource "google_project_service" "places" {
   disable_on_destroy = false
 }
 
-# Create a service account for cloud run
+
+
+#---------------------------------------------------------#
+# ------------------- Service Accounts -------------------#
+#---------------------------------------------------------#
+
+# Create a service account for the gpf-backend
 resource "google_service_account" "backend_sa" {
   account_id = "backend-sa"
   depends_on = [google_project_service.iam]
 }
 
-locals {
-  backend_serviceaccount = "serviceAccount:${google_service_account.backend_sa.email}"
+
+# Create a service account for the utr-backend
+resource "google_service_account" "utr_backend_sa" {
+  account_id = "utr-backend-sa"
+  depends_on = [google_project_service.iam]
 }
 
-# Grant the service account access to databases and cloud run
+locals {
+  backend_serviceaccount = "serviceAccount:${google_service_account.backend_sa.email}"
+  utr_backend_serviceaccount = "serviceAccount:${google_service_account.utr_backend_sa.email}"
+}
+
+
+# Grant the service accounts access to databases and cloud run
 resource "google_project_iam_binding" "service_permissions" {
   project = var.project
   for_each = toset([
@@ -68,11 +85,17 @@ resource "google_project_iam_binding" "service_permissions" {
   ])
 
   role    = "roles/${each.key}"
-  members = [local.backend_serviceaccount]
+  members = [local.backend_serviceaccount, local.utr_backend_serviceaccount]
 }
 
 
-# Create the sql database for Venture Capitol
+
+#---------------------------------------------------------#
+# ----------------------- DATABASE -----------------------#
+#---------------------------------------------------------#
+
+
+# Create the main Postgres Instance
 resource "google_sql_database_instance" "vc_db" {
   name                = "vc-backend-database"
   region              = var.region
@@ -98,7 +121,7 @@ resource "google_sql_database_instance" "vc_db" {
   depends_on = [google_project_service.sql]
 }
 
-# Create Database Password Secret and store it in secret manager
+# Create a random password for the gpf-backend database
 resource "random_password" "database_password" {
   length  = 32
   special = false
@@ -126,8 +149,7 @@ resource "google_secret_manager_secret_iam_binding" "db_connection_string_access
   members   = [local.backend_serviceaccount]
 }
 
-
-# Create Database and Credentials for the Backend
+# Create Database and Credentials for the gpf-backend
 resource "google_sql_database" "backend_database" {
   name     = var.db_name
   instance = google_sql_database_instance.vc_db.name
@@ -139,6 +161,53 @@ resource "google_sql_user" "database_user" {
   password = random_password.database_password.result
 }
 
+# Create a random password for the utr-backend database -------------------------------------------------
+
+resource "random_password" "utr_database_password" {
+  length  = 32
+  special = false
+}
+
+resource "google_secret_manager_secret" "utr_db_connection_string" {
+  secret_id = "utr_db_connection_string"
+
+  replication {
+    automatic = true
+  }
+
+  depends_on = [google_project_service.secretmanager]
+}
+
+resource "google_secret_manager_secret_version" "utr_db_connection_string_data" {
+  secret      = google_secret_manager_secret.utr_db_connection_string.name
+  secret_data = "postgresql://${var.utr_db_user}:${random_password.utr_database_password.result}@localhost/${var.utr_db_name}?host=/cloudsql/${google_sql_database_instance.vc_db.connection_name}"
+}
+
+# Give access rights of secret to backend service account
+resource "google_secret_manager_secret_iam_binding" "utr_db_connection_string_access" {
+  secret_id = google_secret_manager_secret.utr_db_connection_string.id
+  role      = "roles/secretmanager.secretAccessor"
+  members   = [local.utr_backend_serviceaccount]
+}
+
+
+# Create Database and Credentials for the utr-backend
+resource "google_sql_database" "utr_backend_database" {
+  name     = var.utr_db_name
+  instance = google_sql_database_instance.vc_db.name
+}
+
+resource "google_sql_user" "utr_database_user" {
+  name     = var.utr_db_user
+  instance = google_sql_database_instance.vc_db.name
+  password = random_password.utr_database_password.result
+}
+
+
+
+#---------------------------------------------------------#
+# ----------------------- CLOUD RUN ----------------------#
+#---------------------------------------------------------#
 
 # Create a Cloud Run Service for backend
 resource "google_cloud_run_service" "backend" {
@@ -202,15 +271,5 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
 }
 
 
-resource "google_cloud_run_domain_mapping" "root" {
-  location = var.region
-  name     = "api.venturecapitol.de"
 
-  metadata {
-    namespace = var.project
-  }
-
-  spec {
-    route_name = google_cloud_run_service.backend.name
-  }
-}
+# --------- UTR ------------
