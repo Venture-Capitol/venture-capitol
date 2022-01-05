@@ -4,6 +4,9 @@ import { signOut } from "@vc/auth";
 
 const DemoAuth: FC = () => {
 	const currentUser = useContext<User | null>(AuthContext);
+
+	console.log(currentUser?.getIdToken().then(token => console.log(token)));
+
 	const userInfoPanel = (
 		<div>
 			{currentUser && "Hello, " + currentUser.displayName}
