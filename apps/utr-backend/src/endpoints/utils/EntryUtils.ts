@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 async function addManyEntries(callback: Function) {
 	try {
-		/* const createMany = await prisma.entry.createMany({
+		const createMany = await prisma.entry.createMany({
 			data: [
 				{
 					job: "Notar",
@@ -106,8 +106,7 @@ async function addManyEntries(callback: Function) {
 				},
 			],
 			skipDuplicates: true, // skips entries with duplicate unique queues
-		}); */
-		return callback(null);
+		});
 	} catch (exception) {
 		//if (exception instanceof Prisma.PrismaClientKnownRequestError) {
 		return callback(

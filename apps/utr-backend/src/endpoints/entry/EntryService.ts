@@ -232,7 +232,7 @@ async function updateEntry(id: number, body: any, callback: Function) {
 		);
 	} else {
 		try {
-			/* const updatedEntry = await prisma.entry.update({
+			const updatedEntry = await prisma.entry.update({
 				where: {
 					id: id,
 				},
@@ -248,8 +248,7 @@ async function updateEntry(id: number, body: any, callback: Function) {
 					description: body.description,
 				},
 			});
-			return callback(null, updatedEntry); */
-			return callback(null, null);
+			return callback(null, updatedEntry);
 		} catch (exception) {
 			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
 				if (exception.code == "P2025") {
