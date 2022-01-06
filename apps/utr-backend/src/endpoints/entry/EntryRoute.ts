@@ -1,12 +1,12 @@
 import { Router } from "express";
 const router = Router();
-import { isAuthenticatedAsAdmin, getRole } from "../utils/AuthenticationUtils";
+import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 
 import logger = require("../../config/winston");
 const EntryService = require("./EntryService");
 const EntryUtils = require("../utils/EntryUtils");
 
-router.get("/test", getRole, function (req, res, next) {
+router.get("/test", getUser, function (req, res, next) {
 	res.status(200).end();
 });
 
@@ -41,7 +41,7 @@ router.get("/search", function (req, res, next) {
 	);
 });
 
-router.get("/", isAuthenticatedAsAdmin, function (req, res, next) {
+router.get("/", isAdmin, function (req, res, next) {
 	const verifiedAsBoolean = EntryUtils.parseToBoolean(req.query.verified);
 	const amountAsNumber = EntryUtils.parseToNumber(req.query.amount);
 	const pageAsNumber = EntryUtils.parseToNumber(req.query.page);
@@ -70,7 +70,7 @@ router.get("/", isAuthenticatedAsAdmin, function (req, res, next) {
 	);
 });
 
-router.post("/", getRole, function (req, res, next) {
+router.post("/", getUser, function (req, res, next) {
 	const body = req.body.entry;
 	EntryService.createEntry(
 		body.job,
@@ -122,7 +122,7 @@ router.get("/:id", function (req, res, next) {
 	);
 });
 
-router.put("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
+router.put("/:id", isAdmin, function (req, res, next) {
 	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.updateEntry(
 		idAsNumber,
@@ -150,7 +150,7 @@ router.put("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
 	);
 });
 
-router.delete("/:id", isAuthenticatedAsAdmin, function (req, res, next) {
+router.delete("/:id", isAdmin, function (req, res, next) {
 	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.deleteEntry(
 		idAsNumber,
