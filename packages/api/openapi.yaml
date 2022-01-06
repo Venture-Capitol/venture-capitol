@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "Open API specification for the Venture Capitol API"
-  version: 1.0.6
+  version: 1.0.0
   title: Venture Capitol API
 host: api.venturecapitol.com
 basePath: "/v2"
@@ -57,13 +57,13 @@ paths:
           description: Name of the company which will be founded
           required: false
           schema:
-            "$ref": "#/definitions/Company"
+            type: string
         - in: body
           name: LegalForm
           description: Legal form of the company which will be founded
           required: true
           schema:
-            "$ref": "#/definitions/Company"
+            type: string
       responses:
         "200":
           description: Success
@@ -263,8 +263,8 @@ paths:
           description: Selected path of the decision
           required: true
           schema:
-            "$ref": "#/definitions/MadeDecision"
-      responses:
+            type:
+int      responses:
         "200":
           description: successful operation
         "400":
@@ -326,26 +326,10 @@ definitions:
           wrapped: true
         items:
           xml:
-            name: UserInCompany
-          "$ref": "#/definitions/UserInCompany"
+            name: Companies
+          "$ref": "#/definitions/Company"
     xml:
       name: User
-  UserInCompany:
-    type: object
-    required:
-      - user
-      - company
-    properties:
-      user:
-        type: object
-        "$ref": "#/definitions/User"
-      userId:
-        type: string
-      company:
-        type: object
-        "$ref": "#/definitions/Company"
-      companyId:
-        type: string
   CompletedTask:
     type: object
     required:
@@ -397,10 +381,17 @@ definitions:
           wrapped: true
         items:
           xml:
-            name: UserinCompany
-          "$ref": "#/definitions/UserInCompany"
+            name: Users
+          "$ref": "#/definitions/User"
       legalForm:
-        "$ref": "#/definitions/LegalForm"
+        type: string
+        enum:
+          - EINZELUNTERNEHMER
+          - GBR
+          - FREIBERUFLER
+          - PARTG
+          - UG
+          - GMBH
       completedTask:
         type: array
         xml:
@@ -419,12 +410,3 @@ definitions:
           "$ref": "#/definitions/MadeDecision"
     xml:
       name: Company
-  LegalForm:
-    type: string
-    enum:
-      - EINZELUNTERNEHMER
-      - GBR
-      - FREIBERUFLER
-      - PARTG
-      - UG
-      - GMBH
