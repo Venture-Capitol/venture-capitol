@@ -37,7 +37,7 @@ router.get("/search", function (req, res, next) {
 	);
 });
 
-router.get("/", isAdmin, function (req, res, next) {
+router.get("/", getUser, isAdmin, function (req, res, next) {
 	const verifiedAsBoolean = EntryUtils.parseToBoolean(req.query.verified);
 	const amountAsNumber = EntryUtils.parseToNumber(req.query.amount);
 	const pageAsNumber = EntryUtils.parseToNumber(req.query.page);
@@ -118,7 +118,7 @@ router.get("/:id", function (req, res, next) {
 	);
 });
 
-router.put("/:id", isAdmin, function (req, res, next) {
+router.put("/:id", getUser, isAdmin, function (req, res, next) {
 	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.updateEntry(
 		idAsNumber,
@@ -146,7 +146,7 @@ router.put("/:id", isAdmin, function (req, res, next) {
 	);
 });
 
-router.delete("/:id", isAdmin, function (req, res, next) {
+router.delete("/:id", getUser, isAdmin, function (req, res, next) {
 	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.deleteEntry(
 		idAsNumber,
