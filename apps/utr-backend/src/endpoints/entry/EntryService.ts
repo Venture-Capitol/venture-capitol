@@ -152,7 +152,7 @@ async function createEntry(
 		);
 	} else {
 		try {
-			/* const createdEntry = await prisma.entry.create({
+			const createdEntry = await prisma.entry.create({
 				data: {
 					job: job,
 					company: company,
@@ -165,8 +165,7 @@ async function createEntry(
 					description: description,
 				},
 			});
-			return callback(null, createdEntry); */
-			return callback(null, null);
+			return callback(null, createdEntry);
 		} catch (exception) {
 			//if (exception instanceof Prisma.???) {
 			return callback(

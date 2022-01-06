@@ -107,6 +107,7 @@ async function addManyEntries(callback: Function) {
 			],
 			skipDuplicates: true, // skips entries with duplicate unique queues
 		});
+		return callback(null);
 	} catch (exception) {
 		//if (exception instanceof Prisma.PrismaClientKnownRequestError) {
 		return callback(
