@@ -152,7 +152,7 @@ async function createEntry(
 		);
 	} else {
 		try {
-			const createdEntry = await prisma.entry.create({
+			/* const createdEntry = await prisma.entry.create({
 				data: {
 					job: job,
 					company: company,
@@ -165,7 +165,8 @@ async function createEntry(
 					description: description,
 				},
 			});
-			return callback(null, createdEntry);
+			return callback(null, createdEntry); */
+			return callback(null, null);
 		} catch (exception) {
 			//if (exception instanceof Prisma.???) {
 			return callback(
@@ -231,7 +232,7 @@ async function updateEntry(id: number, body: any, callback: Function) {
 		);
 	} else {
 		try {
-			const updatedEntry = await prisma.entry.update({
+			/* const updatedEntry = await prisma.entry.update({
 				where: {
 					id: id,
 				},
@@ -247,7 +248,8 @@ async function updateEntry(id: number, body: any, callback: Function) {
 					description: body.description,
 				},
 			});
-			return callback(null, updatedEntry);
+			return callback(null, updatedEntry); */
+			return callback(null, null);
 		} catch (exception) {
 			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
 				if (exception.code == "P2025") {
