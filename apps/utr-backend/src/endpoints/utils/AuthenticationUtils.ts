@@ -1,4 +1,5 @@
 import { getAuth } from "firebase-admin/auth";
+import logger = require("../../config/winston");
 
 // Checks if the user is logged in and saves the user object in req.user
 export function getUser(req: any, res: any, next: any) {
@@ -14,10 +15,18 @@ export function getUser(req: any, res: any, next: any) {
 							getAuth()
 								.setCustomUserClaims(tokenResult.uid, { role: "user" })
 								.then(() => {
-									console.log("Custom Claim successfully added to UID.");
+									logger.debug(
+										"Custom Claim role: 'user' successfully added to UID: " +
+											tokenResult.uid
+									);
 								})
 								.catch(error => {
-									console.log("Error adding Custom Claim: ", error);
+									logger.error(
+										"Error on user with UID: " +
+											tokenResult.uid +
+											" while adding Custom Claim role: 'user': ",
+										error
+									);
 								});
 							tokenResult.role = "user";
 						}
@@ -45,6 +54,11 @@ export async function isAdmin(req: any, res: any, next: any) {
 	if (req.user?.role == "admin") {
 		return next();
 	} else if (req.user?.role == "user") {
+		logger.debug(
+			"User with UID: " +
+				req.user.uid +
+				" tryed to access an admin route but his token has no adminaccess."
+		);
 		res.status(403).end();
 	} else {
 		res.status(401).end();
