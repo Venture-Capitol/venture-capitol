@@ -6,10 +6,6 @@ import logger = require("../../config/winston");
 const EntryService = require("./EntryService");
 const EntryUtils = require("../utils/EntryUtils");
 
-router.get("/test", getUser, function (req, res, next) {
-	res.status(200).end();
-});
-
 router.get("/search", function (req, res, next) {
 	const latAsNumber = EntryUtils.parseToNumber(req.query.lat);
 	const longAsNumber = EntryUtils.parseToNumber(req.query.long);
