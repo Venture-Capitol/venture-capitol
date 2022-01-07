@@ -26,15 +26,12 @@ router.get("/search", function (req, res, next) {
 					res.status(500).end(error.message);
 				}
 			} else {
-				/*for (const entry in result) {
-					// Array.map -> führt für jedes Element aus
+				const mappedSubset = result.map(entry => {
 					const { id, job, company, address, description, ...partialObject } =
-						result[entry];
-					result[entry] = { id, job, company, address, description };
-				}
-				*/
-				const subsetResult = result.map(function () {});
-				res.send(result);
+						entry;
+					return { id, job, company, address, description };
+				});
+				res.send(mappedSubset);
 			}
 		}
 	);
