@@ -27,6 +27,7 @@ async function deleteCompanyById(companyId: string) {
 			id: companyId,
 		},
 	});
+	return deleteCompany;
 }
 
 module.exports = {

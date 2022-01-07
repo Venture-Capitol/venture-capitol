@@ -1,11 +1,11 @@
 import { Router } from "express";
-const router = Router();
+const userRouter = Router();
 
 const UserService = require("./UserService");
 
-router.get("/user/:userId", async function (req, res, next) {
+userRouter.get("/user/:userId", async function (req, res, next) {
 	const userId = req.params.userId;
 	res.send(UserService.findUserById(userId));
 });
 
-module.exports = router;
+module.exports = userRouter;

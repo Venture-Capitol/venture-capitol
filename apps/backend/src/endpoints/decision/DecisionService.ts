@@ -1,4 +1,4 @@
-import { PrismaClient, Company } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -16,11 +16,6 @@ async function addDecisionToCompany(
 	decisionId: string,
 	selectedPath: number
 ) {
-	const foundCompany = await prisma.company.findUnique({
-		where: {
-			id: companyId,
-		},
-	});
 	const createDecision = await prisma.madeDecision.create({
 		data: {
 			decisionId: decisionId,
@@ -35,7 +30,7 @@ async function deleteDecisionFromCompany(
 	companyId: string,
 	decisionId: string
 ) {
-	const deleteDecision = await prisma.madeDecision.delete({
+	const deleteDecision = await prisma.madeDecision.deleteMany({
 		where: {
 			companyId: companyId,
 			decisionId: decisionId,

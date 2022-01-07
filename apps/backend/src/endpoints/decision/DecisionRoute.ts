@@ -1,14 +1,17 @@
 import { Router } from "express";
-const router = Router();
+const decisionRouter = Router();
 
 const DecisionService = require("./DecisionService");
 
-router.get("/company/:companyId/decisions", async function (req, res, next) {
-	const companyId = req.params.companyId;
-	res.send(DecisionService.findAllDecisionsByCompanyId(companyId));
-});
+decisionRouter.get(
+	"/company/:companyId/decisions",
+	async function (req, res, next) {
+		const companyId = req.params.companyId;
+		res.send(DecisionService.findAllDecisionsByCompanyId(companyId));
+	}
+);
 
-router.post(
+decisionRouter.post(
 	"/company/:companyId/decisions/:decisionId",
 	async function (req, res, next) {
 		const companyId = req.params.companyId;
@@ -20,7 +23,7 @@ router.post(
 	}
 );
 
-router.delete(
+decisionRouter.delete(
 	"/company/:companyId/decisions/:decisionId",
 	async function (req, res, next) {
 		const companyId = req.params.companyId;
@@ -29,4 +32,4 @@ router.delete(
 	}
 );
 
-module.exports = router;
+module.exports = decisionRouter;

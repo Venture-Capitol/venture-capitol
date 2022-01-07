@@ -1,14 +1,14 @@
 import { Router } from "express";
-const router = Router();
+const taskRouter = Router();
 
 const TaskService = require("./TaskService");
 
-router.get("/company/:companyId/tasks", async function (req, res, next) {
+taskRouter.get("/company/:companyId/tasks", async function (req, res, next) {
 	const companyId = req.params.companyId;
 	res.send(TaskService.findAllTasksByCompanyId(companyId));
 });
 
-router.post(
+taskRouter.post(
 	"/company/:companyId/tasks/:taskId",
 	async function (req, res, next) {
 		const companyId = req.params.companyId;
@@ -17,7 +17,7 @@ router.post(
 	}
 );
 
-router.delete(
+taskRouter.delete(
 	"/company/:companyId/tasks/:taskId",
 	async function (req, res, next) {
 		const companyId = req.params.companyId;
@@ -26,4 +26,4 @@ router.delete(
 	}
 );
 
-module.exports = router;
+module.exports = taskRouter;

@@ -12,28 +12,23 @@ async function findAllTasksByCompanyId(companyId: string) {
 }
 
 async function addTaskToCompany(companyId: string, taskId: string) {
-	const foundCompany = await prisma.company.findUnique({
-		where: {
-			id: companyId,
-		},
-	});
-	const createTasks = await prisma.completedTask.create({
+	const createTask = await prisma.completedTask.create({
 		data: {
 			companyId: companyId,
 			taskId: taskId,
 		},
 	});
-	return createTasks;
+	return createTask;
 }
 
 async function deleteTaskFromCompany(companyId: string, taskId: string) {
-	const deleteTasks = await prisma.completedTask.delete({
+	const deleteTask = await prisma.completedTask.deleteMany({
 		where: {
 			companyId: companyId,
 			taskId: taskId,
 		},
 	});
-	return deleteTasks;
+	return deleteTask;
 }
 
 module.exports = {
