@@ -12,7 +12,7 @@ const decisionRouter = require("./endpoints/decision/DecisionRoute");
 // Install the OpenApiValidator onto your express app
 app.use(
 	OpenApiValidator.middleware({
-		apiSpec: "../../../packages/api/openapi.yaml",
+		apiSpec: "../../packages/api/openapi.yaml",
 		validateRequests: true,
 		validateResponses: true,
 	})

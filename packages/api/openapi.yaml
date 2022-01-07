@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "Open API specification for the Venture Capitol API"
-  version: 1.0.0
+  version: "1.0.0"
   title: Venture Capitol API
 host: api.venturecapitol.com
 basePath: "/v2"
