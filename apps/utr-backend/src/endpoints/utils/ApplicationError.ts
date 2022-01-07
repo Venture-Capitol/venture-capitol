@@ -4,7 +4,5 @@ export default class ApplicationError extends Error {
 	constructor(message: string, errorCode: number) {
 		super(message);
 		this.errorCode = errorCode;
-
-		Object.setPrototypeOf(this, ApplicationError.prototype);
 	}
 }
