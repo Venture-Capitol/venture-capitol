@@ -6,7 +6,7 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-,
+
 model User {
   id        String          @id @unique
   companies UserInCompany[]
@@ -48,7 +48,9 @@ model MadeDecision {
 }
 
 enum LegalForm {
-  EINZELUNTERNEHMER  GBR  FREIBERUFLER
+  EINZELUNTERNEHMER  
+  GBR
+  FREIBERUFLER
   PARTG
   UG
   GMBH

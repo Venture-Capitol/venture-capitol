@@ -1,4 +1,4 @@
-import { PrismaClient, Company, madeDecision } from "@prisma/client";
+import { PrismaClient, Company } from "@prisma/client";
 
 const prisma = new PrismaClient();
 

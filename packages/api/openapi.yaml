@@ -263,8 +263,8 @@ paths:
           description: Selected path of the decision
           required: true
           schema:
-            type:
-int      responses:
+            type: integer
+      responses:
         "200":
           description: successful operation
         "400":
