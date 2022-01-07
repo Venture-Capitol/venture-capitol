@@ -100,8 +100,6 @@ router.get("/:id", function (req, res, next) {
 					res.status(500).end(error.message);
 				}
 			} else if (result) {
-				console.log(result);
-				console.log(typeof result);
 				res.send(result);
 			}
 		}
