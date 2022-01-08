@@ -23,5 +23,5 @@
 			"@vc/frontend/util/*": ["utils/*"]
 		}
 	},
-	"include": ["./src"]
+	"include": ["./src", "../../packages/ui/src/components/Button"]
 }

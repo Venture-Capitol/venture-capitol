@@ -1,11 +1,10 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import logger = require("../../config/winston");
 
+import ApplicationError from "../utils/ApplicationError";
+
 const prisma = new PrismaClient();
 
-// note: needs implementation of calcDistance to work properly
-// note: needs differenciation between different 400 cases
-// needs stronger differenciation for internal logging (not responses, should all be 500)
 async function searchEntries(
 	jobname: string,
 	lat: number,
@@ -18,10 +17,10 @@ async function searchEntries(
 		typeof long !== "number"
 	) {
 		return callback(
-			new Error(
-				"Fehlerhafte Anfrage. Job muss vom Typ String, longitude und latitude müssen vom Typ number sein."
+			new ApplicationError(
+				"Fehlerhafte Anfrage. Job muss vom Typ String, longitude und latitude müssen vom Typ number sein.",
+				400
 			),
-			"400",
 			null
 		);
 	} else if (
@@ -30,7 +29,11 @@ async function searchEntries(
 		jobname !== "Steuerberater" &&
 		jobname !== "Webagentur"
 	) {
-		return callback(new Error("Jobname ist ungueltig."), "400", null);
+		return callback(
+			new ApplicationError("Jobname ist ungueltig.", 400),
+			null,
+			null
+		);
 	} else {
 		try {
 			const searchResults = await prisma.entry.findMany({
@@ -52,18 +55,22 @@ async function searchEntries(
 				searchResults.forEach(element => {
 					calcDistance(element, lat, long);
 				});
-				return callback(null, null, searchResults);
+				return callback(null, searchResults);
 			} else {
 				return callback(
-					new Error("Es existieren keine Einträge die diesen Job ausführen"),
-					"404",
+					new ApplicationError(
+						"Es existieren keine Einträge die diesen Job ausführen",
+						400
+					),
 					null
 				);
 			}
 		} catch (exception) {
 			return callback(
-				new Error("Es sind unerwartete Probleme bei der Suche aufgetreten."),
-				"500",
+				new ApplicationError(
+					"Es sind unerwartete Probleme bei der Suche aufgetreten.",
+					500
+				),
 				null
 			);
 		}
@@ -76,7 +83,6 @@ function calcDistance(element: any, lat: number, long: number) {
 	// to be implemented - also needs efficient saving of these infos for each element
 }
 
-// needs stronger differenciation for internal logging (not responses, should all be 500)
 async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
@@ -110,26 +116,24 @@ async function getAllEntries(
 			}
 		} catch (exception) {
 			return callback(
-				new Error(
-					"Es sind unerwartete Probleme bei der Suche nach allen Eintraegen aufgetreten."
+				new ApplicationError(
+					"Es sind unerwartete Probleme bei der Suche nach allen Eintraegen aufgetreten.",
+					500
 				),
-				"500",
 				null
 			);
 		}
 	} else {
 		return callback(
-			new Error(
-				"Die Anfrage war fehlerhaft. verified muss keinen Wert oder einen boolean Wert enthalten."
+			new ApplicationError(
+				"Die Anfrage war fehlerhaft. verified muss keinen Wert oder einen boolean Wert enthalten.",
+				400
 			),
-			"400",
 			null
 		);
 	}
 }
 
-// note: doesnt differ between prisma errors and other exceptions yet
-// note: implement handling for wrong data types using npm express openapi validator
 async function createEntry(
 	job: string,
 	company: string,
@@ -144,10 +148,10 @@ async function createEntry(
 ) {
 	if (!company || !email || !job || !address || !latitude || !longitude) {
 		return callback(
-			new Error(
-				"Die Anfrage war fehlerhaft. Company, E-Mail, Job & Addresse sind required."
+			new ApplicationError(
+				"Die Anfrage war fehlerhaft. Company, E-Mail, Job & Addresse sind required.",
+				400
 			),
-			"400",
 			null
 		);
 	} else {
@@ -167,15 +171,13 @@ async function createEntry(
 			});
 			return callback(null, createdEntry);
 		} catch (exception) {
-			//if (exception instanceof Prisma.???) {
 			return callback(
-				new Error(
-					"Es sind unerwartete Probleme bei der Erstellung eines Eintrags aufgetreten."
+				new ApplicationError(
+					"Es sind unerwartete Probleme bei der Erstellung eines Eintrags aufgetreten.",
+					500
 				),
-				"500",
 				null
 			);
-			//}
 		}
 	}
 }
@@ -183,8 +185,10 @@ async function createEntry(
 async function getEntry(entryID: number, callback: Function) {
 	if (isNaN(entryID)) {
 		return callback(
-			new Error("Die Anfrage war Fehlerhaft. id muss vom typ number sein."),
-			"400",
+			new ApplicationError(
+				"Die Anfrage war Fehlerhaft. id muss vom typ number sein.",
+				400
+			),
 			null
 		);
 	} else {
@@ -196,12 +200,12 @@ async function getEntry(entryID: number, callback: Function) {
 			});
 			if (foundEntry == null) {
 				return callback(
-					new Error(
+					new ApplicationError(
 						"Für die angegebene ID " +
 							entryID +
-							" konnte kein Eintrag gefunden werden."
+							" konnte kein Eintrag gefunden werden.",
+						404
 					),
-					"404",
 					null
 				);
 			} else {
@@ -209,24 +213,23 @@ async function getEntry(entryID: number, callback: Function) {
 			}
 		} catch (exception) {
 			return callback(
-				new Error(
-					"Es ist ein unerwarteter Fehler bei der Suche nach genau einem Eintrag aufgetreten."
+				new ApplicationError(
+					"Es ist ein unerwarteter Fehler bei der Suche nach genau einem Eintrag aufgetreten.",
+					500
 				),
-				"500",
 				null
 			);
 		}
 	}
 }
 
-// note: NOT TESTED YET
 async function updateEntry(id: number, body: any, callback: Function) {
 	if (isNaN(id) || !body) {
 		return callback(
-			new Error(
-				"Fehlerhafte Anfrage. ID muss number sein und der requestBody vorhanden."
+			new ApplicationError(
+				"Fehlerhafte Anfrage. ID muss number sein und der requestBody vorhanden.",
+				400
 			),
-			"400",
 			null
 		);
 	} else {
@@ -252,17 +255,16 @@ async function updateEntry(id: number, body: any, callback: Function) {
 			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
 				if (exception.code == "P2025") {
 					return callback(
-						new Error("Es exisiert kein Eintrag für diese ID."),
-						"404",
+						new ApplicationError("Es exisiert kein Eintrag für diese ID.", 404),
 						null
 					);
 				}
 			} else {
 				return callback(
-					new Error(
-						"Es ist ein unerwarteter Fehler beim Aktualisieren eines Eintrags aufgetretren."
+					new ApplicationError(
+						"Es ist ein unerwarteter Fehler beim Aktualisieren eines Eintrags aufgetretren.",
+						500
 					),
-					"500",
 					null
 				);
 			}
@@ -273,8 +275,7 @@ async function updateEntry(id: number, body: any, callback: Function) {
 async function deleteEntry(id: number, callback: Function) {
 	if (isNaN(id)) {
 		return callback(
-			new Error("Fehlerhafte Anfrage. ID muss number sein."),
-			"400"
+			new ApplicationError("Fehlerhafte Anfrage. ID muss number sein.", 400)
 		);
 	} else {
 		try {
@@ -288,16 +289,15 @@ async function deleteEntry(id: number, callback: Function) {
 			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
 				if (exception.code == "P2025") {
 					return callback(
-						new Error("Es exisiert kein Eintrag für diese ID"),
-						"404"
+						new ApplicationError("Es exisiert kein Eintrag für diese ID", 404)
 					);
 				}
 			} else {
 				return callback(
-					new Error(
-						"Es ist ein unerwarteter Fehler beim Loeschen eines Eintrags aufgetreten"
-					),
-					"500"
+					new ApplicationError(
+						"Es ist ein unerwarteter Fehler beim Loeschen eines Eintrags aufgetreten",
+						500
+					)
 				);
 			}
 		}

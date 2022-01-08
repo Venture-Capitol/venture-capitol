@@ -15,7 +15,9 @@ function App() {
 					<Route path='/' exact>
 						<Index />
 					</Route>
-
+					<Route path='/demoAuth'>
+						<DemoAuth />
+					</Route>
 					<Route path='/gruendung/:task'>
 						<ProcessProvider>
 							<Gruendung />

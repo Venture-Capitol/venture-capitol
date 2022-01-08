@@ -1,0 +1,13 @@
+.default_btn {
+	padding: 12px 60px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #fff;
+	cursor: pointer;
+
+	&[data-width="fullwidth"] {
+		width: 100%;
+	}
+}
