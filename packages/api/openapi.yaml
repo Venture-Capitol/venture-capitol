@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: Venture Capitol API
   description: Open API specification for the Venture Capitol API
-host: api.venturecapitol.com
+host: localhost:8101
 basePath: "/v2"
 tags:
   - name: company
@@ -17,6 +17,11 @@ tags:
 schemes:
   - https
   - http
+securityDefinitions:
+  UserSecurity:
+    type: basic
+security:
+  - UserSecurity: []
 paths:
   "/user/{userId}":
     get:
@@ -29,7 +34,7 @@ paths:
         - application/json
         - application/xml
       parameters:
-        - name: id
+        - name: userId
           in: path
           description: ID of the user
           required: true
@@ -41,9 +46,6 @@ paths:
             "$ref": "#/definitions/User"
         "400":
           description: Invalid status value
-      security:
-        - {}
-        - firebaseAuth: []
   "/company":
     post:
       tags:
@@ -53,25 +55,23 @@ paths:
       operationId: addCompany
       parameters:
         - in: body
-          name: name
-          description: Name of the company which will be founded
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: LegalForm
-          description: Legal form of the company which will be founded
+          name: company
+          description: company which will be founded
           required: true
           schema:
-            type: string
+            required:
+              - LegalForm
+            type: object
+            properties:
+              legalForm:
+                type: string
+              name:
+                type: string
       responses:
         "200":
           description: Success
         "400":
           description: The request was invalid. The parameters LegalForm and optional name must be set in the requestBody.
-      security:
-        - {}
-        - firebaseAuth: []
   "/company/{companyId}":
     get:
       tags:
@@ -83,7 +83,7 @@ paths:
         - application/json
         - application/xml
       parameters:
-        - name: id
+        - name: companyId
           in: path
           description: ID of the company
           required: true
@@ -95,9 +95,6 @@ paths:
             "$ref": "#/definitions/Company"
         "400":
           description: Invalid status value
-      security:
-        - {}
-        - firebaseAuth: []
     delete:
       tags:
         - company
@@ -108,7 +105,7 @@ paths:
         - application/json
         - application/xml
       parameters:
-        - name: id
+        - name: companyId
           in: path
           required: true
           type: string
@@ -119,9 +116,6 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Company not found
-      security:
-        - {}
-        - firebaseAuth: []
   "/company/{companyId}/tasks":
     get:
       tags:
@@ -147,9 +141,6 @@ paths:
               "$ref": "#/definitions/CompletedTask"
         "400":
           description: Invalid status value
-      security:
-        - {}
-        - firebaseAuth: []
   "/company/{companyId}/tasks/{taskId}":
     post:
       tags:
@@ -176,9 +167,6 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
-      security:
-        - {}
-        - firebaseAuth: []
     delete:
       tags:
         - task
@@ -206,9 +194,6 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Company or task not found
-      security:
-        - {}
-        - firebaseAuth: []
   "/company/{companyId}/decisions":
     get:
       tags:
@@ -234,9 +219,6 @@ paths:
               "$ref": "#/definitions/MadeDecision"
         "400":
           description: Invalid status value
-      security:
-        - {}
-        - firebaseAuth: []
   "/company/{companyId}/decision/{decisionId}":
     post:
       tags:
@@ -269,9 +251,6 @@ paths:
           description: successful operation
         "400":
           description: Invalid status value
-      security:
-        - {}
-        - firebaseAuth: []
     delete:
       tags:
         - decision
@@ -299,18 +278,6 @@ paths:
           description: Invalid ID supplied
         "404":
           description: Company or decision not found
-      security:
-        - {}
-        - firebaseAuth: []
-securityDefinitions:
-  firebase:
-    authorizationUrl: "https://google.de"
-    flow: "implicit"
-    type: "oauth2"
-    # Replace YOUR-PROJECT-ID with your project ID
-    x-google-issuer: "https://securetoken.google.com/YOUR-PROJECT-ID"
-    x-google-jwks_uri: "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com"
-    x-google-audiences: "YOUR-PROJECT-ID"
 definitions:
   User:
     type: object
