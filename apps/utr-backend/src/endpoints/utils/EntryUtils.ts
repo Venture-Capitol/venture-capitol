@@ -1,5 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 
+import ApplicationError from "../utils/ApplicationError";
+
 const prisma = new PrismaClient();
 
 async function addManyEntries(callback: Function) {
@@ -111,8 +113,10 @@ async function addManyEntries(callback: Function) {
 	} catch (exception) {
 		//if (exception instanceof Prisma.PrismaClientKnownRequestError) {
 		return callback(
-			new Error("Fehler beim Erstellen sinnvoller Starteintraege."),
-			"500"
+			new ApplicationError(
+				"Fehler beim Erstellen sinnvoller Starteintraege.",
+				500
+			)
 		);
 		//}
 	}
