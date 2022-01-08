@@ -12,32 +12,34 @@ html,
 	font-weight: var(--font-weight-medium);
 }
 
-h1 {
-	font-size: var(--size-48px);
-	margin: 0 0 var(--size-28px);
-}
+.content {
+	h1 {
+		font-size: var(--size-48px);
+		margin: 0 0 var(--size-28px);
+	}
 
-h2 {
-	font-size: var(--size-36px);
-	margin: 0 0 var(--size-20px);
-}
+	h2 {
+		font-size: var(--size-36px);
+		margin: 0 0 var(--size-20px);
+	}
 
-h3,
-h4 {
-	font-size: var(--size-32px);
-	margin: 0 0 var(--size-18px);
-}
+	h3,
+	h4 {
+		font-size: var(--size-32px);
+		margin: 0 0 var(--size-18px);
+	}
 
-h5,
-h6 {
-	font-size: var(--size-24px);
-	margin: 0 0 var(--size-18px);
-}
+	h5,
+	h6 {
+		font-size: var(--size-24px);
+		margin: 0 0 var(--size-18px);
+	}
 
-p,
-ul {
-	font-size: var(--size-18px);
-	margin-bottom: var(--size-16px);
+	p,
+	ul {
+		font-size: var(--size-18px);
+		margin-bottom: var(--size-16px);
+	}
 }
 
 a {
