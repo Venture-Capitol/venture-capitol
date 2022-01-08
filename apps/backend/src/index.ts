@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import * as OpenApiValidator from "express-openapi-validator";
+import HttpException from "./exceptions/HttpException";
 
 const app = express();
 const port = parseInt(process.env.PORT) || 8101;
@@ -18,12 +19,16 @@ app.use(
 	})
 );
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-	res.status(500).json({
-		message: err.message,
-		errors: err.name,
-	});
-});
+app.use(
+	(err: HttpException, req: Request, res: Response, next: NextFunction) => {
+		const status = err.status || 500;
+		const message = err.message || "Something went wrong.";
+		res.status(status).json({
+			message: message,
+			errors: status,
+		});
+	}
+);
 
 // Define routes using Express
 app.use("/api/user", userRouter);
