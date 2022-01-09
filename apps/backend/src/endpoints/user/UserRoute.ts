@@ -3,7 +3,7 @@ const userRouter = Router();
 
 const UserService = require("./UserService");
 
-userRouter.get("/user/:userId", async function (req, res, next) {
+userRouter.get("/:userId", async function (req, res, next) {
 	const userId = req.params.userId;
 	res.send(UserService.findUserById(userId));
 });

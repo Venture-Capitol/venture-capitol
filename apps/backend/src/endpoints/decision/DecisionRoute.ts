@@ -3,16 +3,13 @@ const decisionRouter = Router();
 
 const DecisionService = require("./DecisionService");
 
-decisionRouter.get(
-	"/company/:companyId/decisions",
-	async function (req, res, next) {
-		const companyId = req.params.companyId;
-		res.send(DecisionService.findAllDecisionsByCompanyId(companyId));
-	}
-);
+decisionRouter.get("/:companyId/decisions", async function (req, res, next) {
+	const companyId = req.params.companyId;
+	res.send(DecisionService.findAllDecisionsByCompanyId(companyId));
+});
 
 decisionRouter.post(
-	"/company/:companyId/decisions/:decisionId",
+	"/:companyId/decisions/:decisionId",
 	async function (req, res, next) {
 		const companyId = req.params.companyId;
 		const decisionId = req.params.decisionId;
@@ -24,7 +21,7 @@ decisionRouter.post(
 );
 
 decisionRouter.delete(
-	"/company/:companyId/decisions/:decisionId",
+	"/:companyId/decisions/:decisionId",
 	async function (req, res, next) {
 		const companyId = req.params.companyId;
 		const decisionId = req.params.decisionId;
