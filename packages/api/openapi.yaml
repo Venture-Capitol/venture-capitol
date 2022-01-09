@@ -145,7 +145,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/CompletedTask"
+                  type: string
         400:
           description: Invalid status value
           content: {}
@@ -227,7 +227,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/MadeDecision"
+                  type: object
+                  properties:
+                    decisionId:
+                      type: string
+                    selectedPath:
+                      type: integer
+                      format: int32
         400:
           description: Invalid status value
           content: {}
@@ -338,18 +344,12 @@ components:
       properties:
         decisionId:
           type: string
-        company:
-          $ref: "#/components/schemas/Company"
         companyId:
           type: string
         selectedPath:
           type: integer
           format: int32
     Company:
-      required:
-        - id
-        - legalForm
-        - name
       type: object
       properties:
         id:
