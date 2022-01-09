@@ -36,9 +36,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/User"
         400:
           description: Invalid status value
           content: {}
@@ -92,9 +89,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Company"
-            application/xml:
-              schema:
-                $ref: "#/components/schemas/Company"
         400:
           description: Invalid status value
           content: {}
@@ -139,11 +133,6 @@ paths:
           description: successful operation
           content:
             application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CompletedTask"
-            application/xml:
               schema:
                 type: array
                 items:
@@ -230,11 +219,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MadeDecision"
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MadeDecision"
         400:
           description: Invalid status value
           content: {}
@@ -264,7 +248,6 @@ paths:
           "*/*":
             schema:
               type: integer
-              name: selectedPath
         required: true
       responses:
         200:
@@ -320,12 +303,8 @@ components:
           type: string
         companies:
           type: array
-          xml:
-            wrapped: true
           items:
             $ref: "#/components/schemas/Company"
-      xml:
-        name: User
     CompletedTask:
       required:
         - companyId
@@ -338,8 +317,6 @@ components:
           type: string
         taskId:
           type: string
-      xml:
-        name: CompletedTask
     MadeDecision:
       required:
         - companyId
@@ -356,8 +333,6 @@ components:
         selectedPath:
           type: integer
           format: int32
-      xml:
-        name: MadeDecision
     Company:
       required:
         - id
@@ -371,8 +346,6 @@ components:
           type: string
         users:
           type: array
-          xml:
-            wrapped: true
           items:
             $ref: "#/components/schemas/User"
         legalForm:
@@ -386,15 +359,9 @@ components:
             - GMBH
         completedTask:
           type: array
-          xml:
-            wrapped: true
           items:
             $ref: "#/components/schemas/CompletedTask"
         madeDecision:
           type: array
-          xml:
-            wrapped: true
           items:
             $ref: "#/components/schemas/MadeDecision"
-      xml:
-        name: Company

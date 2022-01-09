@@ -1,41 +1,49 @@
-import express, { NextFunction, Request, Response } from "express";
-import * as OpenApiValidator from "express-openapi-validator";
-import HttpException from "./exceptions/HttpException";
+#!/usr/bin/env node
 
-const app = express();
-const port = parseInt(process.env.PORT) || 8101;
+/**
+ * Module dependencies.
+ */
 
-const userRouter = require("./endpoints/user/UserRoute");
-const companyRouter = require("./endpoints/company/CompanyRoute");
-const taskRouter = require("./endpoints/task/TaskRoute");
-const decisionRouter = require("./endpoints/decision/DecisionRoute");
+import app = require("./app");
+import http = require("http");
 
-// Install the OpenApiValidator onto your express app
-app.use(
-	OpenApiValidator.middleware({
-		apiSpec: "../../packages/api/openapi.yaml",
-		validateRequests: true,
-		validateResponses: true,
-	})
-);
+/**
+ * Get port from environment and store in Express.
+ */
 
-app.use(
-	(err: HttpException, req: Request, res: Response, next: NextFunction) => {
-		const status = err.status || 500;
-		const message = err.message || "Something went wrong.";
-		res.status(status).json({
-			message: message,
-			errors: status,
-		});
-	}
-);
+var port = normalizePort(process.env.PORT);
+app.set("port", port);
 
-// Define routes using Express
-app.use("/api/user", userRouter);
-app.use("/api/company", companyRouter);
-app.use("/api/task", taskRouter);
-app.use("/api/decision", decisionRouter);
+/**
+ * Create HTTP server.
+ */
 
-app.listen(port, () => {
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
 });
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val: any) {
+	var port = parseInt(val, 10);
+
+	if (isNaN(port)) {
+		// named pipe
+		return val;
+	}
+
+	if (port >= 0) {
+		// port number
+		return port;
+	}
+
+	return false;
+}
