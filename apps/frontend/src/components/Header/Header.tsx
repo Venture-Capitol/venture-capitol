@@ -80,6 +80,9 @@ const Header: FC = () => {
 					className={isActive =>
 						styles.navLink + (isActive ? " " + styles.selected : "")
 					}
+					onClick={e => {
+						e.currentTarget.blur();
+					}}
 				>
 					Meine Gründung
 				</NavLink>
@@ -88,6 +91,9 @@ const Header: FC = () => {
 					className={isActive =>
 						styles.navLink + (isActive ? " " + styles.selected : "")
 					}
+					onClick={e => {
+						e.currentTarget.blur();
+					}}
 				>
 					Unternehmensregister
 				</NavLink>
