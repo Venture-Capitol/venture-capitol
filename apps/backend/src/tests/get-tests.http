@@ -1,0 +1,46 @@
+### --- GET /company/:companyId --- ###
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8101/company/1
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8101/entry/99A
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8101/entry/99
+
+
+### --- GET /company/:companyId/decisions --- ###
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8101/company/1/decisions
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8101/company/99A/decisions
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8101/company/99/decisions
+
+
+### --- GET /company/:companyId/tasks --- ###
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8101/company/1/tasks
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8101/company/99A/tasks
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8101/company/99/tasks
+
+
+### --- GET /user/:userId --- ###
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8101/user/1
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8101/user/99A
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8101/user/99
