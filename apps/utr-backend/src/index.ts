@@ -5,8 +5,14 @@
  */
 
 import app = require("./app");
+declare namespace Express {
+	export interface Request {
+		user?: DecodedIdToken;
+	}
+}
 import http = require("http");
 import logger = require("./config/winston");
+import { DecodedIdToken } from "firebase-admin/auth";
 
 /**
  * Get port from environment and store in Express.
