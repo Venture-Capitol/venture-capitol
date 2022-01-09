@@ -39,14 +39,17 @@ components:
           example: example@ventureweb.de
         telefon:
           type: string
+          nullable: true
           description: Die Telefonnummer unter der der Eintrag erreichbar ist.
           example: 12345678
         website:
           type: string
+          nullable: true
           description: Die Webseite des Eintrags.
           example: https://www.ventureweb.com
         description:
           type: string
+          nullable: true
           description: Beschreibung des Eintrages und seiner Dienstleistungen.
           example: VentureWeb hilft dir bei allen Angelegenheiten rund um die Unternehmensgründung.
     EntryResponse:
@@ -103,38 +106,39 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: number
-                    description: Die ID des Eintrags.
-                    example: 1
-                  company:
-                    type: string
-                    description: Der Name des Eintrags.
-                    example: VentureWeb
-                  job:
-                    type: string
-                    description: Der Job, welchen der Eintrag ausführt.
-                    example: Webagentur
-                  address:
-                    type: string
-                    description: Formatierte Adresse mit Straße, Straßennummer, PLZ und Ort.
-                    example: Luxemburger Str. 10, 15193 Berlin, Deutschland
-                  distance:
-                    type: number
-                    description: Entfernung des Eintrags zum angegebenem Wohnort in Kilometern.
-                    example: 11.1
-                  description:
-                    type: string
-                    description: Beschreibung des Eintrages und seiner Dienstleistungen.
-                    example: VentureWeb hilft dir bei allen Angelegenheiten rund um die Unternehmensgründung.
-                required:
-                  - id
-                  - company
-                  - job
-                  - address
-                  - distance
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: number
+                      description: Die ID des Eintrags.
+                      example: 1
+                    company:
+                      type: string
+                      description: Der Name des Eintrags.
+                      example: VentureWeb
+                    job:
+                      type: string
+                      description: Der Job, welchen der Eintrag ausführt.
+                      example: Webagentur
+                    address:
+                      type: string
+                      description: Formatierte Adresse mit Straße, Straßennummer, PLZ und Ort.
+                      example: Luxemburger Str. 10, 15193 Berlin, Deutschland
+                    distance:
+                      type: number
+                      description: Entfernung des Eintrags zum angegebenem Wohnort in Kilometern.
+                      example: 11.1
+                    description:
+                      type: string
+                      description: Beschreibung des Eintrages und seiner Dienstleistungen.
+                      example: VentureWeb hilft dir bei allen Angelegenheiten rund um die Unternehmensgründung.
+                  required:
+                    - id
+                    - company
+                    - job
+                    - address
+                    - distance
         400:
           description: Die Anfrage war Fehlerhaft. Jobname muss ein String, Latitude und Longitude müssen number sein.
         404:

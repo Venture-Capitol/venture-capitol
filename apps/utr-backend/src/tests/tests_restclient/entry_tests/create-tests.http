@@ -6,17 +6,16 @@ POST http://localhost:8103/entry/
 content-type: application/json
 
 {
-    "entry": {
-        "job": "Notar",
-        "company": "NotareDeutschland",
-        "address": "Luxemburger Str. 12, 15193 Berlin, Deutschland",
-        "latitude": 19.32932,
-        "longitude": 129.32912,
-        "email": "notare@deutschland.de",
-        "telefon": "+49 (0)15204847706",
-        "website": "notare-deutschland.de",
-        "description": "Die besten Notare in Deutschland mit allen wichtigen Services"
-    }
+    "job": "Notar",
+    "company": "NotareDeutschland",
+    "address": "Luxemburger Str. 12, 15193 Berlin, Deutschland",
+    "latitude": 19.32932,
+    "longitude": 129.32912,
+    "email": "notare@deutschland.de",
+    "telefon": "+49 (0)15204847706",
+    "website": "notare-deutschland.de",
+    "description": "Die besten Notare in Deutschland mit allen wichtigen Services"
+    
 }
 
 ### neuen Entry anlegen | ohne optional params telefon, website und description
@@ -24,14 +23,12 @@ POST http://localhost:8103/entry/
 content-type: application/json
 
 {
-    "entry": {
-        "job": "Webagentur",
-        "company": "Berlin4Web",
-        "address": "Luxemburger Str. 20, 15193 Berlin, Deutschland",
-        "latitude": 12832.12312,
-        "longitude": 23923.2312839823,
-        "email": "berlin@web.org"
-    }
+    "job": "Webagentur",
+    "company": "Berlin4Web",
+    "address": "Luxemburger Str. 20, 15193 Berlin, Deutschland",
+    "latitude": 12832.12312,
+    "longitude": 23923.2312839823,
+    "email": "berlin@web.org"
 }
 
 ### neuen Entry anlegen | required param company fehlt | SHOULD FAIL & RETURN 400
@@ -39,13 +36,11 @@ POST http://localhost:8103/entry/
 content-type: application/json
 
 {
-    "entry": {
-        "job": "Steuerberater",
-        "address": "Luxemburger Str. 2A, 15193 Berlin, Deutschland",
-        "latitude": 23892.12223,
-        "longitude": 32.2312,
-        "email": "steuer@berater.com"
-    }
+    "job": "Steuerberater",
+    "address": "Luxemburger Str. 2A, 15193 Berlin, Deutschland",
+    "latitude": 23892.12223,
+    "longitude": 32.2312,
+    "email": "steuer@berater.com"
 }
 
 ### neuen Entry anlegen | address hat falschen Datentyp | SHOULD FAIL & RETURN 400
@@ -53,12 +48,10 @@ POST http://localhost:8103/entry/
 content-type: application/json
 
 {
-    "entry": {
-        "job": "Webagentur",
-        "company": "Berlin4Web",
-        "address": 1273,
-        "latitude": 92932.23,
-        "longitude": 128182.2334,
-        "email": "berlin@web.org"
-    }
+    "job": "Webagentur",
+    "company": "Berlin4Web",
+    "address": 1273,
+    "latitude": 92932.23,
+    "longitude": 128182.2334,
+    "email": "berlin@web.org"
 }

@@ -1,8 +1,12 @@
 ### Update seems to ignore wrong-written property names & correct properties that have
 ### the same data in them already stored -> stays the same
 
+### using the token of a logged in User which has the Custom Claim role not set. Save it here.
+@Token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjM1MDZmMzc1MjI0N2ZjZjk0Y2JlNWQyZDZiNTlmYThhMmJhYjFlYzIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiR2x1b24iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKenhwZ0I1dXd2RjM0RE44Y2JaRk9ESURLTDhKNGt5VEZ3N2hsLXhfdz1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS92ZW50dXJlLWNhcGl0b2wiLCJhdWQiOiJ2ZW50dXJlLWNhcGl0b2wiLCJhdXRoX3RpbWUiOjE2NDEzODE1ODIsInVzZXJfaWQiOiJnY1hLSlZqSEY0Z2tvWUtSNFJMNHNGYWpGbUczIiwic3ViIjoiZ2NYS0pWakhGNGdrb1lLUjRSTDRzRmFqRm1HMyIsImlhdCI6MTY0MTc0NDI5NCwiZXhwIjoxNjQxNzQ3ODk0LCJlbWFpbCI6ImthaWttaW5lY3JhZnRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDc3OTY1MjU5Mjk0ODk0MzQ5NTQiXSwiZW1haWwiOlsia2Fpa21pbmVjcmFmdEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.Xa1b4588FPPjvZFckt9GuXkNQKCpJCK3_zGqBAn-tb-dQPN3xrDgA9ZjgJBMoPZMA1uOy0yKpBNk-fv0LcNNqqbOwVmb8K_DvGDATTlRnVTM7UGWGVT3zxht0oARHiCyTx_REnwcNlfse91VAyyzmcFZkmBNsi20mCagc9oy6Z7QkjOiuxIem8lkhjm0OuwCAbPBVIv0znZr-5M8NUFGO66-ZVmuq5F4K4Nap1dXj9FwpJSBv6EpmZ8EbYDnF4jXvhcJ_ZjiNOYIWEnSKt2kpZLX2tjGKcf06waquhYl_958Gynw_Lmih9YZOrLyabw7adCKw3A9K3R7x-G7vjoDBg
+
 ### Update Adress & Lat Long on existing entry
-PUT http://localhost:8103/entry/1
+PUT http://localhost:8103/entry/30
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
@@ -14,7 +18,8 @@ content-type: application/json
 }
 
 ### Add contact information on existing entry (was undefined before)
-PUT http://localhost:8103/entry/2
+PUT http://localhost:8103/entry/31
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
@@ -27,6 +32,7 @@ content-type: application/json
 
 ### Try to edit using inproper datatype for id | SHOULD FAIL & RETURN 400
 PUT http://localhost:8103/entry/oispws
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
@@ -39,6 +45,7 @@ content-type: application/json
 
 ### Try to edit entry with unknown id | SHOULD FAIL & RETURN 404
 PUT http://localhost:8103/entry/9203
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
@@ -51,19 +58,23 @@ content-type: application/json
 
 ### Try to edit without providing request body | SHOULD FAIL & RETURN 400
 PUT http://localhost:8103/entry/1
+Authorization: Bearer {{Token}}
 
 ### Try to edit unknown property | RETURNS 400
-PUT http://localhost:8103/entry/1
+PUT http://localhost:8103/entry/30
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
     "editedEntry": {
-        "shoesize": 40,
+        "telefon": "287729830",
+        "shoesize": 38,
     }
 }
 
 ### Try to edit known property using inproper datatype | RETURNS 400
 PUT http://localhost:8103/entry/1
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {

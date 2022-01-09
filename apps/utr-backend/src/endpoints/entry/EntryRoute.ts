@@ -11,8 +11,8 @@ const EntryService = require("./EntryService");
 const EntryUtils = require("../utils/EntryUtils");
 
 router.get("/search", function (req, res, next) {
-	const latAsNumber = EntryUtils.parseToNumber(req.query.lat);
-	const longAsNumber = EntryUtils.parseToNumber(req.query.long);
+	const latAsNumber = EntryUtils.parseToNumber(req.query.latitude);
+	const longAsNumber = EntryUtils.parseToNumber(req.query.longitude);
 	EntryService.searchEntries(
 		req.query.jobname,
 		latAsNumber,
@@ -38,9 +38,6 @@ router.get("/search", function (req, res, next) {
 });
 
 router.get("/", getUser, isAdmin, function (req, res, next) {
-	const verifiedAsBoolean = EntryUtils.parseToBoolean(req.query.verified);
-	const amountAsNumber = EntryUtils.parseToNumber(req.query.amount);
-	const pageAsNumber = EntryUtils.parseToNumber(req.query.page);
 	EntryService.getAllEntries(
 		function (error: Error | ApplicationError, result: Entry[]) {
 			if (error) {
@@ -54,21 +51,20 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 				res.send(result);
 			}
 		},
-		verifiedAsBoolean,
-		amountAsNumber,
-		pageAsNumber
+		req.query.verified,
+		req.query.amount,
+		req.query.page
 	);
 });
 
 router.post("/", getUser, function (req, res, next) {
-	const body = req.body.entry;
 	EntryService.createEntry(
-		body.job,
-		body.company,
-		body.address,
-		body.latitude,
-		body.longitude,
-		body.email,
+		req.body.job,
+		req.body.company,
+		req.body.address,
+		req.body.latitude,
+		req.body.longitude,
+		req.body.email,
 		function (error: Error | ApplicationError, result: Entry) {
 			if (error) {
 				logger.error(error.message);
@@ -81,9 +77,9 @@ router.post("/", getUser, function (req, res, next) {
 				res.status(200).end();
 			}
 		},
-		body.telefon,
-		body.website,
-		body.description
+		req.body.telefon,
+		req.body.website,
+		req.body.description
 	);
 });
 
@@ -145,6 +141,7 @@ router.delete("/:id", getUser, isAdmin, function (req, res, next) {
 	);
 });
 
+/* WILL BE DELETED AFTER ALL TESTS ARE COMPLETE
 router.post("/addMany", function (req, res, next) {
 	EntryUtils.addManyEntries(function (error: Error | ApplicationError) {
 		if (error) {
@@ -159,5 +156,6 @@ router.post("/addMany", function (req, res, next) {
 		}
 	});
 });
+*/
 
 module.exports = router;
