@@ -1,15 +1,20 @@
 import { signOut } from "@vc/auth";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import styles from "./DropdownMenu.module.scss";
+import styles from "./Menu.module.scss";
 import * as DropdownMenuTemplate from "@radix-ui/react-dropdown-menu";
 
-const DropdownMenu: FC = () => {
+interface MenuProps {
+	isLoggedIn: boolean;
+}
+
+const Menu: FC<MenuProps> = ({ isLoggedIn }) => {
 	const divider = (
 		<DropdownMenuTemplate.Separator asChild>
 			<div className={styles.divider}></div>
 		</DropdownMenuTemplate.Separator>
 	);
+
 	return (
 		<DropdownMenuTemplate.Content
 			asChild
@@ -18,21 +23,23 @@ const DropdownMenu: FC = () => {
 			}}
 		>
 			<div className={styles.dropdownMenu}>
+				{isLoggedIn && (
+					<div className={styles.dropdownItemWrapper}>
+						<DropdownMenuTemplate.Item asChild>
+							<Link to='/profil' className={styles.dropdownItem}>
+								Mein Profil
+							</Link>
+						</DropdownMenuTemplate.Item>
+					</div>
+				)}
 				<div className={styles.dropdownItemWrapper}>
 					<DropdownMenuTemplate.Item asChild>
-						<Link to='/demo' className={styles.dropdownItem}>
-							Platzhalter
+						<Link to='#' className={styles.dropdownItem}>
+							Als Dienstleister eintragen
 						</Link>
 					</DropdownMenuTemplate.Item>
 				</div>
 				{divider}
-				<div className={styles.dropdownItemWrapper}>
-					<DropdownMenuTemplate.Item asChild>
-						<Link to='/demo' className={styles.dropdownItem}>
-							Einstellungen
-						</Link>
-					</DropdownMenuTemplate.Item>
-				</div>
 				<div className={styles.dropdownItemWrapper}>
 					<DropdownMenuTemplate.Item asChild>
 						<Link to='/impressum' className={styles.dropdownItem}>
@@ -47,17 +54,19 @@ const DropdownMenu: FC = () => {
 						</Link>
 					</DropdownMenuTemplate.Item>
 				</div>
-				{divider}
-				<div className={styles.dropdownItemWrapper}>
-					<DropdownMenuTemplate.Item asChild>
-						<Link to='/demo' className={styles.dropdownItem} onClick={signOut}>
-							Abmelden
-						</Link>
-					</DropdownMenuTemplate.Item>
-				</div>
+				{isLoggedIn && divider}
+				{isLoggedIn && (
+					<div className={styles.dropdownItemWrapper}>
+						<DropdownMenuTemplate.Item asChild>
+							<Link to='#' className={styles.dropdownItem} onClick={signOut}>
+								Abmelden
+							</Link>
+						</DropdownMenuTemplate.Item>
+					</div>
+				)}
 			</div>
 		</DropdownMenuTemplate.Content>
 	);
 };
 
-export default DropdownMenu;
+export default Menu;
