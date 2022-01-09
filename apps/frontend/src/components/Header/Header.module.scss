@@ -140,6 +140,7 @@
 
 	&.selected {
 		color: var(--color-grey-900);
+		font-weight: var(--font-weight-bold);
 	}
 
 	outline: none;
