@@ -1,0 +1,6 @@
+Nach § 138 (1b) i.V.m. (4) Abgabenordnung haben natürliche und juristische Personen sowie Personengesellschaften innerhalb eines Monats nach dem meldepflichtigen Ereignis (Eröffnung Gewerbebetrieb / Betriebsstätte) den „Fragebogen zur steuerlichen Erfassung“ bei ihrem zuständigen Finanzamt abzugeben. Dieser Fragebogen ist ohne Aufforderung des Finanzamtes auf elektronischem Weg nach amtlich vorgeschriebenem Datensatz zu übermitteln. Weitere Informationen erhalten die Unternehmer auf www.elster.de, aus der ELSTER-Anleitung unter www.hamburg.de/fb/informationen-fuer-buerger oder von Ihrem zuständigen Finanzamt unter der Behördenrufnummer 115.
+
+Auf einem Fragebogen müssen Sie verschiedene Fragen zu künftigen Umsätzen und Gewinnen beantworten. Gehen Sie bei der Berechnung dieser Schätzwerte eher vorsichtig vor, da hiervon zunächst die Höhe Ihrer Einkommen- und Gewerbesteuer abhängt. Denken Sie vor allen Dingen daran, dass in der Anlaufphase die Kosten im Verhältnis zu den erzielten Umsatzerlösen überdurchschnittlich hoch sein könnten.
+Die Anmeldung bei Ihrem Finanzamt erfolgt über das folgende Portal: Elster.de
+
+Das Finanzamt teilt Ihnen eine Steuernummer mit. Sie werden bei dem Finanzamt geführt welches für Ihren Betriebssitz zuständig ist.

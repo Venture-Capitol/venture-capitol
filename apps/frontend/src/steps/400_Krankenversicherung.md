@@ -1,0 +1,1 @@
+Ihre versicherungspflichtigen Mitarbeiter müssen Sie bei den Ortskrankenkassen, bei einer Ersatzkasse, Betriebskrankenkasse oder einer Innungskrankenkasse anmelden. Auch von Ihrer Krankenkasse erhalten Sie eine Betriebsnummer. Geringfügig Beschäftigte sind bei der Minijobzentrale anzumelden.
