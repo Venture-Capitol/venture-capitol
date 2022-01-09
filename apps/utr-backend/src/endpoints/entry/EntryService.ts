@@ -91,8 +91,6 @@ async function getAllEntries(
 ) {
 	if (typeof verified == "boolean" || !verified) {
 		try {
-			logger.debug("halalalslas" + verified);
-			logger.debug("halalalslas" + typeof verified);
 			// needed if case, otherwise multiplication with 'undefined' in skip param would fail
 			if (!page || !amount) {
 				const allEntries = await prisma.entry.findMany({
@@ -117,7 +115,6 @@ async function getAllEntries(
 				return callback(null, allEntries);
 			}
 		} catch (exception) {
-			logger.error(exception);
 			return callback(
 				new ApplicationError(
 					"Es sind unerwartete Probleme bei der Suche nach allen Eintraegen aufgetreten.",
