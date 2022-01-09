@@ -33,12 +33,12 @@ const LogoVideo: React.FunctionComponent = () => {
 
 			<div
 				className={s.fill}
-				onClick={() => history.push("/gruendung/01_content")}
+				onClick={() => history.push("/gruendung/300_Start")}
 			>
 				<video src={Video} muted autoPlay loop></video>
 				<div
 					className={s.video}
-					onClick={() => history.push("/gruendung/01_content")}
+					onClick={() => history.push("/gruendung/300_Start")}
 				>
 					<div className={s.inner}></div>
 				</div>

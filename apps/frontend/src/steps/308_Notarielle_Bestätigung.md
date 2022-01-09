@@ -1,5 +1,3 @@
-# Notarielle Bestätigung der Einzahlung & Eintragung im Handlesregister
-
 Mit dem Nachweis deiner Bank (dass das Stammkapital eingezahlt wurde) gehst du jetzt noch einmal zum Notar. Er veranlasst die Eintragung deiner GmbH in das Handelsregister.
 
 ## Wie du den Handelsregistereintrag selbst durchführst

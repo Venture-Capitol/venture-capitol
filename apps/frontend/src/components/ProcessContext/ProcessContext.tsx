@@ -113,6 +113,8 @@ const ProcessProvider: FC = ({ children }) => {
 			count: number
 		): number {
 			let node = nodes[nodeId];
+			console.log(nodeId, node);
+
 			if (node.prev == undefined || node.prev.length > 1) {
 				return count;
 			}

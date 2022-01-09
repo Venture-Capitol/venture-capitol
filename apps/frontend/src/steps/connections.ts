@@ -135,7 +135,7 @@ export const taskGraph: ConnectionsData = {
 			type: "task",
 			name: "Jahresabschluss, GuV usw: Welche Pflichten hast du als UG?",
 			shortName: "Jahresabschluss und Ähnliches",
-			next: ["400_Krankenversicherung"],
+			next: ["400_Ende"],
 		},
 		"320_mit_Steuerberater_finden": {
 			type: "task",
@@ -171,7 +171,13 @@ export const taskGraph: ConnectionsData = {
 			type: "task",
 			name: "Welche Aufgaben hat dein Steuerberater in Zukunft im Allgemeinen?",
 			shortName: "Zuünftige Aufgaben Steuerberater",
-			next: ["400_Krankenversicherung"],
+			next: ["400_Ende"],
+		},
+		"400_Ende": {
+			type: "task",
+			name: "Welche Aufgaben hat dein Steuerberater in Zukunft im Allgemeinen?",
+			shortName: "Zuünftige Aufgaben Steuerberater",
+			next: [],
 		},
 	},
 };

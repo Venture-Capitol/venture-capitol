@@ -3,11 +3,11 @@ import { useHistory } from "react-router-dom";
 import styles from "./DecisionNode.module.scss";
 export interface DecisionNodeProps {
 	id: string;
-	name: string;
+	shortName: string;
 	next: string[];
 	url: string;
 }
-const DecisionNode: FC<DecisionNodeProps> = ({ id, name, next, url }) => {
+const DecisionNode: FC<DecisionNodeProps> = ({ id, shortName, next, url }) => {
 	const history = useHistory();
 
 	function handleClick(e: MouseEvent<HTMLDivElement>) {
@@ -22,7 +22,7 @@ const DecisionNode: FC<DecisionNodeProps> = ({ id, name, next, url }) => {
 			data-next={next}
 			onClick={handleClick}
 		>
-			<span>{name}</span>
+			<span>{shortName}</span>
 		</div>
 	);
 };

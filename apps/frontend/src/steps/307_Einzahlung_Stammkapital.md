@@ -1,5 +1,3 @@
-# Einzahlung des Stammkapitals bei der _UG/GmbH_
-
 Die Stammeinlage bei der Gründung einer Kapitalgesellschaft wird direkt am Anfang, bevor der normale Geschäftsbetrieb eröffnet, eingezahlt.
 
 ## Was du zum Stammkapital wissen musst

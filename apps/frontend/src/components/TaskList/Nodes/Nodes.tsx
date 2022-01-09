@@ -41,7 +41,7 @@ const Nodes = () => {
 							key={nextNode.id}
 							id={nextNode.id}
 							next={nextNode.next}
-							name={nextNode.name}
+							shortName={nextNode.shortName}
 							url={nextNode.id}
 						/>
 					);
@@ -76,7 +76,7 @@ const Nodes = () => {
 						key={node.id}
 						id={node.id}
 						next={node.next}
-						name={node.name}
+						shortName={node.shortName}
 						url={node.id}
 					/>
 					{node.next.map(nextNodeId => {
@@ -94,7 +94,7 @@ const Nodes = () => {
 						key={node.id}
 						id={node.id}
 						next={node.next}
-						name={node.name}
+						shortName={node.shortName}
 						url={node.id}
 					>
 						{node.next.map((nodeNextId, index) => {

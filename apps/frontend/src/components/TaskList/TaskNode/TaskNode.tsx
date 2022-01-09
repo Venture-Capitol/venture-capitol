@@ -5,12 +5,12 @@ import { useHistory } from "react-router-dom";
 
 export interface TaskProps {
 	id: string;
-	name: string;
+	shortName: string;
 	next: string[];
 	url: string;
 }
 
-const Task: FunctionComponent<TaskProps> = ({ id, name, next, url }) => {
+const Task: FunctionComponent<TaskProps> = ({ id, shortName, next, url }) => {
 	const [inputId] = useState(Math.random().toString());
 	const [checked, setChecked] = useState(false);
 
@@ -52,7 +52,7 @@ const Task: FunctionComponent<TaskProps> = ({ id, name, next, url }) => {
 					/>
 				</svg>{" "}
 			</label>
-			<span>{name}</span>
+			<span>{shortName}</span>
 		</div>
 	);
 };

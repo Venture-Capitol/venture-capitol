@@ -1,5 +1,3 @@
-# Gehört meine Firma zur IHK oder zur Handwerkskammer?
-
 Wenn du eine Kapitalgesellschaft gründest musst du dich automatisch auch bei deiner entsprechenden Kammer melden. Geht nicht anders.
 
 Eine Mitgliedschaft ist für alle deutschen Selbstständigen und Unternehmer mit Ausnahme der Freiberufler, Handwerker und landwirtschaftlichen Betriebe Pflicht. Das heißt du musst Mitglied werden.

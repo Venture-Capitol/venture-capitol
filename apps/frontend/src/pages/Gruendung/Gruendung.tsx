@@ -69,7 +69,7 @@ const Content = () => {
 					unprocessedNodes[task].next.map(next => {
 						return (
 							<Link to={next}>
-								<button>Weiter zu {unprocessedNodes[next].shortName}</button>
+								<button>Weiter zu "{unprocessedNodes[next].shortName}"</button>
 							</Link>
 						);
 					})}
