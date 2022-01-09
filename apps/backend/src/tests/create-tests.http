@@ -1,9 +1,9 @@
 ### neue Company anlegen | Standard
-POST http://localhost:8101/company/
+POST http://localhost:8101/company/ HTTP/1.1
 content-type: application/json
 
 {
-  "legalForm": "GMBH",
+    "legalForm": "GMBH",
 }
 
 ### neue Company anlegen | Standard mit Namen
