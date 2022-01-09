@@ -264,6 +264,7 @@ paths:
           "*/*":
             schema:
               type: integer
+              name: selectedPath
         required: true
       responses:
         200:
