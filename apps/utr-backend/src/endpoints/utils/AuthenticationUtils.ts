@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { getAuth } from "firebase-admin/auth";
 import logger = require("../../config/winston");
 
@@ -50,7 +51,7 @@ export function getUser(req: any, res: any, next: any) {
 }
 
 // Checks if the user is an admin - Can ONLY be used after getUser was used
-export function isAdmin(req: any, res: any, next: any) {
+export function isAdmin(req: Request, res: any, next: any) {
 	if (req.user?.role == "admin") {
 		return next();
 	} else if (req.user?.role == "user") {
