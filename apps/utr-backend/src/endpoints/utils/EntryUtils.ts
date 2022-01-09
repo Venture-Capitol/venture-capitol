@@ -4,6 +4,7 @@ import ApplicationError from "../utils/ApplicationError";
 
 const prisma = new PrismaClient();
 
+/* WILL BE DELETED WHEN ALL TESTS ARE COMPLETE
 async function addManyEntries(callback: Function) {
 	try {
 		const createMany = await prisma.entry.createMany({
@@ -120,8 +121,10 @@ async function addManyEntries(callback: Function) {
 		);
 		//}
 	}
-}
+}*/
 
+/* SEEMS TO BE UNNECESSARY DUE TO OPENAPI VALIDATOR
+// REMOVE AFTER FURTHER TESTING
 function parseToBoolean(value: string) {
 	if (value === undefined) {
 		return value;
@@ -131,6 +134,7 @@ function parseToBoolean(value: string) {
 		return null;
 	}
 }
+*/
 
 function parseToNumber(value: string) {
 	if (value === undefined) {
@@ -141,7 +145,5 @@ function parseToNumber(value: string) {
 }
 
 module.exports = {
-	addManyEntries,
-	parseToBoolean,
 	parseToNumber,
 };
