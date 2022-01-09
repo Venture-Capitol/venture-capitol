@@ -34,7 +34,6 @@ app.use(
 
 app.use((err: any, req: any, res: any, next: any) => {
 	// format error
-	console.log(req);
 	res.status(err.status || 500).json({
 		message: err.message,
 		errors: err.errors,
