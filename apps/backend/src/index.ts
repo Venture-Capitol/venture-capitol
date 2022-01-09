@@ -11,7 +11,7 @@ import http = require("http");
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT);
+var port = 8101;
 app.set("port", port);
 
 /**
@@ -20,6 +20,8 @@ app.set("port", port);
 
 var server = http.createServer(app);
 
+console.log(server);
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -27,23 +29,3 @@ var server = http.createServer(app);
 server.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
 });
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val: any) {
-	var port = parseInt(val, 10);
-
-	if (isNaN(port)) {
-		// named pipe
-		return val;
-	}
-
-	if (port >= 0) {
-		// port number
-		return port;
-	}
-
-	return false;
-}

@@ -1,12 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
 import * as OpenApiValidator from "express-openapi-validator";
 import HttpException from "./exceptions/HttpException";
-import { initializeApp } from "firebase-admin/app";
+import cors from "cors";
 
 const app = express();
-const port = parseInt(process.env.PORT) || 8101;
-
-initializeApp();
 
 const userRouter = require("./endpoints/user/UserRoute");
 const companyRouter = require("./endpoints/company/CompanyRoute");
@@ -32,6 +29,18 @@ app.use(
 		});
 	}
 );
+
+app.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Requested-With, Content-Type, Accept"
+	);
+	res.header("Access-Control-Expose-Headers", "Authorization");
+	next();
+});
+app.use(cors({ exposedHeaders: ["Authorization"] }));
+app.use(express.json()); //parses json body
 
 // Define routes using Express
 app.use("/api/user", userRouter);
