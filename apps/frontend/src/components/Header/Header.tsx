@@ -11,11 +11,14 @@ import Menu from "../Menu/Menu";
 import * as DropdownMenuTemplate from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { NavLink } from "react-router-dom";
+import MobileMenu from "../MobileMenu/MobileMenu";
+import { useMediaQuery } from "@vc/frontend/util/useMediaQuery";
 
 const Header: FC = () => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<Boolean>(false);
 	const [isMenuOpen, setIsMenuOpen] = useState<Boolean>(false);
 	const currentUser = useContext<User | null>(AuthContext);
+	const isMobileWidth = useMediaQuery("(max-width: 950px)");
 
 	const userInfo = (
 		<div className={styles.userInfo}>
@@ -48,11 +51,21 @@ const Header: FC = () => {
 	);
 
 	const mobileMenu = (
-		<div className={styles.mobileMenuIconWrapper}>
-			<img
-				src={isMobileMenuOpen ? xIcon : menuIcon}
-				className={styles.mobileMenuIcon}
-			></img>
+		<div>
+			<button
+				className={styles.mobileMenuIconWrapper}
+				onClick={e => {
+					setIsMobileMenuOpen(!isMobileMenuOpen);
+				}}
+			>
+				<div className={styles.hamburgerIcon} data-open={isMobileMenuOpen}>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</button>
+			{isMobileMenuOpen && <MobileMenu isLoggedIn={currentUser != null} />}
 		</div>
 	);
 
@@ -91,7 +104,9 @@ const Header: FC = () => {
 			</div>
 
 			<div className={styles.navContent}>{navContent}</div>
-			<div className={styles.authWrapper}>{!currentUser && <AuthUI />}</div>
+			<div className={styles.authWrapper}>
+				{!currentUser && !isMobileWidth && <AuthUI />}
+			</div>
 			<div className={styles.menu}>{menu}</div>
 			<div className={styles.mobileMenuWrapper}>{mobileMenu}</div>
 		</div>
