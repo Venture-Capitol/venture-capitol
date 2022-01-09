@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function addCompany(name: string, legalForm: string) {
 	const createCompany = await prisma.company.create({
 		data: {
-			name: name,
+			name: name || undefined,
 			legalForm: legalForm as LegalForm,
 		},
 	});

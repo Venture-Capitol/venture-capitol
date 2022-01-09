@@ -5,7 +5,7 @@ const CompanyService = require("./CompanyService");
 
 companyRouter.post("/company", async function (req, res, next) {
 	const body = req.body.company;
-	res.send(CompanyService.addCompany(body.name, body.LegalForm));
+	res.send(CompanyService.addCompany(body.name, body.legalForm));
 });
 
 companyRouter.get("/company/:companyId", async function (req, res, next) {
