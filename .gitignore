@@ -4,6 +4,7 @@ dist
 .idea
 *.local
 *.log
+.vscode
 
 # Cypress
 **/cypress/results/*
