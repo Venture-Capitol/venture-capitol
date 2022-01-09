@@ -3,8 +3,8 @@ import React, { FC, useContext, useEffect, useRef, useState } from "react";
 import styles from "./Header.module.scss";
 import wordmarkIcon from "../../assets/wordmark.svg";
 import emblemIcon from "../../assets/emblem.svg";
-import mobileMenuOpenIcon from "../../assets/menu-open.svg";
-import mobileMenuCloseIcon from "../../assets/menu-close.svg";
+import xIcon from "../../assets/x.svg";
+import menuIcon from "../../assets/menu.svg";
 import userPicturePlaceholder from "../../assets/userPicturePlaceholder.svg";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import * as DropdownMenuTemplate from "@radix-ui/react-dropdown-menu";
@@ -107,7 +107,7 @@ const Header: FC = () => {
 				onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 			>
 				<img
-					src={isMobileMenuOpen ? mobileMenuCloseIcon : mobileMenuOpenIcon}
+					src={isMobileMenuOpen ? xIcon : menuIcon}
 					className={styles.menuIcon}
 				></img>
 			</div>

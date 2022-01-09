@@ -32,7 +32,7 @@
 }
 
 .userPanelWrapper {
-	margin-right: 40px;
+	margin: 0 40px 0 80px;
 }
 
 .userPanel {
@@ -123,7 +123,6 @@
 .navContent {
 	display: flex;
 	margin-left: auto;
-	margin-right: 80px;
 	justify-content: center;
 	align-items: center;
 	gap: 50px;
@@ -181,8 +180,12 @@
 		height: 30px;
 	}
 
-	.navContent {
-		margin-right: 70px;
+	.userName {
+		display: none;
+	}
+
+	.userPanelWrapper {
+		margin: 0 40px;
 	}
 }
 
@@ -218,5 +221,9 @@
 
 	.menuIconWrapper {
 		display: grid;
+	}
+
+	.navContent {
+		display: none;
 	}
 }
