@@ -1,0 +1,8 @@
+### neue Company
+POST http://localhost:8101/company
+content-type: application/json
+
+{
+    "legalForm": "GMBH",
+    "name": "Test GmbH",
+}
