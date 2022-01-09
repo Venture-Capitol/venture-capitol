@@ -1,28 +1,28 @@
 ### neue Company anlegen | Standard
-POST http://localhost:8101/company/ HTTP/1.1
+POST http://localhost:8101/api/company/
 content-type: application/json
 
 {
-    "legalForm": "GMBH",
+  "legalForm": "GMBH"
 }
 
 ### neue Company anlegen | Standard mit Namen
-POST http://localhost:8101/company/
+POST http://localhost:8101/api/company/
 content-type: application/json
 
 {
   "legalForm": "FREIBERUFLER",
-  "name": "Spacifik",
+  "name": "Spacifik"
 }
 
 ### neuen Task anlegen | Standard
-POST http://localhost:8101/company/1/tasks/3
+POST http://localhost:8101/api/company/1/tasks/3
 
 ### neuen Task anlegen | Standard
-POST http://localhost:8101/company/1/decision/3
+POST http://localhost:8101/api/company/1/decision/3
 content-type: application/json
 
 {
-  "selectedPath": "0",
+  "selectedPath": 0
 }
 

@@ -3,13 +3,17 @@ import { PrismaClient, LegalForm } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function addCompany(name: string, legalForm: string) {
-	const createCompany = await prisma.company.create({
-		data: {
-			name: name || undefined,
-			legalForm: legalForm as LegalForm,
-		},
-	});
-	return createCompany;
+	try {
+		const createCompany = await prisma.company.create({
+			data: {
+				name: name,
+				legalForm: legalForm as LegalForm,
+			},
+		});
+		return createCompany;
+	} catch {
+		return "prisma error";
+	}
 }
 
 async function findCompanyById(userId: string) {

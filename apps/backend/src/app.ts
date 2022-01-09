@@ -5,6 +5,10 @@ import cors from "cors";
 
 const app = express();
 
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 const userRouter = require("./endpoints/user/UserRoute");
 const companyRouter = require("./endpoints/company/CompanyRoute");
 const taskRouter = require("./endpoints/task/TaskRoute");
@@ -30,6 +34,7 @@ app.use(
 	}
 );
 
+app.use("*", cors());
 app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header(
@@ -40,7 +45,6 @@ app.use(function (req, res, next) {
 	next();
 });
 app.use(cors({ exposedHeaders: ["Authorization"] }));
-app.use(express.json()); //parses json body
 
 // Define routes using Express
 app.use("/api/user", userRouter);

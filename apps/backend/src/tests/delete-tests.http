@@ -1,10 +1,10 @@
 ### --- DELETE /company/:companyId ---
 
 ### COMPANY delete using valid id for entry that exists
-DELETE http://localhost:8101/company/1
+DELETE http://localhost:8101/api/company/1
 
 ### COMPANY delete using invalid datatype for id | SHOULD FAIL & RETURN 400
-DELETE http://localhost:8101/company/99A
+DELETE http://localhost:8101/api/company/99A
 
 ### COMPANY delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
 DELETE http://localhost:8103/company/99

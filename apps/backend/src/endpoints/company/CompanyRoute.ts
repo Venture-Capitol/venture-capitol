@@ -3,17 +3,18 @@ const companyRouter = Router();
 
 const CompanyService = require("./CompanyService");
 
-companyRouter.post("/company", async function (req, res, next) {
-	const body = req.body.company;
-	res.send(CompanyService.addCompany(body.name, body.legalForm));
+companyRouter.post("/", function (req, res, next) {
+	const body = req.body;
+	CompanyService.addCompany(body.name, body.legalForm);
+	res.status(200);
 });
 
-companyRouter.get("/company/:companyId", async function (req, res, next) {
+companyRouter.get("/:companyId", async function (req, res, next) {
 	const companyId = req.params.companyId;
 	res.send(CompanyService.findCompanyById(companyId));
 });
 
-companyRouter.delete("/company/:companyId", async function (req, res, next) {
+companyRouter.delete("/:companyId", async function (req, res, next) {
 	const companyId = req.params.companyId;
 	res.send(CompanyService.deleteCompanyById(companyId));
 });

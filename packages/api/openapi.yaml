@@ -4,7 +4,8 @@ info:
   description: Open API specification for the Venture Capitol API
   version: 1.0.0
 servers:
-  - url: http://localhost:8101/
+  - url: http://localhost:8101/api
+  - url: https://localhost:8101/api
 tags:
   - name: company
     description: API for company information
@@ -49,7 +50,7 @@ paths:
       requestBody:
         description: company which will be founded
         content:
-          "*/*":
+          application/json:
             schema:
               type: object
               properties:
@@ -61,7 +62,6 @@ paths:
       responses:
         200:
           description: Success
-          content: {}
         400:
           description:
             The request was invalid. The parameters LegalForm and optional
@@ -245,9 +245,12 @@ paths:
       requestBody:
         description: Selected path of the decision
         content:
-          "*/*":
+          application/json:
             schema:
-              type: integer
+              type: object
+              properties:
+                selectedPath:
+                  type: integer
         required: true
       responses:
         200:
