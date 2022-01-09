@@ -5,9 +5,11 @@
  */
 
 import app = require("./app");
-declare namespace Express {
-	export interface Request {
-		user?: DecodedIdToken;
+declare global {
+	namespace Express {
+		export interface Request {
+			user?: DecodedIdToken;
+		}
 	}
 }
 import http = require("http");

@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { getAuth } from "firebase-admin/auth";
 import logger = require("../../config/winston");
 
 // Checks if the user is logged in and saves the user object in req.user
-export function getUser(req: any, res: any, next: any) {
+export function getUser(req: Request, res: Response, next: NextFunction) {
 	if (req.headers.authorization !== undefined) {
 		const token = req.headers.authorization.split(" ")[1];
 		try {
@@ -51,7 +51,7 @@ export function getUser(req: any, res: any, next: any) {
 }
 
 // Checks if the user is an admin - Can ONLY be used after getUser was used
-export function isAdmin(req: Request, res: any, next: any) {
+export function isAdmin(req: Request, res: Response, next: NextFunction) {
 	if (req.user?.role == "admin") {
 		return next();
 	} else if (req.user?.role == "user") {
