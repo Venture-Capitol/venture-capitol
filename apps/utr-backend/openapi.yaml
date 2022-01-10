@@ -92,13 +92,13 @@ paths:
           name: latitude
           schema:
             type: number
-          required: false
+          required: true
           description: Latitude-Koordinate des Nutzers
         - in: query
           name: longitude
           schema:
             type: number
-          required: false
+          required: true
           description: Longitude-Koordinate des Nutzers
       responses:
         200:
@@ -127,10 +127,11 @@ paths:
                       example: Luxemburger Str. 10, 15193 Berlin, Deutschland
                     distance:
                       type: number
-                      description: Entfernung des Eintrags zum angegebenem Wohnort in Kilometern.
-                      example: 11.1
+                      description: Entfernung des Eintrags zum angegebenem Wohnort in Metern.
+                      example: 11264
                     description:
                       type: string
+                      nullable: true
                       description: Beschreibung des Eintrages und seiner Dienstleistungen.
                       example: VentureWeb hilft dir bei allen Angelegenheiten rund um die Unternehmensgründung.
                   required:
