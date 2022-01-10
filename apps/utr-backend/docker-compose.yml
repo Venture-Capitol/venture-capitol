@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:14-alpine
+    image: postgis/postgis:14-master
     environment:
       POSTGRES_PASSWORD: $DB_PWD
       POSTGRES_USER: $DB_USER
