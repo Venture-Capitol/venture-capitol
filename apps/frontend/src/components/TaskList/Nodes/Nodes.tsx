@@ -1,4 +1,5 @@
 import {
+	DecisionNode,
 	ProcessedTaskNode,
 	useGruendungContext,
 } from "contexts/Gruendung/Gruendung";
@@ -8,6 +9,9 @@ import DecisionPath from "../DecisionPath/DecisionPath";
 import EmptyNode from "../EmptyNode/EmptyNode";
 import TaskNode from "../TaskNode/TaskNode";
 
+/**
+ * Render the nodes of a task graph as dom elements
+ */
 const Nodes = () => {
 	const { nodes, initialNodeId } = useGruendungContext();
 
@@ -88,7 +92,6 @@ const Nodes = () => {
 			);
 		} else if (node.type == "decision") {
 			const nextNode = getNextFromDecision(node);
-
 			return (
 				<Fragment key={node.id}>
 					<Decision
@@ -97,7 +100,7 @@ const Nodes = () => {
 						next={node.next}
 						name={node.name}
 						url={node.id}
-						path={node.path}
+						selectedPath={node.selectedPath}
 					>
 						{node.next.map((nodeNextId, index) => {
 							return (
@@ -123,7 +126,6 @@ const Nodes = () => {
 	}
 
 	let initialNode = nodes[initialNodeId];
-
 	let nodeElement = <></>;
 	if (initialNode != undefined) {
 		nodeElement = getComponent(initialNode);

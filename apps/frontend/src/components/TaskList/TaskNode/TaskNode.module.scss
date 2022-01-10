@@ -63,9 +63,9 @@
 	}
 
 	&[data-checked="true"] {
-		background: var(--color-green-200);
+		background: var(--color-green-100);
 		border-color: var(--color-green-300);
-		color: var(--color-green-900);
+		color: var(--color-green-800);
 		box-shadow: 0px 12px 10px rgba(0, 204, 82, 0.05);
 
 		label {
@@ -73,7 +73,7 @@
 			border-color: var(--color-green-300);
 
 			svg {
-				color: var(--color-green-900);
+				color: var(--color-green-600);
 				opacity: 1;
 				transform: scale(1);
 				display: block;

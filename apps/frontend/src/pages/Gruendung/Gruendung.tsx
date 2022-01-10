@@ -2,7 +2,6 @@ import Button from "@vc/ui/src/components/Button/Button";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Nodes } from "steps/connections";
 import TaskList from "../../components/TaskList/TaskList";
 import s from "./Gruendung.module.scss";
 import {
@@ -90,26 +89,50 @@ const Gruendung = () => {
 					unprocessedNodes[task] &&
 					unprocessedNodes[task].type == "decision" && (
 						<>
-							<Toggle
-								checked={nodes[task]?.path == 0}
-								onChange={active =>
-									setDecisionStatus(task, active ? 0 : undefined)
-								}
-								textUnchecked={
-									unprocessedNodes[unprocessedNodes[task].next[0]].shortName +
-									" wählen"
-								}
-							/>
-							<Toggle
-								checked={nodes[task]?.path == 1}
-								onChange={active =>
-									setDecisionStatus(task, active ? 1 : undefined)
-								}
-								textUnchecked={
-									unprocessedNodes[unprocessedNodes[task].next[1]].shortName +
-									" wählen"
-								}
-							/>
+							<div className={s.aside}>
+								<Toggle
+									checked={nodes[task]?.selectedPath == 0}
+									onChange={active =>
+										setDecisionStatus(task, active ? 0 : undefined)
+									}
+									textUnchecked={
+										unprocessedNodes[unprocessedNodes[task].next[0]].shortName +
+										" wählen"
+									}
+									textChecked={
+										unprocessedNodes[unprocessedNodes[task].next[0]].shortName +
+										" gewählt"
+									}
+								/>
+								<Toggle
+									checked={nodes[task]?.selectedPath == 1}
+									onChange={active =>
+										setDecisionStatus(task, active ? 1 : undefined)
+									}
+									textUnchecked={
+										unprocessedNodes[unprocessedNodes[task].next[1]].shortName +
+										" wählen"
+									}
+									textChecked={
+										unprocessedNodes[unprocessedNodes[task].next[1]].shortName +
+										" gewählt"
+									}
+								/>
+							</div>
+							{nodes[task]?.selectedPath != undefined ? (
+								<Link to={task}>
+									<Button>
+										Weiter zu{" "}
+										{
+											unprocessedNodes[
+												unprocessedNodes[task].next[nodes[task].selectedPath!]
+											].shortName
+										}
+									</Button>
+								</Link>
+							) : (
+								<Button disabled={true}>Erst eine Auswahl treffen</Button>
+							)}
 						</>
 					)}
 			</main>

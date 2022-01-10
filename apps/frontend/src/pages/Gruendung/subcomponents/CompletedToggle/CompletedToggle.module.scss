@@ -7,10 +7,10 @@
 		left: -9999px;
 
 		&:checked + label {
-			color: var(--color-green-900);
+			color: var(--color-green-800);
 
 			.checkbox {
-				background: var(--color-green-200);
+				background: var(--color-green-100);
 				border-color: var(--color-green-300);
 
 				svg {
@@ -44,7 +44,7 @@
 				height: var(--size-24px);
 				width: var(--size-24px);
 				transition: opacity 0.2s ease-out;
-				color: var(--color-green-900);
+				color: var(--color-green-600);
 			}
 		}
 	}

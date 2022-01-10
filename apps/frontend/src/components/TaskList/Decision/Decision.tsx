@@ -9,7 +9,7 @@ interface DecisionProps {
 	next: string[];
 	url: string;
 	children: Array<ReactElement<DecisionPathProps>>;
-	path?: number;
+	selectedPath?: number;
 }
 
 const Decision: FC<DecisionProps> = ({
@@ -18,11 +18,17 @@ const Decision: FC<DecisionProps> = ({
 	next,
 	url,
 	children,
-	path,
+	selectedPath,
 }) => {
 	return (
 		<div className={styles.decision}>
-			<DecisionNode id={id} name={name} next={next} url={url} path={path} />
+			<DecisionNode
+				id={id}
+				name={name}
+				next={next}
+				url={url}
+				selectedPath={selectedPath}
+			/>
 			<div className={styles.decision_path_container}>{children}</div>
 		</div>
 	);

@@ -6,9 +6,15 @@ export interface DecisionNodeProps {
 	name: string;
 	next: string[];
 	url: string;
-	path?: number;
+	selectedPath?: number;
 }
-const DecisionNode: FC<DecisionNodeProps> = ({ id, name, next, url, path }) => {
+const DecisionNode: FC<DecisionNodeProps> = ({
+	id,
+	name,
+	next,
+	url,
+	selectedPath,
+}) => {
 	const history = useHistory();
 
 	function handleClick(e: MouseEvent<HTMLDivElement>) {
@@ -21,7 +27,7 @@ const DecisionNode: FC<DecisionNodeProps> = ({ id, name, next, url, path }) => {
 			data-decision
 			data-id={id}
 			data-next={next}
-			data-checked={path !== undefined}
+			data-checked={selectedPath !== undefined}
 			onClick={handleClick}
 		>
 			<span>{name}</span>

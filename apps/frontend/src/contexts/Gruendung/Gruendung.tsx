@@ -34,6 +34,7 @@ export interface ProcessedTaskNode extends Node {
 	pathMaxNodeCount?: number;
 	prev: string[];
 	checked: boolean;
+	selectedPath?: number;
 }
 
 export interface ProcessedTaskNodes {
@@ -57,7 +58,12 @@ const GruendungContextProvider: FC = ({ children }) => {
 			id: string;
 			path: number;
 		}[]
-	>([]);
+	>([
+		{
+			id: "02_content",
+			path: 1,
+		},
+	]);
 
 	function setTaskStatus(taskId: string, status: boolean) {
 		if (status) {
@@ -70,7 +76,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 	}
 
 	function setDecisionStatus(decisionId: string, path?: number) {
-		if (path) {
+		if (path != undefined) {
 			setMadeDecisions([
 				...madeDecisions.filter(decision => decision.id !== decisionId),
 				{ id: decisionId, path },
@@ -96,7 +102,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 				id: key,
 				prev: [],
 				checked: completedTasks.find(task => task == key) != undefined,
-				path: madeDecisions.find(decision => decision.id == key)?.path,
+				selectedPath: madeDecisions.find(decision => decision.id == key)?.path,
 			};
 		}
 
@@ -113,7 +119,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 
 		setNodes(nodes);
 		setInitialNodeId(processedTaskGraph.initialNode);
-	}, [taskGraph, completedTasks]);
+	}, [taskGraph, completedTasks, madeDecisions]);
 
 	return (
 		<GruendungContext.Provider

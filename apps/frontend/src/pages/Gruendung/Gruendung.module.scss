@@ -98,6 +98,13 @@ h1.header {
 	animation-fill-mode: forwards;
 }
 
+.aside {
+	display: flex;
+	gap: 2rem;
+
+	margin: 2rem 0;
+}
+
 @keyframes scaleUp {
 	from {
 		height: 0;
