@@ -1,16 +1,20 @@
 ### INTERNE TEST FUNKTION - ERSTRELLEN MEHERER STARTEINTRAEGE
 POST http://localhost:8103/entry/addMany
 
+### Useing the token of a logged in User
+@Token = 
+
 ### neuen Entry anlegen | Standard
 POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
     "job": "Notar",
     "company": "NotareDeutschland",
-    "address": "Luxemburger Str. 12, 15193 Berlin, Deutschland",
-    "latitude": 19.32932,
-    "longitude": 129.32912,
+    "address": "Luxemburger Str. 10, 15193 Berlin, Deutschland",
+    "latitude": 52.544137,
+    "longitude": 13.354812,
     "email": "notare@deutschland.de",
     "telefon": "+49 (0)15204847706",
     "website": "notare-deutschland.de",
@@ -18,17 +22,52 @@ content-type: application/json
     
 }
 
-### neuen Entry anlegen | ohne optional params telefon, website und description
+### neuen Entry anlegen | Standard
 POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
-    "job": "Webagentur",
-    "company": "Berlin4Web",
-    "address": "Luxemburger Str. 20, 15193 Berlin, Deutschland",
-    "latitude": 12832.12312,
-    "longitude": 23923.2312839823,
-    "email": "berlin@web.org"
+    "job": "Rechtsanwalt",
+    "company": "RechtsanwaltDE",
+    "address": "Podewilsstraße 9, 12103 Berlin, Deutschland",
+    "latitude": 52.464945,
+    "longitude": 13.376192,
+    "email": "rechtsanwalt@deutschland.de",
+    "telefon": "9283921012",
+    "description":
+      "Sehr coole Rechtsanwälte in Deutschland mit guten Diensten"
+}
+
+### neuen Entry anlegen | Standard
+POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
+content-type: application/json
+
+{
+    "job": "Rechtsanwalt",
+    "company": "Rechtsanwalteeeeeeee",
+    "address": "Oderstraße 74, 15193 Berlin, Deutschland",
+    "latitude": 52.467251,
+    "longitude": 13.421002,
+    "email": "Rechtsanwalteeeeeeee@deutschland.de",
+    "website": "Rechtsanwalteeeeeeee-deutschland.de",
+    "description": "Sehr coole Rechtsanwalteeeeeeee in DE mit tollen Leistungen"
+}
+
+### neuen Entry anlegen | Standard
+POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
+content-type: application/json
+
+{
+    "job": "Rechtsanwalt",
+    "company": "Rechtsss",
+    "address": "Podewilsstraße 9, 12103 Berlin, Deutschland",
+    "latitude": 52.464945,
+    "longitude": 13.376192,
+    "email": "rechtsss@deutschland.de",
+    "telefon": "9283921012"
 }
 
 ### neuen Entry anlegen | required param company fehlt | SHOULD FAIL & RETURN 400
