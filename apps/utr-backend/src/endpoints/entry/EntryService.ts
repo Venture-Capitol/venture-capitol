@@ -77,7 +77,7 @@ async function searchEntries(
 		} catch (exception) {
 			return callback(
 				new ApplicationError(
-					"Es sind unerwartete Probleme bei der Suche aufgetreten." + exception,
+					"Es sind unerwartete Probleme bei der Suche aufgetreten.",
 					500
 				),
 				null

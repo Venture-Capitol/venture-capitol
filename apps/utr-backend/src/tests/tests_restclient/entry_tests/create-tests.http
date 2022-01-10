@@ -70,6 +70,19 @@ content-type: application/json
     "telefon": "9283921012"
 }
 
+### neuen Entry anlegen | ohne optional params telefon, website und description
+POST http://localhost:8103/entry/
+content-type: application/json
+
+{
+    "job": "Webagentur",
+    "company": "Berlin4Web",
+    "address": "Luxemburger Str. 20, 15193 Berlin, Deutschland",
+    "latitude": 12832.12312,
+    "longitude": 23923.2312839823,
+    "email": "berlin@web.org"
+}
+
 ### neuen Entry anlegen | required param company fehlt | SHOULD FAIL & RETURN 400
 POST http://localhost:8103/entry/
 content-type: application/json
