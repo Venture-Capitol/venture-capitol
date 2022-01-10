@@ -1,15 +1,15 @@
-import React, { ReactElement } from "react";
+import {
+	ProcessedTaskNode,
+	useGruendungContext,
+} from "contexts/Gruendung/Gruendung";
+import React, { Fragment, ReactElement } from "react";
 import Decision from "../Decision/Decision";
 import DecisionPath from "../DecisionPath/DecisionPath";
 import EmptyNode from "../EmptyNode/EmptyNode";
 import TaskNode from "../TaskNode/TaskNode";
-import {
-	ProcessedTaskNode,
-	useProcessContext,
-} from "../../ProcessContext/ProcessContext";
 
 const Nodes = () => {
-	const { nodes, initialNodeId } = useProcessContext();
+	const { nodes, initialNodeId } = useGruendungContext();
 
 	function getNodesForNodePath(
 		decisionNode: ProcessedTaskNode,
@@ -43,6 +43,7 @@ const Nodes = () => {
 							next={nextNode.next}
 							name={nextNode.name}
 							url={nextNode.id}
+							checked={nextNode.checked}
 						/>
 					);
 				} else if (nextNode.type == "empty") {
@@ -71,40 +72,43 @@ const Nodes = () => {
 	function getComponent(node: ProcessedTaskNode): ReactElement {
 		if (node.type == "task" && node.decision == undefined) {
 			return (
-				<>
+				<Fragment key={node.id}>
 					<TaskNode
-						key={node.id}
 						id={node.id}
 						next={node.next}
 						name={node.name}
 						url={node.id}
+						checked={node.checked}
 					/>
 					{node.next.map(nextNodeId => {
 						const nextNode = nodes[nextNodeId];
 						if (nextNode != undefined) return getComponent(nextNode);
 					})}
-				</>
+				</Fragment>
 			);
 		} else if (node.type == "decision") {
 			const nextNode = getNextFromDecision(node);
 
 			return (
-				<>
+				<Fragment key={node.id}>
 					<Decision
 						key={node.id}
 						id={node.id}
 						next={node.next}
 						name={node.name}
 						url={node.id}
+						path={node.path}
 					>
 						{node.next.map((nodeNextId, index) => {
 							return (
-								<DecisionPath>{getNodesForNodePath(node, index)}</DecisionPath>
+								<DecisionPath key={index}>
+									{getNodesForNodePath(node, index)}
+								</DecisionPath>
 							);
 						})}
 					</Decision>
 					{nextNode != undefined && getComponent(nextNode)}
-				</>
+				</Fragment>
 			);
 		} else if (node.type == "empty") {
 			return (

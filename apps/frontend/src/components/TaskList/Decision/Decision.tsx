@@ -9,12 +9,20 @@ interface DecisionProps {
 	next: string[];
 	url: string;
 	children: Array<ReactElement<DecisionPathProps>>;
+	path?: number;
 }
 
-const Decision: FC<DecisionProps> = ({ id, name, next, url, children }) => {
+const Decision: FC<DecisionProps> = ({
+	id,
+	name,
+	next,
+	url,
+	children,
+	path,
+}) => {
 	return (
 		<div className={styles.decision}>
-			<DecisionNode id={id} name={name} next={next} url={url} />
+			<DecisionNode id={id} name={name} next={next} url={url} path={path} />
 			<div className={styles.decision_path_container}>{children}</div>
 		</div>
 	);

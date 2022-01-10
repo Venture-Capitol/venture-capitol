@@ -2,17 +2,26 @@ import { FunctionComponent, useState, MouseEvent } from "react";
 import styles from "./TaskNode.module.scss";
 import checkmarkIcon from "../../../assets/checkmark.svg";
 import { useHistory } from "react-router-dom";
+import { use } from "chai";
+import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 
 export interface TaskProps {
 	id: string;
 	name: string;
 	next: string[];
 	url: string;
+	checked: boolean;
 }
 
-const Task: FunctionComponent<TaskProps> = ({ id, name, next, url }) => {
+const Task: FunctionComponent<TaskProps> = ({
+	id,
+	name,
+	next,
+	url,
+	checked,
+}) => {
 	const [inputId] = useState(Math.random().toString());
-	const [checked, setChecked] = useState(false);
+	const { setTaskStatus } = useGruendungContext();
 
 	const history = useHistory();
 
@@ -31,7 +40,7 @@ const Task: FunctionComponent<TaskProps> = ({ id, name, next, url }) => {
 		>
 			<input
 				checked={checked}
-				onChange={e => setChecked(!checked)}
+				onChange={e => setTaskStatus(id, !checked)}
 				type='checkbox'
 				name='task_checked'
 				onClick={e => e.stopPropagation()}
@@ -45,9 +54,9 @@ const Task: FunctionComponent<TaskProps> = ({ id, name, next, url }) => {
 					stroke='currentColor'
 				>
 					<path
-						stroke-linecap='round'
-						stroke-linejoin='round'
-						stroke-width='2'
+						strokeLinecap='round'
+						strokeLinejoin='round'
+						strokeWidth='2'
 						d='M5 13l4 4L19 7'
 					/>
 				</svg>{" "}

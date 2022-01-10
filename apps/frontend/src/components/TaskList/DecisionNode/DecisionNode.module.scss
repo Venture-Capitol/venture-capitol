@@ -1,4 +1,5 @@
 .decision_node {
+	--border-col: #ecddd6;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -7,10 +8,11 @@
 	padding: 30px;
 	height: 50px;
 	background-color: #fff;
-	border-top: 1px solid var(--color-grey-200);
-	border-bottom: 1px solid var(--color-grey-200);
+
+	border-top: 1px solid var(--border-col);
+	border-bottom: 1px solid var(--border-col);
 	border-radius: 8px;
-	box-shadow: 0px 12px 10px rgba(109, 112, 193, 0.05);
+	box-shadow: 0px 12px 10px rgba(236, 126, 75, 0.05);
 	color: var(--color-grey-800);
 	transition-property: background-color, color, border-color;
 	transition: background-color 0.15s ease-out;
@@ -19,6 +21,10 @@
 	position: relative;
 	z-index: 0;
 	cursor: pointer;
+
+	&[data-checked="true"] {
+		border: 1px solid red;
+	}
 
 	span {
 		user-select: none;
@@ -35,8 +41,8 @@
 		position: absolute;
 		top: 6px;
 		z-index: -1;
-		border-top: 1px solid var(--color-grey-200);
-		border-right: 1px solid var(--color-grey-200);
+		border-top: 1px solid var(--border-col);
+		border-right: 1px solid var(--border-col);
 		background-color: #fff;
 		clip-path: polygon(
 			100% 100%,

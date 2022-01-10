@@ -1,15 +1,16 @@
-import Button from "@vc/frontend/component/Button/Button";
-import ProcessProvider, {
-	useProcessContext,
-} from "@vc/frontend/component/ProcessContext/ProcessContext";
+import Button from "@vc/ui/src/components/Button/Button";
+import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Nodes } from "steps/connections";
 import TaskList from "../../components/TaskList/TaskList";
-// import "./markdown.scss";
 import s from "./Gruendung.module.scss";
-import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle";
+import {
+	CompletedToggle,
+	Toggle,
+} from "./subcomponents/CompletedToggle/CompletedToggle";
 
-const Content = () => {
+const Gruendung = () => {
 	const [htmlContent, setHtmlContent] = useState<string | undefined>();
 	const [loadingState, setLoadingState] = useState<
 		undefined | "loading" | "error"
@@ -24,6 +25,8 @@ const Content = () => {
 			setHtmlContent(module.html);
 			setLoadingState(undefined);
 		} catch (error) {
+			console.log(error);
+
 			setLoadingState("error");
 			setHtmlContent(undefined);
 		}
@@ -33,7 +36,8 @@ const Content = () => {
 		setMarkDownComponent();
 	}, [task]);
 
-	const { unprocessedNodes } = useProcessContext();
+	const { unprocessedNodes, nodes, setDecisionStatus } = useGruendungContext();
+	// const completed = nodes[props.taskId] ? nodes[props.taskId].checked : false;
 
 	return (
 		<div className={s.splitView}>
@@ -43,7 +47,9 @@ const Content = () => {
 
 			<main className={s.content + " markdown-body"}>
 				<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
-				<CompletedToggle />
+				{unprocessedNodes[task].type == "task" && (
+					<CompletedToggle taskId={task} />
+				)}
 
 				{loadingState == "loading" && (
 					<div className={s.loadingIndicator}>
@@ -53,10 +59,13 @@ const Content = () => {
 						<div></div>
 					</div>
 				)}
+
 				{loadingState == "error" && (
 					<div>
 						<p>Fehler beim Laden der Seite...</p>
-						<button onClick={() => setMarkDownComponent()}>Neu Laden</button>
+						<div onClick={() => location.reload()}>
+							<Button>Seite neu Laden</Button>
+						</div>
 					</div>
 				)}
 
@@ -64,18 +73,48 @@ const Content = () => {
 					<div dangerouslySetInnerHTML={{ __html: htmlContent }} />
 				)}
 
+				{/* Show button to proceed for tasks */}
 				{task &&
 					unprocessedNodes[task] &&
+					unprocessedNodes[task].type == "task" &&
 					unprocessedNodes[task].next.map(next => {
 						return (
-							<Link to={next}>
-								<button>Weiter zu {unprocessedNodes[next].shortName}</button>
+							<Link to={next} key={unprocessedNodes[next].shortName}>
+								<Button>Weiter zu {unprocessedNodes[next].shortName}</Button>
 							</Link>
 						);
 					})}
+
+				{/* Show decision options for decision */}
+				{task &&
+					unprocessedNodes[task] &&
+					unprocessedNodes[task].type == "decision" && (
+						<>
+							<Toggle
+								checked={nodes[task]?.path == 0}
+								onChange={active =>
+									setDecisionStatus(task, active ? 0 : undefined)
+								}
+								textUnchecked={
+									unprocessedNodes[unprocessedNodes[task].next[0]].shortName +
+									" wählen"
+								}
+							/>
+							<Toggle
+								checked={nodes[task]?.path == 1}
+								onChange={active =>
+									setDecisionStatus(task, active ? 1 : undefined)
+								}
+								textUnchecked={
+									unprocessedNodes[unprocessedNodes[task].next[1]].shortName +
+									" wählen"
+								}
+							/>
+						</>
+					)}
 			</main>
 		</div>
 	);
 };
 
-export default Content;
+export default Gruendung;
