@@ -101,8 +101,35 @@ h1.header {
 .aside {
 	display: flex;
 	gap: 2rem;
-
 	margin: 2rem 0;
+	flex-wrap: wrap;
+	// justify-content: center;
+	> * {
+		flex-grow: 1;
+	}
+}
+
+.bottomNav {
+	display: flex;
+	justify-content: space-between;
+	gap: 1.5rem;
+
+	a {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		text-decoration: none;
+		color: var(--color-grey-900);
+
+		&:last-child {
+			text-align: right;
+		}
+
+		&.disabled {
+			cursor: not-allowed;
+			color: var(--color-grey-500);
+		}
+	}
 }
 
 @keyframes scaleUp {
