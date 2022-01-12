@@ -1,9 +1,13 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient, Prisma, Entry } from "@prisma/client";
 import logger = require("../../config/winston");
 
 import ApplicationError from "../utils/ApplicationError";
 
 const prisma = new PrismaClient();
+
+export interface DistanceEntry extends Entry {
+	distance: number;
+}
 
 async function searchEntries(
 	jobname: string,

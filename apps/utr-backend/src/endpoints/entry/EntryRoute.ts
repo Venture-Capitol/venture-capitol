@@ -5,6 +5,7 @@ import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 import logger = require("../../config/winston");
 
 import { Entry } from "@prisma/client";
+import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
 const EntryService = require("./EntryService");
@@ -15,7 +16,7 @@ router.get("/search", function (req, res, next) {
 		req.query.jobname,
 		req.query.latitude,
 		req.query.longitude,
-		function (error: Error | ApplicationError, result: any) {
+		function (error: Error | ApplicationError, result: DistanceEntry[]) {
 			if (error) {
 				logger.error(error.message);
 				if (error instanceof ApplicationError) {
@@ -24,7 +25,7 @@ router.get("/search", function (req, res, next) {
 					res.status(500).end(error.message);
 				}
 			} else {
-				const mappedSubset = result.map((entry: any) => {
+				const mappedSubset = result.map(entry => {
 					const {
 						id,
 						job,
