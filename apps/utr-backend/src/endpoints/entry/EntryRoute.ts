@@ -5,19 +5,18 @@ import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 import logger = require("../../config/winston");
 
 import { Entry } from "@prisma/client";
+import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
 const EntryService = require("./EntryService");
 const EntryUtils = require("../utils/EntryUtils");
 
 router.get("/search", function (req, res, next) {
-	const latAsNumber = EntryUtils.parseToNumber(req.query.latitude);
-	const longAsNumber = EntryUtils.parseToNumber(req.query.longitude);
 	EntryService.searchEntries(
 		req.query.jobname,
-		latAsNumber,
-		longAsNumber,
-		function (error: Error | ApplicationError, result: Entry[]) {
+		req.query.latitude,
+		req.query.longitude,
+		function (error: Error | ApplicationError, result: DistanceEntry[]) {
 			if (error) {
 				logger.error(error.message);
 				if (error instanceof ApplicationError) {
@@ -27,9 +26,16 @@ router.get("/search", function (req, res, next) {
 				}
 			} else {
 				const mappedSubset = result.map(entry => {
-					const { id, job, company, address, description, ...partialObject } =
-						entry;
-					return { id, job, company, address, description };
+					const {
+						id,
+						job,
+						company,
+						address,
+						description,
+						distance,
+						...partialObject
+					} = entry;
+					return { id, job, company, address, description, distance };
 				});
 				res.send(mappedSubset);
 			}
