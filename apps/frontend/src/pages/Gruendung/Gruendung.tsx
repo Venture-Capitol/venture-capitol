@@ -184,8 +184,6 @@ const Gruendung = () => {
 						nodes[task]?.selectedPath != undefined ? (
 							<Link to={unprocessedNodes[task].next[nodes[task].selectedPath!]}>
 								Weiter zu{" "}
-								{/* {console.log(  nodes[task].next[nodes[task].selectedPath!])} */}
-								{/* {console.log(unprocessedNodes[task].next[nodes[task].selectedPath!])} */}
 								{
 									unprocessedNodes[
 										unprocessedNodes[task].next[nodes[task].selectedPath!]
