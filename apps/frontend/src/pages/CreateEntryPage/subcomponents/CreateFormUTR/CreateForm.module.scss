@@ -1,0 +1,49 @@
+.maindiv {
+	padding-top: 3.5%;
+	display: flex;
+	justify-content: center;
+}
+
+.input_block {
+	font-size: var(--size-18px);
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	padding: 25px 0px;
+}
+
+.textinput {
+	border-bottom: 0.5px solid var(--color-grey-500);
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	padding: 3px 4px 0px 1px;
+	margin: 8px 20px 4px 0px;
+}
+
+select:focus {
+	outline: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+.joboption {
+	border-bottom: 0.5px solid var(--color-grey-700);
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	padding: 2px 4px 2px 0px;
+	margin: 12px 20px 4px 0px;
+}
+
+.submit {
+	padding: 10px 60px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #fff;
+	cursor: pointer;
+}

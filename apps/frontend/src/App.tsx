@@ -6,6 +6,7 @@ import DemoAuth from "./pages/Demo/DemoAuth";
 import Gruendung from "./pages/Gruendung/Gruendung";
 
 import Search from "./pages/Search/UTRSearch";
+import CreateEntryPage from "./pages/CreateEntryPage/CreateEntryPage";
 // import DemoAsyncContent from "./pages/Demo/DemoAsyncContent";
 import ProcessProvider from "./components/ProcessContext/ProcessContext";
 
@@ -25,8 +26,11 @@ function App() {
 							<Gruendung />
 						</ProcessProvider>
 					</Route>
-					<Route path='/demoutr'>
+					<Route path='/utr/search'>
 						<Search />
+					</Route>
+					<Route path='/utr/createEntry'>
+						<CreateEntryPage />
 					</Route>
 				</Switch>
 			</Router>
