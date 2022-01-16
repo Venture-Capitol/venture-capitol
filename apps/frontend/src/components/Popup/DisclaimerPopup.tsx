@@ -1,11 +1,11 @@
-import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
+import Dialog from "@vc/frontend/component/Popup/Dialog";
 import Button from "@vc/ui/src/components/Button/Button";
 import { Link } from "react-router-dom";
 
 const DisclaimerPopup: React.FunctionComponent = () => (
-	<AlertDialog
+	<Dialog
 		title={"Hey du!"}
-		action={
+		close={
 			<div style={{ width: "100%" }}>
 				<Button width='fullwidth'>Alles klar!</Button>
 			</div>
@@ -21,7 +21,7 @@ const DisclaimerPopup: React.FunctionComponent = () => (
 			<Link to='/legalpages/impressum'>Impressum</Link> |{" "}
 			<Link to='/legalpages/datenschutz'>Datenschutz</Link>
 		</span>
-	</AlertDialog>
+	</Dialog>
 );
 
 export default DisclaimerPopup;
