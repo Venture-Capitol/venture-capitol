@@ -2,6 +2,7 @@ import { FunctionComponent, useState, MouseEvent, useMemo } from "react";
 import styles from "./TaskNode.module.scss";
 import { useHistory } from "react-router-dom";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
+import { CheckIcon } from "@heroicons/react/solid/esm";
 
 export interface TaskProps {
 	id: string;
@@ -45,19 +46,7 @@ const Task: FunctionComponent<TaskProps> = ({
 				id={inputId}
 			/>
 			<label htmlFor={inputId} onClick={e => e.stopPropagation()}>
-				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					fill='none'
-					viewBox='0 0 24 24'
-					stroke='currentColor'
-				>
-					<path
-						strokeLinecap='round'
-						strokeLinejoin='round'
-						strokeWidth='2'
-						d='M5 13l4 4L19 7'
-					/>
-				</svg>{" "}
+				<CheckIcon />
 			</label>
 			<span>{name}</span>
 		</div>
@@ -99,19 +88,7 @@ export function TaskNodeContainer({
 				id={inputId}
 			/>
 			<label htmlFor={inputId} onClick={e => e.stopPropagation()}>
-				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					fill='none'
-					viewBox='0 0 24 24'
-					stroke='currentColor'
-				>
-					<path
-						strokeLinecap='round'
-						strokeLinejoin='round'
-						strokeWidth='2'
-						d='M5 13l4 4L19 7'
-					/>
-				</svg>
+				<CheckIcon />
 			</label>
 			<span>{text}</span>
 		</div>

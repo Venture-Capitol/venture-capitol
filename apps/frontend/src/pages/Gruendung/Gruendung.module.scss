@@ -91,6 +91,11 @@
 			color: var(--color-grey-500);
 		}
 	}
+
+	svg {
+		height: 15px;
+		width: 15px;
+	}
 }
 
 @keyframes scaleUp {
