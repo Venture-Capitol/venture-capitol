@@ -58,12 +58,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 			id: string;
 			path: number;
 		}[]
-	>([
-		{
-			id: "02_content",
-			path: 1,
-		},
-	]);
+	>([]);
 
 	function setTaskStatus(taskId: string, status: boolean) {
 		if (status) {

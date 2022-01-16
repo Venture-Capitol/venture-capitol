@@ -71,6 +71,7 @@
 	li {
 		list-style: circle;
 		list-style-position: inside;
+
 		&::marker {
 			content: "➔ ";
 		}
@@ -103,7 +104,7 @@ h1.header {
 	gap: 2rem;
 	margin: 2rem 0;
 	flex-wrap: wrap;
-	// justify-content: center;
+
 	> * {
 		flex-grow: 1;
 	}
@@ -122,6 +123,7 @@ h1.header {
 		color: var(--color-grey-900);
 
 		&:last-child {
+			margin-left: auto;
 			text-align: right;
 		}
 

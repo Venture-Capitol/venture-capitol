@@ -9,10 +9,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import TaskList from "../../components/TaskList/TaskList";
 import s from "./Gruendung.module.scss";
-import {
-	CompletedToggle,
-	Toggle,
-} from "./subcomponents/CompletedToggle/CompletedToggle";
+import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle";
 
 const Gruendung = () => {
 	const [htmlContent, setHtmlContent] = useState<string | undefined>();
