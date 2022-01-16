@@ -43,7 +43,7 @@ resource "google_sql_database" "dlr_staging_backend_database" {
   instance = google_sql_database_instance.vc_db.name
 }
 
-resource "google_sql_user" "utr_staging_database_user" {
+resource "google_sql_user" "dlr_staging_database_user" {
   name     = var.dlr_staging_db_user
   instance = google_sql_database_instance.vc_db.name
   password = random_password.dlr_staging_db_password.result
