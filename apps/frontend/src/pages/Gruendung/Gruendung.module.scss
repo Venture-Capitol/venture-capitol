@@ -47,46 +47,6 @@
 	}
 }
 
-.content {
-	font-weight: 500;
-
-	h1 {
-		font-size: 33px;
-		margin: 0 0 40px;
-	}
-
-	h2 {
-		font-size: 22px;
-	}
-
-	h2 {
-		margin: 25px 0 20px;
-	}
-
-	p,
-	ul {
-		padding-bottom: 0.5rem;
-		font-size: 18px;
-	}
-
-	li {
-		list-style: circle;
-		list-style-position: inside;
-		&::marker {
-			content: "➔ ";
-		}
-	}
-
-	a {
-		color: rgb(50, 45, 119);
-		text-decoration: underline;
-	}
-}
-
-h1.header {
-	margin-bottom: var(--size-12px);
-}
-
 .loadingIndicator {
 	margin: 0 auto;
 	position: relative;

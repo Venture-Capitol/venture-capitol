@@ -9,4 +9,48 @@ html,
 	margin: 0;
 	padding: 0;
 	font-family: "Space Grotesk", sans-serif;
+	font-weight: var(--font-weight-medium);
+}
+
+.content {
+	h1 {
+		font-size: var(--size-48px);
+		margin: 0 0 var(--size-28px);
+	}
+
+	h2 {
+		font-size: var(--size-36px);
+		margin: 0 0 var(--size-20px);
+	}
+
+	h3,
+	h4 {
+		font-size: var(--size-32px);
+		margin: 0 0 var(--size-18px);
+	}
+
+	h5,
+	h6 {
+		font-size: var(--size-24px);
+		margin: 0 0 var(--size-18px);
+	}
+
+	p,
+	ul {
+		font-size: var(--size-18px);
+		margin-bottom: var(--size-16px);
+	}
+}
+
+a {
+	color: var(--color-purple-900);
+	text-decoration: underline;
+}
+
+li {
+	list-style: circle;
+	list-style-position: inside;
+	&::marker {
+		content: "➔ ";
+	}
 }
