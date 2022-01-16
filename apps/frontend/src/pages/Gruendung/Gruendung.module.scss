@@ -58,6 +58,46 @@
 	animation-fill-mode: forwards;
 }
 
+.aside {
+	display: flex;
+	gap: 2rem;
+	margin: 2rem 0;
+	flex-wrap: wrap;
+
+	> * {
+		flex-grow: 1;
+	}
+}
+
+.bottomNav {
+	display: flex;
+	justify-content: space-between;
+	gap: 1.5rem;
+
+	a {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		text-decoration: none;
+		color: var(--color-grey-900);
+
+		&:last-child {
+			margin-left: auto;
+			text-align: right;
+		}
+
+		&.disabled {
+			cursor: not-allowed;
+			color: var(--color-grey-500);
+		}
+	}
+
+	svg {
+		height: 15px;
+		width: 15px;
+	}
+}
+
 @keyframes scaleUp {
 	from {
 		height: 0;
