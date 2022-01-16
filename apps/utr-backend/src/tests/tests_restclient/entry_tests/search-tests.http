@@ -1,14 +1,18 @@
+### using the token of a logged in User which has the Custom Claim role not set. Save it here.
+@Token = 
+
 ### searching for NOTAR providing valid location data
-http://localhost:8103/entry/search?jobname=Notar&street=Eythstraße&streetnr=16&plz=12105&location=Berlin
+http://localhost:8103/entry/search?jobname=Webagentur&latitude=52.516217&longitude=13.377004
+Authorization: Bearer {{Token}}
 
 ### searching for RECHTSANWWALT providing valid location data
-http://localhost:8103/entry/search?jobname=Rechtsanwalt&street=Eythstraße&streetnr=16&plz=12105&location=Berlin
+http://localhost:8103/entry/search?jobname=Rechtsanwalt&latitude=52.516217&longitude=13.377004
+Authorization: Bearer {{Token}}
 
-### searching for NOTAR without given street | SHOULD FAIL & RETURN 400
-http://localhost:8103/entry/search?jobname=Notar&streetnr=16&plz=12105&location=Berlin
+### searching for NOTAR without given lat | SHOULD FAIL & RETURN 400
+http://localhost:8103/entry/search?jobname=Notar&longitude=300.23
+Authorization: Bearer {{Token}}
 
-### searching for NOTAR with non-existant street
-http://localhost:8103/entry/search?jobname=Notar&street=haskeiosas&streetnr=16&plz=12105&location=Berlin
-
-### searching for invalid job providing valid location data | SHOULD FAIL & RETURN
-http://localhost:8103/entry/search?jobname=Hausmeister&street=Eythstraße&streetnr=16&plz=12105&location=Berlin
+### searching for invalid job providing valid location data | SHOULD FAIL & RETURN 400
+http://localhost:8103/entry/search?jobname=Hausmeister&latitude=137.29&longitude=293.123
+Authorization: Bearer {{Token}}

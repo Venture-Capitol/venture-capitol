@@ -1,15 +1,24 @@
-import React, { ReactElement } from "react";
+import {
+	DecisionNode,
+	ProcessedTaskNode,
+	useGruendungContext,
+} from "contexts/Gruendung/Gruendung";
+import React, { Fragment, ReactElement } from "react";
 import Decision from "../Decision/Decision";
 import DecisionPath from "../DecisionPath/DecisionPath";
 import EmptyNode from "../EmptyNode/EmptyNode";
 import TaskNode from "../TaskNode/TaskNode";
-import { useNodesContext } from "../TaskListContext/TaskListContext";
-import { Node } from "../../../steps/connectons";
 
+/**
+ * Render the nodes of a task graph as dom elements
+ */
 const Nodes = () => {
-	const { nodes, initialNodeId } = useNodesContext();
+	const { nodes, initialNodeId } = useGruendungContext();
 
-	function getNodesForNodePath(decisionNode: Node, decisionPath: number) {
+	function getNodesForNodePath(
+		decisionNode: ProcessedTaskNode,
+		decisionPath: number
+	) {
 		let elements: ReactElement[] = [];
 
 		let nextNodeId = Object.values(nodes).find(x => {
@@ -37,7 +46,8 @@ const Nodes = () => {
 							id={nextNode.id}
 							next={nextNode.next}
 							name={nextNode.name}
-							url={nextNode.url}
+							url={nextNode.id}
+							checked={nextNode.checked}
 						/>
 					);
 				} else if (nextNode.type == "empty") {
@@ -55,7 +65,7 @@ const Nodes = () => {
 		return elements;
 	}
 
-	function getNextFromDecision(node: Node): Node {
+	function getNextFromDecision(node: ProcessedTaskNode): ProcessedTaskNode {
 		let next = node.next[0];
 		for (let index = 0; index < (node.pathMaxNodeCount || 0); index++) {
 			next = nodes[next].next[0];
@@ -63,43 +73,45 @@ const Nodes = () => {
 		return nodes[next];
 	}
 
-	function getComponent(node: Node): ReactElement {
+	function getComponent(node: ProcessedTaskNode): ReactElement {
 		if (node.type == "task" && node.decision == undefined) {
 			return (
-				<>
+				<Fragment key={node.id}>
 					<TaskNode
-						key={node.id}
 						id={node.id}
 						next={node.next}
 						name={node.name}
-						url={node.url}
+						url={node.id}
+						checked={node.checked}
 					/>
 					{node.next.map(nextNodeId => {
 						const nextNode = nodes[nextNodeId];
 						if (nextNode != undefined) return getComponent(nextNode);
 					})}
-				</>
+				</Fragment>
 			);
 		} else if (node.type == "decision") {
 			const nextNode = getNextFromDecision(node);
-
 			return (
-				<>
+				<Fragment key={node.id}>
 					<Decision
 						key={node.id}
 						id={node.id}
 						next={node.next}
 						name={node.name}
-						url={node.url}
+						url={node.id}
+						selectedPath={node.selectedPath}
 					>
 						{node.next.map((nodeNextId, index) => {
 							return (
-								<DecisionPath>{getNodesForNodePath(node, index)}</DecisionPath>
+								<DecisionPath key={index}>
+									{getNodesForNodePath(node, index)}
+								</DecisionPath>
 							);
 						})}
 					</Decision>
 					{nextNode != undefined && getComponent(nextNode)}
-				</>
+				</Fragment>
 			);
 		} else if (node.type == "empty") {
 			return (
@@ -114,7 +126,6 @@ const Nodes = () => {
 	}
 
 	let initialNode = nodes[initialNodeId];
-
 	let nodeElement = <></>;
 	if (initialNode != undefined) {
 		nodeElement = getComponent(initialNode);

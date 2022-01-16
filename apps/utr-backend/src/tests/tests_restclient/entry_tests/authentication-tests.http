@@ -1,0 +1,27 @@
+### Testing getUser and isAdmin using the index Route - should return 401 due to not beeing logged in
+GET http://localhost:8103/
+
+### Useing the token of a logged in User which has the Custom Claim role not set. Save it here.
+@Token = 
+
+### The script view-claim should say claim role not set before running this and claim role: user after running this - should return 403 due to not beeing an admin
+GET http://localhost:8103/
+Authorization: Bearer {{Token}}
+
+### Log out and Log in to get a new Token. Save it here.
+@UserToken = 
+
+### Same request, should return 403 again. Checking if it also works after role="user" got set by the middleware getUser
+GET http://localhost:8103/
+Authorization: Bearer {{UserToken}}
+
+### Remove isAdmin as a middleware in IndexRoute before running. Should return 200
+GET http://localhost:8103/
+Authorization: Bearer {{UserToken}}
+
+### Add isAdmin as a middleware in IndexRoute and use script add-admin to make the the user a admin. The script view-claim should now say claim role: admin. Log out and Log in again to get a new Token. Save it here.
+@AdminToken = 
+
+### Should now return 200 due to being an admin
+GET http://localhost:8103/
+Authorization: Bearer {{AdminToken}}

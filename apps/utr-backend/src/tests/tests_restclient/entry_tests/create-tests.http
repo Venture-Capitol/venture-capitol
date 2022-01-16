@@ -1,23 +1,73 @@
 ### INTERNE TEST FUNKTION - ERSTRELLEN MEHERER STARTEINTRAEGE
 POST http://localhost:8103/entry/addMany
 
+### Useing the token of a logged in User
+@Token = 
+
 ### neuen Entry anlegen | Standard
 POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
-    "entry": {
-        "job": "Notar",
-        "company": "NotareDeutschland",
-        "street": "Eythstraße",
-        "streetnr": "14A",
-        "plz": "12105",
-        "location": "Berlin",
-        "email": "notare@deutschland.de",
-        "telefon": "+49 (0)15204847706",
-        "website": "notare-deutschland.de",
-        "description": "Die besten Notare in Deutschland mit allen wichtigen Services"
-    }
+    "job": "Notar",
+    "company": "NotareDeutschland",
+    "address": "Luxemburger Str. 10, 15193 Berlin, Deutschland",
+    "latitude": 52.544137,
+    "longitude": 13.354812,
+    "email": "notare@deutschland.de",
+    "telefon": "+49 (0)15204847706",
+    "website": "notare-deutschland.de",
+    "description": "Die besten Notare in Deutschland mit allen wichtigen Services"
+    
+}
+
+### neuen Entry anlegen | Standard
+POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
+content-type: application/json
+
+{
+    "job": "Rechtsanwalt",
+    "company": "RechtsanwaltDE",
+    "address": "Podewilsstraße 9, 12103 Berlin, Deutschland",
+    "latitude": 52.464945,
+    "longitude": 13.376192,
+    "email": "rechtsanwalt@deutschland.de",
+    "telefon": "9283921012",
+    "description":
+      "Sehr coole Rechtsanwälte in Deutschland mit guten Diensten"
+}
+
+### neuen Entry anlegen | Standard
+POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
+content-type: application/json
+
+{
+    "job": "Rechtsanwalt",
+    "company": "Rechtsanwalteeeeeeee",
+    "address": "Oderstraße 74, 15193 Berlin, Deutschland",
+    "latitude": 52.467251,
+    "longitude": 13.421002,
+    "email": "Rechtsanwalteeeeeeee@deutschland.de",
+    "website": "Rechtsanwalteeeeeeee-deutschland.de",
+    "description": "Sehr coole Rechtsanwalteeeeeeee in DE mit tollen Leistungen"
+}
+
+### neuen Entry anlegen | Standard
+POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
+content-type: application/json
+
+{
+    "job": "Rechtsanwalt",
+    "company": "Rechtsss",
+    "address": "Podewilsstraße 9, 12103 Berlin, Deutschland",
+    "latitude": 52.464945,
+    "longitude": 13.376192,
+    "email": "rechtsss@deutschland.de",
+    "telefon": "9283921012"
 }
 
 ### neuen Entry anlegen | ohne optional params telefon, website und description
@@ -25,15 +75,12 @@ POST http://localhost:8103/entry/
 content-type: application/json
 
 {
-    "entry": {
-        "job": "Webagentur",
-        "company": "Berlin4Web",
-        "street": "Coolestraße",
-        "streetnr": "27B",
-        "plz": "8729.B",
-        "location": "Hamburg",
-        "email": "berlin@web.org"
-    }
+    "job": "Webagentur",
+    "company": "Berlin4Web",
+    "address": "Luxemburger Str. 20, 15193 Berlin, Deutschland",
+    "latitude": 12832.12312,
+    "longitude": 23923.2312839823,
+    "email": "berlin@web.org"
 }
 
 ### neuen Entry anlegen | required param company fehlt | SHOULD FAIL & RETURN 400
@@ -41,28 +88,22 @@ POST http://localhost:8103/entry/
 content-type: application/json
 
 {
-    "entry": {
-        "job": "Steuerberater",
-        "street": "Anderestraße",
-        "streetnr": "6",
-        "plz": "27392",
-        "location": "München", 
-        "email": "steuer@berater.com"
-    }
+    "job": "Steuerberater",
+    "address": "Luxemburger Str. 2A, 15193 Berlin, Deutschland",
+    "latitude": 23892.12223,
+    "longitude": 32.2312,
+    "email": "steuer@berater.com"
 }
 
-### neuen Entry anlegen | location hat falschen Datentyp | SHOULD FAIL & RETURN 400
+### neuen Entry anlegen | address hat falschen Datentyp | SHOULD FAIL & RETURN 400
 POST http://localhost:8103/entry/
 content-type: application/json
 
 {
-    "entry": {
-        "job": "Webagentur",
-        "company": "Berlin4Web",
-        "street": "Coolestraße",
-        "streetnr": "27B",
-        "plz": "8729.B",
-        "location": 392,
-        "email": "berlin@web.org"
-    }
+    "job": "Webagentur",
+    "company": "Berlin4Web",
+    "address": 1273,
+    "latitude": 92932.23,
+    "longitude": 128182.2334,
+    "email": "berlin@web.org"
 }

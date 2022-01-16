@@ -1,5 +1,6 @@
 import TaskList from "@vc/frontend/component/TaskList/TaskList";
 import React, { useEffect, useState } from "react";
+import DisclaimerPopup from "@vc/frontend/component/Popup/DisclaimerPopup";
 
 export default function Demo() {
 	let [text, setText] = useState("");
@@ -32,16 +33,8 @@ export default function Demo() {
 					"radial-gradient(95.33% 88.77% at 100% 25.99%, #F3EAE4 0%, #F5EBDF 11.12%, #F6F5F8 33.47%)",
 			}}
 		>
-			<h1>Hello</h1>
-			{/* synchronize input with t  */}
-			<input
-				type='text'
-				placeholder={"schreib was..."}
-				value={text}
-				onChange={e => setText(e.target.value)}
-			/>
-
-			{/* <TaskList /> */}
+			<DisclaimerPopup />
+			<TaskList />
 		</div>
 	);
 }

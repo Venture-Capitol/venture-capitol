@@ -29,34 +29,29 @@ components:
           type: string
           description: Der Name des Eintrags.
           example: VentureWeb
-        street:
+        address:
           type: string
-          description: Die Straße, an der der Eintrag seinen Sitz hat.
-          example: Luxemburger Straße
-        streetnr:
-          type: string
-          description: Die Hausnummer der Straße, an der das der Eintrag seinen Sitz hat.
-          example: 10
-        plz:
-          type: string
-          description: Postleitzahl des Bereiches, in dem der Eintrag seinen Sitz hat.
-          example: 13353
-        location:
-          type: string
-          description: Name des Ortes, in dem der Eintrag seinen Sitz hat.
-          example: Berlin
+          description: Formatierte Adresse mit Straße, Straßennummer, PLZ und Ort.
+          example: Luxemburger Str. 10, 15193 Berlin, Deutschland
         email:
           type: string
           description: Die Email-Adresse unter der der Eintrag erreichbar ist.
           example: example@ventureweb.de
         telefon:
           type: string
+          nullable: true
           description: Die Telefonnummer unter der der Eintrag erreichbar ist.
           example: 12345678
         website:
           type: string
+          nullable: true
           description: Die Webseite des Eintrags.
           example: https://www.ventureweb.com
+        description:
+          type: string
+          nullable: true
+          description: Beschreibung des Eintrages und seiner Dienstleistungen.
+          example: VentureWeb hilft dir bei allen Angelegenheiten rund um die Unternehmensgründung.
     EntryResponse:
       title: Ein Eintrag, welcher in json zurückgegeben wird.
       type: object
@@ -75,10 +70,7 @@ components:
             - id
             - job
             - company
-            - street
-            - streetnr
-            - plz
-            - location
+            - address
             - email
             - verified
         - $ref: "#/components/schemas/Entry"
@@ -97,62 +89,61 @@ paths:
           required: true
           description: Name des Jobs, nach dem der Nutzer sucht.
         - in: query
-          name: street
+          name: latitude
           schema:
-            type: string
-          required: false
-          description: Name der Straße, in der der Nutzer wohnt.
+            type: number
+          required: true
+          description: Latitude-Koordinate des Nutzers
         - in: query
-          name: streetnr
+          name: longitude
           schema:
-            type: string
-          required: false
-          description: Hausnummer des Hauses, in dem der Nutzer wohnt.
-        - in: query
-          name: plz
-          schema:
-            type: string
-          required: false
-          description: Postleitzahl des Bereiches, in dem der Nutzer wohnt.
-        - in: query
-          name: location
-          schema:
-            type: string
-          required: false
-          description: Name des Ortes, in dem der Nutzer wohnt.
+            type: number
+          required: true
+          description: Longitude-Koordinate des Nutzers
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: number
-                    description: Die ID des Eintrags.
-                    example: 1
-                  company:
-                    type: string
-                    description: Der Name des Eintrags.
-                    example: VentureWeb
-                  email:
-                    type: string
-                    description: Die Email-Adresse unter der der Eintrag erreichbar ist.
-                    example: example@ventureweb.de
-                  distance:
-                    type: number
-                    description: Entfernung des Eintrags zum angegebenem Wohnort in Kilometern.
-                    example: 11.1
-                required:
-                  - id
-                  - company
-                  - email
-                  - distance
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: number
+                      description: Die ID des Eintrags.
+                      example: 1
+                    company:
+                      type: string
+                      description: Der Name des Eintrags.
+                      example: VentureWeb
+                    job:
+                      type: string
+                      description: Der Job, welchen der Eintrag ausführt.
+                      example: Webagentur
+                    address:
+                      type: string
+                      description: Formatierte Adresse mit Straße, Straßennummer, PLZ und Ort.
+                      example: Luxemburger Str. 10, 15193 Berlin, Deutschland
+                    distance:
+                      type: number
+                      description: Entfernung des Eintrags zum angegebenem Wohnort in Metern.
+                      example: 11264
+                    description:
+                      type: string
+                      nullable: true
+                      description: Beschreibung des Eintrages und seiner Dienstleistungen.
+                      example: VentureWeb hilft dir bei allen Angelegenheiten rund um die Unternehmensgründung.
+                  required:
+                    - id
+                    - company
+                    - job
+                    - address
+                    - distance
         400:
-          description: Die Anfrage war Fehlerhaft. Company, E-Mail, Job, Street, StreetNr, PLZ & Location müssen Strings seins.
+          description: Die Anfrage war Fehlerhaft. Jobname muss ein String, Latitude und Longitude müssen number sein.
         404:
-          description: Es existiert keine Straße mit der Hausnummer in dem angegebenem Bereich.
+          description: Es wurden keine Einträge gefunden die diesen Job machen
         default:
           description: Es sind unerwartete Probleme bei der Suche aufgetreten.
   /entry:
@@ -218,17 +209,14 @@ paths:
                 - type: object
                   required:
                     - job
-                    - street
-                    - streetnr
-                    - plz
-                    - location
+                    - address
                     - company
                     - email
       responses:
         200:
           description: Success
         400:
-          description: Die Anfrage war Fehlerhaft. Die Parameter company, email, street, streetnr, plz, location & job im requestBody müssen Werte enthalten.
+          description: Die Anfrage war Fehlerhaft. Die Parameter company, email, adress & job im requestBody müssen Werte enthalten.
         default:
           description: Es ist ein unerwarteter Fehler aufgetreten.
   /entry/{id}:
@@ -270,7 +258,7 @@ paths:
           schema:
             type: number
           required: true
-          description: Die id des Eintrages, welches abgeändert werden soll.
+          description: Die id des Eintrages, welcher abgeändert werden soll.
       requestBody:
         description: Werte welche beim Eintrag verändert werden sollen in json.
         required: true

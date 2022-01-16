@@ -1,0 +1,39 @@
+.text_block {
+	width: 100%;
+	position: relative;
+	height: 80vh;
+
+	@media (max-width: 768px) {
+		padding: 0 15px;
+	}
+
+	.page_content {
+		overflow: scroll;
+		height: calc(100% - 80px);
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+		padding-bottom: 200px;
+
+		@media (max-width: 768px) {
+			padding-bottom: 50px;
+		}
+	}
+
+	.page_content::-webkit-scrollbar {
+		display: none;
+	}
+
+	.bot_gradient {
+		height: 200px;
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		background: linear-gradient(transparent 0%, #f6f5f8 100%);
+		z-index: 10;
+
+		@media (max-width: 768px) {
+			height: 100px;
+		}
+	}
+}

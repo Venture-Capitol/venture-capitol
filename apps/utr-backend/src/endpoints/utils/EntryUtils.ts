@@ -1,7 +1,10 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 
+import ApplicationError from "../utils/ApplicationError";
+
 const prisma = new PrismaClient();
 
+/* WILL BE DELETED WHEN ALL TESTS ARE COMPLETE
 async function addManyEntries(callback: Function) {
 	try {
 		const createMany = await prisma.entry.createMany({
@@ -9,10 +12,9 @@ async function addManyEntries(callback: Function) {
 				{
 					job: "Notar",
 					company: "NotareDE",
-					street: "Notarstraße",
-					streetnr: "17",
-					plz: "12932",
-					location: "Berlin",
+					address: "Luxemburger Str. 10, 15193 Berlin, Deutschland",
+					latitude: 2399.23,
+					longitude: 12.122323,
 					email: "notare@deutschland.de",
 					telefon: "01520494293",
 					website: "notare.de",
@@ -22,10 +24,9 @@ async function addManyEntries(callback: Function) {
 				{
 					job: "Rechtsanwalt",
 					company: "RechtsanwaltDE",
-					street: "Rechtsanwaltstraße",
-					streetnr: "18A",
-					plz: "12392",
-					location: "Bremen",
+					address: "Luxemburger Str. 8, 15193 Berlin, Deutschland",
+					latitude: 1.23231,
+					longitude: 334,
 					email: "rechtsanwalt@deutschland.de",
 					telefon: "9283921012",
 					description:
@@ -34,10 +35,9 @@ async function addManyEntries(callback: Function) {
 				{
 					job: "Steuerberater",
 					company: "SteuerberaterDE",
-					street: "Steuerberaterstraße",
-					streetnr: "7C",
-					plz: "128391",
-					location: "Hamburg",
+					address: "Luxemburger Str. 10, 15193 Berlin, Deutschland",
+					latitude: 23823.23242323,
+					longitude: 23.343423,
 					email: "Steuerberater@deutschland.de",
 					website: "steuerberater-deutschland.de",
 					description: "Sehr coole Steuerberater in DE mit tollen Leistungen",
@@ -45,10 +45,9 @@ async function addManyEntries(callback: Function) {
 				{
 					job: "Webagentur",
 					company: "WebagenturDE",
-					street: "webagenturstraße",
-					streetnr: "1",
-					plz: "92301",
-					location: "Bielefeld",
+					address: "Luxemburger Str. 6, 15193 Berlin, Deutschland",
+					latitude: 237.23231,
+					longitude: 8384.232321,
 					email: "Web@agentur.org",
 					description:
 						"Mega gute Webagentur in Deutschland mit absolut coolen Dienstleistungen",
@@ -56,10 +55,9 @@ async function addManyEntries(callback: Function) {
 				{
 					job: "Webagentur",
 					company: "DeineWebagentur",
-					street: "Heiserstr.",
-					streetnr: "29",
-					plz: "12839",
-					location: "Dänemark",
+					address: "Luxemburger Str. 4, 15193 Berlin, Deutschland",
+					latitude: 293.38482,
+					longitude: 239.32323434,
 					email: "webagentur@meetup.com",
 					description:
 						"Deine Webagentur die dich ab jetzt bei so circa allem was du machst mega gut unterstützen wird",
@@ -67,10 +65,9 @@ async function addManyEntries(callback: Function) {
 				{
 					job: "Notar",
 					company: "NotareGermany",
-					street: "Eythstr.",
-					streetnr: "16",
-					plz: "823912",
-					location: "Berin",
+					address: "Luxemburger Str. 3, 15193 Berlin, Deutschland",
+					latitude: 12.238293,
+					longitude: 98.232423,
 					email: "Notare@germany.org",
 					description:
 						"Eine weitere Notarfirma die aber deutlich besser als der Rest ist",
@@ -78,37 +75,33 @@ async function addManyEntries(callback: Function) {
 				{
 					job: "Notar",
 					company: "Notare4You",
-					street: "Bessemerstraße",
-					streetnr: "29",
-					plz: "12939",
-					location: "München",
+					address: "Luxemburger Str. 19, 15193 Berlin, Deutschland",
+					latitude: 122.232231,
+					longitude: 293.2382492,
 					email: "foryou@notare.de",
 				},
 				{
 					job: "Rechtsanwalt",
 					company: "deinRechtsanwalt",
-					street: "Rechtestraße",
-					streetnr: "292",
-					plz: "1829A",
-					location: "Wiesbaden",
+					address: "Luxemburger Str. 18, 15193 Berlin, Deutschland",
+					latitude: 9293.238239,
+					longitude: 128.2384,
 					email: "dein@rechtsanwalt.org",
 				},
 				{
 					job: "Steuerberater",
 					company: "trustedTaxes",
-					street: "Hakler Zeile",
-					streetnr: "2A",
-					plz: "23891",
-					location: "Berlin",
+					address: "Luxemburger Str. 5, 15193 Berlin, Deutschland",
+					latitude: 293.23242,
+					longitude: 392.3232312,
 					email: "trust@taxes.com",
 				},
 				{
 					job: "Rechtsanwalt",
 					company: "RechteCheck",
-					street: "Weiterestraße",
-					streetnr: "92A",
-					plz: "128392",
-					location: "Osnabrück",
+					address: "Luxemburger Str. 17, 15193 Berlin, Deutschland",
+					latitude: 463.239934,
+					longitude: 349.2323423,
 					email: "organization@rechte-check.org",
 					telefon: "239201232",
 					description:
@@ -120,11 +113,18 @@ async function addManyEntries(callback: Function) {
 		return callback(null);
 	} catch (exception) {
 		//if (exception instanceof Prisma.PrismaClientKnownRequestError) {
-		return callback("500");
+		return callback(
+			new ApplicationError(
+				"Fehler beim Erstellen sinnvoller Starteintraege.",
+				500
+			)
+		);
 		//}
 	}
-}
+}*/
 
+/* SEEMS TO BE UNNECESSARY DUE TO OPENAPI VALIDATOR
+// REMOVE AFTER FURTHER TESTING
 function parseToBoolean(value: string) {
 	if (value === undefined) {
 		return value;
@@ -134,6 +134,7 @@ function parseToBoolean(value: string) {
 		return null;
 	}
 }
+*/
 
 function parseToNumber(value: string) {
 	if (value === undefined) {
@@ -144,7 +145,5 @@ function parseToNumber(value: string) {
 }
 
 module.exports = {
-	addManyEntries,
-	parseToBoolean,
 	parseToNumber,
 };

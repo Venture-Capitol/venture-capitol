@@ -1,0 +1,23 @@
+.default_btn {
+	padding: 12px 60px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #fff;
+	cursor: pointer;
+	color: var(--color-grey-900);
+
+	&[data-width="fullwidth"] {
+		width: 100%;
+	}
+
+	&[data-disabled="true"] {
+		color: var(--color-grey-500);
+		cursor: not-allowed;
+	}
+
+	&[data-disabled="false"]:hover {
+		background: #fafafa;
+	}
+}

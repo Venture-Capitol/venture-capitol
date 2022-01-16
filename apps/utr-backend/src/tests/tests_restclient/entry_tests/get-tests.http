@@ -1,7 +1,7 @@
 ### ----- GET BY ID: localhost:8103/entry/:id -----
 
 ### providing valid id of type number for entry that exists (check database)
-GET http://localhost:8103/entry/43
+GET http://localhost:8103/entry/30
 
 ### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
 GET http://localhost:8103/entry/12932
@@ -12,23 +12,33 @@ GET http://localhost:8103/entry/4gustav
 
 ### ----- GET ALL: localhost:8103/entry?verified={verified}&amount={amount}&page={page} -----
 
+### using the token of a logged in User which has the Custom Claim role not set. Save it here.
+@Token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjM1MDZmMzc1MjI0N2ZjZjk0Y2JlNWQyZDZiNTlmYThhMmJhYjFlYzIiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiR2x1b24iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKenhwZ0I1dXd2RjM0RE44Y2JaRk9ESURLTDhKNGt5VEZ3N2hsLXhfdz1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS92ZW50dXJlLWNhcGl0b2wiLCJhdWQiOiJ2ZW50dXJlLWNhcGl0b2wiLCJhdXRoX3RpbWUiOjE2NDEzODE1ODIsInVzZXJfaWQiOiJnY1hLSlZqSEY0Z2tvWUtSNFJMNHNGYWpGbUczIiwic3ViIjoiZ2NYS0pWakhGNGdrb1lLUjRSTDRzRmFqRm1HMyIsImlhdCI6MTY0MTc0NDI5NCwiZXhwIjoxNjQxNzQ3ODk0LCJlbWFpbCI6ImthaWttaW5lY3JhZnRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDc3OTY1MjU5Mjk0ODk0MzQ5NTQiXSwiZW1haWwiOlsia2Fpa21pbmVjcmFmdEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.Xa1b4588FPPjvZFckt9GuXkNQKCpJCK3_zGqBAn-tb-dQPN3xrDgA9ZjgJBMoPZMA1uOy0yKpBNk-fv0LcNNqqbOwVmb8K_DvGDATTlRnVTM7UGWGVT3zxht0oARHiCyTx_REnwcNlfse91VAyyzmcFZkmBNsi20mCagc9oy6Z7QkjOiuxIem8lkhjm0OuwCAbPBVIv0znZr-5M8NUFGO66-ZVmuq5F4K4Nap1dXj9FwpJSBv6EpmZ8EbYDnF4jXvhcJ_ZjiNOYIWEnSKt2kpZLX2tjGKcf06waquhYl_958Gynw_Lmih9YZOrLyabw7adCKw3A9K3R7x-G7vjoDBg
+
 ### verified, amount and page set
-GET http://localhost:8103/entry?verified=false&amount=2&page=2
+GET http://localhost:8103/entry/?verified=false&amount=1&page=0
+Authorization: Bearer {{Token}}
 
 ### amount and page set | verified undefined | SHOULD IGNORE VERIFIED STATUS
-GET http://localhost:8103/entry?amount=5&page=1
+GET http://localhost:8103/entry?amount=5&page=0
+Authorization: Bearer {{Token}}
 
 ### verified and amount set | page undefined | SHOULD TAKE FIRST PAGE (SAME AS PAGE=0)
 GET http://localhost:8103/entry?verified=false&amount=3
+Authorization: Bearer {{Token}}
 
 ### only amount set | SHOULD TAKE FIRST AMOUNT RESULTS, IGNORE VERIFIED STATUS
 GET http://localhost:8103/entry?amount=7
+Authorization: Bearer {{Token}}
 
 ### only verified set 
 GET http://localhost:8103/entry?verified=false
+Authorization: Bearer {{Token}}
 
 ### nothing set | SHOULD RETURN ALL ENTRIES
 GET http://localhost:8103/entry
+Authorization: Bearer {{Token}}
 
-### DOESNT WORK YET ---> verified content is parsed into undefined which is a valid, SHOULD RETURN 400 
-GET http://localhost:8103/entry?verified:gustav
+### wrong data type of verfiied | SHOULD RETURN 400 
+GET http://localhost:8103/entry?verified=gustav
+Authorization: Bearer {{Token}}

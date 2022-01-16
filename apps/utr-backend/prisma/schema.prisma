@@ -15,10 +15,7 @@ model Entry {
   job         String
   company     String  @unique
   description String? @unique
-  street      String
-  streetnr    String
-  plz         String
-  location    String
+  address     String
   latitude    Float   @default(0.0)
   longitude   Float   @default(0.0)
   email       String  @unique

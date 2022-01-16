@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
 	typescript: {
 		check: false,
@@ -14,13 +16,31 @@ module.exports = {
 		"../../../apps/frontend/src/components/**/*.stories.mdx",
 		"../../../apps/frontend/src/components/**/*.stories.@(js|jsx|ts|tsx)",
 
-		// --- UTR components ---
-		"../../../apps/utr-frontend/components/**/*.stories.mdx",
-		"../../../apps/utr-frontend/components/**/*.stories.@(js|jsx|ts|tsx)",
-
 		// --- Global components ---
 		"../../ui/**/*.stories.mdx",
 		"../../ui/**/*.stories.@(js|jsx|ts|tsx)",
 	],
-	addons: ["@storybook/addon-links", "@storybook/addon-essentials"],
+	addons: [
+		"@storybook/addon-links",
+		"@storybook/addon-essentials",
+		"@storybook/preset-scss",
+	],
+	webpackFinal: async (config, { configType }) => {
+		// `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
+		// You can change the configuration based on that.
+		// 'PRODUCTION' is used when building the static version of storybook.
+
+		config.resolve.alias = {
+      ...config.resolve.alias,
+      '@vc/frontend': path.resolve(__dirname, "../../../apps/frontend"),
+    };
+
+		config.module.rules.push({
+			test: /\.scss$/,
+			use: ["style-loader", "css-loader", "sass-loader"],
+			include: path.resolve(__dirname, "../"),
+		});
+
+		return config;
+	},
 };
