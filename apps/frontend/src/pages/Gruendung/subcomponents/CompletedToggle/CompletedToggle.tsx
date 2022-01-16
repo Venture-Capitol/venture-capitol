@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { nanoid } from "nanoid";
 import s from "./CompletedToggle.module.scss";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
+import { CheckIcon } from "@heroicons/react/solid/esm";
 
 interface Props {
 	taskId: string;
@@ -24,19 +25,7 @@ export function CompletedToggle(props: Props) {
 
 			<label htmlFor={id} className={s.wrapper}>
 				<span className={s.checkbox}>
-					<svg
-						xmlns='http://www.w3.org/2000/svg'
-						fill='none'
-						viewBox='0 0 24 24'
-						stroke='currentColor'
-					>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth='2'
-							d='M5 13l4 4L19 7'
-						/>
-					</svg>
+					<CheckIcon />
 				</span>
 				{completed ? "Abgeschlossen" : "Abschließen"}
 			</label>
@@ -71,19 +60,7 @@ export function Toggle({
 
 			<label htmlFor={id} className={s.wrapper}>
 				<span className={s.checkbox}>
-					<svg
-						xmlns='http://www.w3.org/2000/svg'
-						fill='none'
-						viewBox='0 0 24 24'
-						stroke='currentColor'
-					>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth='2'
-							d='M5 13l4 4L19 7'
-						/>
-					</svg>
+					<CheckIcon />
 				</span>
 				{checked ? textChecked : textUnchecked}
 			</label>
