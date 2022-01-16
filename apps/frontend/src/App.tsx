@@ -7,6 +7,7 @@ import Gruendung from "./pages/Gruendung/Gruendung";
 
 import Search from "./pages/Search/UTRSearch";
 import CreateEntryPage from "./pages/CreateEntryPage/CreateEntryPage";
+import GetEntryPage from "./pages/GetEntryPage/GetEntryPage";
 // import DemoAsyncContent from "./pages/Demo/DemoAsyncContent";
 import ProcessProvider from "./components/ProcessContext/ProcessContext";
 
@@ -31,6 +32,9 @@ function App() {
 					</Route>
 					<Route path='/utr/createEntry'>
 						<CreateEntryPage />
+					</Route>
+					<Route path='/utr/demo/getEntry'>
+						<GetEntryPage />
 					</Route>
 				</Switch>
 			</Router>

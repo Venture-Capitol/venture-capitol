@@ -1,0 +1,34 @@
+.maindiv_getEntryInfos {
+	padding-top: 3.5%;
+	display: flex;
+	justify-content: center;
+}
+
+.listOfInfos {
+	flex: 0 1 30em;
+	margin: 0% 5% 2% 5%;
+}
+
+.divOfAttributeAndValue {
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	font-size: var(--size-18px);
+	display: flex;
+	flex-flow: column nowrap;
+	padding: 10px 0px;
+}
+
+.nameOfAttribute {
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	font-size: var(--size-18px);
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.attributeValue {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	padding: 3px 4px 0px 1px;
+}
