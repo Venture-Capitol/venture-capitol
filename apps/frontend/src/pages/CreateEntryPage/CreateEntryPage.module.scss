@@ -2,9 +2,16 @@
 	display: flex;
 	justify-content: center;
 	padding-top: 10%;
+	position: relative;
 }
+
 .AlsDienstleisterEintragen {
 	font-family: "Space Grotesk";
 	font-weight: bold;
 	font-size: var(--size-28px);
+}
+
+.maindiv_headline_createEntry svg {
+	height: 15px;
+	width: 12px;
 }

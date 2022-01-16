@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import s from "./CreateForm.module.scss";
 
-const CreateForm: React.FunctionComponent = triggerPopup => {
+interface Props {
+	triggerPopup: () => void;
+}
+
+const CreateForm = ({ triggerPopup }: Props) => {
 	const [company, setCompany] = useState("");
 	const [jobname, setJobname] = useState("Notar");
 	const [address, setAddress] = useState("");
@@ -51,7 +55,7 @@ const CreateForm: React.FunctionComponent = triggerPopup => {
 
 	function checkResponse(data: any) {
 		if (data.ok) {
-			alert("Nutzer wurde erstellt!");
+			triggerPopup();
 		} else {
 			console.log("Fehler");
 		}

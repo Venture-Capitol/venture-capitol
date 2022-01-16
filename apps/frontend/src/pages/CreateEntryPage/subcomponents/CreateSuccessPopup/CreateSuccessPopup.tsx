@@ -1,13 +1,7 @@
 import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
 import Button from "@vc/ui/src/components/Button/Button";
 
-type CreateSuccessPopupProps = {
-	trigger: React.ReactNode;
-};
-
-const CreateSuccessPopup: React.FunctionComponent<CreateSuccessPopupProps> = ({
-	trigger,
-}) => (
+const CreateSuccessPopup: React.FunctionComponent = () => (
 	<AlertDialog
 		title={"Hey du!"}
 		action={
@@ -15,13 +9,10 @@ const CreateSuccessPopup: React.FunctionComponent<CreateSuccessPopupProps> = ({
 				<Button width='fullwidth'>Alles klar!</Button>
 			</div>
 		}
-		defaultOpen={false}
-		preventEscape={true}
-		trigger={trigger}
+		defaultOpen={true}
+		preventEscape={false}
 	>
-		Diese Seite ersetzt keine Rechtsberatung, notarielle Beratung,
-		Steuerberatung im Bedarfsfall ist immer ein Rechtsanwalt, Notar oder
-		Steuerberater zu bemühen!
+		Du wurdest erfolgreich registriert.
 	</AlertDialog>
 );
 

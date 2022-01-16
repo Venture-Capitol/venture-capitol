@@ -1,5 +1,4 @@
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
-import React from "react";
 import s from "./CreateEntryPage.module.scss";
 
 import CreateForm from "./subcomponents/CreateFormUTR/CreateForm";
@@ -12,14 +11,14 @@ export default function CreateEntryPage() {
 
 	return (
 		<>
-			<BackArrow />
 			<div className={s.maindiv_headline_createEntry}>
+				<BackArrow />
 				<p className={s.AlsDienstleisterEintragen}>
 					Als Dienstleister eintragen
 				</p>
 			</div>
 			<CreateForm triggerPopup={triggerPopup} />
-			<CreateSuccessPopup trigger={true} />
+			<CreateSuccessPopup />
 		</>
 	);
 }
