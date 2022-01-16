@@ -1,0 +1,11 @@
+{
+	"name": "@vc/api",
+	"version": "0.1.0",
+	"main": "src/index",
+	"types": "dist/index",
+	"files": [
+		"dist"
+	],
+	"scripts": {},
+	"dependencies": {}
+}

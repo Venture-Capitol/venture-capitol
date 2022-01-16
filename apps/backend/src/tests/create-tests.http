@@ -1,0 +1,29 @@
+### neue Company anlegen | Standard
+POST http://localhost:8101/api/company/
+content-type: application/json
+
+{
+  "legalForm": "GMBH",
+  "name": "Test"
+}
+
+### neue Company anlegen | Standard mit Namen
+POST http://localhost:8101/api/company/
+content-type: application/json
+
+{
+  "legalForm": "FREIBERUFLER",
+  "name": "Spacifik"
+}
+
+### neuen Task anlegen | Standard
+POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/tasks/11
+
+### neuen Task anlegen | Standard
+POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/decisions/35
+content-type: application/json
+
+{
+  "selectedPath": 0
+}
+

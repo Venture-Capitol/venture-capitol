@@ -1,0 +1,388 @@
+openapi: 3.0.1
+info:
+  title: Venture Capitol API
+  description: Open API specification for the Venture Capitol API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8101/api
+  - url: https://localhost:8101/api
+tags:
+  - name: company
+    description: API for company information
+  - name: user
+    description: API for user information
+  - name: task
+    description: API for decision information
+  - name: decision
+    description: API for task information
+paths:
+  /user/{userId}:
+    get:
+      tags:
+        - user
+      summary: Get a user by id
+      description: Returns a user with given id
+      operationId: findUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          description: Invalid parameters.
+        404:
+          description: User not found.
+  /company:
+    post:
+      tags:
+        - company
+      summary: Adds a new company to Venture Capitol
+      description: Posts a company with given data
+      operationId: addCompany
+      requestBody:
+        description: company which will be founded
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                legalForm:
+                  type: string
+                name:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  legalForm:
+                    type: string
+        400:
+          description: Invalid parameters.
+      x-codegen-request-body-name: company
+    get:
+      tags:
+        - company
+      summary: Returns all companies from Venture Capitol
+      description: Returns all companies
+      operationId: findAllCompanies
+      responses:
+        200:
+          description: succesful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Company"
+        404:
+          description: No companies found.
+  /company/{companyId}:
+    get:
+      tags:
+        - company
+      summary: Get a company by id
+      description: Returns a company with given id
+      operationId: findCompanyById
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Company"
+        400:
+          description: Invalid parameters.
+        404:
+          description: Company not found.
+    delete:
+      tags:
+        - company
+      summary: Delete a company by id
+      description: Deletes a company with given id
+      operationId: deleteCompanyById
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation.
+        400:
+          description: Invalid parameters.
+        404:
+          description: Company not found.
+  /company/{companyId}/tasks:
+    get:
+      tags:
+        - task
+      summary: Get all tasks of a company
+      description: Returns which tasks of a company are done
+      operationId: findAllTasksByCompanyId
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    taskId:
+                      type: string
+        400:
+          description: Invalid status value
+  /company/{companyId}/tasks/{taskId}:
+    post:
+      tags:
+        - task
+      summary: Add a checked task to a company
+      description: Adds a new finished task to a company
+      operationId: addTaskToCompany
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          schema:
+            type: string
+        - name: taskId
+          in: path
+          description: ID of the task
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation.
+        400:
+          description: Invalid parameters.
+        404:
+          description: Company not found.
+    delete:
+      tags:
+        - task
+      summary: Delete a task from a company
+      description: Deletes a task from a company
+      operationId: deleteTaskFromCompany
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          schema:
+            type: string
+        - name: taskId
+          in: path
+          description: ID of the task
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful deletion.
+        400:
+          description: Invalid parameters.
+        404:
+          description: Company or task not found.
+  /company/{companyId}/decisions:
+    get:
+      tags:
+        - decision
+      summary: Get all decisions of a company
+      description: Returns all decisions of a company
+      operationId: findAllDecisionsByCompanyId
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    decisionId:
+                      type: string
+                    selectedPath:
+                      type: integer
+                      format: int32
+        400:
+          description: Invalid parameters.
+        404:
+          description: Company or decision not found.
+  /company/{companyId}/decisions/{decisionId}:
+    post:
+      tags:
+        - decision
+      summary: Add a decision to a company
+      description: Adds a new decision to a company
+      operationId: addDecisionToCompany
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          schema:
+            type: string
+        - name: decisionId
+          in: path
+          description: ID of the decision
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Selected path of the decision
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                selectedPath:
+                  type: integer
+        required: true
+      responses:
+        200:
+          description: successful operation
+        400:
+          description: Invalid parameters.
+        404:
+          description: Company not found.
+    delete:
+      tags:
+        - decision
+      summary: Delete a decision from a company
+      description: Deletes a decision from a company
+      operationId: deleteDecisionFromCompany
+      parameters:
+        - name: companyId
+          in: path
+          description: ID of the company
+          required: true
+          schema:
+            type: string
+        - name: decisionId
+          in: path
+          description: ID of the decision
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful deletion
+        400:
+          description: Invalid parameters.
+        404:
+          description: Company or decision not found.
+components:
+  securitySchemes:
+    firebaseAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      required:
+        - companies
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+        companies:
+          type: array
+          items:
+            $ref: "#/components/schemas/Company"
+    CompletedTask:
+      required:
+        - companyId
+        - taskId
+      type: object
+      properties:
+        company:
+          $ref: "#/components/schemas/Company"
+        companyId:
+          type: string
+        taskId:
+          type: string
+    MadeDecision:
+      required:
+        - companyId
+        - decisionId
+        - selectedPath
+      type: object
+      properties:
+        decisionId:
+          type: string
+        companyId:
+          type: string
+        selectedPath:
+          type: integer
+          format: int32
+    Company:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        legalForm:
+          type: string
+          enum:
+            - EINZELUNTERNEHMER
+            - GBR
+            - FREIBERUFLER
+            - PARTG
+            - UG
+            - GMBH
+        completedTask:
+          type: array
+          items:
+            $ref: "#/components/schemas/CompletedTask"
+        madeDecision:
+          type: array
+          items:
+            $ref: "#/components/schemas/MadeDecision"
