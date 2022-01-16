@@ -11,7 +11,7 @@ const DisclaimerPopup: React.FunctionComponent = () => (
 			</div>
 		}
 		defaultOpen={true}
-		preventEscape={true}
+		preventEscape={false}
 	>
 		Diese Seite ersetzt keine Rechtsberatung, notarielle Beratung,
 		Steuerberatung im Bedarfsfall ist immer ein Rechtsanwalt, Notar oder

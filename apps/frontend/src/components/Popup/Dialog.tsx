@@ -1,5 +1,5 @@
 import * as RadixDialog from "@radix-ui/react-dialog";
-import s from "./AlertDialog.module.scss";
+import s from "./Dialog.module.scss";
 
 type DialogProps = {
 	title: string;
