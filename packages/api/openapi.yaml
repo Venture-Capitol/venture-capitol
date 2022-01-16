@@ -23,6 +23,8 @@ paths:
       summary: Get a user by id
       description: Returns a user with given id
       operationId: findUserById
+      security:
+        - firebaseAuth: []
       parameters:
         - name: userId
           in: path
@@ -48,6 +50,8 @@ paths:
       summary: Adds a new company to Venture Capitol
       description: Posts a company with given data
       operationId: addCompany
+      security:
+        - firebaseAuth: []
       requestBody:
         description: company which will be founded
         content:
@@ -81,6 +85,8 @@ paths:
       summary: Returns all companies from Venture Capitol
       description: Returns all companies
       operationId: findAllCompanies
+      security:
+        - firebaseAuth: []
       responses:
         200:
           description: succesful operation
@@ -99,6 +105,8 @@ paths:
       summary: Get a company by id
       description: Returns a company with given id
       operationId: findCompanyById
+      security:
+        - firebaseAuth: []
       parameters:
         - name: companyId
           in: path
@@ -123,6 +131,8 @@ paths:
       summary: Delete a company by id
       description: Deletes a company with given id
       operationId: deleteCompanyById
+      security:
+        - firebaseAuth: []
       parameters:
         - name: companyId
           in: path
@@ -143,6 +153,8 @@ paths:
       summary: Get all tasks of a company
       description: Returns which tasks of a company are done
       operationId: findAllTasksByCompanyId
+      security:
+        - firebaseAuth: []
       parameters:
         - name: companyId
           in: path
@@ -171,6 +183,8 @@ paths:
       summary: Add a checked task to a company
       description: Adds a new finished task to a company
       operationId: addTaskToCompany
+      security:
+        - firebaseAuth: []
       parameters:
         - name: companyId
           in: path
@@ -197,6 +211,8 @@ paths:
       summary: Delete a task from a company
       description: Deletes a task from a company
       operationId: deleteTaskFromCompany
+      security:
+        - firebaseAuth: []
       parameters:
         - name: companyId
           in: path
@@ -224,6 +240,8 @@ paths:
       summary: Get all decisions of a company
       description: Returns all decisions of a company
       operationId: findAllDecisionsByCompanyId
+      security:
+        - firebaseAuth: []
       parameters:
         - name: companyId
           in: path
@@ -257,6 +275,8 @@ paths:
       summary: Add a decision to a company
       description: Adds a new decision to a company
       operationId: addDecisionToCompany
+      security:
+        - firebaseAuth: []
       parameters:
         - name: companyId
           in: path
@@ -293,6 +313,8 @@ paths:
       summary: Delete a decision from a company
       description: Deletes a decision from a company
       operationId: deleteDecisionFromCompany
+      security:
+        - firebaseAuth: []
       parameters:
         - name: companyId
           in: path

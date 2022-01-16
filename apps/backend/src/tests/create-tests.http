@@ -1,27 +1,34 @@
+
+@Token = 
+
 ### neue Company anlegen | Standard
 POST http://localhost:8101/api/company/
 content-type: application/json
+Authorization: Bearer {{Token}}
 
 {
   "legalForm": "GMBH",
-  "name": "Test"
+  "name": "Testeintrag"
 }
 
 ### neue Company anlegen | Standard mit Namen
 POST http://localhost:8101/api/company/
 content-type: application/json
+Authorization: Bearer {{Token}}
 
 {
   "legalForm": "FREIBERUFLER",
-  "name": "Spacifik"
+  "name": "Spacifik 2.0"
 }
 
 ### neuen Task anlegen | Standard
-POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/tasks/11
+POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/tasks/14
+Authorization: Bearer {{Token}}
 
 ### neuen Task anlegen | Standard
 POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/decisions/35
 content-type: application/json
+Authorization: Bearer {{Token}}
 
 {
   "selectedPath": 0

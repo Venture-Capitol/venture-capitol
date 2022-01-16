@@ -1,60 +1,76 @@
 ### --- DELETE /company/:companyId ---
 
+@Token = 
+
 ### COMPANY delete using valid id for entry that exists
 DELETE http://localhost:8101/api/company/b4928446-615b-4471-a98d-a9493458e907
+Authorization: Bearer {{Token}}
 
 ### COMPANY delete using invalid datatype for id | SHOULD FAIL & RETURN 400
 DELETE http://localhost:8101/api/company/2
+Authorization: Bearer {{Token}}
 
 ### COMPANY delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
 DELETE http://localhost:8101/api/company/cbef751e-e4b2-47a4-8666-2b6d6eb916e1/
+Authorization: Bearer {{Token}}
 
 
 ### --- DELETE /company/:companyId/decisions/:decisionId ---
 
 ### DECISION delete using valid id for entry that exists
 DELETE http://localhost:8101/api/company/1dd13830-11a6-4394-be38-277ed5156665/tasks/3
+Authorization: Bearer {{Token}}
 
 ### DECISION delete using invalid datatype for id | SHOULD FAIL & RETURN 400
 DELETE http://localhost:8103/company/1/decisions/99A
+Authorization: Bearer {{Token}}
 
 ### DECISION delete using invalid datatype for id | SHOULD FAIL & RETURN 400
 DELETE http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/decisions/35
+Authorization: Bearer {{Token}}
 
 ### DECISION delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
 DELETE http://localhost:8103/company/1/decisions/99
+Authorization: Bearer {{Token}}
 
 ### DECISION delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
 DELETE http://localhost:8103/company/99/decisions/1
-
+Authorization: Bearer {{Token}}
 
 ### --- DELETE company/:companyId/tasks/:taskId ---
 
 ### TASK delete using valid id for entry that exists
 DELETE http://localhost:8103/company/1/tasks/1
+Authorization: Bearer {{Token}}
 
 ### TASK delete using invalid datatype for id | SHOULD FAIL & RETURN 400
 DELETE http://localhost:8103/company/1/tasks/99A
+Authorization: Bearer {{Token}}
 
 ### TASK delete using invalid datatype for id | SHOULD FAIL & RETURN 400
 DELETE http://localhost:8103/company/99A/tasks/1
+Authorization: Bearer {{Token}}
 
 ### TASK delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
 DELETE http://localhost:8103/company/1/tasks/99
+Authorization: Bearer {{Token}}
 
 ### TASK delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
 DELETE http://localhost:8103/company/99/tasks/1
-
+Authorization: Bearer {{Token}}
 
 ### --- DELETE company/:companyId/tasks/:taskId ---
 
 ### USER delete using valid id for entry that exists
 DELETE http://localhost:8103/user/1
+Authorization: Bearer {{Token}}
 
 ### USER delete using invalid datatype for id | SHOULD FAIL & RETURN 400
 DELETE http://localhost:8103/user/99A
+Authorization: Bearer {{Token}}
 
 ### USER delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
 DELETE http://localhost:8103/user/99
+Authorization: Bearer {{Token}}
 
 

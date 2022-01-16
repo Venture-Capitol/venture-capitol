@@ -1,7 +1,13 @@
 import express, { NextFunction, Request, Response } from "express";
 import * as OpenApiValidator from "express-openapi-validator";
-import HttpException from "./exceptions/HttpException";
+import HttpException from "./utils/HttpException";
+import { getUser } from "./utils/AuthenticationUtils";
+
+import { initializeApp } from "firebase-admin/app";
+
 import cors from "cors";
+
+initializeApp();
 
 const app = express();
 
@@ -45,6 +51,7 @@ app.use(function (req, res, next) {
 	next();
 });
 app.use(cors({ exposedHeaders: ["Authorization"] }));
+app.use(getUser);
 
 // Define routes using Express
 app.use("/api/user", userRouter);

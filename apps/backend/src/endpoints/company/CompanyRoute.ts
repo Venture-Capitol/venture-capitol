@@ -1,5 +1,5 @@
 import { Router } from "express";
-import HttpException from "../../exceptions/HttpException";
+import HttpException from "../../utils/HttpException";
 
 import { Company } from "@prisma/client";
 
