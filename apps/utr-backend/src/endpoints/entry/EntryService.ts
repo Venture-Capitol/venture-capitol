@@ -1,9 +1,13 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient, Prisma, Entry } from "@prisma/client";
 import logger = require("../../config/winston");
 
 import ApplicationError from "../utils/ApplicationError";
 
 const prisma = new PrismaClient();
+
+export interface DistanceEntry extends Entry {
+	distance: number;
+}
 
 async function searchEntries(
 	jobname: string,
@@ -41,21 +45,30 @@ async function searchEntries(
 					job: {
 						equals: jobname,
 					},
+					// TODO Change to equals: true when false is not needed anymore for testing
 					verified: {
 						equals: false,
 					},
 				},
 			});
 			if (searchResults) {
-				/*
-				 * somehow calcDistance needs to be called for every entry in searchResults
-				 * and might also need to pass the distance back in a callback for error handling & saving
-				 * note: ATM THIS DOESNT WORK / DO ANYTHING!
-				 */
-				searchResults.forEach(element => {
-					calcDistance(element, lat, long);
+				// TODO Change to verified=true when false is not needed anymore for testing
+				const query = await prisma.$queryRaw<
+					{ id: number; distance: number }[]
+				>(
+					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND NOT verified`
+				);
+				const map = searchResults.map(result => {
+					let found = query.find(x => {
+						return x.id == result.id;
+					});
+					let rounded = Math.round(found?.distance || -1);
+					return {
+						...result,
+						distance: rounded,
+					};
 				});
-				return callback(null, searchResults);
+				return callback(null, map);
 			} else {
 				return callback(
 					new ApplicationError(
@@ -75,12 +88,6 @@ async function searchEntries(
 			);
 		}
 	}
-}
-
-// note: used in searchEntries
-// note: NOT TESTED YET
-function calcDistance(element: any, lat: number, long: number) {
-	// to be implemented - also needs efficient saving of these infos for each element
 }
 
 async function getAllEntries(
@@ -134,6 +141,7 @@ async function getAllEntries(
 	}
 }
 
+// TODO Add code which makes admin create a verified Entry
 async function createEntry(
 	job: string,
 	company: string,

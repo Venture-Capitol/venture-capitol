@@ -4,6 +4,7 @@ import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
 import Gruendung from "./pages/Gruendung/Gruendung";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
+import Search from "./pages/Search/UTRSearch";
 
 function App() {
 	return (
@@ -20,6 +21,9 @@ function App() {
 						<GruendungContextProvider>
 							<Gruendung />
 						</GruendungContextProvider>
+					</Route>
+					<Route path='/demoutr'>
+						<Search />
 					</Route>
 				</Switch>
 			</Router>

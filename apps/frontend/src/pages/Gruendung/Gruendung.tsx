@@ -46,7 +46,7 @@ const Gruendung = () => {
 				<TaskList />
 			</div>
 
-			<main className={s.content + " markdown-body"}>
+			<main className={"content markdown-body"}>
 				<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
 				{unprocessedNodes[task].type == "task" && (
 					<CompletedToggle taskId={task} />
