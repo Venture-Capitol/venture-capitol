@@ -22,10 +22,6 @@
 	z-index: 0;
 	cursor: pointer;
 
-	&[data-checked="true"] {
-		border: 1px solid red;
-	}
-
 	span {
 		user-select: none;
 		text-align: center;
