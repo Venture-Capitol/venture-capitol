@@ -38,8 +38,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/User"
         400:
-          description: Invalid status value
-          content: {}
+          description: Invalid parameters.
+        404:
+          description: User not found.
   /company:
     post:
       tags:
@@ -62,20 +63,8 @@ paths:
       responses:
         200:
           description: Success
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                  message:
-                    type: string
         400:
-          description:
-            The request was invalid. The parameters LegalForm and optional
-            name must be set in the requestBody.
-          content: {}
+          description: Invalid parameters.
       x-codegen-request-body-name: company
   /company/{companyId}:
     get:
@@ -99,8 +88,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/Company"
         400:
-          description: Invalid status value
-          content: {}
+          description: Invalid parameters.
+        404:
+          description: Company not found.
     delete:
       tags:
         - company
@@ -115,14 +105,11 @@ paths:
             type: string
       responses:
         200:
-          description: successful operation
-          content: {}
+          description: successful operation.
         400:
-          description: Invalid ID supplied
-          content: {}
+          description: Invalid parameters.
         404:
-          description: Company not found
-          content: {}
+          description: Company not found.
   /company/{companyId}/tasks:
     get:
       tags:
@@ -145,10 +132,12 @@ paths:
               schema:
                 type: array
                 items:
-                  type: string
+                  type: object
+                  properties:
+                    taskId:
+                      type: string
         400:
           description: Invalid status value
-          content: {}
   /company/{companyId}/tasks/{taskId}:
     post:
       tags:
@@ -171,11 +160,11 @@ paths:
             type: string
       responses:
         200:
-          description: successful operation
-          content: {}
+          description: successful operation.
         400:
-          description: Invalid status value
-          content: {}
+          description: Invalid parameters.
+        404:
+          description: Company not found.
     delete:
       tags:
         - task
@@ -197,14 +186,11 @@ paths:
             type: string
       responses:
         200:
-          description: successful deletion
-          content: {}
+          description: successful deletion.
         400:
-          description: Invalid ID supplied
-          content: {}
+          description: Invalid parameters.
         404:
-          description: Company or task not found
-          content: {}
+          description: Company or task not found.
   /company/{companyId}/decisions:
     get:
       tags:
@@ -235,8 +221,9 @@ paths:
                       type: integer
                       format: int32
         400:
-          description: Invalid status value
-          content: {}
+          description: Invalid parameters.
+        404:
+          description: Company or decision not found.
   /company/{companyId}/decision/{decisionId}:
     post:
       tags:
@@ -270,11 +257,10 @@ paths:
       responses:
         200:
           description: successful operation
-          content: {}
         400:
-          description: Invalid status value
-          content: {}
-      x-codegen-request-body-name: selectedPath
+          description: Invalid parameters.
+        404:
+          description: Company not found.
     delete:
       tags:
         - decision
@@ -297,13 +283,10 @@ paths:
       responses:
         200:
           description: successful deletion
-          content: {}
         400:
-          description: Invalid ID supplied
-          content: {}
+          description: Invalid parameters.
         404:
-          description: Company or decision not found
-          content: {}
+          description: Company or decision not found.
 components:
   securitySchemes:
     firebaseAuth:

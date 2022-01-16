@@ -3,7 +3,8 @@ POST http://localhost:8101/api/company/
 content-type: application/json
 
 {
-  "legalForm": "GMBH"
+  "legalForm": "GMBH",
+  "name": "Test"
 }
 
 ### neue Company anlegen | Standard mit Namen

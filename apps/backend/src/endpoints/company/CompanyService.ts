@@ -3,7 +3,7 @@ import HttpException from "../../exceptions/HttpException";
 
 const prisma = new PrismaClient();
 
-async function addCompany(name: string, legalForm: string) {
+async function addCompany(name: string, legalForm: string, callback: Function) {
 	try {
 		const createCompany = await prisma.company.create({
 			data: {
@@ -11,16 +11,13 @@ async function addCompany(name: string, legalForm: string) {
 				legalForm: legalForm as LegalForm,
 			},
 		});
-		if (createCompany == null) {
-			return new HttpException(400, "Creation failed. Suck it.");
-		}
-		return createCompany;
+		return callback(null, createCompany);
 	} catch (e) {
-		return new HttpException(500, e.message);
+		return callback(new HttpException(500, e.message), null);
 	}
 }
 
-async function findCompanyById(userId: string) {
+async function findCompanyById(userId: string, callback: Function) {
 	try {
 		const foundCompany = await prisma.company.findUnique({
 			where: {
@@ -28,14 +25,15 @@ async function findCompanyById(userId: string) {
 			},
 		});
 		if (foundCompany == null) {
-			throw new HttpException(
-				404,
-				"Search failed. No company found under this ID."
+			return callback(
+				new HttpException(404, "No company found under this ID."),
+				null
 			);
+		} else {
+			return callback(null, foundCompany);
 		}
-		return foundCompany;
 	} catch (e) {
-		throw new HttpException(500, e.message);
+		return callback(new HttpException(500, e.message), null);
 	}
 }
 

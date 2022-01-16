@@ -1,23 +1,74 @@
 import { Router } from "express";
+import HttpException from "../../exceptions/HttpException";
+
+import { CompletedTask } from "@prisma/client";
+
 const taskRouter = Router();
 
 const TaskService = require("./TaskService");
 
 taskRouter.get("/:companyId/tasks", async function (req, res, next) {
 	const companyId = req.params.companyId;
-	res.send(TaskService.findAllTasksByCompanyId(companyId));
+	TaskService.findAllTasksByCompanyId(
+		companyId,
+		function (error: Error | HttpException, result: CompletedTask[]) {
+			if (error) {
+				if (error instanceof HttpException) {
+					res.status(error.status).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else if (result) {
+				res.send(result);
+			}
+		}
+	);
 });
 
 taskRouter.post("/:companyId/tasks/:taskId", async function (req, res, next) {
 	const companyId = req.params.companyId;
 	const taskId = req.params.taskId;
-	res.send(TaskService.addTaskToCompany(companyId, taskId));
+	TaskService.addTaskToCompany(
+		companyId,
+		taskId,
+		function (error: Error | HttpException, result: CompletedTask) {
+			if (error) {
+				if (error instanceof HttpException) {
+					res.status(error.status).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else if (result) {
+				res.status(200).end();
+			}
+		}
+	);
 });
 
 taskRouter.delete("/:companyId/tasks/:taskId", async function (req, res, next) {
 	const companyId = req.params.companyId;
 	const taskId = req.params.taskId;
-	res.send(TaskService.deleteTaskFromCompany(companyId, taskId));
+	TaskService.deleteTaskFromCompany(
+		companyId,
+		taskId,
+		function (error: Error | HttpException) {
+			if (error) {
+				if (error instanceof HttpException) {
+					res.status(error.status).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else {
+				res.send(
+					"Task with ID " +
+						req.params.taskId +
+						" in company with ID " +
+						req.params.companyId +
+						" deleted."
+				);
+			}
+		}
+	);
 });
 
 module.exports = taskRouter;

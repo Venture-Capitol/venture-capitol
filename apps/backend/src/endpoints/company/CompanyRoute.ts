@@ -1,49 +1,65 @@
 import { Router } from "express";
 import HttpException from "../../exceptions/HttpException";
+
+import { Company } from "@prisma/client";
+
 const companyRouter = Router();
 
 const CompanyService = require("./CompanyService");
 
 companyRouter.post("/", function (req, res, next) {
 	const body = req.body;
-	try {
-		CompanyService.addCompany(body.name, body.legalForm);
-		res.status(200).json({
-			status: 200,
-			message: "Succesfully added company.",
-		});
-	} catch (e) {
-		res.status(e.status || 500).json({
-			message: e.message,
-			status: e.status,
-		});
-	}
+	CompanyService.addCompany(
+		body.name,
+		body.legalForm,
+		function (error: Error | HttpException, result: Company) {
+			if (error) {
+				if (error instanceof HttpException) {
+					res.status(error.status).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else if (result) {
+				res.status(200).end();
+			}
+		}
+	);
 });
 
 companyRouter.get("/:companyId", async function (req, res, next) {
 	const companyId = req.params.companyId;
-	try {
-		const response = CompanyService.findCompanyById(companyId);
-		res.send(response);
-	} catch (e) {
-		res.status(e.status || 500).json({
-			message: e.message,
-			status: e.status,
-		});
-	}
+	CompanyService.findCompanyById(
+		companyId,
+		function (error: Error | HttpException, result: Company) {
+			if (error) {
+				if (error instanceof HttpException) {
+					res.status(error.status).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else if (result) {
+				res.send(result);
+			}
+		}
+	);
 });
 
 companyRouter.delete("/:companyId", async function (req, res, next) {
 	const companyId = req.params.companyId;
-	try {
-		const response = CompanyService.deleteCompanyById(companyId);
-		res.send(response);
-	} catch (e) {
-		res.status(e.status || 500).json({
-			message: e.message,
-			status: e.status,
-		});
-	}
+	CompanyService.deleteCompanyById(
+		companyId,
+		function (error: Error | HttpException) {
+			if (error) {
+				if (error instanceof HttpException) {
+					res.status(error.status).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else {
+				res.send("Company with ID " + req.params.companyId + " deleted.");
+			}
+		}
+	);
 });
 
 module.exports = companyRouter;
