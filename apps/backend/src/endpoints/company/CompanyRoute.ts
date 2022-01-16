@@ -26,6 +26,23 @@ companyRouter.post("/", function (req, res, next) {
 	);
 });
 
+companyRouter.get("/", async function (req, res, next) {
+	CompanyService.findAllCompanies(function (
+		error: Error | HttpException,
+		result: Company[]
+	) {
+		if (error) {
+			if (error instanceof HttpException) {
+				res.status(error.status).end(error.message);
+			} else {
+				res.status(500).end(error.message);
+			}
+		} else if (result) {
+			res.send(result);
+		}
+	});
+});
+
 companyRouter.get("/:companyId", async function (req, res, next) {
 	const companyId = req.params.companyId;
 	CompanyService.findCompanyById(
@@ -56,7 +73,7 @@ companyRouter.delete("/:companyId", async function (req, res, next) {
 					res.status(500).end(error.message);
 				}
 			} else {
-				res.send("Company with ID " + req.params.companyId + " deleted.");
+				res.status(200).end();
 			}
 		}
 	);

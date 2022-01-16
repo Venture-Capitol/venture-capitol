@@ -49,7 +49,7 @@ app.use(cors({ exposedHeaders: ["Authorization"] }));
 // Define routes using Express
 app.use("/api/user", userRouter);
 app.use("/api/company", companyRouter);
-app.use("/api/task", taskRouter);
-app.use("/api/decision", decisionRouter);
+app.use("/api/company", taskRouter);
+app.use("/api/company", decisionRouter);
 
 export = app;

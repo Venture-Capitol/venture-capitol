@@ -1,13 +1,13 @@
 ### --- GET /company/:companyId --- ###
 
 ### providing valid id of type number for entry that exists (check database)
-GET http://localhost:8101/api/company/1
+GET http://localhost:8101/api/company/2
 
 ### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
-GET http://localhost:8101/api/entry/99A
+GET http://localhost:8101/api/company
 
 ### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
-GET http://localhost:8101/api/entry/99
+GET http://localhost:8101/api/company/99
 
 
 ### --- GET /company/:companyId/decisions --- ###

@@ -66,13 +66,7 @@ decisionRouter.delete(
 						res.status(500).end(error.message);
 					}
 				} else {
-					res.send(
-						"Decision with ID " +
-							req.params.decisionId +
-							" in company with ID " +
-							req.params.companyId +
-							" deleted."
-					);
+					res.status(200).end();
 				}
 			}
 		);

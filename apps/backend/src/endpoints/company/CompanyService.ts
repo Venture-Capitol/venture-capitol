@@ -1,4 +1,4 @@
-import { PrismaClient, LegalForm } from "@prisma/client";
+import { Prisma, PrismaClient, LegalForm } from "@prisma/client";
 import HttpException from "../../exceptions/HttpException";
 
 const prisma = new PrismaClient();
@@ -12,6 +12,24 @@ async function addCompany(name: string, legalForm: string, callback: Function) {
 			},
 		});
 		return callback(null, createCompany);
+	} catch (e) {
+		return callback(new HttpException(500, e.message), null);
+	}
+}
+
+async function findAllCompanies(callback: Function) {
+	try {
+		const foundCompanies = await prisma.company.findMany({
+			select: {
+				id: true,
+				legalForm: true,
+			},
+		});
+		if (foundCompanies == null) {
+			return callback(new HttpException(404, "No companies found."), null);
+		} else {
+			return callback(null, foundCompanies);
+		}
 	} catch (e) {
 		return callback(new HttpException(500, e.message), null);
 	}
@@ -37,27 +55,30 @@ async function findCompanyById(userId: string, callback: Function) {
 	}
 }
 
-async function deleteCompanyById(companyId: string) {
+async function deleteCompanyById(companyId: string, callback: Function) {
 	try {
-		const deleteCompany = await prisma.company.delete({
+		await prisma.company.delete({
 			where: {
 				id: companyId,
 			},
 		});
-		if (deleteCompany == null) {
-			throw new HttpException(
-				404,
-				"Deletion failed. No company found under this ID."
-			);
-		}
-		return deleteCompany;
+		return callback(null);
 	} catch (e) {
-		throw new HttpException(500, e.message);
+		if (e instanceof Prisma.PrismaClientKnownRequestError) {
+			if (e.code == "P2025") {
+				return callback(
+					new HttpException(404, "No company found under this ID.")
+				);
+			}
+		} else {
+			return callback(new HttpException(500, e.messsage));
+		}
 	}
 }
 
 module.exports = {
 	addCompany,
+	findAllCompanies,
 	findCompanyById,
 	deleteCompanyById,
 };

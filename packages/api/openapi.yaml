@@ -66,6 +66,23 @@ paths:
         400:
           description: Invalid parameters.
       x-codegen-request-body-name: company
+    get:
+      tags:
+        - company
+      summary: Returns all companies from Venture Capitol
+      description: Returns all companies
+      operationId: findAllCompanies
+      responses:
+        200:
+          description: succesful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Company"
+        404:
+          description: No companies found.
   /company/{companyId}:
     get:
       tags:

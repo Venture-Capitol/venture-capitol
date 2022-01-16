@@ -59,13 +59,7 @@ taskRouter.delete("/:companyId/tasks/:taskId", async function (req, res, next) {
 					res.status(500).end(error.message);
 				}
 			} else {
-				res.send(
-					"Task with ID " +
-						req.params.taskId +
-						" in company with ID " +
-						req.params.companyId +
-						" deleted."
-				);
+				res.status(200).end();
 			}
 		}
 	);

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import HttpException from "../../exceptions/HttpException";
 
 const prisma = new PrismaClient();
@@ -74,7 +74,8 @@ async function addDecisionToCompany(
 
 async function deleteDecisionFromCompany(
 	companyId: string,
-	decisionId: string
+	decisionId: string,
+	callback: Function
 ) {
 	try {
 		const foundCompany = await prisma.company.findUnique({
@@ -85,15 +86,26 @@ async function deleteDecisionFromCompany(
 		if (foundCompany == null) {
 			throw new HttpException(404, "No company found under this ID.");
 		}
-		const deleteDecision = await prisma.madeDecision.deleteMany({
+		await prisma.madeDecision.deleteMany({
 			where: {
 				companyId: companyId,
 				decisionId: decisionId,
 			},
 		});
-		return deleteDecision;
+		return callback(null);
 	} catch (e) {
-		throw new HttpException(500, e.message);
+		if (e instanceof Prisma.PrismaClientKnownRequestError) {
+			if (e.code == "P2025") {
+				return callback(
+					new HttpException(
+						404,
+						"No decision with this ID found in the specified company."
+					)
+				);
+			}
+		} else {
+			return callback(new HttpException(500, e.messsage));
+		}
 	}
 }
 
