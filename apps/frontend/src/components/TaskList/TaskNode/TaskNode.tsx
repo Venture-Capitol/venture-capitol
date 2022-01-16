@@ -1,8 +1,6 @@
 import { FunctionComponent, useState, MouseEvent, useMemo } from "react";
 import styles from "./TaskNode.module.scss";
-import checkmarkIcon from "../../../assets/checkmark.svg";
 import { useHistory } from "react-router-dom";
-import { use } from "chai";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 
 export interface TaskProps {
@@ -113,7 +111,7 @@ export function TaskNodeContainer({
 						strokeWidth='2'
 						d='M5 13l4 4L19 7'
 					/>
-				</svg>{" "}
+				</svg>
 			</label>
 			<span>{text}</span>
 		</div>
