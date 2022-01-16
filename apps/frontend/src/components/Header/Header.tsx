@@ -20,6 +20,10 @@ const Header: FC = () => {
 	const currentUser = useContext<User | null>(AuthContext);
 	const isMobileWidth = useMediaQuery("(max-width: 950px)");
 
+	const avatarFallbackSvg = (
+		<img className={styles.avatarFallbackImage} src={userIcon}></img>
+	);
+
 	const userInfo = (
 		<div className={styles.userInfo}>
 			<div className={styles.userName}>{currentUser?.displayName}</div>
@@ -29,11 +33,25 @@ const Header: FC = () => {
 					src={currentUser?.photoURL || undefined}
 				></AvatarImage>
 				<AvatarFallback className={styles.avatarFallback} delayMs={600}>
-					{userIcon}
+					{currentUser?.displayName ? (
+						<div>{getInitials(currentUser.displayName)}</div>
+					) : (
+						avatarFallbackSvg
+					)}
 				</AvatarFallback>
 			</Avatar>
 		</div>
 	);
+
+	function getInitials(string: string) {
+		var names = string.split(" "),
+			initials = names[0].substring(0, 1).toUpperCase();
+
+		if (names.length > 1) {
+			initials += names[names.length - 1].substring(0, 1).toUpperCase();
+		}
+		return initials;
+	}
 
 	const loggedOutMenuIcon = (
 		<div className={styles.menuIconWrapper}>
@@ -108,7 +126,7 @@ const Header: FC = () => {
 				{!currentUser && !isMobileWidth && <AuthUI />}
 			</div>
 			<div className={styles.menu}>{menu}</div>
-			<div className={styles.mobileMenuWrapper}>{mobileMenu}</div>
+			<div className={styles.mobileMenu}>{mobileMenu}</div>
 		</div>
 	);
 };

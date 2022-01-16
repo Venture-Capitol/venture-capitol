@@ -99,10 +99,18 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: rgba($color: #ffffff, $alpha: 1);
+	background-color: var(--color-grey-100);
+	color: var(--color-grey-900);
 	font-size: 18px;
 	line-height: 1;
 	font-weight: 500;
+}
+
+.avatarFallbackImage {
+	width: 120%;
+	height: 120%;
+	object-fit: cover;
+	border-radius: inherit;
 }
 
 .dropdownMenuTrigger {
@@ -115,6 +123,10 @@
 .mobileMenuIconWrapper {
 	height: 20px;
 	margin-right: 20px;
+	display: none;
+}
+
+.mobileMenu {
 	display: none;
 }
 
@@ -197,6 +209,10 @@
 }
 
 @media only screen and (max-width: 950px) {
+	.menu {
+		display: none;
+	}
+
 	.header {
 		height: 50px;
 		transition: height ease-in-out 0.1s;
@@ -219,6 +235,10 @@
 	.mobileMenuIconWrapper {
 		display: grid;
 		cursor: pointer;
+	}
+
+	.mobileMenu {
+		display: block;
 	}
 
 	.navContent {
