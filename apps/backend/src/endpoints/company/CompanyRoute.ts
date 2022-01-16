@@ -20,7 +20,7 @@ companyRouter.post("/", function (req, res, next) {
 					res.status(500).end(error.message);
 				}
 			} else if (result) {
-				res.status(200).end();
+				res.send(result);
 			}
 		}
 	);

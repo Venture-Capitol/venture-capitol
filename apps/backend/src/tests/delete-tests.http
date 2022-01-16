@@ -13,13 +13,13 @@ DELETE http://localhost:8101/api/company/cbef751e-e4b2-47a4-8666-2b6d6eb916e1/
 ### --- DELETE /company/:companyId/decisions/:decisionId ---
 
 ### DECISION delete using valid id for entry that exists
-DELETE http://localhost:8103/company/1/decisions/1
+DELETE http://localhost:8101/api/company/1dd13830-11a6-4394-be38-277ed5156665/tasks/3
 
 ### DECISION delete using invalid datatype for id | SHOULD FAIL & RETURN 400
 DELETE http://localhost:8103/company/1/decisions/99A
 
 ### DECISION delete using invalid datatype for id | SHOULD FAIL & RETURN 400
-DELETE http://localhost:8103/company/99A/decisions/1
+DELETE http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/decisions/35
 
 ### DECISION delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
 DELETE http://localhost:8103/company/1/decisions/99

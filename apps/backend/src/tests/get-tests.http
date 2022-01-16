@@ -1,7 +1,7 @@
 ### --- GET /company/:companyId --- ###
 
 ### providing valid id of type number for entry that exists (check database)
-GET http://localhost:8101/api/company/2
+GET http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/tasks
 
 ### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
 GET http://localhost:8101/api/company
@@ -13,7 +13,7 @@ GET http://localhost:8101/api/company/99
 ### --- GET /company/:companyId/decisions --- ###
 
 ### providing valid id of type number for entry that exists (check database)
-GET http://localhost:8101/api/company/1/decisions
+GET http://localhost:8101/api/company/1dd13830-11a6-4394-be38-277ed5156665/tasks
 
 ### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
 GET http://localhost:8101/api/company/99A/decisions

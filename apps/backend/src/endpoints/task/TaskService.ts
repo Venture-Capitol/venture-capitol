@@ -48,12 +48,6 @@ async function addTaskToCompany(
 				id: companyId,
 			},
 		});
-		if (foundCompany == null) {
-			return callback(
-				new HttpException(404, "No company found under this ID."),
-				null
-			);
-		}
 		const createTask = await prisma.completedTask.create({
 			data: {
 				companyId: companyId,
@@ -62,7 +56,15 @@ async function addTaskToCompany(
 		});
 		return callback(null, createTask);
 	} catch (e) {
-		throw new HttpException(500, e.message);
+		if (e instanceof Prisma.PrismaClientKnownRequestError) {
+			if (e.code == "P2025") {
+				return callback(
+					new HttpException(404, "No company found under this ID.")
+				);
+			}
+		} else {
+			return callback(new HttpException(500, e.messsage));
+		}
 	}
 }
 

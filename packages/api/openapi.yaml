@@ -63,6 +63,15 @@ paths:
       responses:
         200:
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  legalForm:
+                    type: string
         400:
           description: Invalid parameters.
       x-codegen-request-body-name: company
@@ -241,7 +250,7 @@ paths:
           description: Invalid parameters.
         404:
           description: Company or decision not found.
-  /company/{companyId}/decision/{decisionId}:
+  /company/{companyId}/decisions/{decisionId}:
     post:
       tags:
         - decision

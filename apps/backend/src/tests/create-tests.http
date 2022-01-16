@@ -17,15 +17,10 @@ content-type: application/json
 }
 
 ### neuen Task anlegen | Standard
-POST http://localhost:8101/api/company/1dd13830-11a6-4394-be38-277ed5156665/tasks/3
-content-type: application/json
-
-{
-  "selectedPath": 1
-}
+POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/tasks/11
 
 ### neuen Task anlegen | Standard
-POST http://localhost:8101/api/company/1/decision/3
+POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/decisions/35
 content-type: application/json
 
 {
