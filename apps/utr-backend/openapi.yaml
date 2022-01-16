@@ -100,6 +100,12 @@ paths:
             type: number
           required: true
           description: Longitude-Koordinate des Nutzers
+        - in: query
+          name: page
+          schema:
+            type: number
+          required: true
+          description: Seitenzahl der Seite, welche angezeigt werden soll
       responses:
         200:
           description: Success
