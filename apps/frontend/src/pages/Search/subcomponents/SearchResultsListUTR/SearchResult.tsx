@@ -1,20 +1,24 @@
 import React from "react";
 import s from "./SearchResult.module.scss";
 
-const SearchResult: React.FunctionComponent = () => {
+interface Props {
+	resultData: any;
+}
+
+const SearchResult = ({ resultData }: Props) => {
 	return (
 		<div className={s.resultframe}>
-			<p className={s.result_company}>M & N Notare</p>
-			<p className={s.result_job}>Rechtsanwalt & Notar</p>
+			<p className={s.result_company}>{resultData.company}</p>
+			<p className={s.result_job}>{resultData.job}</p>
 			<br></br>
-			<p className={s.result_address}>Musterweg 13 | 13786 Berlin</p>
-			<p className={s.result_distance}>13,56km entfernt</p>
-			<br></br>
-			<p className={s.result_description}>
-				Ihre Rechtsanwalt und Notarfirma in Berlin!
+			<p className={s.result_address}>{resultData.address}</p>
+			<p className={s.result_distance}>
+				{(resultData.distance / 1000).toFixed(1)}km entfernt
 			</p>
 			<br></br>
-			<p className={s.result_moreinfo}>Mehr Informationen</p>
+			<p className={s.result_description}>{resultData.description}</p>
+			<br></br>
+			<p className={s.result_moreinfo}>Mehr Informationen...</p>
 		</div>
 	);
 };

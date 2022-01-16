@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import s from "./CreateForm.module.scss";
 
 interface Props {
-	triggerPopup: () => void;
+	triggerPopup: (isOpen: boolean) => void;
 }
 
 const CreateForm = ({ triggerPopup }: Props) => {
@@ -37,7 +37,7 @@ const CreateForm = ({ triggerPopup }: Props) => {
 		};
 
 		const accessToken =
-			"eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiR2x1b24iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKenhwZ0I1dXd2RjM0RE44Y2JaRk9ESURLTDhKNGt5VEZ3N2hsLXhfdz1zOTYtYyIsInJvbGUiOiJhZG1pbiIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS92ZW50dXJlLWNhcGl0b2wiLCJhdWQiOiJ2ZW50dXJlLWNhcGl0b2wiLCJhdXRoX3RpbWUiOjE2NDIyNTkyMTMsInVzZXJfaWQiOiJnY1hLSlZqSEY0Z2tvWUtSNFJMNHNGYWpGbUczIiwic3ViIjoiZ2NYS0pWakhGNGdrb1lLUjRSTDRzRmFqRm1HMyIsImlhdCI6MTY0MjI2NTc2MywiZXhwIjoxNjQyMjY5MzYzLCJlbWFpbCI6ImthaWttaW5lY3JhZnRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDc3OTY1MjU5Mjk0ODk0MzQ5NTQiXSwiZW1haWwiOlsia2Fpa21pbmVjcmFmdEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.tbzSbXFVZ2N8ph2WYoLIrX5Dk1ojbKgeDVhI8RT5jmZ9LtJ6vxKobuPz5aF9cIqPnA_mk7jX9lF3V9pIDLu2QklXmxaIQXLpAPYzdJYJXEtIf7A0q0laWfTK7mvENu9_5OgQmLO1Ut7FmoQEyDMtKKKZ4XC3sOo91FeQ4_S9gMs6t9HTIyxISpccFJ-fvb4aanxoLlcUftXVS-lucbtpAIDawr7d3yMl-dUcRt0sJlrsE6NVw_p86KctgxNm4RdyEdPNHUsW7eYlvSHMT_PNpYbMrmvNwrr9LKdMnEZaw9RmJagI5fmgxId5pQ7K_iaFeA3pyi_BQBFrZu_tCTLf-w";
+			"eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiR2x1b24iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKenhwZ0I1dXd2RjM0RE44Y2JaRk9ESURLTDhKNGt5VEZ3N2hsLXhfdz1zOTYtYyIsInJvbGUiOiJhZG1pbiIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS92ZW50dXJlLWNhcGl0b2wiLCJhdWQiOiJ2ZW50dXJlLWNhcGl0b2wiLCJhdXRoX3RpbWUiOjE2NDIyNTkyMTMsInVzZXJfaWQiOiJnY1hLSlZqSEY0Z2tvWUtSNFJMNHNGYWpGbUczIiwic3ViIjoiZ2NYS0pWakhGNGdrb1lLUjRSTDRzRmFqRm1HMyIsImlhdCI6MTY0MjM1NzU5NSwiZXhwIjoxNjQyMzYxMTk1LCJlbWFpbCI6ImthaWttaW5lY3JhZnRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDc3OTY1MjU5Mjk0ODk0MzQ5NTQiXSwiZW1haWwiOlsia2Fpa21pbmVjcmFmdEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.SywyfCjXmt7zP-ocKZz7UPARfJHkkXa0PrUUfIe44wcnXdWdF_Dx2Z5vybKBtNNt_O-NGw3HbpzBhzTPGNEuoqTc-efcZu5Z93sck1OgVWjxPkJyuWyZbz8Qeh4cdQc00WLanYlRJtMxDEMK9v_6v-BIJDauFEp-I8vGN_UY0wKd3jFBs6_r_qvEmqLeHpzXC8PSYt49gvcnm2pPIe7ZsSOEzDnFcJYZOU6h7Poibek82CSZhsgTG0QMybt7XE8IGJhaejgGRVi8uqYePjSk-J8u-notUTyKIcZxqPj3Vx6rcChshfPUCB-krX1vKycjuSI3GBvDhOE9-oBn4DFP4A";
 
 		const requestOptions = {
 			method: "POST",
@@ -55,8 +55,9 @@ const CreateForm = ({ triggerPopup }: Props) => {
 
 	function checkResponse(data: any) {
 		if (data.ok) {
-			triggerPopup();
+			triggerPopup(true);
 		} else {
+			triggerPopup(false);
 			console.log("Fehler");
 		}
 	}
@@ -128,7 +129,7 @@ const CreateForm = ({ triggerPopup }: Props) => {
 				<div className={s.divforthat}>
 					<input
 						type='submit'
-						value='Mich als Dienstleister eintragen'
+						value='+ Mich als Dienstleister eintragen'
 						className={s.submit_createForm}
 					/>
 				</div>

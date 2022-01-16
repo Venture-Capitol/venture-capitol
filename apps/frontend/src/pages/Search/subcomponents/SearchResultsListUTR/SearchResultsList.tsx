@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./SearchResultsList.module.scss";
 import SearchResult from "./SearchResult";
 
-const SearchResultsList: React.FunctionComponent = () => {
-	return (
-		<div className={s.flex}>
-			<SearchResult />
-			<SearchResult />
-			<SearchResult />
-			<SearchResult />
-			<SearchResult />
-			<SearchResult />
-			<SearchResult />
-			<SearchResult />
-		</div>
+interface Props {
+	searchResponse: any;
+}
+
+const SearchResultsList = ({ searchResponse }: Props) => {
+	const [response, setResponse] = useState();
+
+	console.log(searchResponse);
+
+	const postListComponents: JSX.Element = searchResponse.map(
+		(currentResult: any, index: any) => {
+			return <SearchResult resultData={currentResult} key={currentResult.id} />;
+		}
 	);
+
+	return <div className={s.flex}>{postListComponents}</div>;
 };
 
 export default SearchResultsList;

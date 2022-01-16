@@ -1,7 +1,7 @@
 import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
 import Button from "@vc/ui/src/components/Button/Button";
 
-const CreateSuccessPopup: React.FunctionComponent = () => (
+const DeleteDienstleisterPopup: React.FunctionComponent = () => (
 	<AlertDialog
 		title={"Hey du!"}
 		action={
@@ -16,4 +16,4 @@ const CreateSuccessPopup: React.FunctionComponent = () => (
 	</AlertDialog>
 );
 
-export default CreateSuccessPopup;
+export default DeleteDienstleisterPopup;
