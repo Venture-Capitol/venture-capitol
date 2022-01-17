@@ -3,9 +3,10 @@ import s from "./Index.module.scss";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import Button from "@vc/ui/src/components/Button/Button";
 import { SearchIcon } from "@heroicons/react/solid/esm";
+import Footer from "@vc/frontend/component/Footer/Footer";
 
 const Landing: React.FunctionComponent = () => {
-	const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+	const isMobile = useMediaQuery({ query: "(max-width: 900px)" });
 
 	return (
 		<div className={s.landingPage}>
@@ -18,7 +19,7 @@ const Landing: React.FunctionComponent = () => {
 				/>
 			</section>
 
-			<section className='video'>
+			<section className={`${s.video} ${s.split}`}>
 				{isMobile && <h1>Durchblick im Bürokratiedschungel</h1>}
 				<video autoPlay={true} loop={true} muted={true}>
 					<source
@@ -37,7 +38,7 @@ const Landing: React.FunctionComponent = () => {
 				</div>
 			</section>
 
-			<section className={s.reverse}>
+			<section className={`${s.dlr} ${s.split}`}>
 				<div className={s.details}>
 					{!isMobile && (
 						<h1>Einfach bewährte Dienstleister für deine Gründung finden</h1>
@@ -80,7 +81,7 @@ const Landing: React.FunctionComponent = () => {
 				</div>
 			</section>
 
-			<section>
+			<section className={s.center}>
 				<h1>Noch nicht? Kein Problem!</h1>
 				<div className={s.buttons}>
 					<Button variant='secondary'>
@@ -90,6 +91,7 @@ const Landing: React.FunctionComponent = () => {
 					</Button>
 				</div>
 			</section>
+			<Footer />
 		</div>
 	);
 };

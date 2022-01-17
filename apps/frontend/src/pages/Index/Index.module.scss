@@ -1,5 +1,6 @@
 .landingPage {
 	background: #f6f5f8;
+	overflow-x: hidden;
 
 	h1 {
 		font-size: var(--size-24px);
@@ -14,6 +15,92 @@
 	li {
 		list-style-position: outside;
 	}
+
+	@media (min-width: 680px) {
+		font-size: var(--size-20px);
+
+		h1 {
+			font-size: var(--size-28px);
+		}
+	}
+}
+
+.landingPage section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem;
+	gap: 4rem;
+	justify-content: center;
+	max-width: 600px;
+	margin: 0 auto;
+	margin-bottom: 5rem;
+
+	&.center {
+		justify-content: center;
+		gap: 3rem;
+		min-height: 50vh;
+
+		@media (min-width: 900px) {
+			min-height: 30vh;
+		}
+	}
+
+	@media (min-width: 900px) {
+		max-width: 1200px;
+
+		&.split {
+			margin-bottom: 15vh;
+		}
+	}
+
+	&.header {
+		display: flex;
+		flex-direction: column;
+		min-height: 90vh;
+		padding: 2rem;
+		gap: 10vh;
+		justify-content: center;
+
+		@media (min-width: 900px) {
+			display: grid;
+			grid-template-columns: 3fr 4fr;
+			padding: 5vh 5vw;
+
+			h1 {
+				text-align: left;
+				margin-bottom: 20vh;
+			}
+		}
+	}
+
+	&.video {
+		gap: 2rem;
+
+		@media (min-width: 900px) {
+			flex-direction: row;
+			gap: min(15rem, 10vw);
+
+			video {
+				width: 35%;
+			}
+		}
+	}
+
+	&.dlr {
+		flex-direction: column-reverse;
+
+		@media (min-width: 900px) {
+			flex-direction: row;
+
+			gap: 10rem;
+
+			img {
+				width: 40%;
+				flex: 0.3;
+			}
+		}
+	}
 }
 
 .description {
@@ -22,34 +109,23 @@
 }
 
 .skewed {
+	margin: 1rem 0;
 	transform-origin: 50% 50%;
 	transform: rotateX(50deg) rotateY(0deg) rotateZ(-40deg) scale(1);
 	transform-style: preserve-3d;
 	filter: drop-shadow(0px 14px 40px rgba(68, 40, 183, 0.09));
-}
+	transition: transform 0.4s ease-out;
 
-.header {
-	display: flex;
-	flex-direction: column;
-	min-height: 90vh;
-	padding: 2rem;
-
-	justify-content: space-around;
-}
-
-.landingPage section {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	min-height: 90vh;
-	padding: 2rem;
-	gap: 2rem;
-	justify-content: space-around;
-	margin-bottom: 4rem;
-
-	&.reverse {
-		flex-direction: column-reverse;
+	&:hover {
+		transform: rotateX(41deg) rotateY(0deg) rotateZ(-21deg) scale(1.1);
 	}
+}
+
+.details {
+	display: flex;
+	flex-direction: column;
+	gap: 5rem;
+	justify-content: center;
 }
 
 .buttons {
@@ -85,9 +161,19 @@
 		align-items: center;
 		gap: 0.5rem;
 
+		background: linear-gradient(120.92deg, #acd7ff -9.42%, #6d73fe 111.3%),
+			#c4c4c4;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+
 		svg {
 			display: inline;
 			height: 18px;
+			color: #acd7ff;
+		}
+
+		@media (min-width: 600px) {
+			font-size: var(--size-20px);
 		}
 	}
 

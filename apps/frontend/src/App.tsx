@@ -5,6 +5,8 @@ import DemoAuth from "./pages/Demo/DemoAuth";
 import Gruendung from "./pages/Gruendung/Gruendung";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Search from "./pages/Search/UTRSearch";
+import Impressum from "./pages/Impressum/Impressum";
+import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
 
 function App() {
 	return (
@@ -24,6 +26,12 @@ function App() {
 					</Route>
 					<Route path='/demoutr'>
 						<Search />
+					</Route>
+					<Route path='/impressum'>
+						<Impressum />
+					</Route>
+					<Route path='/datenschutzerklaerung'>
+						<Datenschutzerklaerung />
 					</Route>
 				</Switch>
 			</Router>
