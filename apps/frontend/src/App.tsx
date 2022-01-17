@@ -17,10 +17,10 @@ function App() {
 					<Route path='/' exact>
 						<Index />
 					</Route>
-					<Route path='/gruendung'>
+					<Route path='/gruendung' exact>
 						<Demo />
 					</Route>
-					<Route path='/unternehmensregister'>
+					<Route path='/dienstleister'>
 						<Demo />
 					</Route>
 					<Route path='/demoAuth'>

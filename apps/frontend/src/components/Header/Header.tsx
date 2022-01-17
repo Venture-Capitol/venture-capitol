@@ -1,38 +1,35 @@
 import { AuthContext, AuthUI, User } from "@vc/auth";
 import React, { FC, useContext, useState } from "react";
-import styles from "./Header.module.scss";
+import s from "./Header.module.scss";
 import wordmarkIcon from "../../assets/wordmark.svg";
 import emblemIcon from "../../assets/emblem.svg";
-import xIcon from "../../assets/x.svg";
-import menuIcon from "../../assets/menu.svg";
 import userIcon from "../../assets/user-circle.svg";
 import dotsIcon from "../../assets/dots-horizontal.svg";
 import Menu from "../Menu/Menu";
 import * as DropdownMenuTemplate from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import { useMediaQuery } from "@vc/frontend/util/useMediaQuery";
 
 const Header: FC = () => {
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<Boolean>(false);
-	const [isMenuOpen, setIsMenuOpen] = useState<Boolean>(false);
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 	const currentUser = useContext<User | null>(AuthContext);
 	const isMobileWidth = useMediaQuery("(max-width: 950px)");
 
 	const avatarFallbackSvg = (
-		<img className={styles.avatarFallbackImage} src={userIcon}></img>
+		<img className={s.avatarFallbackImage} src={userIcon}></img>
 	);
 
 	const userInfo = (
-		<div className={styles.userInfo}>
-			<div className={styles.userName}>{currentUser?.displayName}</div>
-			<Avatar className={styles.avatar}>
+		<div className={s.userInfo}>
+			<div className={s.userName}>{currentUser?.displayName}</div>
+			<Avatar className={s.avatar}>
 				<AvatarImage
-					className={styles.avatarImage}
+					className={s.avatarImage}
 					src={currentUser?.photoURL || undefined}
 				></AvatarImage>
-				<AvatarFallback className={styles.avatarFallback} delayMs={600}>
+				<AvatarFallback className={s.avatarFallback} delayMs={600}>
 					{currentUser?.displayName ? (
 						<div>{getInitials(currentUser.displayName)}</div>
 					) : (
@@ -53,47 +50,62 @@ const Header: FC = () => {
 		return initials;
 	}
 
+	function closeMobileMenu() {
+		setIsMobileMenuOpen(false);
+	}
+
 	const loggedOutMenuIcon = (
-		<div className={styles.menuIconWrapper}>
-			<img src={dotsIcon} className={styles.menuIcon}></img>
+		<div className={s.menuIconWrapper}>
+			<img src={dotsIcon} className={s.menuIcon}></img>
 		</div>
 	);
 
 	const menu = (
-		<DropdownMenuTemplate.Root>
-			<DropdownMenuTemplate.Trigger className={styles.dropdownMenuTrigger}>
-				{currentUser ? userInfo : loggedOutMenuIcon}
-			</DropdownMenuTemplate.Trigger>
-			<Menu isLoggedIn={currentUser != null} />
-		</DropdownMenuTemplate.Root>
+		<div>
+			<DropdownMenuTemplate.Root>
+				<DropdownMenuTemplate.Trigger className={s.dropdownMenuTrigger}>
+					{currentUser ? userInfo : loggedOutMenuIcon}
+				</DropdownMenuTemplate.Trigger>
+				<Menu isLoggedIn={currentUser != null} />
+			</DropdownMenuTemplate.Root>
+		</div>
 	);
 
 	const mobileMenu = (
 		<div>
 			<button
-				className={styles.mobileMenuIconWrapper}
+				className={s.mobileMenuIconWrapper}
 				onClick={e => {
 					setIsMobileMenuOpen(!isMobileMenuOpen);
 				}}
 			>
-				<div className={styles.hamburgerIcon} data-open={isMobileMenuOpen}>
+				<div className={s.hamburgerIcon} data-open={isMobileMenuOpen}>
 					<span></span>
 					<span></span>
 					<span></span>
 					<span></span>
 				</div>
 			</button>
-			{isMobileMenuOpen && <MobileMenu isLoggedIn={currentUser != null} />}
+			<div
+				className={s.mobileMenu}
+				data-mobile-open={isMobileMenuOpen}
+				data-mobile-active={isMobileWidth}
+			>
+				{isMobileMenuOpen && (
+					<MobileMenu
+						isLoggedIn={currentUser != null}
+						closeMenu={closeMobileMenu}
+					/>
+				)}
+			</div>
 		</div>
 	);
 
 	const navContent = (
 		<>
 			<NavLink
-				to='gruendung'
-				className={isActive =>
-					styles.navLink + (isActive ? " " + styles.selected : "")
-				}
+				to='/gruendung'
+				className={isActive => s.navLink + (isActive ? " " + s.selected : "")}
 				onClick={e => {
 					e.currentTarget.blur();
 				}}
@@ -101,32 +113,37 @@ const Header: FC = () => {
 				Meine Gründung
 			</NavLink>
 			<NavLink
-				to='unternehmensregister'
-				className={isActive =>
-					styles.navLink + (isActive ? " " + styles.selected : "")
-				}
+				to='/dienstleister'
+				className={isActive => s.navLink + (isActive ? " " + s.selected : "")}
 				onClick={e => {
 					e.currentTarget.blur();
 				}}
 			>
-				Unternehmensregister
+				Dienstleisterregister
 			</NavLink>
 		</>
 	);
 
 	return (
-		<div className={styles.header}>
-			<div className={styles.logo}>
-				<img className={styles.emblem} src={emblemIcon} alt='emblem' />
-				<img className={styles.wordmark} src={wordmarkIcon} alt='wordmark' />
-			</div>
+		<div className={s.header}>
+			<Link to='/'>
+				<div className={s.logo}>
+					<img className={s.emblem} src={emblemIcon} alt='emblem' />
+					<img className={s.wordmark} src={wordmarkIcon} alt='wordmark' />
+				</div>
+			</Link>
 
-			<div className={styles.navContent}>{navContent}</div>
-			<div className={styles.authWrapper}>
+			<div className={s.navContent}>{navContent}</div>
+			<div className={s.authWrapper}>
 				{!currentUser && !isMobileWidth && <AuthUI />}
 			</div>
-			<div className={styles.menu}>{menu}</div>
-			<div className={styles.mobileMenu}>{mobileMenu}</div>
+			<div className={s.menu}>{menu}</div>
+			<div className={s.mobileMenuWrapper}>{mobileMenu}</div>
+			<div
+				className={s.blurBg}
+				data-mobile-open={isMobileMenuOpen}
+				data-mobile-active={isMobileWidth}
+			></div>
 		</div>
 	);
 };

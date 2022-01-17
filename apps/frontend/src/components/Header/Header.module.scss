@@ -6,7 +6,7 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100vw;
+	width: 100%;
 	transition: height ease-in-out 0.1s;
 	z-index: 10;
 }
@@ -126,10 +126,6 @@
 	display: none;
 }
 
-.mobileMenu {
-	display: none;
-}
-
 .menuIconWrapper {
 	margin-left: 40px;
 }
@@ -176,6 +172,59 @@
 	}
 }
 
+.blurBg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	backdrop-filter: blur(40px);
+	z-index: -10;
+	transition: height 0.2s 0.1s ease-in-out;
+
+	&[data-mobile-open="true"][data-mobile-active="true"] {
+		height: 100vh;
+		transition: height 0.2s ease-in-out;
+	}
+}
+
+.mobileMenu {
+	&[data-mobile-open="true"][data-mobile-active="true"] {
+		opacity: 1;
+		animation-name: fadeIn;
+		animation-iteration-count: 1;
+		animation-timing-function: ease-in-out;
+		animation-duration: 0.2s;
+	}
+
+	&[data-mobile-open="false"],
+	&[data-mobile-active="false"] {
+		opacity: 0;
+		animation-name: fadeOut;
+		animation-iteration-count: 1;
+		animation-timing-function: ease-in-out;
+		animation-duration: 0.2s;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
 @media screen and (max-width: 1200px) {
 	.logo {
 		margin-left: 20px;
@@ -191,6 +240,7 @@
 		transform: translateX(-10%);
 		opacity: 0;
 		transition: all 0.2s ease-in-out;
+		cursor: default;
 	}
 
 	.navLink {
@@ -237,7 +287,7 @@
 		cursor: pointer;
 	}
 
-	.mobileMenu {
+	.mobileMenuWrapper {
 		display: block;
 	}
 
@@ -246,10 +296,6 @@
 	}
 
 	.authWrapper {
-		display: none;
-	}
-
-	.menu {
 		display: none;
 	}
 
@@ -288,21 +334,21 @@
 		}
 
 		span:nth-child(1) {
-			top: 0px;
+			top: 3px;
 		}
 
 		span:nth-child(2),
 		span:nth-child(3) {
-			top: 6px;
+			top: 9px;
 		}
 
 		span:nth-child(4) {
-			top: 12px;
+			top: 15px;
 		}
 
 		&[data-open="true"] {
 			span:nth-child(1) {
-				top: 6px;
+				top: 9px;
 				width: 0%;
 				left: 50%;
 			}
@@ -322,7 +368,7 @@
 			}
 
 			span:nth-child(4) {
-				top: 6px;
+				top: 9px;
 				width: 0%;
 				left: 50%;
 			}

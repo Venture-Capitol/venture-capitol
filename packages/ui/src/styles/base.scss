@@ -40,17 +40,17 @@ html,
 		font-size: var(--size-18px);
 		margin-bottom: var(--size-16px);
 	}
-}
 
-a {
-	color: var(--color-purple-900);
-	text-decoration: underline;
-}
+	a {
+		color: var(--color-purple-900);
+		text-decoration: underline;
+	}
 
-li {
-	list-style: circle;
-	list-style-position: inside;
-	&::marker {
-		content: "➔ ";
+	li {
+		list-style: circle;
+		list-style-position: inside;
+		&::marker {
+			content: "➔ ";
+		}
 	}
 }

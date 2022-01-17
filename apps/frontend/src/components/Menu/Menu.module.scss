@@ -11,7 +11,7 @@
 	box-shadow: 4px 10px 15px 0px rgba(0, 0, 0, 0.05);
 	display: flex;
 	flex-direction: column;
-	z-index: 100;
+	z-index: 6;
 }
 
 .dropdownItemWrapper {
@@ -53,4 +53,10 @@
 	height: 1px;
 	margin: 1px 0px;
 	background-color: rgba($color: #c5c1cd, $alpha: 0.3);
+}
+
+@media only screen and (max-width: 950px) {
+	.dropdownMenu {
+		display: none;
+	}
 }

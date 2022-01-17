@@ -16,12 +16,13 @@
 		"cypress:run-ct": "cypress run-ct"
 	},
 	"dependencies": {
-		"@radix-ui/react-avatar": "^0.1.1",
-		"@radix-ui/react-dropdown-menu": "^0.1.1",
 		"@babel/plugin-syntax-dynamic-import": "^7.8.3",
 		"@babel/preset-react": "^7.16.5",
 		"@heroicons/react": "^1.0.5",
 		"@radix-ui/react-alert-dialog": "^0.1.5",
+		"@radix-ui/react-avatar": "^0.1.1",
+		"@radix-ui/react-dropdown-menu": "^0.1.1",
+		"@radix-ui/react-tabs": "^0.1.4",
 		"@svgdotjs/svg.js": "^3.1.1",
 		"@vc/auth": "^1.0.0",
 		"@vc/ui": "^1.0.0",
