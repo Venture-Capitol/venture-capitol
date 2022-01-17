@@ -7,6 +7,7 @@
 	background-color: #fff;
 	cursor: pointer;
 	color: var(--color-grey-900);
+	transition: transform 0.1s ease-out;
 
 	&[data-width="fullwidth"] {
 		width: 100%;
@@ -19,5 +20,15 @@
 
 	&[data-disabled="false"]:hover {
 		background: #fafafa;
+	}
+
+	&[data-variant="secondary"] {
+		color: #fff;
+		background: var(--color-grey-900);
+
+		&:hover {
+			transform: scale(1.1);
+			background: var(--color-grey-900);
+		}
 	}
 }
