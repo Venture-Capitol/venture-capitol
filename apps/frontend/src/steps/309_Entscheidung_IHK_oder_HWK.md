@@ -8,6 +8,6 @@ Industrie- und Handelskammer heißt die IHK mit vollem Namen. Außerdem gibt es 
 
 Für dich ist natürlich entscheidend welche Mitgliedschaft die richtige für dich ist.
 
-Was "Handwerk" ist legt die Handwerksordnung fest. Die zulassungspflichtigen Handwerksberufe sind in Anlage A der Handwerksordnung aufgelistet. Sie umfasst aktuell 41 Gewerbe. Frag im Zweifelsfall bei der HWK nach.
+Was "Handwerk" ist legt die Handwerksordnung fest. Die zulassungspflichtigen Handwerksberufe sind in [Anlage A der Handwerksordnung](/Users/Luis.Rieke/Documents/projects/venture-capitol-downloads/Analge-A-B-Handwerksordnung.pdf) aufgelistet. Sie umfasst aktuell 41 Gewerbe. Frag im Zweifelsfall bei der HWK nach.
 
 Alle anderen Gewerbetreibenden gehören zur IHK.

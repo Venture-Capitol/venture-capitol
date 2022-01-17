@@ -35,10 +35,24 @@ Diese kannst du in einem ersten Entwurf mit einem Anwalt ausarbeiten und dann sp
 
 _UG_
 
-- 1 Gesellschafter: Notarkosten bei Musterprotokoll 180 Euro - Notarkosten wenn eigene Satzung 815 Euro
-- 2-3 Gesellschafter: Notarkosten bei Musterprotokoll 250 Euro - Notarkosten wenn eigene Satzung 825 Euro
+1 Gesellschafter:
+
+- Notarkosten bei Musterprotokoll 180 Euro
+- Notarkosten wenn eigene Satzung 815 Euro
+
+2-3 Gesellschafter:
+
+- Notarkosten bei Musterprotokoll 250 Euro
+- Notarkosten wenn eigene Satzung 825 Euro
 
 _GmbH_
 
-- 1 Gesellschafter: Notarkosten bei Musterprotokoll 350 Euro - Notarkosten wenn eigene Satzung 815 Euro
-- 2-3 Gesellschafter: Notarkosten bei Musterprotokoll 490 Euro - Notarkosten wenn eigene Satzung 825 Euro
+1 Gesellschafter:
+
+- Notarkosten bei Musterprotokoll 350 Euro
+- Notarkosten wenn eigene Satzung 815 Euro
+
+2-3 Gesellschafter:
+
+- Notarkosten bei Musterprotokoll 490 Euro
+- Notarkosten wenn eigene Satzung 825 Euro

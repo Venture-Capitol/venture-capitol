@@ -1,0 +1,1 @@
+Deine _UG/GmbH_ ist nun offiziell im Handelsregister eingetragen. Die Handelsregisternummer und das Registergericht müssen jetzt in die Fußzeile Ihrer Geschäftspost und in die Signatur geschäftlicher E-Mails eingefügt werden.
