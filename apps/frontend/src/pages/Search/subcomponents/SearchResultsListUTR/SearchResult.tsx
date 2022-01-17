@@ -18,7 +18,7 @@ const SearchResult = ({ resultData }: Props) => {
 			<br></br>
 			<p className={s.result_description}>{resultData.description}</p>
 			<br></br>
-			<p className={s.result_moreinfo}>Mehr Informationen...</p>
+			<p className={s.result_moreinfo}>Mehr Informationen</p>
 		</div>
 	);
 };

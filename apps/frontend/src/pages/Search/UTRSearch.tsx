@@ -13,7 +13,6 @@ export default function UTRSearch() {
 
 	const passSearchResponse = (data: any, job: any, address: any) => {
 		console.log("passed search response to parent");
-		console.log(data);
 		setChosenJob(job);
 		setChosenAddress(address);
 		setSearchResponse(data);

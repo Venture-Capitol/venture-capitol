@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext, AuthUI, User } from "@vc/auth";
 import s from "./CreateForm.module.scss";
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 const CreateForm = ({ triggerPopup }: Props) => {
+	const currentUser = useContext<User | null>(AuthContext);
 	const [company, setCompany] = useState("");
 	const [jobname, setJobname] = useState("Notar");
 	const [address, setAddress] = useState("");
@@ -36,21 +38,20 @@ const CreateForm = ({ triggerPopup }: Props) => {
 			description: description,
 		};
 
-		const accessToken =
-			"eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiR2x1b24iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKenhwZ0I1dXd2RjM0RE44Y2JaRk9ESURLTDhKNGt5VEZ3N2hsLXhfdz1zOTYtYyIsInJvbGUiOiJhZG1pbiIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS92ZW50dXJlLWNhcGl0b2wiLCJhdWQiOiJ2ZW50dXJlLWNhcGl0b2wiLCJhdXRoX3RpbWUiOjE2NDIyNTkyMTMsInVzZXJfaWQiOiJnY1hLSlZqSEY0Z2tvWUtSNFJMNHNGYWpGbUczIiwic3ViIjoiZ2NYS0pWakhGNGdrb1lLUjRSTDRzRmFqRm1HMyIsImlhdCI6MTY0MjM1NzU5NSwiZXhwIjoxNjQyMzYxMTk1LCJlbWFpbCI6ImthaWttaW5lY3JhZnRAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDc3OTY1MjU5Mjk0ODk0MzQ5NTQiXSwiZW1haWwiOlsia2Fpa21pbmVjcmFmdEBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.SywyfCjXmt7zP-ocKZz7UPARfJHkkXa0PrUUfIe44wcnXdWdF_Dx2Z5vybKBtNNt_O-NGw3HbpzBhzTPGNEuoqTc-efcZu5Z93sck1OgVWjxPkJyuWyZbz8Qeh4cdQc00WLanYlRJtMxDEMK9v_6v-BIJDauFEp-I8vGN_UY0wKd3jFBs6_r_qvEmqLeHpzXC8PSYt49gvcnm2pPIe7ZsSOEzDnFcJYZOU6h7Poibek82CSZhsgTG0QMybt7XE8IGJhaejgGRVi8uqYePjSk-J8u-notUTyKIcZxqPj3Vx6rcChshfPUCB-krX1vKycjuSI3GBvDhOE9-oBn4DFP4A";
+		currentUser?.getIdToken().then(token => {
+			const requestOptions = {
+				method: "POST",
+				headers: {
+					Authorization: "Bearer " + token,
+					"content-type": "application/json",
+				},
+				body: JSON.stringify(body),
+			};
 
-		const requestOptions = {
-			method: "POST",
-			headers: {
-				Authorization: "Bearer " + accessToken,
-				"content-type": "application/json",
-			},
-			body: JSON.stringify(body),
-		};
-
-		return fetch("http://localhost:8103/entry/", requestOptions)
-			.then(data => checkResponse(data))
-			.catch(error => console.log(error));
+			return fetch("http://localhost:8103/entry/", requestOptions)
+				.then(data => checkResponse(data))
+				.catch(error => console.log(error));
+		});
 	}
 
 	function checkResponse(data: any) {
@@ -58,7 +59,6 @@ const CreateForm = ({ triggerPopup }: Props) => {
 			triggerPopup(true);
 		} else {
 			triggerPopup(false);
-			console.log("Fehler");
 		}
 	}
 
