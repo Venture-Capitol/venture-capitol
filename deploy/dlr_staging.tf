@@ -80,7 +80,7 @@ resource "google_cloud_run_service" "dlr_staging_backend" {
       annotations = {
         "autoscaling.knative.dev/maxScale"      = "10"
         "run.googleapis.com/cloudsql-instances" = google_sql_database_instance.vc_db.connection_name
-        "run.googleapis.com/client-name"        = "dlr-backend"
+        "run.googleapis.com/client-name"        = "terraform"
       }
     }
   }
