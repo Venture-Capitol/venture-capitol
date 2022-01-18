@@ -1,9 +1,9 @@
-import SearchForm from "./subcomponents/SearchFormUTR/SearchForm";
+import SearchForm from "./subcomponents/SearchFormDLR/SearchForm";
 import s from "./UTRSearch.module.scss";
 // import SearchForm from "@vc/frontend/page/Search/subcomponents/SearchFormUTR/SearchForm"; // why does this work?
-import Headline from "./subcomponents/HeadlineUTR/Headline";
-import Instruction from "./subcomponents/InstructionUTR/Instruction";
-import SearchResultsList from "./subcomponents/SearchResultsListUTR/SearchResultsList";
+import Headline from "./subcomponents/HeadlineDLR/Headline";
+import Instruction from "./subcomponents/InstructionDLR/Instruction";
+import SearchResultsList from "./subcomponents/SearchResultsListDLR/SearchResultsList";
 import React, { useState } from "react";
 
 export default function UTRSearch() {

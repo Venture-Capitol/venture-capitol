@@ -5,9 +5,9 @@ import DemoAuth from "./pages/Demo/DemoAuth";
 import Gruendung from "./pages/Gruendung/Gruendung";
 
 // Dienstleister Pages
-import Search from "./pages/Search/UTRSearch";
-import CreateEntryPage from "./pages/CreateEntryPage/CreateEntryPage";
-import GetEntryPage from "./pages/GetEntryPage/GetEntryPage";
+import Search from "./pages/Search/DLRSearch";
+import CreateEntryPage from "./pages/CreateDienstleisterPage/CreateDienstleisterPage";
+import GetEntryPage from "./pages/GetDienstleisterPage/GetDienstleisterPage";
 import ProcessProvider from "./components/ProcessContext/ProcessContext";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 
