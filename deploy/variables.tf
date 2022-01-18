@@ -14,29 +14,22 @@ variable "zone" {
   default = "europe-west1-b"
 }
 
-# Backend Service Configuration
+# GPF Service Configuration
 
 variable "db_name" {
   type    = string
   default = "backend"
 }
 
-variable "db_user" {
-  type    = string
-  default = "backend_user"
-}
-
-variable "image_name" {
-  type    = string
-  default = "us-docker.pkg.dev/cloudrun/container/hello"
-}
-
-
-# Staging Variables
-
 variable "staging_db_name" {
   type    = string
   default = "staging_backend"
+}
+
+
+variable "db_user" {
+  type    = string
+  default = "backend_user"
 }
 
 variable "staging_db_user" {
@@ -45,7 +38,49 @@ variable "staging_db_user" {
 }
 
 
+variable "image_name" {
+  type    = string
+  default = "us-docker.pkg.dev/cloudrun/container/hello"
+}
+
 variable "staging_image_name" {
   type    = string
   default = "us-docker.pkg.dev/cloudrun/container/hello"
 }
+
+
+# DLR Service Configuration
+
+variable "dlr_db_name" {
+  type    = string
+  default = "dlr_backend"
+}
+
+variable "dlr_staging_db_name" {
+  type    = string
+  default = "dlr_staging_backend"
+}
+
+variable "dlr_db_user" {
+  type    = string
+  default = "dlr_backend_user"
+}
+
+variable "dlr_staging_db_user" {
+  type    = string
+  default = "dlr_staging_backend_user"
+}
+
+variable "dlr_image_name" {
+  type    = string
+  default = "us-docker.pkg.dev/cloudrun/container/hello"
+}
+
+variable "dlr_staging_image_name" {
+  type    = string
+  default = "us-docker.pkg.dev/cloudrun/container/hello"
+}
+
+
+
+

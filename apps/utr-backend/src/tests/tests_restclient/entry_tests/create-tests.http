@@ -2,7 +2,7 @@
 POST http://localhost:8103/entry/addMany
 
 ### Useing the token of a logged in User
-@Token = 
+@Token =
 
 ### neuen Entry anlegen | Standard
 POST http://localhost:8103/entry/

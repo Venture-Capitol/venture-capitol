@@ -3,6 +3,12 @@ import { AuthProvider } from "@vc/auth";
 import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
 import Gruendung from "./pages/Gruendung/Gruendung";
+
+// Dienstleister Pages
+import Search from "./pages/Search/DLRSearch";
+import CreateEntryPage from "./pages/CreateDienstleisterPage/CreateDienstleisterPage";
+import GetEntryPage from "./pages/GetDienstleisterPage/GetDienstleisterPage";
+//import ProcessProvider from "./components/ProcessContext/ProcessContext";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Search from "./pages/Search/UTRSearch";
 import Impressum from "./pages/Impressum/Impressum";
@@ -24,15 +30,21 @@ function App() {
 							<Gruendung />
 						</GruendungContextProvider>
 					</Route>
-					<Route path='/demoutr'>
+					<Route path='/dienstleister/search'>
 						<Search />
 					</Route>
-					<Route path='/impressum'>
+					<Route path='/dienstleister/create'>
+						<CreateEntryPage />
+					</Route>
+					<Route path='/dienstleister/get'>
+						<GetEntryPage />
+					</Route>
+          <Route path='/impressum'>
 						<Impressum />
 					</Route>
 					<Route path='/datenschutzerklaerung'>
 						<Datenschutzerklaerung />
-					</Route>
+          </Route>
 				</Switch>
 			</Router>
 		</AuthProvider>
