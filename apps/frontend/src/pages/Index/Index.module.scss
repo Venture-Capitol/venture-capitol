@@ -2,6 +2,10 @@
 	background: #f6f5f8;
 	overflow-x: hidden;
 
+	* {
+		z-index: 1;
+	}
+
 	h1 {
 		font-size: var(--size-24px);
 		text-align: center;
@@ -34,10 +38,11 @@
 	justify-content: center;
 	max-width: 600px;
 	margin: 0 auto;
-	margin-bottom: 8rem;
+	margin-bottom: 2rem;
 
 	@media (min-width: 900px) {
 		max-width: 1200px;
+		margin-bottom: 8rem;
 
 		&.split {
 			margin-bottom: 15vh;
@@ -79,6 +84,8 @@
 			h1 {
 				text-align: left;
 				margin-bottom: 20vh;
+				font-size: var(--size-36px);
+				max-width: 20ch;
 			}
 
 			.skewed {
@@ -89,24 +96,6 @@
 
 	&.video {
 		gap: 2rem;
-		position: relative;
-
-		&::before {
-			content: "";
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			width: 100vw;
-			height: 100%;
-			right: 0;
-			background: radial-gradient(
-				95.33% 88.77% at 100% 25.99%,
-				#f3eae4 0%,
-				#f5ebdf 11.12%,
-				#f6f5f800 33.47%
-			);
-		}
 
 		@media (min-width: 900px) {
 			flex-direction: row;
@@ -131,6 +120,35 @@
 				flex: 0.3;
 			}
 		}
+
+		&::before {
+			content: "";
+			position: absolute;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(
+				90.33% 88.77% at 0% 30.99%,
+				#e4dffa 0%,
+				#f6f5f8 33.47%
+			);
+		}
+	}
+
+	&.startCompany {
+		&::before {
+			content: "";
+			position: absolute;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(
+				95.33% 88.77% at 100% 25.99%,
+				#f3eae4 0%,
+				#f5ebdf 11.12%,
+				#f6f5f800 33.47%
+			);
+		}
 	}
 
 	&.center {
@@ -140,6 +158,19 @@
 
 		@media (min-width: 900px) {
 			min-height: 30vh;
+		}
+
+		&::before {
+			content: "";
+			position: absolute;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(
+				90.33% 88.77% at 0% 60.99%,
+				#e4dffa 0%,
+				#f6f5f8 33.47%
+			);
 		}
 	}
 }

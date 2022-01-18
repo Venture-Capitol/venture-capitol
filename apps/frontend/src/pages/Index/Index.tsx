@@ -63,7 +63,7 @@ const Landing: React.FunctionComponent = () => {
 				)}
 			</section>
 
-			<section>
+			<section className={s.startCompany}>
 				<h1>Weißt du schon, welche Gesellschaftsform du gründen willst? </h1>
 				<div className={s.buttons}>
 					<Button variant='secondary'>
