@@ -80,3 +80,11 @@ resource "google_cloud_run_service" "staging_backend" {
 
   depends_on = [google_secret_manager_secret_version.staging_db_connection_string, google_project_service.run]
 }
+
+resource "google_cloud_run_service_iam_policy" "gpf_staging_noauth" {
+  location = google_cloud_run_service.staging_backend.location
+  project  = google_cloud_run_service.staging_backend.project
+  service  = google_cloud_run_service.staging_backend.name
+
+  policy_data = data.google_iam_policy.noauth.policy_data
+}
