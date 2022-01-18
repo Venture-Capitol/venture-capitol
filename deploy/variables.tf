@@ -53,12 +53,12 @@ variable "staging_image_name" {
 
 variable "dlr_db_name" {
   type    = string
-  default = "dlrbackend"
+  default = "dlr_backend"
 }
 
 variable "dlr_staging_db_name" {
   type    = string
-  default = "dlrbackend"
+  default = "dlr_staging_backend"
 }
 
 variable "dlr_db_user" {
@@ -68,7 +68,7 @@ variable "dlr_db_user" {
 
 variable "dlr_staging_db_user" {
   type    = string
-  default = "dlr_backend_user"
+  default = "dlr_staging_backend_user"
 }
 
 variable "dlr_image_name" {
