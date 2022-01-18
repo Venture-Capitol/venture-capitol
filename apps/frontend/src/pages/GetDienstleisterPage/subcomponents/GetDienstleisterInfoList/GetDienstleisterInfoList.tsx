@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import s from "./GetEntryInfoList.module.scss";
+import s from "./GetDienstleisterInfoList.module.scss";
 
 const CreateForm: React.FunctionComponent = () => {
 	const [company, setCompany] = useState("");

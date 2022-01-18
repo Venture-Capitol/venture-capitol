@@ -1,5 +1,5 @@
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
-import s from "./CreateEntryPage.module.scss";
+import s from "./CreateDienstleisterPage.module.scss";
 import React, { useState } from "react";
 
 import CreateForm from "./subcomponents/CreateFormDLR/CreateForm";

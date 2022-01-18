@@ -1,5 +1,5 @@
 import SearchForm from "./subcomponents/SearchFormDLR/SearchForm";
-import s from "./UTRSearch.module.scss";
+import s from "./DLRSearch.module.scss";
 // import SearchForm from "@vc/frontend/page/Search/subcomponents/SearchFormUTR/SearchForm"; // why does this work?
 import Headline from "./subcomponents/HeadlineDLR/Headline";
 import Instruction from "./subcomponents/InstructionDLR/Instruction";

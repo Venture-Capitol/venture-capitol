@@ -8,7 +8,7 @@ import Gruendung from "./pages/Gruendung/Gruendung";
 import Search from "./pages/Search/DLRSearch";
 import CreateEntryPage from "./pages/CreateDienstleisterPage/CreateDienstleisterPage";
 import GetEntryPage from "./pages/GetDienstleisterPage/GetDienstleisterPage";
-import ProcessProvider from "./components/ProcessContext/ProcessContext";
+//import ProcessProvider from "./components/ProcessContext/ProcessContext";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 
 function App() {

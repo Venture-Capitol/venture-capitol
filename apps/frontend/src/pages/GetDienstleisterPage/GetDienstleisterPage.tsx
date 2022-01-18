@@ -1,7 +1,7 @@
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
-import s from "./GetEntryPage.module.scss";
+import s from "./GetDienstleisterPage.module.scss";
 
-import GetEntryInfoList from "./subcomponents/GetDienstleisterInfoList/GetDienstleisterInfoList";
+import GetDienstleisterInfoList from "./subcomponents/GetDienstleisterInfoList/GetDienstleisterInfoList";
 
 export default function CreateEntryPage() {
 	return (
@@ -10,7 +10,7 @@ export default function CreateEntryPage() {
 			<div className={s.maindiv_headline_getEntry}>
 				<p className={s.headline_companyname}>M & N Notare</p>
 			</div>
-			<GetEntryInfoList />
+			<GetDienstleisterInfoList />
 		</>
 	);
 }

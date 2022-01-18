@@ -18,7 +18,7 @@ const SearchForm = ({ passSearchResponse }: Props) => {
 			const fetchURL =
 				"http://localhost:8103/entry/search?jobname=" +
 				chosenJobname +
-				"&latitude=52.516217&longitude=13.377004";
+				"&latitude=52.516217&longitude=13.377004&page=1";
 
 			const requestOptions = {
 				method: "GET",
