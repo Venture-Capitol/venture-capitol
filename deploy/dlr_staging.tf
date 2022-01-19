@@ -26,7 +26,7 @@ resource "google_secret_manager_secret" "dlr_staging_db_connection_string" {
 }
 
 resource "google_secret_manager_secret_version" "dlr_staging_db_connection_string" {
-  secret      = google_secret_manager_secret.staging_db_connection_string.name
+  secret      = google_secret_manager_secret.dlr_staging_db_connection_string.name
   secret_data = "postgresql://${var.dlr_staging_db_name}:${random_password.dlr_staging_db_password.result}@localhost/${var.dlr_staging_db_name}?host=/cloudsql/${google_sql_database_instance.vc_db.connection_name}"
 }
 
