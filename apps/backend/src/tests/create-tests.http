@@ -1,0 +1,36 @@
+
+@Token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSnVsaWFuIEhvZmYiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2cyTU0xVGpVbHJadFlCaUpxYXRmdUp2Z2pJYXQ4ZUlIZHUwOU4yTFE9czk2LWMiLCJyb2xlIjoidXNlciIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS92ZW50dXJlLWNhcGl0b2wiLCJhdWQiOiJ2ZW50dXJlLWNhcGl0b2wiLCJhdXRoX3RpbWUiOjE2NDI2MDEyMDIsInVzZXJfaWQiOiJvbkZkYm44NVM2Y25yc1dINXB2YmdQRXFTZXQyIiwic3ViIjoib25GZGJuODVTNmNucnNXSDVwdmJnUEVxU2V0MiIsImlhdCI6MTY0MjYwMTIwMiwiZXhwIjoxNjQyNjA0ODAyLCJlbWFpbCI6Imp1bGlhbi5qdXRzb0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExNTM5NzgxMjkzOTIyNjg1NDUwOSJdLCJlbWFpbCI6WyJqdWxpYW4uanV0c29AZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.fvMO6bFiclfkmd6AMkrZ0SBT_aM29VbRO6YO2xYqXkHywdyw80ca8flWRIsC_vA-gNjnNbsYnpHokhgsFGBxaTDhYkhsGIcl_crdN3W3z0ZYgjJVhLTuVVXG3S1wU5DvYPfFm1SRD1nQhsmt4-JU9Y65TMDUfkjdwMkRzcBlpqlRiYe5OsHLslF3r2VyL2Tcxhn1nqVYJvneuvXCYH1rXRVvZeoog0sdaN_pm9kdCnlM-bV8ooi8S7-ru98FQFMtoJztfpLPmi8zc0wgdz1HSC1j810zJKWj__AcHAknINngo4vOuwrhi-0aq0jux49aGqRCO_fgGqXESDT73LRpZA
+
+### neue Company anlegen | Standard
+POST http://localhost:8101/api/company/
+content-type: application/json
+Authorization: Bearer {{Token}}
+
+{
+  "legalForm": "GMBH",
+  "name": "Testeintrag"
+}
+
+### neue Company anlegen | Standard mit Namen
+POST http://localhost:8101/api/company/
+content-type: application/json
+Authorization: Bearer {{Token}}
+
+{
+  "legalForm": "FREIBERUFLER",
+  "name": "Spacifik 2.0"
+}
+
+### neuen Task anlegen | Standard
+POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/tasks/14
+Authorization: Bearer {{Token}}
+
+### neuen Task anlegen | Standard
+POST http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/decisions/35
+content-type: application/json
+Authorization: Bearer {{Token}}
+
+{
+  "selectedPath": 0
+}
+

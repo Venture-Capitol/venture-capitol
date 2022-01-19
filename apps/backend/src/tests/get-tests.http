@@ -1,0 +1,60 @@
+### --- GET /company/:companyId --- ###
+
+@Token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSnVsaWFuIEhvZmYiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2cyTU0xVGpVbHJadFlCaUpxYXRmdUp2Z2pJYXQ4ZUlIZHUwOU4yTFE9czk2LWMiLCJyb2xlIjoidXNlciIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS92ZW50dXJlLWNhcGl0b2wiLCJhdWQiOiJ2ZW50dXJlLWNhcGl0b2wiLCJhdXRoX3RpbWUiOjE2NDI2MDEyMDIsInVzZXJfaWQiOiJvbkZkYm44NVM2Y25yc1dINXB2YmdQRXFTZXQyIiwic3ViIjoib25GZGJuODVTNmNucnNXSDVwdmJnUEVxU2V0MiIsImlhdCI6MTY0MjYwMTIwMiwiZXhwIjoxNjQyNjA0ODAyLCJlbWFpbCI6Imp1bGlhbi5qdXRzb0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExNTM5NzgxMjkzOTIyNjg1NDUwOSJdLCJlbWFpbCI6WyJqdWxpYW4uanV0c29AZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.fvMO6bFiclfkmd6AMkrZ0SBT_aM29VbRO6YO2xYqXkHywdyw80ca8flWRIsC_vA-gNjnNbsYnpHokhgsFGBxaTDhYkhsGIcl_crdN3W3z0ZYgjJVhLTuVVXG3S1wU5DvYPfFm1SRD1nQhsmt4-JU9Y65TMDUfkjdwMkRzcBlpqlRiYe5OsHLslF3r2VyL2Tcxhn1nqVYJvneuvXCYH1rXRVvZeoog0sdaN_pm9kdCnlM-bV8ooi8S7-ru98FQFMtoJztfpLPmi8zc0wgdz1HSC1j810zJKWj__AcHAknINngo4vOuwrhi-0aq0jux49aGqRCO_fgGqXESDT73LRpZA
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8101/api/company/f5575813-361f-40e8-bd61-8db34d473b6f/tasks
+Authorization: Bearer {{Token}}
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8101/api/company
+Authorization: Bearer {{Token}}
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8101/api/company/99
+Authorization: Bearer {{Token}}
+
+
+### --- GET /company/:companyId/decisions --- ###
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8101/api/company/1dd13830-11a6-4394-be38-277ed5156665/tasks
+Authorization: Bearer {{Token}}
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8101/api/company/99A/decisions
+Authorization: Bearer {{Token}}
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8101/api/company/99/decisions
+Authorization: Bearer {{Token}}
+
+
+### --- GET /company/:companyId/tasks --- ###
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8101/api/company/1/tasks
+Authorization: Bearer {{Token}}
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8101/api/company/99A/tasks
+Authorization: Bearer {{Token}}
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8101/api/company/99/tasks
+Authorization: Bearer {{Token}}
+
+
+### --- GET /user/:userId --- ###
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8101/api/user/1
+Authorization: Bearer {{Token}}
+
+### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
+GET http://localhost:8101/api/user/99A
+Authorization: Bearer {{Token}}
+
+### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
+GET http://localhost:8101/api/user/99
+Authorization: Bearer {{Token}}

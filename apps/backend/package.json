@@ -17,13 +17,13 @@
 	},
 	"dependencies": {
 		"@prisma/client": "^3.3.0",
-		"@vc/common": "^0",
+		"@types/cors": "^2.8.12",
+		"@vc/api": "^0",
+		"cors": "^2.8.5",
 		"dotenv": "^10.0.0",
-		"fastify": "^3.24.1",
+		"express": "^4.17.2",
+		"express-openapi-validator": "^4.13.4",
 		"firebase-admin": "^10.0.0",
-		"graphql": "^15",
-		"mercurius": "^8.11.2",
-		"mercurius-codegen": "^3.2.0",
 		"prisma": "^3.3.0"
 	}
 }
