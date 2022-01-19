@@ -4,15 +4,15 @@ export default function useMediaQuery(query: string) {
 	const [matches, setMatches] = useState(false);
 
 	useEffect(() => {
-		const media = window.matchMedia(query);
-		if (media.matches !== matches) {
-			setMatches(media.matches);
+		const mediaQuery = window.matchMedia(query);
+		if (mediaQuery.matches !== matches) {
+			setMatches(mediaQuery.matches);
 		}
 		const listener = () => {
-			setMatches(media.matches);
+			setMatches(mediaQuery.matches);
 		};
-		window.addEventListener("resize", listener);
-		return () => window.removeEventListener("resize", listener);
+		mediaQuery.addEventListener("change", listener);
+		return () => mediaQuery.removeEventListener("change", listener);
 	}, [matches, query]);
 
 	return matches;
