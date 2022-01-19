@@ -10,7 +10,7 @@ import * as DropdownMenuTemplate from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Link, NavLink } from "react-router-dom";
 import MobileMenu from "../MobileMenu/MobileMenu";
-import { useMediaQuery } from "@vc/frontend/util/useMediaQuery";
+import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 
 const Header: FC = () => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);

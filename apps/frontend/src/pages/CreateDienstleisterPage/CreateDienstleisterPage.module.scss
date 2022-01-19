@@ -1,0 +1,35 @@
+.maindiv_headline_createEntry {
+	display: flex;
+	justify-content: center;
+	padding-top: 10%;
+	align-items: center;
+}
+
+.AlsDienstleisterEintragen {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-28px);
+}
+
+.maindiv_headline_createEntry div {
+	position: relative;
+	height: 20px;
+	width: 20px;
+	left: 0px;
+	top: 0px;
+	margin-right: 1%;
+}
+
+.maindiv_headline_createEntry svg {
+	position: relative;
+	height: 20px;
+	width: 20px;
+}
+
+.createsuccess_div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: var(--color-green-700);
+}

@@ -1,0 +1,32 @@
+.footer {
+	display: flex;
+	flex-wrap: wrap-reverse;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+	padding: 2rem;
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+
+	font-size: var(--size-14px);
+
+	a {
+		color: var(--color-grey-900);
+	}
+
+	p {
+		text-align: center;
+	}
+
+	ul {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+		padding: 0;
+	}
+
+	li::marker {
+		content: "";
+		display: none;
+	}
+}

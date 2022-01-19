@@ -13,6 +13,7 @@ async function searchEntries(
 	jobname: string,
 	lat: number,
 	long: number,
+	page: number,
 	callback: Function
 ) {
 	if (
@@ -52,19 +53,20 @@ async function searchEntries(
 				},
 			});
 			if (searchResults) {
+				const offset = (page - 1) * 15;
 				// TODO Change to verified=true when false is not needed anymore for testing
 				const query = await prisma.$queryRaw<
 					{ id: number; distance: number }[]
 				>(
-					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND NOT verified`
+					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND NOT verified ORDER BY distance ASC LIMIT 15 OFFSET ${offset}`
 				);
-				const map = searchResults.map(result => {
-					let found = query.find(x => {
+				const map = query.map(result => {
+					let found = searchResults.find(x => {
 						return x.id == result.id;
 					});
-					let rounded = Math.round(found?.distance || -1);
+					let rounded = Math.round(result?.distance || -1);
 					return {
-						...result,
+						...found,
 						distance: rounded,
 					};
 				});
