@@ -1,5 +1,5 @@
 .default_btn {
-	padding: 12px 60px;
+	padding: 12px 40px;
 	font-family: "Space Grotesk";
 	font-weight: 500;
 	border-radius: 10px;
@@ -7,6 +7,8 @@
 	background-color: #fff;
 	cursor: pointer;
 	color: var(--color-grey-900);
+	transition: transform 0.1s ease-out;
+	will-change: transform;
 
 	&[data-width="fullwidth"] {
 		width: 100%;
@@ -19,5 +21,15 @@
 
 	&[data-disabled="false"]:hover {
 		background: #fafafa;
+	}
+
+	&[data-variant="secondary"] {
+		color: #fff;
+		background: var(--color-grey-900);
+
+		&:hover {
+			transform: scale(1.1);
+			background: var(--color-grey-900);
+		}
 	}
 }
