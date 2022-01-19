@@ -83,7 +83,8 @@ async function searchEntries(
 		} catch (exception) {
 			return callback(
 				new ApplicationError(
-					"Es sind unerwartete Probleme bei der Suche aufgetreten.",
+					"Es sind unerwartete Probleme bei der Suche aufgetreten. " +
+						exception,
 					500
 				),
 				null
@@ -314,7 +315,16 @@ async function deleteEntry(id: number, callback: Function) {
 	}
 }
 
-module.exports = {
+/* module.exports = {
+	searchEntries,
+	getAllEntries,
+	createEntry,
+	getEntry,
+	updateEntry,
+	deleteEntry,
+}; */
+
+export default {
 	searchEntries,
 	getAllEntries,
 	createEntry,

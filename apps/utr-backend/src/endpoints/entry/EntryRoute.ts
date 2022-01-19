@@ -8,13 +8,17 @@ import { Entry } from "@prisma/client";
 import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
-const EntryService = require("./EntryService");
-const EntryUtils = require("../utils/EntryUtils");
+import EntryService from "./EntryService";
+import EntryUtils from "../utils/EntryUtils";
 
 router.get("/search", function (req, res, next) {
-	EntryService.searchEntries(
-		req.query.jobname,
-		req.query.latitude,
+	console.log(req.query.jobname);
+	console.log(req.query.latitude);
+	console.log(req.query.longitude);
+	console.log(req.query.page);
+	/* EntryService.searchEntries(
+		req.query.jobname as string,
+		req.query.latitude as string,
 		req.query.longitude,
 		req.query.page,
 		function (error: Error | ApplicationError, result: DistanceEntry[]) {
@@ -41,10 +45,10 @@ router.get("/search", function (req, res, next) {
 				res.send(mappedSubset);
 			}
 		}
-	);
+	); */
 });
 
-router.get("/", getUser, isAdmin, function (req, res, next) {
+/* router.get("/", getUser, isAdmin, function (req, res, next) {
 	EntryService.getAllEntries(
 		function (error: Error | ApplicationError, result: Entry[]) {
 			if (error) {
@@ -146,7 +150,7 @@ router.delete("/:id", getUser, isAdmin, function (req, res, next) {
 			}
 		}
 	);
-});
+}); */
 
 /* WILL BE DELETED AFTER ALL TESTS ARE COMPLETE
 router.post("/addMany", function (req, res, next) {

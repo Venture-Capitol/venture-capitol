@@ -144,6 +144,8 @@ function parseToNumber(value: string) {
 	}
 }
 
-module.exports = {
+/* module.exports = {
 	parseToNumber,
-};
+}; */
+
+export default { parseToNumber };
