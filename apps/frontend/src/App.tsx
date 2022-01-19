@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "@vc/auth";
 import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
+import Header from "./components/Header/Header";
 import Gruendung from "./pages/Gruendung/Gruendung";
 import Search from "./pages/Search/DLRSearch";
 import CreateEntryPage from "./pages/CreateDienstleisterPage/CreateDienstleisterPage";
@@ -14,17 +15,21 @@ function App() {
 	return (
 		<AuthProvider>
 			<Router>
+				<Header />
 				<Switch>
 					<Route path='/' exact>
 						<Index />
 					</Route>
-					<Route path='/demoAuth'>
-						<DemoAuth />
+					<Route path='/gruendung' exact>
+						<Index />
 					</Route>
 					<Route path='/gruendung/:task'>
 						<GruendungContextProvider>
 							<Gruendung />
 						</GruendungContextProvider>
+					</Route>
+					<Route path='/dienstleister'>
+						<Index />
 					</Route>
 					<Route path='/dienstleister/search'>
 						<Search />
@@ -35,10 +40,13 @@ function App() {
 					<Route path='/dienstleister/get'>
 						<GetEntryPage />
 					</Route>
+					<Route path='/demoAuth'>
+						<DemoAuth />
+					</Route>
 					<Route path='/impressum'>
 						<Impressum />
 					</Route>
-					<Route path='/datenschutzerklaerung'>
+					<Route path='/datenschutz'>
 						<Datenschutzerklaerung />
 					</Route>
 				</Switch>

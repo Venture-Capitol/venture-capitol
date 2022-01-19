@@ -6,7 +6,7 @@ import { SearchIcon } from "@heroicons/react/solid/esm";
 import Footer from "@vc/frontend/component/Footer/Footer";
 
 const Landing: React.FunctionComponent = () => {
-	const isMobile = useMediaQuery({ query: "(max-width: 900px)" });
+	const isMobile = useMediaQuery("(max-width: 900px)");
 
 	return (
 		<div className={s.landingPage}>
