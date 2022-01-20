@@ -1,28 +1,24 @@
 import { Router } from "express";
 import HttpException from "../../utils/HttpException";
 
-import { MadeDecision } from "@prisma/client";
-
 const decisionRouter = Router();
 
 const DecisionService = require("./DecisionService");
 
 decisionRouter.get("/:companyId/decisions", async function (req, res, next) {
 	const companyId = req.params.companyId;
-	DecisionService.findAllDecisionsByCompanyId(
-		companyId,
-		function (error: Error | HttpException, result: MadeDecision[]) {
-			if (error) {
-				if (error instanceof HttpException) {
-					res.status(error.status).end(error.message);
-				} else {
-					res.status(500).end(error.message);
-				}
-			} else if (result) {
-				res.send(result);
-			}
+	try {
+		const foundDecisions = await DecisionService.findAllDecisionsByCompanyId(
+			companyId
+		);
+		res.send(foundDecisions);
+	} catch (error) {
+		if (error instanceof HttpException) {
+			res.status(error.status).end(error.message);
+		} else {
+			res.status(500).end(error.message);
 		}
-	);
+	}
 });
 
 decisionRouter.post(
@@ -31,22 +27,20 @@ decisionRouter.post(
 		const companyId = req.params.companyId;
 		const decisionId = req.params.decisionId;
 		const selectedPath = req.body.selectedPath;
-		DecisionService.addDecisionToCompany(
-			companyId,
-			decisionId,
-			selectedPath,
-			function (error: Error | HttpException, result: MadeDecision) {
-				if (error) {
-					if (error instanceof HttpException) {
-						res.status(error.status).end(error.message);
-					} else {
-						res.status(500).end(error.message);
-					}
-				} else if (result) {
-					res.status(200).end();
-				}
+		try {
+			await DecisionService.addDecisionToCompany(
+				companyId,
+				decisionId,
+				selectedPath
+			);
+			res.status(200).end();
+		} catch (error) {
+			if (error instanceof HttpException) {
+				res.status(error.status).end(error.message);
+			} else {
+				res.status(500).end(error.message);
 			}
-		);
+		}
 	}
 );
 
@@ -55,21 +49,16 @@ decisionRouter.delete(
 	async function (req, res, next) {
 		const companyId = req.params.companyId;
 		const decisionId = req.params.decisionId;
-		DecisionService.deleteDecisionFromCompany(
-			companyId,
-			decisionId,
-			function (error: Error | HttpException) {
-				if (error) {
-					if (error instanceof HttpException) {
-						res.status(error.status).end(error.message);
-					} else {
-						res.status(500).end(error.message);
-					}
-				} else {
-					res.status(200).end();
-				}
+		try {
+			await DecisionService.deleteDecisionFromCompany(companyId, decisionId);
+			res.status(200).end();
+		} catch (error) {
+			if (error instanceof HttpException) {
+				res.status(error.status).end(error.message);
+			} else {
+				res.status(500).end(error.message);
 			}
-		);
+		}
 	}
 );
 

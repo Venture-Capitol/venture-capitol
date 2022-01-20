@@ -1,25 +1,20 @@
 import { PrismaClient } from "@prisma/client";
 import HttpException from "../../utils/HttpException";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+	rejectOnNotFound: true,
+});
 
-async function findUserById(userId: string, callback: Function) {
+async function findUserById(userId: string) {
 	try {
 		const foundUser = await prisma.user.findUnique({
 			where: {
 				id: userId,
 			},
 		});
-		if (foundUser == null) {
-			return callback(
-				new HttpException(404, "No company found under this ID"),
-				null
-			);
-		} else {
-			return callback(null, foundUser);
-		}
+		return foundUser;
 	} catch (e) {
-		return callback(new HttpException(500, e.message), null);
+		throw new HttpException(404, e.message);
 	}
 }
 

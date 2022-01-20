@@ -1,21 +1,17 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import HttpException from "../../utils/HttpException";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+	rejectOnNotFound: true,
+});
 
-async function findAllTasksByCompanyId(companyId: string, callback: Function) {
+async function findAllTasksByCompanyId(companyId: string) {
 	try {
-		const foundCompany = await prisma.company.findUnique({
+		await prisma.company.findUnique({
 			where: {
 				id: companyId,
 			},
 		});
-		if (foundCompany == null) {
-			return callback(
-				new HttpException(404, "No company found under this ID."),
-				null
-			);
-		}
 		const foundTasks = await prisma.completedTask.findMany({
 			where: {
 				companyId: companyId,
@@ -24,83 +20,57 @@ async function findAllTasksByCompanyId(companyId: string, callback: Function) {
 				taskId: true,
 			},
 		});
-		if (foundTasks == null) {
-			return callback(
-				new HttpException(404, "No completed tasks found in this company."),
-				null
-			);
-		} else {
-			return callback(null, foundTasks);
+		if (Object.keys(foundTasks).length == 0) {
+			throw new HttpException(404, "No completed tasks found in this company");
 		}
+		return foundTasks;
 	} catch (e) {
-		throw new HttpException(500, e.message);
+		throw new HttpException(e.status || 500, e.message);
 	}
 }
 
-async function addTaskToCompany(
-	companyId: string,
-	taskId: string,
-	callback: Function
-) {
+async function addTaskToCompany(companyId: string, taskId: string) {
 	try {
-		const foundCompany = await prisma.company.findUnique({
+		await prisma.company.findUnique({
 			where: {
 				id: companyId,
 			},
 		});
-		const createTask = await prisma.completedTask.create({
+		const createdTask = await prisma.completedTask.create({
 			data: {
 				companyId: companyId,
 				taskId: taskId,
 			},
 		});
-		return callback(null, createTask);
+		return createdTask;
 	} catch (e) {
-		if (e instanceof Prisma.PrismaClientKnownRequestError) {
-			if (e.code == "P2025") {
-				return callback(
-					new HttpException(404, "No company found under this ID.")
-				);
-			}
-		} else {
-			return callback(new HttpException(500, e.messsage));
-		}
+		throw new HttpException(500, e.message);
 	}
 }
 
-async function deleteTaskFromCompany(
-	companyId: string,
-	taskId: string,
-	callback: Function
-) {
+async function deleteTaskFromCompany(companyId: string, taskId: string) {
 	try {
-		const foundCompany = await prisma.company.findUnique({
+		await prisma.company.findUnique({
 			where: {
 				id: companyId,
 			},
 		});
-		if (foundCompany == null) {
-			throw new HttpException(404, "No company found under this ID.");
-		}
 		await prisma.completedTask.deleteMany({
 			where: {
 				companyId: companyId,
 				taskId: taskId,
 			},
 		});
-		return callback(null);
 	} catch (e) {
 		if (e instanceof Prisma.PrismaClientKnownRequestError) {
 			if (e.code == "P2025") {
-				return callback(
-					new HttpException(
-						404,
-						"No decision with this ID found in the specified company."
-					)
+				throw new HttpException(
+					404,
+					"No task with this ID found in the specified company"
 				);
 			}
 		} else {
-			return callback(new HttpException(500, e.messsage));
+			throw new HttpException(500, e.message);
 		}
 	}
 }

@@ -1,82 +1,66 @@
 import { Router } from "express";
 import HttpException from "../../utils/HttpException";
 
-import { Company } from "@prisma/client";
-
 const companyRouter = Router();
 
 const CompanyService = require("./CompanyService");
 
-companyRouter.post("/", function (req, res, next) {
+companyRouter.post("/", async function (req, res, next) {
 	const body = req.body;
-	CompanyService.addCompany(
-		body.name,
-		body.legalForm,
-		function (error: Error | HttpException, result: Company) {
-			if (error) {
-				if (error instanceof HttpException) {
-					res.status(error.status).end(error.message);
-				} else {
-					res.status(500).end(error.message);
-				}
-			} else if (result) {
-				res.send(result);
-			}
+	try {
+		const createdCompany = await CompanyService.addCompany(
+			body.name,
+			body.legalForm
+		);
+		res.send(createdCompany);
+	} catch (error) {
+		if (error instanceof HttpException) {
+			res.status(error.status).end(error.message);
+		} else {
+			res.status(500).end(error.message);
 		}
-	);
+	}
 });
 
 companyRouter.get("/", async function (req, res, next) {
-	CompanyService.findAllCompanies(function (
-		error: Error | HttpException,
-		result: Company[]
-	) {
-		if (error) {
-			if (error instanceof HttpException) {
-				res.status(error.status).end(error.message);
-			} else {
-				res.status(500).end(error.message);
-			}
-		} else if (result) {
-			res.send(result);
+	try {
+		const foundCompanies = await CompanyService.findAllCompanies();
+		res.send(foundCompanies);
+	} catch (error) {
+		if (error instanceof HttpException) {
+			res.status(error.status).end(error.message);
+		} else {
+			res.status(500).end(error.message);
 		}
-	});
+	}
 });
 
 companyRouter.get("/:companyId", async function (req, res, next) {
 	const companyId = req.params.companyId;
-	CompanyService.findCompanyById(
-		companyId,
-		function (error: Error | HttpException, result: Company) {
-			if (error) {
-				if (error instanceof HttpException) {
-					res.status(error.status).end(error.message);
-				} else {
-					res.status(500).end(error.message);
-				}
-			} else if (result) {
-				res.send(result);
-			}
+	try {
+		const foundCompany = await CompanyService.findCompanyById(companyId);
+		res.send(foundCompany);
+	} catch (error) {
+		if (error instanceof HttpException) {
+			res.status(error.status).end(error.message);
+		} else {
+			res.status(500).end(error.message);
 		}
-	);
+	}
 });
 
 companyRouter.delete("/:companyId", async function (req, res, next) {
 	const companyId = req.params.companyId;
-	CompanyService.deleteCompanyById(
-		companyId,
-		function (error: Error | HttpException) {
-			if (error) {
-				if (error instanceof HttpException) {
-					res.status(error.status).end(error.message);
-				} else {
-					res.status(500).end(error.message);
-				}
-			} else {
-				res.status(200).end();
-			}
+	try {
+		await CompanyService.deleteCompanyById(companyId);
+		res.status(200).end();
+	} catch (error) {
+		if (error instanceof HttpException) {
+			res.status(error.status).end(error.message);
+		} else {
+			res.status(500).end(error.message);
 		}
-	);
+	}
 });
 
 module.exports = companyRouter;

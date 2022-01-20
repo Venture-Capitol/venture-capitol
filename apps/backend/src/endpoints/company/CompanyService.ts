@@ -1,23 +1,25 @@
 import { Prisma, PrismaClient, LegalForm } from "@prisma/client";
 import HttpException from "../../utils/HttpException";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+	rejectOnNotFound: true,
+});
 
-async function addCompany(name: string, legalForm: string, callback: Function) {
+async function addCompany(name: string, legalForm: string) {
 	try {
-		const createCompany = await prisma.company.create({
+		const createdCompany = await prisma.company.create({
 			data: {
 				name: name || undefined,
 				legalForm: legalForm as LegalForm,
 			},
 		});
-		return callback(null, createCompany);
+		return createdCompany;
 	} catch (e) {
-		return callback(new HttpException(500, e.message), null);
+		throw new HttpException(500, e.message);
 	}
 }
 
-async function findAllCompanies(callback: Function) {
+async function findAllCompanies() {
 	try {
 		const foundCompanies = await prisma.company.findMany({
 			select: {
@@ -25,53 +27,42 @@ async function findAllCompanies(callback: Function) {
 				legalForm: true,
 			},
 		});
-		if (foundCompanies == null) {
-			return callback(new HttpException(404, "No companies found."), null);
-		} else {
-			return callback(null, foundCompanies);
+		if (Object.keys(foundCompanies).length == 0) {
+			throw new HttpException(404, "No companies found");
 		}
+		return foundCompanies;
 	} catch (e) {
-		return callback(new HttpException(500, e.message), null);
+		throw new HttpException(e.status || 500, e.message);
 	}
 }
 
-async function findCompanyById(userId: string, callback: Function) {
+async function findCompanyById(userId: string) {
 	try {
 		const foundCompany = await prisma.company.findUnique({
 			where: {
 				id: userId,
 			},
 		});
-		if (foundCompany == null) {
-			return callback(
-				new HttpException(404, "No company found under this ID."),
-				null
-			);
-		} else {
-			return callback(null, foundCompany);
-		}
+		return foundCompany;
 	} catch (e) {
-		return callback(new HttpException(500, e.message), null);
+		throw new HttpException(404, e.message);
 	}
 }
 
-async function deleteCompanyById(companyId: string, callback: Function) {
+async function deleteCompanyById(companyId: string) {
 	try {
 		await prisma.company.delete({
 			where: {
 				id: companyId,
 			},
 		});
-		return callback(null);
 	} catch (e) {
 		if (e instanceof Prisma.PrismaClientKnownRequestError) {
 			if (e.code == "P2025") {
-				return callback(
-					new HttpException(404, "No company found under this ID.")
-				);
+				throw new HttpException(404, "No company found");
 			}
 		} else {
-			return callback(new HttpException(500, e.messsage));
+			throw new HttpException(500, e.messsage);
 		}
 	}
 }
