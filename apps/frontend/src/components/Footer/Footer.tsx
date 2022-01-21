@@ -14,7 +14,7 @@ export default function Footer() {
 					<Link to='/impressum'>Impressum</Link>
 				</li>
 				<li>
-					<Link to='/datenschutzerklaerung'>Datenschutzerklärung</Link>
+					<Link to='/datenschutz'>Datenschutzerklärung</Link>
 				</li>
 			</ul>
 		</footer>

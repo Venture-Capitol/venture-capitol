@@ -12,6 +12,10 @@
 
 	a {
 		color: var(--color-grey-900);
+
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 
 	p {
