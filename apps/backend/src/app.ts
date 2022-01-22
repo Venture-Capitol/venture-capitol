@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import * as OpenApiValidator from "express-openapi-validator";
 import HttpException from "./utils/HttpException";
 import { getUser } from "./utils/AuthenticationUtils";
@@ -8,8 +8,6 @@ import { userRouter } from "./endpoints/user/UserRoute";
 import { companyRouter } from "./endpoints/company/CompanyRoute";
 import { taskRouter } from "./endpoints/task/TaskRoute";
 import { decisionRouter } from "./endpoints/decision/DecisionRoute";
-
-import cors from "cors";
 
 initializeApp();
 export const app = express();
