@@ -13,5 +13,7 @@ services:
       dockerfile: ./apps/backend/Dockerfile
     environment:
       HOST: 0.0.0.0
+      DATABASE_URL: postgres://$DB_USER:$DB_PWD@db:5432/$DB_NAME
+      PORT: 8101
     ports:
       - "127.0.0.1:8101:8101"

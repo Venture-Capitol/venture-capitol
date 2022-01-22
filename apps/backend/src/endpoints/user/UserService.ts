@@ -1,11 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../utils/Prisma";
 import HttpException from "../../utils/HttpException";
 
-const prisma = new PrismaClient({
-	rejectOnNotFound: true,
-});
-
-async function findUserById(userId: string) {
+export async function findUserById(userId: string) {
 	try {
 		const foundUser = await prisma.user.findUnique({
 			where: {
@@ -17,7 +13,3 @@ async function findUserById(userId: string) {
 		throw new HttpException(404, e.message);
 	}
 }
-
-module.exports = {
-	findUserById,
-};

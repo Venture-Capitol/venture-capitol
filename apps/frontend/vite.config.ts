@@ -10,5 +10,8 @@ export default defineConfig({
 		fs: {
 			allow: ["../.."],
 		},
+		proxy: {
+			"/api": "http://localhost:8101",
+		},
 	},
 });

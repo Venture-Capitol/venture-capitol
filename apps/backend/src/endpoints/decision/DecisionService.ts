@@ -1,11 +1,8 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import HttpException from "../../utils/HttpException";
+import { prisma } from "../../utils/Prisma";
 
-const prisma = new PrismaClient({
-	rejectOnNotFound: true,
-});
-
-async function findAllDecisionsByCompanyId(companyId: string) {
+export async function findAllDecisionsByCompanyId(companyId: string) {
 	try {
 		await prisma.company.findUnique({
 			where: {
@@ -30,7 +27,7 @@ async function findAllDecisionsByCompanyId(companyId: string) {
 	}
 }
 
-async function addDecisionToCompany(
+export async function addDecisionToCompany(
 	companyId: string,
 	decisionId: string,
 	selectedPath: number
@@ -54,7 +51,7 @@ async function addDecisionToCompany(
 	}
 }
 
-async function deleteDecisionFromCompany(
+export async function deleteDecisionFromCompany(
 	companyId: string,
 	decisionId: string
 ) {
@@ -83,9 +80,3 @@ async function deleteDecisionFromCompany(
 		}
 	}
 }
-
-module.exports = {
-	findAllDecisionsByCompanyId,
-	addDecisionToCompany,
-	deleteDecisionFromCompany,
-};
