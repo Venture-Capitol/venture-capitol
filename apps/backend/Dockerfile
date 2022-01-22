@@ -32,15 +32,16 @@ RUN cp apps/backend/node_modules/.prisma/client/schema.prisma /app/apps/backend/
 # RUN rm -rf node_modules/prisma/prisma-client
 # RUN rm -rf node_modules/@prisma/client
 # RUN rm -rf node_modules/.prisma/client
-RUN rm apps/backend/node_modules/.prisma/client/libquery_engine-linux-musl.so.node
-RUN rm apps/backend/node_modules/@prisma/engines/introspection-engine-linux-musl
-RUN rm apps/backend/node_modules/@prisma/engines/libquery_engine-linux-musl.so.node
-RUN rm apps/backend/node_modules/@prisma/engines/prisma-fmt-linux-musl
 
 FROM node:16-alpine as prisma
 WORKDIR /app
 ENV NODE_ENV=production
 RUN npm i prisma --no-save
+
+RUN rm node_modules/.prisma/client/libquery_engine-linux-musl.so.node
+RUN rm node_modules/@prisma/engines/introspection-engine-linux-musl
+RUN rm node_modules/@prisma/engines/libquery_engine-linux-musl.so.node
+RUN rm node_modules/@prisma/engines/prisma-fmt-linux-musl
 
 
 # Run the app
@@ -51,7 +52,7 @@ ENV API_DEFINITION_FILE="./openapi.yaml"
 
 WORKDIR /app
 COPY --from=builder /app/apps/backend/dist ./
-COPY --from=builder /app/apps/backend/node_modules/ ./node_modules/
+COPY --from=prisma /app/node_modules/ ./node_modules/
 # COPY --from=builder /app/apps/backend/node_modules/.prisma ./node_modules/.prisma/
 COPY apps/backend/prisma/migrations ./migrations
 # RUN npm i prisma --no-save
