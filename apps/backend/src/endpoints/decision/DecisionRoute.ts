@@ -1,9 +1,8 @@
 import { Router } from "express";
 import HttpException from "../../utils/HttpException";
+import * as DecisionService from "./DecisionService";
 
-const decisionRouter = Router();
-
-const DecisionService = require("./DecisionService");
+export const decisionRouter = Router();
 
 decisionRouter.get("/:companyId/decisions", async function (req, res, next) {
 	const companyId = req.params.companyId;
@@ -61,5 +60,3 @@ decisionRouter.delete(
 		}
 	}
 );
-
-module.exports = decisionRouter;

@@ -1,9 +1,8 @@
 import { Router } from "express";
 import HttpException from "../../utils/HttpException";
+import * as CompanyService from "./CompanyService";
 
-const companyRouter = Router();
-
-const CompanyService = require("./CompanyService");
+export const companyRouter = Router();
 
 companyRouter.post("/", async function (req, res, next) {
 	const body = req.body;
@@ -62,5 +61,3 @@ companyRouter.delete("/:companyId", async function (req, res, next) {
 		}
 	}
 });
-
-module.exports = companyRouter;

@@ -1,10 +1,6 @@
-#!/usr/bin/env node
+import { app } from "./app";
+import { DecodedIdToken } from "firebase-admin/auth";
 
-/**
- * Module dependencies.
- */
-
-import app = require("./app");
 declare global {
 	namespace Express {
 		export interface Request {
@@ -12,26 +8,15 @@ declare global {
 		}
 	}
 }
-import http = require("http");
-import { DecodedIdToken } from "firebase-admin/auth";
 
-/**
- * Get port from environment and store in Express.
- */
+const port = parseInt(process.env.PORT) || 8101;
+const hostname = process.env.HOST || "localhost";
+const server = app.listen(port, hostname, () => {
+	console.log(`VC GPF API listening on http://${hostname}:${port}`);
+});
 
-var port = 8101;
-app.set("port", port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`);
+process.on("SIGINT", () => {
+	console.log("Received SIGINT, stopping...");
+	server.close();
+	process.exit(0);
 });

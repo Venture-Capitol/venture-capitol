@@ -1,9 +1,8 @@
 import { Router } from "express";
 import HttpException from "../../utils/HttpException";
+import * as TaskService from "./TaskService";
 
-const taskRouter = Router();
-
-const TaskService = require("./TaskService");
+export const taskRouter = Router();
 
 taskRouter.get("/:companyId/tasks", async function (req, res, next) {
 	const companyId = req.params.companyId;
@@ -48,5 +47,3 @@ taskRouter.delete("/:companyId/tasks/:taskId", async function (req, res, next) {
 		}
 	}
 });
-
-module.exports = taskRouter;

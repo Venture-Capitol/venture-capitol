@@ -1,9 +1,8 @@
 import { Router } from "express";
 import HttpException from "../../utils/HttpException";
+import * as UserService from "./UserService";
 
-const userRouter = Router();
-
-const UserService = require("./UserService");
+export const userRouter = Router();
 
 userRouter.get("/:userId", async function (req, res, next) {
 	const userId = req.params.userId;
@@ -20,5 +19,3 @@ userRouter.get("/:userId", async function (req, res, next) {
 		}
 	}
 });
-
-module.exports = userRouter;

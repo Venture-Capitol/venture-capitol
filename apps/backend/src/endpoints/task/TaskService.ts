@@ -1,11 +1,8 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import HttpException from "../../utils/HttpException";
+import { prisma } from "../../utils/Prisma";
 
-const prisma = new PrismaClient({
-	rejectOnNotFound: true,
-});
-
-async function findAllTasksByCompanyId(companyId: string) {
+export async function findAllTasksByCompanyId(companyId: string) {
 	try {
 		await prisma.company.findUnique({
 			where: {
@@ -29,7 +26,7 @@ async function findAllTasksByCompanyId(companyId: string) {
 	}
 }
 
-async function addTaskToCompany(companyId: string, taskId: string) {
+export async function addTaskToCompany(companyId: string, taskId: string) {
 	try {
 		await prisma.company.findUnique({
 			where: {
@@ -48,7 +45,7 @@ async function addTaskToCompany(companyId: string, taskId: string) {
 	}
 }
 
-async function deleteTaskFromCompany(companyId: string, taskId: string) {
+export async function deleteTaskFromCompany(companyId: string, taskId: string) {
 	try {
 		await prisma.company.findUnique({
 			where: {
@@ -74,9 +71,3 @@ async function deleteTaskFromCompany(companyId: string, taskId: string) {
 		}
 	}
 }
-
-module.exports = {
-	findAllTasksByCompanyId,
-	addTaskToCompany,
-	deleteTaskFromCompany,
-};

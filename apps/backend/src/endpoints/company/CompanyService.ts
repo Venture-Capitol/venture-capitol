@@ -1,11 +1,8 @@
-import { Prisma, PrismaClient, LegalForm } from "@prisma/client";
+import { Prisma, LegalForm } from "@prisma/client";
 import HttpException from "../../utils/HttpException";
+import { prisma } from "../../utils/Prisma";
 
-const prisma = new PrismaClient({
-	rejectOnNotFound: true,
-});
-
-async function addCompany(name: string, legalForm: string) {
+export async function addCompany(name: string, legalForm: string) {
 	try {
 		const createdCompany = await prisma.company.create({
 			data: {
@@ -19,7 +16,7 @@ async function addCompany(name: string, legalForm: string) {
 	}
 }
 
-async function findAllCompanies() {
+export async function findAllCompanies() {
 	try {
 		const foundCompanies = await prisma.company.findMany({
 			select: {
@@ -36,7 +33,7 @@ async function findAllCompanies() {
 	}
 }
 
-async function findCompanyById(userId: string) {
+export async function findCompanyById(userId: string) {
 	try {
 		const foundCompany = await prisma.company.findUnique({
 			where: {
@@ -49,7 +46,7 @@ async function findCompanyById(userId: string) {
 	}
 }
 
-async function deleteCompanyById(companyId: string) {
+export async function deleteCompanyById(companyId: string) {
 	try {
 		await prisma.company.delete({
 			where: {
@@ -66,10 +63,3 @@ async function deleteCompanyById(companyId: string) {
 		}
 	}
 }
-
-module.exports = {
-	addCompany,
-	findAllCompanies,
-	findCompanyById,
-	deleteCompanyById,
-};
