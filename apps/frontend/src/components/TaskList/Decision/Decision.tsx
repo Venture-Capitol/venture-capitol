@@ -5,22 +5,30 @@ import styles from "./Decision.module.scss";
 
 interface DecisionProps {
 	id: string;
-	shortName: string;
+	name: string;
 	next: string[];
 	url: string;
 	children: Array<ReactElement<DecisionPathProps>>;
+	selectedPath?: number;
 }
 
 const Decision: FC<DecisionProps> = ({
 	id,
-	shortName,
+	name,
 	next,
 	url,
 	children,
+	selectedPath,
 }) => {
 	return (
 		<div className={styles.decision}>
-			<DecisionNode id={id} shortName={shortName} next={next} url={url} />
+			<DecisionNode
+				id={id}
+				name={name}
+				next={next}
+				url={url}
+				selectedPath={selectedPath}
+			/>
 			<div className={styles.decision_path_container}>{children}</div>
 		</div>
 	);

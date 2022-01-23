@@ -7,3 +7,13 @@ services:
       POSTGRES_DB: $DB_NAME
     ports:
       - "127.0.0.1:5433:5432"
+  utr-backend:
+    build:
+      context: ../../
+      dockerfile: ./apps/utr-backend/Dockerfile
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8103
+      DATABASE_URL: postgresql://DB_USER:$DB_PWD@db:5432/$DB_NAME
+    ports:
+      - "127.0.0.1:8103:8103"

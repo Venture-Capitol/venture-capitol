@@ -1,0 +1,13 @@
+.maindiv_instruction {
+	display: flex;
+	justify-content: center;
+	padding-top: 5%;
+	margin: 0px 40px;
+}
+
+.instruction {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-24px);
+	text-align: center;
+}

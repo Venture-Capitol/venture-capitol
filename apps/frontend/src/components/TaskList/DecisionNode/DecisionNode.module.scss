@@ -1,4 +1,5 @@
 .decision_node {
+	--border-col: #ecddd6;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -7,10 +8,11 @@
 	padding: 30px;
 	height: 50px;
 	background-color: #fff;
-	border-top: 1px solid var(--color-grey-200);
-	border-bottom: 1px solid var(--color-grey-200);
+
+	border-top: 1px solid var(--border-col);
+	border-bottom: 1px solid var(--border-col);
 	border-radius: 8px;
-	box-shadow: 0px 12px 10px rgba(109, 112, 193, 0.05);
+	box-shadow: 0px 12px 10px rgba(236, 126, 75, 0.05);
 	color: var(--color-grey-800);
 	transition-property: background-color, color, border-color;
 	transition: background-color 0.15s ease-out;
@@ -35,8 +37,9 @@
 		position: absolute;
 		top: 6px;
 		z-index: -1;
-		border-top: 1px solid var(--color-grey-200);
-		border-right: 1px solid var(--color-grey-200);
+		border-top: 1px solid var(--border-col);
+		transition: background-color 0.15s ease-out;
+		border-right: 1px solid var(--border-col);
 		background-color: #fff;
 		clip-path: polygon(
 			100% 100%,
@@ -63,15 +66,15 @@
 	}
 
 	&[data-checked="true"] {
-		background: var(--color-green-300);
-		border-color: var(--color-green-600);
-		color: var(--color-green-900);
+		background: var(--color-green-100);
+		border-color: var(--color-green-300);
+		color: var(--color-green-800);
 		box-shadow: 0px 12px 10px rgba(0, 204, 82, 0.05);
 
 		&::before,
 		&::after {
-			background: var(--color-green-300);
-			border-color: var(--color-green-600);
+			background: var(--color-green-100);
+			border-color: var(--color-green-300);
 			box-shadow: 0px 12px 10px rgba(0, 204, 82, 0.05);
 		}
 	}

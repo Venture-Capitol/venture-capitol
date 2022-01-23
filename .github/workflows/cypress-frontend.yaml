@@ -2,12 +2,12 @@ name: Frontend Cypress Test
 on:
   pull_request:
     branches:
-      - main
+      # - main
       - develop
-  push:
-    paths:
-      - "apps/frontend/**"
-      - ".github/workflows/cypress-frontend.yaml"
+  # push:
+  #   paths:
+  #     - "apps/frontend/**"
+  #     - ".github/workflows/cypress-frontend.yaml"
 jobs:
   test:
     runs-on: ubuntu-20.04

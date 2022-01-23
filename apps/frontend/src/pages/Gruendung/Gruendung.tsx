@@ -1,15 +1,18 @@
-import Button from "@vc/frontend/component/Button/Button";
-import ProcessProvider, {
-	useProcessContext,
-} from "@vc/frontend/component/ProcessContext/ProcessContext";
+import { ArrowSmLeftIcon, ArrowSmRightIcon } from "@heroicons/react/solid/esm";
+import { TaskNodeContainer } from "@vc/frontend/component/TaskList/TaskNode/TaskNode";
+import Button from "@vc/ui/src/components/Button/Button";
+import {
+	ProcessedTaskNode,
+	ProcessedTaskNodes,
+	useGruendungContext,
+} from "contexts/Gruendung/Gruendung";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import TaskList from "../../components/TaskList/TaskList";
-// import "./markdown.scss";
 import s from "./Gruendung.module.scss";
 import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle";
 
-const Content = () => {
+const Gruendung = () => {
 	const [htmlContent, setHtmlContent] = useState<string | undefined>();
 	const [loadingState, setLoadingState] = useState<
 		undefined | "loading" | "error"
@@ -24,6 +27,8 @@ const Content = () => {
 			setHtmlContent(module.html);
 			setLoadingState(undefined);
 		} catch (error) {
+			console.log(error);
+
 			setLoadingState("error");
 			setHtmlContent(undefined);
 		}
@@ -33,7 +38,8 @@ const Content = () => {
 		setMarkDownComponent();
 	}, [task]);
 
-	const { unprocessedNodes } = useProcessContext();
+	const { unprocessedNodes, nodes, setDecisionStatus } = useGruendungContext();
+	// const completed = nodes[props.taskId] ? nodes[props.taskId].checked : false;
 
 	return (
 		<div className={s.splitView}>
@@ -41,9 +47,11 @@ const Content = () => {
 				<TaskList />
 			</div>
 
-			<main className={s.content + " markdown-body"}>
+			<main className='content'>
 				<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
-				<CompletedToggle />
+				{unprocessedNodes[task].type == "task" && (
+					<CompletedToggle taskId={task} />
+				)}
 
 				{loadingState == "loading" && (
 					<div className={s.loadingIndicator}>
@@ -53,10 +61,13 @@ const Content = () => {
 						<div></div>
 					</div>
 				)}
+
 				{loadingState == "error" && (
 					<div>
 						<p>Fehler beim Laden der Seite...</p>
-						<button onClick={() => setMarkDownComponent()}>Neu Laden</button>
+						<div onClick={() => location.reload()}>
+							<Button>Seite neu Laden</Button>
+						</div>
 					</div>
 				)}
 
@@ -64,18 +75,116 @@ const Content = () => {
 					<div dangerouslySetInnerHTML={{ __html: htmlContent }} />
 				)}
 
+				{/* Show decision options for decision */}
 				{task &&
 					unprocessedNodes[task] &&
-					unprocessedNodes[task].next.map(next => {
-						return (
-							<Link to={next}>
-								<button>Weiter zu "{unprocessedNodes[next].shortName}"</button>
+					unprocessedNodes[task].type == "decision" && (
+						<div className={s.aside}>
+							<TaskNodeContainer
+								checked={nodes[task]?.selectedPath == 0}
+								onChange={active =>
+									setDecisionStatus(
+										task,
+										nodes[task]?.selectedPath == 0 ? undefined : 0
+									)
+								}
+								onClick={() => {
+									setDecisionStatus(
+										task,
+										nodes[task]?.selectedPath == 0 ? undefined : 0
+									);
+								}}
+								text={
+									nodes[task]?.selectedPath == 0
+										? unprocessedNodes[unprocessedNodes[task].next[0]]
+												.shortName + " gewählt"
+										: unprocessedNodes[unprocessedNodes[task].next[0]]
+												.shortName + " wählen"
+								}
+							/>
+							<TaskNodeContainer
+								checked={nodes[task]?.selectedPath == 1}
+								onChange={active => {
+									console.log(active);
+									setDecisionStatus(
+										task,
+										nodes[task]?.selectedPath == 1 ? undefined : 1
+									);
+								}}
+								onClick={() => {
+									setDecisionStatus(
+										task,
+										nodes[task]?.selectedPath == 1 ? undefined : 1
+									);
+								}}
+								text={
+									nodes[task]?.selectedPath == 1
+										? unprocessedNodes[unprocessedNodes[task].next[1]]
+												.shortName + " gewählt"
+										: unprocessedNodes[unprocessedNodes[task].next[1]]
+												.shortName + " wählen"
+								}
+							/>
+						</div>
+					)}
+
+				{/* back / forward navigation */}
+				<div className={s.bottomNav}>
+					{/* Go back */}
+					{nodes[task]?.prev[0] && (
+						<Link to={nodes[task].prev[0]} key={nodes[task].prev[0]}>
+							<ArrowSmLeftIcon />
+							Zurück zu {nodes[nodes[task].prev[0]].shortName}
+						</Link>
+					)}
+
+					{/* if not decision, go forward */}
+					{nodes[task]?.type != "decision" && nodes[task]?.next[0] && (
+						<Link
+							to={unprocessedNodes[task].next[0]}
+							key={unprocessedNodes[task].next[0]}
+						>
+							Weiter zu{" "}
+							{unprocessedNodes[unprocessedNodes[task].next[0]].shortName}
+							<ArrowSmRightIcon />
+						</Link>
+					)}
+
+					{/* if decision && selctedPath ? next : selectsomething */}
+					{nodes[task]?.type == "decision" ? (
+						nodes[task]?.selectedPath != undefined ? (
+							<Link to={unprocessedNodes[task].next[nodes[task].selectedPath!]}>
+								Weiter zu{" "}
+								{
+									unprocessedNodes[
+										unprocessedNodes[task].next[nodes[task].selectedPath!]
+									]?.shortName
+								}
+								<ArrowSmRightIcon />
 							</Link>
-						);
-					})}
+						) : (
+							<a className={s.disabled}>
+								Erst Auswahl treffen
+								<ArrowSmRightIcon />
+							</a>
+						)
+					) : null}
+				</div>
 			</main>
 		</div>
 	);
 };
 
-export default Content;
+function findNextNode(
+	nodes: ProcessedTaskNodes,
+	node: string,
+	selectedPath: number
+): ProcessedTaskNode {
+	let currNode = nodes[nodes[node].next[selectedPath]];
+
+	while (currNode.type == "empty") {
+		currNode = nodes[currNode.next[0]];
+	}
+	return currNode;
+}
+export default Gruendung;

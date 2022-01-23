@@ -16,6 +16,7 @@ router.get("/search", function (req, res, next) {
 		req.query.jobname,
 		req.query.latitude,
 		req.query.longitude,
+		req.query.page,
 		function (error: Error | ApplicationError, result: DistanceEntry[]) {
 			if (error) {
 				logger.error(error.message);

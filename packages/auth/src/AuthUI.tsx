@@ -11,7 +11,7 @@ export const AuthUI: FC = () => {
 	const currentUser = useContext(AuthContext);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const loader = <div id='loader'></div>;
+	const loader = <div id='loader' style={{ height: "72px" }}></div>;
 
 	const uiConfig = {
 		callbacks: {
