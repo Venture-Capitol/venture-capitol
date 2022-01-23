@@ -13,6 +13,7 @@ import s from "./Gruendung.module.scss";
 import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle";
 
 const Gruendung_TaskId = () => {
+	const { unprocessedNodes, nodes, setDecisionStatus } = useGruendungContext();
 	const [htmlContent, setHtmlContent] = useState<string | undefined>();
 	const [loadingState, setLoadingState] = useState<
 		undefined | "loading" | "error"
@@ -36,9 +37,12 @@ const Gruendung_TaskId = () => {
 
 	useEffect(() => {
 		setMarkDownComponent();
-	}, [task]);
 
-	const { unprocessedNodes, nodes, setDecisionStatus } = useGruendungContext();
+		// @ts-ignoreest 5
+		document
+			.querySelector(`[data-id="${task}"]`)
+			?.scrollIntoViewIfNeeded(false);
+	}, [task]);
 
 	return (
 		<div className={s.splitView}>
