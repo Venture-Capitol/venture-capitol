@@ -8,7 +8,6 @@ export interface DecisionNodeProps {
 	url: string;
 	selectedPath?: number;
 }
-
 const DecisionNode: FC<DecisionNodeProps> = ({
 	id,
 	name,

@@ -45,7 +45,7 @@ const Nodes = () => {
 							key={nextNode.id}
 							id={nextNode.id}
 							next={nextNode.next}
-							shortName={nextNode.shortName}
+							name={nextNode.name}
 							url={nextNode.id}
 							checked={nextNode.checked}
 						/>
@@ -80,7 +80,7 @@ const Nodes = () => {
 					<TaskNode
 						id={node.id}
 						next={node.next}
-						shortName={node.shortName}
+						name={node.name}
 						url={node.id}
 						checked={node.checked}
 					/>
@@ -98,7 +98,7 @@ const Nodes = () => {
 						key={node.id}
 						id={node.id}
 						next={node.next}
-						shortName={node.shortName}
+						name={node.name}
 						url={node.id}
 						selectedPath={node.selectedPath}
 					>
