@@ -53,6 +53,11 @@
 		justify-content: center;
 	}
 
+	&[data-selected="true"] {
+		color: var(--color-purple-700);
+		border-color: #bfabe6;
+	}
+
 	&[data-task] {
 		margin: 50px 0px;
 
@@ -73,6 +78,14 @@
 		border-color: var(--color-green-300);
 		color: var(--color-green-800);
 		box-shadow: 0px 12px 10px rgba(0, 204, 82, 0.05);
+
+		&[data-selected="true"] {
+			border-width: 2px;
+			color: var(--color-green-900);
+			span {
+				font-weight: 700;
+			}
+		}
 
 		label {
 			background: var(--color-green-100);
