@@ -1,0 +1,76 @@
+### --- DELETE /company/:companyId ---
+
+@Token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSnVsaWFuIEhvZmYiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2cyTU0xVGpVbHJadFlCaUpxYXRmdUp2Z2pJYXQ4ZUlIZHUwOU4yTFE9czk2LWMiLCJyb2xlIjoidXNlciIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS92ZW50dXJlLWNhcGl0b2wiLCJhdWQiOiJ2ZW50dXJlLWNhcGl0b2wiLCJhdXRoX3RpbWUiOjE2NDI2OTExMjUsInVzZXJfaWQiOiJvbkZkYm44NVM2Y25yc1dINXB2YmdQRXFTZXQyIiwic3ViIjoib25GZGJuODVTNmNucnNXSDVwdmJnUEVxU2V0MiIsImlhdCI6MTY0MjY5MTEyNSwiZXhwIjoxNjQyNjk0NzI1LCJlbWFpbCI6Imp1bGlhbi5qdXRzb0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExNTM5NzgxMjkzOTIyNjg1NDUwOSJdLCJlbWFpbCI6WyJqdWxpYW4uanV0c29AZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.TMFstfMP-stB2XhWGoqs1JRaNybKxlcBf7GPvQaTClx1ZFAGNoQiMJwAmlEh47dkStukuAX46D_8ITuTxcQ8u2YgFwtZ2OnV8uPa_H1hE9tFckGQWige8y_DVBFFSBmkFHugmawTADFaQuxRAUUppYWJAszppEdZMwwDZbD_ZqZ_JkLLePZEXCu5k6AcAnWuhqLsCsJDE3JBREJXkkM-SO7ArOM4E2Fu4KjM7wE04ba3SLptIKcVuk-hKpNOOhAa37Jjbo_oJExK_Z-7Ff0X9HS4IjdG59EKO8QfXPslX-rilH9fzVKukycpKPVt-mhffMz4NUxwsyZuK1wUBggeew
+
+### COMPANY delete using valid id for entry that exists
+DELETE http://localhost:8101/api/company/c51dfb47-1d21-4ca1-88ac-01056fbedad9
+Authorization: Bearer {{Token}}
+
+### COMPANY delete using invalid datatype for id | SHOULD FAIL & RETURN 400
+DELETE http://localhost:8101/api/company/2
+Authorization: Bearer {{Token}}
+
+### COMPANY delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
+DELETE http://localhost:8101/api/company/cbef751e-e4b2-47a4-8666-2b6d6eb916e1/
+Authorization: Bearer {{Token}}
+
+
+### --- DELETE /company/:companyId/decisions/:decisionId ---
+
+### DECISION delete using valid id for entry that exists
+DELETE http://localhost:8101/api/company/54b3b4a4-a813-4084-b34c-b22fe6958177/tasks/3
+Authorization: Bearer {{Token}}
+
+### DECISION delete using invalid datatype for id | SHOULD FAIL & RETURN 400
+DELETE http://localhost:8101/company/54b3b4a4-a813-4084-b34c-b22fe6958177/decisions/99
+Authorization: Bearer {{Token}}
+
+### DECISION delete using invalid datatype for id | SHOULD FAIL & RETURN 400
+DELETE http://localhost:8101/api/company/54b3b4a4-a813-4084-b34c-b22fe6958177/decisions/12
+Authorization: Bearer {{Token}}
+
+### DECISION delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
+DELETE http://localhost:8103/company/1/decisions/99
+Authorization: Bearer {{Token}}
+
+### DECISION delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
+DELETE http://localhost:8103/company/99/decisions/1
+Authorization: Bearer {{Token}}
+
+### --- DELETE company/:companyId/tasks/:taskId ---
+
+### TASK delete using valid id for entry that exists
+DELETE http://localhost:8103/company/1/tasks/1
+Authorization: Bearer {{Token}}
+
+### TASK delete using invalid datatype for id | SHOULD FAIL & RETURN 400
+DELETE http://localhost:8103/company/1/tasks/99A
+Authorization: Bearer {{Token}}
+
+### TASK delete using invalid datatype for id | SHOULD FAIL & RETURN 400
+DELETE http://localhost:8103/company/99A/tasks/1
+Authorization: Bearer {{Token}}
+
+### TASK delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
+DELETE http://localhost:8103/company/1/tasks/99
+Authorization: Bearer {{Token}}
+
+### TASK delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
+DELETE http://localhost:8103/company/99/tasks/1
+Authorization: Bearer {{Token}}
+
+### --- DELETE company/:companyId/tasks/:taskId ---
+
+### USER delete using valid id for entry that exists
+DELETE http://localhost:8103/user/1
+Authorization: Bearer {{Token}}
+
+### USER delete using invalid datatype for id | SHOULD FAIL & RETURN 400
+DELETE http://localhost:8103/user/99A
+Authorization: Bearer {{Token}}
+
+### USER delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
+DELETE http://localhost:8103/user/99
+Authorization: Bearer {{Token}}
+
+
