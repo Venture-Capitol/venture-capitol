@@ -9,4 +9,4 @@ Diese Arbeit wird euch über die Jahre verbinden, da hier eine enge Zusammenarbe
 Die Frage die du dir noch stellen kannst ist ob du die vorbereitende Buchhaltung in die eigene Hand nehmen möchtest.
 Ansonsten kannst du wirklich einfach alle Belege sammeln, sie deinem Steuerberater zukommen lassen und dieser kümmert sich darum dass alles andere läuft.
 
-Und nicht vergessen: der Steuerberater ist auch ein guter Partner für viele Fragen rund um deine Gründung, Finanzierungsthemen und Fragen rund um dein Unternehmen organisatorischer Natur. Viele Steuerberater haben einen großen Erfahrunngsschatz und unterstützen sich sicher gerne wenn mal etwas unklar ist.
+Und nie vergessen: dein Steuerberater ist auch ein guter Partner für viele Fragen rund um deine Gründung, Finanzierungsthemen und Fragen rund um dein Unternehmen organisatorischer Natur. Viele Steuerberater haben einen großen Erfahrunngsschatz und unterstützen sich sicher gerne wenn mal etwas unklar ist.
