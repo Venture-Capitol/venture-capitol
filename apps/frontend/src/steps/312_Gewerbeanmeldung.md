@@ -32,11 +32,11 @@ Hier lohnt es sich gut vorbereitet zu erscheinen. Für die Durchführung einer G
 
 ## Darfst du direkt loslegen?
 
-Die Gewerbeanmeldung berechtigt nicht zur Aufnahme der gewerblichen Tätigkeit, wenn noch eine besondere Erlaubnis (z.B. die Gaststättenkonzession) oder die Eintragung in die Handwerksrolle notwendig ist.
+Die Gewerbeanmeldung berechtigt nicht zur Aufnahme der gewerblichen Tätigkeit, wenn noch eine besondere Erlaubnis (z.B. die Gaststättenkonzession) oder die Eintragung in die Handwerksrolle notwendig ist. Abgesehen davon darfst du jetzt starten.
 
 ## Genehmigungspflichtige Gewerbe
 
-Bei einigen Tätigkeiten musst du dich wie bereits kurz erwähnt noch mit den speziellen Regelungen einer Erlaubnispflicht beschäftigen. Die erlaubnispflichtigen Tätigkeiten erfährst du beim Gewerbeamt. Zudem gibt es genehmigungspflichtige Tätigkeiten. Die Erlaubnis wird in der Regel durch die zuständige Behörde erteilt.
+Bei einigen Tätigkeiten musst du dich wie bereits kurz erwähnt noch mit den speziellen Regelungen einer Erlaubnispflicht beschäftigen. Die erlaubnispflichtigen Tätigkeiten erfährst du beim Gewerbeamt. Zudem gibt es genehmigungspflichtige Tätigkeiten.
 
 Klassische Unternehmen bei denen weitere Erlaubnisse eingeholt werden müssen sind:
 
