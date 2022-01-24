@@ -1,4 +1,4 @@
-import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
+import Dialog from "@vc/frontend/component/Popup/Dialog";
 import { AuthUI } from "@vc/auth";
 
 type SignInPopupProps = {
@@ -8,17 +8,16 @@ type SignInPopupProps = {
 const SignInPopup: React.FunctionComponent<SignInPopupProps> = ({
 	trigger,
 }) => (
-	<AlertDialog
+	<Dialog
 		title={"Hey!"}
-		action={<AuthUI />}
-		cancel={"Nein danke"}
-		legal={false}
+		close={"Nein danke"}
 		defaultOpen={true}
 		trigger={trigger}
 	>
 		Um dich als Dienstleister für unser Unternehmensregister zu registrieren
 		musst du angemeldet sein.
-	</AlertDialog>
+		<AuthUI />
+	</Dialog>
 );
 
 export default SignInPopup;
