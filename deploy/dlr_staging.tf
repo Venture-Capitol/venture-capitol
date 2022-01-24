@@ -69,7 +69,7 @@ resource "google_cloud_run_service" "dlr_staging_backend" {
           value_from {
             secret_key_ref {
               name = google_secret_manager_secret.dlr_staging_db_connection_string.secret_id
-              key  = "1"
+              key  = "latest"
             }
           }
         }
