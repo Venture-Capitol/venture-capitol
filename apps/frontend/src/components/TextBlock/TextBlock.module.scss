@@ -2,14 +2,16 @@
 	width: 100%;
 	position: relative;
 	height: 80vh;
+	line-break: break-all;
 
-	@media (max-width: 768px) {
-		padding: 0 15px;
+	@media (max-width: 950px) {
+		padding: 20px 15px 0px;
 	}
 
 	.page_content {
-		overflow: scroll;
-		height: calc(100% - 80px);
+		overflow-y: scroll;
+		overflow-x: hidden;
+		height: calc(100% - 72px);
 		-ms-overflow-style: none;
 		scrollbar-width: none;
 		padding-bottom: 200px;
@@ -23,11 +25,16 @@
 		display: none;
 	}
 
+	li {
+		font-size: 18px;
+	}
+
 	.bot_gradient {
+		pointer-events: none;
 		height: 200px;
 		width: 100%;
 		position: absolute;
-		bottom: 0;
+		bottom: -40px;
 		left: 0;
 		background: linear-gradient(transparent 0%, #f6f5f8 100%);
 		z-index: 10;

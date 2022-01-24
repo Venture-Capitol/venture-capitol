@@ -4,10 +4,11 @@
 	cursor: pointer;
 	position: absolute;
 	left: -50px;
-	top: 5px;
+	top: 20px;
+	transition: 0.1s ease-in-out;
 
-	@media (max-width: 768px) {
-		top: -50px;
+	@media (max-width: 950px) {
+		top: -10px;
 		left: unset;
 	}
 }

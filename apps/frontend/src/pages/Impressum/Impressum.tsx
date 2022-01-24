@@ -15,7 +15,7 @@ export default function Impressum() {
 		>
 			<div
 				style={{
-					width: "1120px",
+					width: "900px",
 				}}
 			>
 				<TextBlock title='Impressum' arrow={true}>
