@@ -9,7 +9,7 @@ export interface DistanceEntry extends Entry {
 	distance: number;
 }
 
-async function searchEntries(
+export async function searchEntries(
 	jobname: string,
 	lat: number,
 	long: number,
@@ -93,7 +93,7 @@ async function searchEntries(
 	}
 }
 
-async function getAllEntries(
+export async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
 	amount?: number,
@@ -145,7 +145,7 @@ async function getAllEntries(
 }
 
 // TODO Add code which makes admin create a verified Entry
-async function createEntry(
+export async function createEntry(
 	job: string,
 	company: string,
 	address: string,
@@ -193,7 +193,7 @@ async function createEntry(
 	}
 }
 
-async function getEntry(entryID: number, callback: Function) {
+export async function getEntry(entryID: number, callback: Function) {
 	if (isNaN(entryID)) {
 		return callback(
 			new ApplicationError(
@@ -234,7 +234,7 @@ async function getEntry(entryID: number, callback: Function) {
 	}
 }
 
-async function updateEntry(id: number, body: any, callback: Function) {
+export async function updateEntry(id: number, body: any, callback: Function) {
 	if (isNaN(id) || !body) {
 		return callback(
 			new ApplicationError(
@@ -283,7 +283,7 @@ async function updateEntry(id: number, body: any, callback: Function) {
 	}
 }
 
-async function deleteEntry(id: number, callback: Function) {
+export async function deleteEntry(id: number, callback: Function) {
 	if (isNaN(id)) {
 		return callback(
 			new ApplicationError("Fehlerhafte Anfrage. ID muss number sein.", 400)
@@ -324,7 +324,7 @@ async function deleteEntry(id: number, callback: Function) {
 	deleteEntry,
 }; */
 
-export default {
+/* export default {
 	searchEntries,
 	getAllEntries,
 	createEntry,
@@ -332,3 +332,4 @@ export default {
 	updateEntry,
 	deleteEntry,
 };
+ */

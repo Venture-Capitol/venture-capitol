@@ -8,19 +8,19 @@ import { Entry } from "@prisma/client";
 import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
-import EntryService from "./EntryService";
-import EntryUtils from "../utils/EntryUtils";
+import * as EntryService from "./EntryService";
+import * as EntryUtils from "../utils/EntryUtils";
 
 router.get("/search", function (req, res, next) {
 	console.log(req.query.jobname);
 	console.log(req.query.latitude);
 	console.log(req.query.longitude);
 	console.log(req.query.page);
-	/* EntryService.searchEntries(
-		req.query.jobname as string,
-		req.query.latitude as string,
-		req.query.longitude,
-		req.query.page,
+	EntryService.searchEntries(
+		String(req.query.jobname),
+		Number(req.query.latitude),
+		Number(req.query.longitude),
+		Number(req.query.page),
 		function (error: Error | ApplicationError, result: DistanceEntry[]) {
 			if (error) {
 				logger.error(error.message);
@@ -45,10 +45,10 @@ router.get("/search", function (req, res, next) {
 				res.send(mappedSubset);
 			}
 		}
-	); */
+	);
 });
 
-/* router.get("/", getUser, isAdmin, function (req, res, next) {
+router.get("/", getUser, isAdmin, function (req, res, next) {
 	EntryService.getAllEntries(
 		function (error: Error | ApplicationError, result: Entry[]) {
 			if (error) {
@@ -62,9 +62,9 @@ router.get("/search", function (req, res, next) {
 				res.send(result);
 			}
 		},
-		req.query.verified,
-		req.query.amount,
-		req.query.page
+		Boolean(req.query.verified),
+		Number(req.query.amount),
+		Number(req.query.page)
 	);
 });
 
@@ -114,9 +114,8 @@ router.get("/:id", function (req, res, next) {
 });
 
 router.put("/:id", getUser, isAdmin, function (req, res, next) {
-	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.updateEntry(
-		idAsNumber,
+		Number(req.params.id),
 		req.body.editedEntry,
 		function (error: Error | ApplicationError, result: Entry) {
 			if (error) {
@@ -134,9 +133,8 @@ router.put("/:id", getUser, isAdmin, function (req, res, next) {
 });
 
 router.delete("/:id", getUser, isAdmin, function (req, res, next) {
-	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.deleteEntry(
-		idAsNumber,
+		Number(req.params.id),
 		function (error: Error | ApplicationError) {
 			if (error) {
 				logger.error(error.message);
@@ -150,7 +148,7 @@ router.delete("/:id", getUser, isAdmin, function (req, res, next) {
 			}
 		}
 	);
-}); */
+});
 
 /* WILL BE DELETED AFTER ALL TESTS ARE COMPLETE
 router.post("/addMany", function (req, res, next) {
@@ -167,6 +165,6 @@ router.post("/addMany", function (req, res, next) {
 		}
 	});
 });
-*/
+ */
 
 module.exports = router;
