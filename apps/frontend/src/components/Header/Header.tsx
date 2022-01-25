@@ -3,23 +3,18 @@ import React, { FC, useContext, useState } from "react";
 import s from "./Header.module.scss";
 import wordmarkIcon from "../../assets/wordmark.svg";
 import emblemIcon from "../../assets/emblem.svg";
-import userIcon from "../../assets/user-circle.svg";
-import dotsIcon from "../../assets/dots-horizontal.svg";
 import Menu from "../Menu/Menu";
 import * as DropdownMenuTemplate from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Link, NavLink } from "react-router-dom";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
+import { DotsHorizontalIcon, UserCircleIcon } from "@heroicons/react/solid/esm";
 
 const Header: FC = () => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 	const currentUser = useContext<User | null>(AuthContext);
 	const isMobileWidth = useMediaQuery("(max-width: 950px)");
-
-	const avatarFallbackSvg = (
-		<img className={s.avatarFallbackImage} src={userIcon}></img>
-	);
 
 	const userInfo = (
 		<div className={s.userInfo}>
@@ -33,7 +28,7 @@ const Header: FC = () => {
 					{currentUser?.displayName ? (
 						<div>{getInitials(currentUser.displayName)}</div>
 					) : (
-						avatarFallbackSvg
+						<UserCircleIcon className={s.avatarFallbackImage} />
 					)}
 				</AvatarFallback>
 			</Avatar>
@@ -56,19 +51,19 @@ const Header: FC = () => {
 
 	const loggedOutMenuIcon = (
 		<div className={s.menuIconWrapper}>
-			<img src={dotsIcon} className={s.menuIcon}></img>
+			<DotsHorizontalIcon className={s.menuIcon} />
 		</div>
 	);
 
 	const menu = (
-		<div>
+		<>
 			<DropdownMenuTemplate.Root>
 				<DropdownMenuTemplate.Trigger className={s.dropdownMenuTrigger}>
 					{currentUser ? userInfo : loggedOutMenuIcon}
 				</DropdownMenuTemplate.Trigger>
 				<Menu isLoggedIn={currentUser != null} />
 			</DropdownMenuTemplate.Root>
-		</div>
+		</>
 	);
 
 	const mobileMenu = (
