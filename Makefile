@@ -1,6 +1,6 @@
 .PHONY: build_be
 build_be:
-	docker build  -t vc-backend:latest -f ./apps/backend/Dockerfile.esbuild .
+	docker build  -t vc-backend:latest -f ./apps/backend/Dockerfile .
 
 
 .PHONY: run_be

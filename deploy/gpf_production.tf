@@ -57,7 +57,7 @@ resource "google_cloud_run_service" "backend" {
           value_from {
             secret_key_ref {
               name = google_secret_manager_secret.db_connection_string.secret_id
-              key  = "1"
+              key  = "latest"
             }
           }
         }

@@ -17,7 +17,7 @@ resource "google_secret_manager_secret" "staging_db_connection_string" {
 
 resource "google_secret_manager_secret_version" "staging_db_connection_string" {
   secret      = google_secret_manager_secret.staging_db_connection_string.name
-  secret_data = "postgresql://${var.staging_db_name}:${random_password.staging_db_password.result}@localhost/${var.staging_db_name}?host=/cloudsql/${google_sql_database_instance.vc_db.connection_name}"
+  secret_data = "postgresql://${var.staging_db_user}:${random_password.staging_db_password.result}@localhost/${var.staging_db_name}?host=/cloudsql/${google_sql_database_instance.vc_db.connection_name}"
 }
 
 # Give access rights of secret to backend service account
@@ -44,6 +44,7 @@ resource "google_cloud_run_service" "staging_backend" {
   location                   = "europe-west1"
   autogenerate_revision_name = true
 
+
   template {
     spec {
       service_account_name = google_service_account.backend_sa.email
@@ -57,7 +58,7 @@ resource "google_cloud_run_service" "staging_backend" {
           value_from {
             secret_key_ref {
               name = google_secret_manager_secret.staging_db_connection_string.secret_id
-              key  = "1"
+              key  = "latest"
             }
           }
         }

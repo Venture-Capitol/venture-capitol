@@ -1,3 +1,0 @@
-[
-	"type Dog {\n  name: String!\n  owner: Human\n}\n\ntype Human {\n  name: String!\n}\n\ntype Mutation {\n  add(x: Int!, y: Int!): Int!\n  createNotification(message: String!): Boolean!\n}\n\ntype Query {\n  Hello: String!\n  dogs: [Dog!]!\n  humans: [Human!]!\n}\n\ntype Subscription {\n  newNotification: String!\n}"
-]

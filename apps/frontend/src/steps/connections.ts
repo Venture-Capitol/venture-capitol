@@ -15,90 +15,168 @@ interface ConnectionsData {
 }
 
 export const taskGraph: ConnectionsData = {
-	initialNode: "01_content",
+	initialNode: "300_Start",
 	nodes: {
-		"02_content": {
-			name: "Test 2",
-			shortName: "Test 2",
+		"300_Start": {
+			type: "task",
+			name: "UG gründen",
+			shortName: "Start",
+			next: ["301_Namensfindung"],
+		},
+		"301_Namensfindung": {
+			type: "task",
+			name: "Wie soll das Unternehmen heißen?",
+			shortName: "Namensfindung",
+			next: ["302_Entscheidung_Gesellschaftsvertrag"],
+		},
+		"302_Entscheidung_Gesellschaftsvertrag": {
 			type: "decision",
-			next: ["03_content", "5"],
+			name: "UG gründen mit Musterprotokoll oder lieber individueller Gesellschaftsvertrag?",
+			shortName: "Entscheidung Gesellschaftsvertrag",
+			next: ["303_Musterprotokoll", "304_erstellter_Vertrag"],
 		},
-		"01_content": {
+		"303_Musterprotokoll": {
 			type: "task",
-			name: "Test 1",
-			shortName: "Test 1",
-			next: ["02_content"],
+			name: "UG gründen mit Musterprotokoll",
+			shortName: "Musterprotokoll",
+			next: ["305_Notartermin"],
 		},
-		"04_content": {
+		"304_erstellter_Vertrag": {
 			type: "task",
-			name: "Test 4",
-			shortName: "Test 4",
-			next: ["5"],
+			name: "Wie du einen individuellen Gesellschaftsvertrag für deine UG entwirfst",
+			shortName: "Vertrag mit Anwalt",
+			next: ["305_Notartermin"],
 		},
-		"03_content": {
+		"305_Notartermin": {
 			type: "task",
-			name: "Test 3",
-			shortName: "Test 3",
-			next: ["04_content"],
+			name: "Notartermin UG Gründung",
+			shortName: "Notartermin",
+			next: ["306_Kontoeröffnung"],
 		},
-		"5": {
+		"306_Kontoeröffnung": {
+			type: "task",
+			name: "Geschäftskonto für deine UG",
+			shortName: "Geschäftskonto eröffnen",
+			next: ["307_Einzahlung_Stammkapital"],
+		},
+		"307_Einzahlung_Stammkapital": {
+			type: "task",
+			name: "Einzahlung des Stammkapitals bei der UG",
+			shortName: "Einzahlung Stammkapital",
+			next: ["308_Notarielle_Bestätigung"],
+		},
+		"308_Notarielle_Bestätigung": {
+			type: "task",
+			name: "Notarielle Bestätigung der Einzahlung & Eintragung im Handlesregister",
+			shortName: "Notarielle Bestätigung der Einzahlung",
+			next: ["309_Entscheidung_IHK_oder_HWK"],
+		},
+		"309_Entscheidung_IHK_oder_HWK": {
 			type: "decision",
-			name: "Test 5",
-			shortName: "Test 5",
-			next: ["6", "7"],
+			name: "Gehört meine Firma zur IHK oder zur Handwerkskammer?",
+			shortName: "IHK oder HWK",
+			next: ["310_IHK", "311_HWK"],
 		},
-		"6": {
+		"310_IHK": {
 			type: "task",
-			name: "Test 6 ist etwas länger",
-			shortName: "Test 6",
-			next: ["8"],
+			name: "Die Anmeldung bei der Industrie- und Handelskammer - deine IHK Mitgliedschaft",
+			shortName: "IHK Anmeldung",
+			next: ["312_Gewerbeanmeldung"],
 		},
-		"7": {
+		"311_HWK": {
 			type: "task",
-			name: "Test 7",
-			shortName: "Test 7",
-			next: ["8"],
+			name: "Die Eintragung in die Handwerkskammer - deine HWK Mitgliedschaft",
+			shortName: "HWK Anmeldung",
+			next: ["312_Gewerbeanmeldung"],
 		},
-		"8": {
-			name: "Test 8",
+		"312_Gewerbeanmeldung": {
+			type: "task",
+			name: "Die Gewerbeanmeldung für deine UG",
+			shortName: "Gewerbeanmeldung",
+			next: ["313_Rechnungen_und_Buchhaltung"],
+		},
+		"313_Rechnungen_und_Buchhaltung": {
+			type: "task",
+			name: "Wie du deine Rechnungen und Buchhaltung organisierst",
+			shortName: "Rechnungen und Buchhaltung",
+			next: ["314_Entscheidung_Steuerberater"],
+		},
+		"314_Entscheidung_Steuerberater": {
 			type: "decision",
-			shortName: "Test 8",
-			next: ["9", "11"],
+			name: "Brauchst du einen eigenen Steuerberater?",
+			shortName: "Entscheidung Steuerberater",
+			next: ["315_ohne_Steuerliche_Erfassung", "320_mit_Steuerberater_finden"],
 		},
-		"9": {
+		"315_ohne_Steuerliche_Erfassung": {
 			type: "task",
-			name: "Test 9 ist etwas länger",
-			shortName: "Test 9",
-			next: ["10"],
+			name: "Steuerliche Erfassung anstoßen",
+			shortName: "Steurliche Erfassung",
+			next: ["316_ohne_Agentur_für_Arbeit"],
 		},
-		"10": {
+		"316_ohne_Agentur_für_Arbeit": {
 			type: "task",
-			name: "Test 10",
-			shortName: "Test 10",
-			next: ["14"],
+			name: "Anmeldung bei der Agentur für Arbeit",
+			shortName: "Anmeldung Agentur für Arbeit",
+			next: ["317_ohne_Berufsgenossenschaft"],
 		},
-		"11": {
+		"317_ohne_Berufsgenossenschaft": {
 			type: "task",
-			name: "Test 11",
-			shortName: "Test 11",
-			next: ["12"],
+			name: "Anmeldung bei der Berufsgenossenschaft",
+			shortName: "Anmeldung Berufsgenossenschaft",
+			next: ["318_ohne_Lohnrechnungen_stellen"],
 		},
-		"12": {
+		"318_ohne_Lohnrechnungen_stellen": {
 			type: "task",
-			name: "Test 12",
-			shortName: "Test 12",
-			next: ["13"],
+			name: "Wie du deine Lohnrechnungen automatisieren kannst",
+			shortName: "Lohnrechnungen stellen",
+			next: ["319_ohne_Jahresabschluss_etc"],
 		},
-		"13": {
+		"319_ohne_Jahresabschluss_etc": {
 			type: "task",
-			name: "Test 13",
-			shortName: "Test 13",
-			next: ["14"],
+			name: "Jahresabschluss, GuV usw: Welche Pflichten hast du als UG?",
+			shortName: "Jahresabschluss und Ähnliches",
+			next: ["400_Ende"],
 		},
-		"14": {
+		"320_mit_Steuerberater_finden": {
 			type: "task",
-			name: "Test 14",
-			shortName: "Test 14",
+			name: "Wie du einen richtig guten Steuerberater findest",
+			shortName: "Steuerberater finden",
+			next: ["321_mit_Steuerliche_Erfassung"],
+		},
+		"321_mit_Steuerliche_Erfassung": {
+			type: "task",
+			name: "Hinweis an Steuerberater: Steuerliche Erfassung beim Finanzamt",
+			shortName: "Steuerliche Erfassung Steuerberater",
+			next: ["322_mit_Agentur_für_Arbeit"],
+		},
+		"322_mit_Agentur_für_Arbeit": {
+			type: "task",
+			name: "Hinweis an Steuerberater: Anmeldung Agentur für Arbeit",
+			shortName: "Agentur für Arbeit Steuerberater",
+			next: ["323_mit_Berufsgenossenschaft"],
+		},
+		"323_mit_Berufsgenossenschaft": {
+			type: "task",
+			name: "Hinweis an Steuerberater: Anmeldung bei der Berufsgenossenschaft",
+			shortName: "Berufsgenossenschaft Steuerberater",
+			next: ["324_mit_Lohnrechnungen_abgeben"],
+		},
+		"324_mit_Lohnrechnungen_abgeben": {
+			type: "task",
+			name: "Wie du deine Lohnrechnungen sinnvoll an deinen Steuerberater abgeben kannst",
+			shortName: "Lohnrechnungen Steuerberater",
+			next: ["325_mit_Aufgaben_Steuerberater"],
+		},
+		"325_mit_Aufgaben_Steuerberater": {
+			type: "task",
+			name: "Welche Aufgaben hat dein Steuerberater in Zukunft im Allgemeinen?",
+			shortName: "Zukünftige Aufgaben Steuerberater",
+			next: ["400_Ende"],
+		},
+		"400_Ende": {
+			type: "task",
+			name: "Hier gehts dann später zur nächsten Route",
+			shortName: "Ende",
 			next: [],
 		},
 	},

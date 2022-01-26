@@ -12,14 +12,6 @@
 		font-weight: 600;
 	}
 
-	ul {
-		padding-left: 2ch;
-	}
-
-	li {
-		list-style-position: outside;
-	}
-
 	@media (min-width: 680px) {
 		font-size: var(--size-20px);
 
@@ -46,6 +38,22 @@
 
 		&.split {
 			margin-bottom: 15vh;
+		}
+	}
+
+	ul {
+		padding-left: 2ch;
+	}
+
+	li {
+		list-style-position: outside;
+
+		&:not(:last-child) {
+			margin-bottom: 1rem;
+		}
+
+		&::marker {
+			content: "➔ ";
 		}
 	}
 
