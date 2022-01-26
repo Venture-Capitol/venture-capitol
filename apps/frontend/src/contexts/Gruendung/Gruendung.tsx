@@ -12,6 +12,7 @@ type GruendungContext = {
 	currentCompany?: Company;
 	setTaskStatus(taskId: string, status: boolean): void;
 	setDecisionStatus(decisionId: string, path?: number): void;
+	createCompany(legalForm: string): void;
 };
 
 const GruendungContext = React.createContext<GruendungContext>({
@@ -20,6 +21,7 @@ const GruendungContext = React.createContext<GruendungContext>({
 	unprocessedNodes: taskGraph.nodes,
 	setTaskStatus: () => {},
 	setDecisionStatus: () => {},
+	createCompany: () => {},
 });
 
 export function useGruendungContext() {
@@ -63,6 +65,9 @@ const GruendungContextProvider: FC = ({ children }) => {
 	const [nodes, setNodes] = useState<ProcessedTaskNodes>({});
 	const [initialNodeId, setInitialNodeId] = useState("");
 
+	const [currentCompany, setCurrentCompany] = useState<Company | undefined>(
+		undefined
+	);
 	const [completedTasks, setCompletedTasks] = useState<string[]>(() =>
 		loadCompletedTasks()
 	);
@@ -86,16 +91,14 @@ const GruendungContextProvider: FC = ({ children }) => {
 		return [];
 	}
 
-	const [currentCompany, setCurrentCompany] = useState<Company | undefined>(
-		undefined
-	);
-
+	// Load current company on initial load
 	useEffect(() => {
 		CompanyService.getCurrentCompany().then(company =>
 			setCurrentCompany(company)
 		);
 	}, []);
 
+	// Process task graph
 	useEffect(() => {
 		let processedTaskGraph: ProcessedTaskGraph = {
 			initialNode: taskGraph.initialNode,
@@ -187,6 +190,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 				setTaskStatus,
 				setDecisionStatus,
 				currentCompany,
+				createCompany,
 			}}
 		>
 			{children}
