@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { getAuth } from "firebase-admin/auth";
-import logger = require("../../config/winston");
+import * as logger from "../../config/winston";
 
 // Checks if the user is logged in and saves the user object in req.user
 export async function getUser(req: Request, res: Response, next: NextFunction) {

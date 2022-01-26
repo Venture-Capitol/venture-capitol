@@ -1,15 +1,16 @@
 import { Router } from "express";
-const router = Router();
 import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 
-import logger = require("../../config/winston");
+import * as logger from "../../config/winston";
 
 import { Entry } from "@prisma/client";
 import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
 import * as EntryService from "./EntryService";
-import * as EntryUtils from "../utils/EntryUtils";
+// import * as EntryUtils from "../utils/EntryUtils";
+
+export const router = Router();
 
 router.get("/search", function (req, res, next) {
 	console.log(req.query.jobname);
@@ -166,5 +167,3 @@ router.post("/addMany", function (req, res, next) {
 	});
 });
  */
-
-module.exports = router;

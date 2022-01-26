@@ -1,5 +1,5 @@
 import { PrismaClient, Prisma, Entry } from "@prisma/client";
-import logger = require("../../config/winston");
+// import * as logger from "../../config/winston";
 
 import ApplicationError from "../utils/ApplicationError";
 
@@ -314,22 +314,3 @@ export async function deleteEntry(id: number, callback: Function) {
 		}
 	}
 }
-
-/* module.exports = {
-	searchEntries,
-	getAllEntries,
-	createEntry,
-	getEntry,
-	updateEntry,
-	deleteEntry,
-}; */
-
-/* export default {
-	searchEntries,
-	getAllEntries,
-	createEntry,
-	getEntry,
-	updateEntry,
-	deleteEntry,
-};
- */
