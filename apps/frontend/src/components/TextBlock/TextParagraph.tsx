@@ -12,7 +12,7 @@ const TextParagraph: FunctionComponent<AbsatzProps> = ({
 }: AbsatzProps) => {
 	return (
 		<div className={s.block}>
-			<h2 className={s.block_title}>{title}</h2>
+			<h3 className={s.block_title}>{title}</h3>
 			<p className={s.block_content}>{children}</p>
 		</div>
 	);

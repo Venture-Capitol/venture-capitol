@@ -1,10 +1,13 @@
 .block {
-	max-width: 725px;
 	margin-bottom: 30px;
 
 	@media (max-width: 768px) {
 		margin-bottom: 15px;
 	}
+}
+
+.block:not(:first-of-type) {
+	margin-top: 30px;
 }
 
 .block_content {

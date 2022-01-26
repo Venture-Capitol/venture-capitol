@@ -15,10 +15,10 @@ export default function Datenschutz() {
 		>
 			<div
 				style={{
-					width: "1120px",
+					width: "900px",
 				}}
 			>
-				<TextBlock title='Datenschutzerklärung' arrow={true}>
+				<TextBlock title='Datenschutz&shy;erklärung' arrow={true}>
 					<TextParagraph title='1. Einleitung'>
 						Datenschutz ist ein wichtiges Thema in Zeiten des Internets. Viel zu
 						oft wissen wir nicht wirklich, was im Hintergrund geschieht.
@@ -149,78 +149,75 @@ export default function Datenschutz() {
 						<br />
 						Wir verwenden in unserer Datenschutzerklärung unter anderen diese
 						Begriffe:
-						<br />
-						<ol>
-							<li>
-								<b>Auftragsverarbeiter</b> sind natürliche oder juristische
-								Personen. Das können zum Beispiel Behörden sein oder
-								Einrichtungen oder eine andere Stelle, die personenbezogene
-								Daten im Auftrag eines Verantwortlichen verarbeitet.
-							</li>
-							<li>
-								<b>Betroffene Person</b> ist jeder, dessen Daten von unserem
-								Unternehmen verarbeitet werden.
-							</li>
-							<li>
-								<b>Dritter</b> ist eine natürliche oder juristische Person,
-								Behörde, Einrichtung oder andere Stelle. Aber auf jeden Fall
-								jemand anders als du und wir. Er ist also jemand außer der
-								betroffenen Person (also gegebenenfalls du), dem
-								Verantwortlichen, dem Auftragsverarbeiter und den Personen, die
-								unter der unmittelbaren Verantwortung des Verantwortlichen oder
-								des Auftragsverarbeiters dazu berechtigt wurden, die
-								personenbezogenen Daten zu verarbeiten.
-							</li>
-							<li>
-								<b>Einschränkung der Verarbeitung</b> ist die Markierung der
-								personenbezogenen Daten um die künftige Verarbeitung
-								einzuschränken.
-							</li>
-							<li>
-								<b>Einwilligung</b> ist eine unmissverständlich abgegebene
-								Willensbekundung in Form einer schriftlichen Erklärung oder
-								einer anderen bestätigenden eindeutigen Handlung, mit der die
-								betroffene Person zu verstehen gibt, dass sie mit der
-								Verarbeitung de r betreffenden personenbezogenen Daten über sie
-								einverstanden ist.
-							</li>
-							<li>
-								<b>Empfänger</b> ist eine natürliche oder juristische Person,
-								Behörde, Einrichtung oder andere Stelle, der personenbezogene
-								Daten zur Verfügung gestellt werden. Behörden, die im Rahmen
-								eines bestimmten Untersuchungsauftrags personenbezogene Daten
-								einfordern, gelten jedoch nicht als Empfänger.
-							</li>
-							<li>
-								<b>Personenbezogene Daten</b> sind alle Informationen, die sich
-								auf dich als identifizierbare natürliche Person beziehen. Das
-								kann so etwas sein wie beispielsweise dein Name, dein Standort
-								oder besondere Merkmale der psychischen, wirtschaftlichen,
-								physischen, physiologischen, genetischen, kulturellen oder
-								sozialen Identität.
-							</li>
-							<li>
-								<b>Profiling</b> ist jede Art der Verarbeitung personenbezogener
-								Daten um bestimmte persönliche Aspekte, die sich auf eine
-								natürliche Person beziehen zu schätzen, zu analysieren und
-								gegebenenfalls zu bewerten.
-							</li>
-							<li>
-								<b>Pseudonymisierung</b> ist die Verarbeitung personenbezogener
-								Daten, so dass nicht mehr eine spezifische Person zugeordnet
-								werden kann. Es können also keine erfassten Daten einer
-								identifizierbaren natürlichen Person zugewiesen werden.
-							</li>
-							<li>
-								<b>Verarbeitung</b> ist jedes automatisiertes Verfahren im
-								Zusammenhang mit personenbezogenen Daten. Das können zum
-								Beispiel das Erheben, das Erfassen, die Verknüpfung, das
-								Sortieren, die Organisation, die Speicherung, die Editierung,
-								das Auslesen, die Verwendung oder eine Form der Bereitstellung
-								sein.
-							</li>
-						</ol>
 					</TextParagraph>
+
+					<ol>
+						<li>
+							<b>Auftragsverarbeiter</b> sind natürliche oder juristische
+							Personen. Das können zum Beispiel Behörden sein oder Einrichtungen
+							oder eine andere Stelle, die personenbezogene Daten im Auftrag
+							eines Verantwortlichen verarbeitet.
+						</li>
+						<li>
+							<b>Betroffene Person</b> ist jeder, dessen Daten von unserem
+							Unternehmen verarbeitet werden.
+						</li>
+						<li>
+							<b>Dritter</b> ist eine natürliche oder juristische Person,
+							Behörde, Einrichtung oder andere Stelle. Aber auf jeden Fall
+							jemand anders als du und wir. Er ist also jemand außer der
+							betroffenen Person (also gegebenenfalls du), dem Verantwortlichen,
+							dem Auftragsverarbeiter und den Personen, die unter der
+							unmittelbaren Verantwortung des Verantwortlichen oder des
+							Auftragsverarbeiters dazu berechtigt wurden, die personenbezogenen
+							Daten zu verarbeiten.
+						</li>
+						<li>
+							<b>Einschränkung der Verarbeitung</b> ist die Markierung der
+							personenbezogenen Daten um die künftige Verarbeitung
+							einzuschränken.
+						</li>
+						<li>
+							<b>Einwilligung</b> ist eine unmissverständlich abgegebene
+							Willensbekundung in Form einer schriftlichen Erklärung oder einer
+							anderen bestätigenden eindeutigen Handlung, mit der die betroffene
+							Person zu verstehen gibt, dass sie mit der Verarbeitung de r
+							betreffenden personenbezogenen Daten über sie einverstanden ist.
+						</li>
+						<li>
+							<b>Empfänger</b> ist eine natürliche oder juristische Person,
+							Behörde, Einrichtung oder andere Stelle, der personenbezogene
+							Daten zur Verfügung gestellt werden. Behörden, die im Rahmen eines
+							bestimmten Untersuchungsauftrags personenbezogene Daten
+							einfordern, gelten jedoch nicht als Empfänger.
+						</li>
+						<li>
+							<b>Personenbezogene Daten</b> sind alle Informationen, die sich
+							auf dich als identifizierbare natürliche Person beziehen. Das kann
+							so etwas sein wie beispielsweise dein Name, dein Standort oder
+							besondere Merkmale der psychischen, wirtschaftlichen, physischen,
+							physiologischen, genetischen, kulturellen oder sozialen Identität.
+						</li>
+						<li>
+							<b>Profiling</b> ist jede Art der Verarbeitung personenbezogener
+							Daten um bestimmte persönliche Aspekte, die sich auf eine
+							natürliche Person beziehen zu schätzen, zu analysieren und
+							gegebenenfalls zu bewerten.
+						</li>
+						<li>
+							<b>Pseudonymisierung</b> ist die Verarbeitung personenbezogener
+							Daten, so dass nicht mehr eine spezifische Person zugeordnet
+							werden kann. Es können also keine erfassten Daten einer
+							identifizierbaren natürlichen Person zugewiesen werden.
+						</li>
+						<li>
+							<b>Verarbeitung</b> ist jedes automatisiertes Verfahren im
+							Zusammenhang mit personenbezogenen Daten. Das können zum Beispiel
+							das Erheben, das Erfassen, die Verknüpfung, das Sortieren, die
+							Organisation, die Speicherung, die Editierung, das Auslesen, die
+							Verwendung oder eine Form der Bereitstellung sein.
+						</li>
+					</ol>
 
 					<TextParagraph title='8. Rechtsgrundlage der Verarbeitung'>
 						Wir beziehen uns auf Art. 6 Abs. 1 lit. b DSGVO.
@@ -295,37 +292,43 @@ export default function Datenschutz() {
 						<br />
 						<br />
 						Im Rahmen dessen können ein paar Informationen erhoben werden:
-						<br />
-						<ol>
-							<li>Welchen Browser du nutzt</li>
-							<li>Dein Betriebssystem</li>
-							<li>
-								Die Internetseite über die du auf unsere Seite gekommen bist
-							</li>
-							<li>Deine Internet-Protokoll-Adresse</li>
-							<li>Der Internet-Service-Provider</li>
-							<li>Die Unterseiten, auf die du klickst</li>
-							<li>Das Datum und die Uhrzeit, wann du auf der Website warst</li>
-						</ol>
+					</TextParagraph>
+
+					<ol>
+						<li>Welchen Browser du nutzt</li>
+						<li>Dein Betriebssystem</li>
+						<li>
+							Die Internetseite über die du auf unsere Seite gekommen bist
+						</li>
+						<li>Deine Internet-Protokoll-Adresse</li>
+						<li>Der Internet-Service-Provider</li>
+						<li>Die Unterseiten, auf die du klickst</li>
+						<li>Das Datum und die Uhrzeit, wann du auf der Website warst</li>
+					</ol>
+					<br />
+					<p>
 						Bei der Nutzung dieser allgemeinen Daten und Informationen ziehen
 						wir keine Rückschlüsse auf dich als Person. Diese Daten werden
 						anonym ausgewertet. Wir brauchen diese Informationen, damit wir:
-						<ol>
-							<li>
-								Wissen auf welche technischen Gegebenheiten wir unsere Websites
-								bauen müssen (Handys, Laptops, Computer? Welcher Browser? Und so
-								weiter) Also wir brauchen diese Informationen, um die Inhalte
-								unserer Internetseite korrekt auszuliefern und die Werbung zu
-								optimieren
-							</li>
-							<li>
-								Um Strafverfolgungsbehörden im Falle eines Cyberangriffes die
-								notwendigen Informationen bereitstellen können
-							</li>
-							<li>
-								Die Funktionsfähigkeit unserer IT-Systeme sicherstellen können
-							</li>
-						</ol>
+					</p>
+					<ol>
+						<li>
+							Wissen auf welche technischen Gegebenheiten wir unsere Websites
+							bauen müssen (Handys, Laptops, Computer? Welcher Browser? Und so
+							weiter) Also wir brauchen diese Informationen, um die Inhalte
+							unserer Internetseite korrekt auszuliefern und die Werbung zu
+							optimieren
+						</li>
+						<li>
+							Um Strafverfolgungsbehörden im Falle eines Cyberangriffes die
+							notwendigen Informationen bereitstellen können
+						</li>
+						<li>
+							Die Funktionsfähigkeit unserer IT-Systeme sicherstellen können
+						</li>
+					</ol>
+
+					<TextParagraph>
 						Deine erhobenen Daten und Informationen werden also nur in der Masse
 						mit allen anderen Daten zusammengerechnet für uns interessant und
 						wir versuchen statistisch und ferner mit dem Ziel, den Datenschutz
@@ -351,28 +354,29 @@ export default function Datenschutz() {
 						Wir geben deine persönlichen Daten wirklich nur dann an Dritte
 						weiter, wenn:
 						<br />
-						<ol>
-							<li>
-								Du nach Art. 6 Abs. 1 S. 1 lit. a DSGVO deine Einwilligung dazu
-								erteilt hast
-							</li>
-							<li>
-								Für die Weitergabe nach Art. 6 Abs. 1 S. 1 lit. c DSGVO eine
-								gesetzliche Verpflichtung besteht
-							</li>
-							<li>
-								Dies gesetzlich zulässig und nach Art. 6 Abs. 1 S. 1 lit. b
-								DSGVO für die Abwicklung von Vertragsverhältnissen mit dir
-								erforderlich ist
-							</li>
-							<li>
-								Die Weitergabe nach Art. 6 Abs. 1 S. 1 lit. f DSGVO zur Wahrung
-								unserer berechtigten Interessen zulässig ist und kein Anlass zur
-								Annahme besteht, dass du ein überwiegendes schutzwürdiges
-								Interesse an Nichtweitergabe deiner Daten hast.
-							</li>
-						</ol>
 					</TextParagraph>
+
+					<ol>
+						<li>
+							Du nach Art. 6 Abs. 1 S. 1 lit. a DSGVO deine Einwilligung dazu
+							erteilt hast
+						</li>
+						<li>
+							Für die Weitergabe nach Art. 6 Abs. 1 S. 1 lit. c DSGVO eine
+							gesetzliche Verpflichtung besteht
+						</li>
+						<li>
+							Dies gesetzlich zulässig und nach Art. 6 Abs. 1 S. 1 lit. b DSGVO
+							für die Abwicklung von Vertragsverhältnissen mit dir erforderlich
+							ist
+						</li>
+						<li>
+							Die Weitergabe nach Art. 6 Abs. 1 S. 1 lit. f DSGVO zur Wahrung
+							unserer berechtigten Interessen zulässig ist und kein Anlass zur
+							Annahme besteht, dass du ein überwiegendes schutzwürdiges
+							Interesse an Nichtweitergabe deiner Daten hast.
+						</li>
+					</ol>
 
 					<TextParagraph title='12. Cookies'>
 						Wenn du einen Kommentar auf unserer Website schreibst, kann das eine

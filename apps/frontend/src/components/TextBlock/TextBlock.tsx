@@ -14,7 +14,7 @@ const TextBlock: FunctionComponent<TextProps> = ({
 	arrow,
 }: TextProps) => {
 	return (
-		<div className={`${s.text_block}`}>
+		<div className={`${s.text_block} content`}>
 			{arrow && <BackArrow />}
 			<h1>{title}</h1>
 			<div className={s.page_content}>{children}</div>
