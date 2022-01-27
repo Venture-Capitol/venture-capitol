@@ -171,9 +171,45 @@ export const taskGraph: ConnectionsData = {
 			type: "task",
 			name: "Welche Aufgaben hat dein Steuerberater in Zukunft im Allgemeinen?",
 			shortName: "Zukünftige Aufgaben Steuerberater",
-			next: ["400_Ende"],
+			next: ["400_Krankenversicherung"],
 		},
-		"400_Ende": {
+		"400_Krankenversicherung": {
+			type: "task",
+			name: "Krankenversicherung für Unternehmer und deine Angestellten",
+			shortName: "Krankenversicherung",
+			next: ["401_Berufshaftpflicht"],
+		},
+		"401_Berufshaftpflicht": {
+			type: "task",
+			name: "Die Berufshaftpflichtversicherung für dein Unternehmen",
+			shortName: "Berufshaftpflicht",
+			next: ["402_Rechtsschutz"],
+		},
+		"402_Rechtsschutz": {
+			type: "task",
+			name: "Firmenrechtsschutz: Rechtsschutz für dein Unternehmen",
+			shortName: "Rechtsschutzversicherung",
+			next: ["403_Berufsunfaehigkeit"],
+		},
+		"403_Berufsunfaehigkeit": {
+			type: "task",
+			name: "Deine betriebliche Berufsunfähigkeitsversicherung",
+			shortName: "Berufsunfähigkeit",
+			next: ["404_Rentenversicherung"],
+		},
+		"404_Rentenversicherung": {
+			type: "task",
+			name: "Rentenversicherung für Unternehmer und deine Angestellten",
+			shortName: "Rentenversicherung",
+			next: ["405_sonstige_Versicherungen"],
+		},
+		"405_sonstige_Versicherungen": {
+			type: "task",
+			name: "Weitere wichtige Versicherungen für dein Unternehmen",
+			shortName: "Betriebliche Versicherungen",
+			next: ["500_Ende"],
+		},
+		"500_Ende": {
 			type: "task",
 			name: "Hier gehts dann später zur nächsten Route",
 			shortName: "Ende",

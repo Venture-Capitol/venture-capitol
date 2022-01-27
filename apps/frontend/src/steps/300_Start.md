@@ -8,7 +8,7 @@ Die Vorteile liegen damit klar auf der Hand. Man hat hier ein auf die jeweilige 
 
 Eine _UG/GmbH_ Gründung ist alleine oder mit mehreren Gesellschaftern möglich. Wer wie viele Anteile erhält sollte im Vorhinein klar definiert sein.
 
-Die Gründung setzt ein Mindestkapital von _nur 1 € bei einer UG voraus. Wobei wir dir um die Gründungskosten zu decken eine Einzahlung von mindestens 1000€ empfehlen würden./25.000 € voraus, wobei mindestens die Hälfte zum Zeitpunkt der Gründung eingezahlt werden muss. Das heißt eine Gründung ist bereits mit 12.500 € möglich._
+Die Gründung setzt ein Mindestkapital von $ug{_nur 1 € bei einer UG voraus. Wobei wir dir um die Gründungskosten zu decken eine Einzahlung von mindestens 1000€ empfehlen würden.}$gmbh{25.000 € voraus, wobei mindestens die Hälfte zum Zeitpunkt der Gründung eingezahlt werden muss. Das heißt eine Gründung ist bereits mit 12.500 € möglich.}
 
 ## Jetzt durchstarten!
 
