@@ -1,11 +1,16 @@
 {
 	"name": "@vc/api",
 	"version": "0.1.0",
-	"main": "src/index",
+	"main": "index",
 	"types": "dist/index",
 	"files": [
 		"dist"
 	],
-	"scripts": {},
-	"dependencies": {}
+	"scripts": {
+		"generate": "openapi-to-ts -i ./openapi.yaml -o openapi.ts",
+		"orval": "orval"
+	},
+	"devDependencies": {
+		"orval": "^6.5.1"
+	}
 }

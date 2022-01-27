@@ -4,11 +4,11 @@ import * as UserService from "./UserService";
 
 export const userRouter = Router();
 
-userRouter.get("/:userId", async function (req, res, next) {
+userRouter.get("/:userId", async (req, res) => {
 	const userId = req.params.userId;
 	try {
 		const foundUser = await UserService.findUserById(userId);
-		res.send(foundUser);
+		res.json(foundUser);
 	} catch (error) {
 		if (error) {
 			if (error instanceof HttpException) {

@@ -1,3 +1,4 @@
+import { AuthContext, User } from "@vc/auth";
 import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
 import { taskGraph, Node, Nodes } from "../../steps/connections";
@@ -68,12 +69,17 @@ const GruendungContextProvider: FC = ({ children }) => {
 	const [currentCompany, setCurrentCompany] = useState<Company | undefined>(
 		undefined
 	);
-	const [completedTasks, setCompletedTasks] = useState<string[]>(() =>
-		loadCompletedTasks()
-	);
-	const [madeDecisions, setMadeDecisions] = useState<Decision[]>(() =>
-		loadCompletedDecisions()
-	);
+	const [completedTasks, setCompletedTasks] = useState<string[]>([]);
+	const [madeDecisions, setMadeDecisions] = useState<Decision[]>([]);
+	const currentUser = useContext<User | null>(AuthContext);
+
+	// Load current company
+	useEffect(() => {
+		if (currentUser != undefined)
+			CompanyService.getCurrentCompany(currentUser).then(company => {
+				setCurrentCompany(company);
+			});
+	}, [currentUser]);
 
 	function loadCompletedTasks() {
 		let tasks = localStorage.getItem("tasks");
@@ -90,13 +96,6 @@ const GruendungContextProvider: FC = ({ children }) => {
 		}
 		return [];
 	}
-
-	// Load current company on initial load
-	useEffect(() => {
-		CompanyService.getCurrentCompany().then(company =>
-			setCurrentCompany(company)
-		);
-	}, []);
 
 	// Process task graph
 	useEffect(() => {
@@ -177,7 +176,8 @@ const GruendungContextProvider: FC = ({ children }) => {
 	}
 
 	async function createCompany(legalForm: string) {
-		const company = await CompanyService.createCompany(legalForm);
+		if (!currentUser) return;
+		const company = await CompanyService.createCompany(legalForm, currentUser);
 		setCurrentCompany(company);
 	}
 

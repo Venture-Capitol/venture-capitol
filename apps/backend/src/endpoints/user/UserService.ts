@@ -1,15 +1,29 @@
 import { prisma } from "../../utils/Prisma";
-import HttpException from "../../utils/HttpException";
+import { API } from "@vc/api";
 
-export async function findUserById(userId: string) {
+export async function findUserById(userId: string): Promise<API.User> {
 	try {
 		const foundUser = await prisma.user.findUnique({
 			where: {
 				id: userId,
 			},
+			select: {
+				id: true,
+				companies: {
+					select: {
+						company: true,
+					},
+				},
+			},
 		});
-		return foundUser;
+		return {
+			id: foundUser.id,
+			companies: foundUser.companies.map(company => company.company),
+		};
 	} catch (e) {
-		throw new HttpException(404, e.message);
+		return {
+			id: userId,
+			companies: [],
+		};
 	}
 }
