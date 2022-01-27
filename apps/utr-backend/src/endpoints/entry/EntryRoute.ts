@@ -8,15 +8,10 @@ import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
 import * as EntryService from "./EntryService";
-// import * as EntryUtils from "../utils/EntryUtils";
 
 export const router = Router();
 
 router.get("/search", function (req, res, next) {
-	console.log(req.query.jobname);
-	console.log(req.query.latitude);
-	console.log(req.query.longitude);
-	console.log(req.query.page);
 	EntryService.searchEntries(
 		String(req.query.jobname),
 		Number(req.query.latitude),

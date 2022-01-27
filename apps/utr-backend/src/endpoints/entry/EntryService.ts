@@ -1,5 +1,4 @@
 import { PrismaClient, Prisma, Entry } from "@prisma/client";
-// import * as logger from "../../config/winston";
 
 import ApplicationError from "../utils/ApplicationError";
 
@@ -93,6 +92,7 @@ export async function searchEntries(
 	}
 }
 
+// TODO: Fails ATM if amount is not set - See amount is NaN
 export async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
