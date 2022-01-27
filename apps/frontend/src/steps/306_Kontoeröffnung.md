@@ -10,7 +10,7 @@ Zunächst musst du dir ein passendes Geschäftskonto für deine _UG/GmbH_ aussuc
 
 Wir persönlich haben lange Zeit ein [klassisches Geschäftskonto bei der Commerzbank](https://www.commerzbank.de/portal/de/unternehmerkunden/produkte/konto-zahlungsverkehr/geschaeftskonten/geschaeftskonten.html) gehabt und waren damit auch durchaus zufrieden. Hier gab es immer guten Support und persönliche Betreuung.
 
-Nach ein paar Jahren haben wir uns dazu entscheiden stattdessen [ein Holvi Gründerkonto zu eröffnen](https://www.holvi.com/de/gruenderkonto/). Vor allem weil das Konto hier etwas günstiger ist und die digitale Anbindung an andere digitale Tools sehr flüssig funktioniert und uns auch die App überzeugt hat. Ist vermutlich eher etwas für jüngere Kunden.
+Nach ein paar Jahren haben wir uns dazu entscheiden stattdessen [ein Holvi Gründerkonto zu eröffnen](https://www.holvi.com/de/gruenderkonto/). Vor allem weil das Konto hier etwas günstiger ist und die digitale Anbindung an andere digitale Tools sehr flüssig funktioniert und uns auch die App überzeugt hat.
 
 Bei beiden Anbietern würden wir allerdings sagen dass die Konditionen gut sind und wir mit dem Service sehr zufrieden waren.
 
