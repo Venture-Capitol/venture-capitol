@@ -1,6 +1,6 @@
 import { FunctionComponent, useState, MouseEvent, useMemo } from "react";
 import styles from "./TaskNode.module.scss";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import { CheckIcon } from "@heroicons/react/solid/esm";
 
@@ -21,6 +21,7 @@ const Task: FunctionComponent<TaskProps> = ({
 }) => {
 	const [inputId] = useState(Math.random().toString());
 	const { setTaskStatus } = useGruendungContext();
+	const match = useRouteMatch("/gruendung/" + id);
 
 	const history = useHistory();
 
@@ -33,6 +34,7 @@ const Task: FunctionComponent<TaskProps> = ({
 			className={`${styles.task} box`}
 			data-task
 			data-checked={checked}
+			data-selected={match !== null}
 			data-id={id}
 			data-next={next}
 			onClick={handleClick}

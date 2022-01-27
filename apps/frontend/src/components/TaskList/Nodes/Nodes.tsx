@@ -1,5 +1,4 @@
 import {
-	DecisionNode,
 	ProcessedTaskNode,
 	useGruendungContext,
 } from "contexts/Gruendung/Gruendung";
