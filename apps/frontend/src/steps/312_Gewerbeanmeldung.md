@@ -9,7 +9,7 @@ Auf der staatlichen Seite ELSTER findest du den [Fragebogen zur steuerlichen Erf
 
 Hier ist es möglich, Steuerdaten papierlos und kostenlos sowie zeit- und ortsunabhängig an die Finanzverwaltung zu senden. Wenn du dich das erste Mal anmeldest musst du einen Registrierungsprozess anzustoßen. Dieser führt zu einem sicheren und individuellen ELSTER-Zertifikat. Solltest du bereits über ein ELSTER-Zertifikat verfügen, kannst du direkt bei “Mein ELSTER” die Abgabe des Fragebogens zur steuerlichen Erfassung ausführen.
 
-Der Fragebogen ist die Voraussetzung für den Erhalt deiner Steuernummer für deine _UG/GmbH_.
+Der Fragebogen ist die Voraussetzung für den Erhalt deiner Steuernummer für deine $ug{UG}$gmbh{GmbH}.
 
 ## Für die Durchführung einer Gewerbeanmeldung beim Amt
 
@@ -17,18 +17,18 @@ Ganz oldschool oder bei Spezialfällen kannst du dein Gewerbe natürlich auch be
 
 Hier lohnt es sich gut vorbereitet zu erscheinen. Für die Durchführung einer Gewerbeanmeldung beim Amt werden folgende Dokumente benötigt:
 
-- [ausgefüllte Gewerberbeanmeldung](/Users/Luis.Rieke/Documents/projects/venture-capitol-downloads/Gewerbeanmeldung.pdf)
+- [ausgefüllte Gewerberbeanmeldung](../../public/pdf/Gewerbeanmeldung.pdf)
 - gültige Personaldokumente aller Gründer (jeweils Personalausweis oder Reisepass und Meldebescheinigung)
 - bei Kaufleuten den Handelsregisterauszug und den notariell beglaubigten Gesellschaftsvertrag
 - ausländische Staatsangehörige bringen ihre Aufenthaltsgenehmigung der zuständigen Ausländerbehörde mit, welche die Erlaubnis beinhalten muss, eine selbstständige Erwerbstätigkeit aufnehmen zu dürfen.
 
 ## Für eine schnelle Gewerbeanmeldung, sollten Sie sich über folgende Punkte vorab Gedanken machen:
 
-- Was ist der Gegenstand deiner _UG/GmbH_?
-- Zu welchem Zeitpunkt soll deine _UG/GmbH_ angemeldet werden?
-- Willst du deine _UG/GmbH_ hauptberuflich oder nebenberuflich betreiben? Bei einer nebenberuflichen Gründung den Arbeitgeber fragen/informieren.
-- Wo soll der Sitz deiner _UG/GmbH_ sein? Wenn es der eigene Wohnsitz sein soll: Mietvertrag lesen, mit Vermieter absprechen.
-- Benötigst du für deine _UG/GmbH_ Prüfungen, einen Sachkundenachweis etc?
+- Was ist der Gegenstand deiner $ug{UG}$gmbh{GmbH}?
+- Zu welchem Zeitpunkt soll deine $ug{UG}$gmbh{GmbH} angemeldet werden?
+- Willst du deine $ug{UG}$gmbh{GmbH} hauptberuflich oder nebenberuflich betreiben? Bei einer nebenberuflichen Gründung den Arbeitgeber fragen/informieren.
+- Wo soll der Sitz deiner $ug{UG}$gmbh{GmbH} sein? Wenn es der eigene Wohnsitz sein soll: Mietvertrag lesen, mit Vermieter absprechen.
+- Benötigst du für deine $ug{UG}$gmbh{GmbH} Prüfungen, einen Sachkundenachweis etc?
 
 ## Darfst du direkt loslegen?
 

@@ -1,4 +1,4 @@
-Wenn du gute Software verwendest hilft dir das nicht nur bei den Rechnungen. Als _UG/GmbH_ musst du einmal im Jahr eine GuV und einen Jahresabschluss erstellen.
+Wenn du gute Software verwendest hilft dir das nicht nur bei den Rechnungen. Als $ug{UG}$gmbh{GmbH} musst du einmal im Jahr eine GuV und einen Jahresabschluss erstellen.
 Dafür führt man eine sogenannte vorbereitende Buchhaltung. Ziel dieser ist es alle Eingaben und Ausgaben richtig zu kategorisieren.
 
 Das ist das sogenannte Kontieren sowie das Bilanzieren von Ein- und Ausgaben.

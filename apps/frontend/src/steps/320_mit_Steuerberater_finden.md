@@ -10,6 +10,6 @@ Dort kannst du Experten direkt in deiner Umgebung finden.
 
 Hier findest du viele entsprechende Ansprechpartner die dich bei deinen nächsten Schritten begleiten können:
 
-[Steuerberater in deiner Nähe](DLR)
+[Steuerberater in deiner Nähe](/dienstleister/)
 
 Wenn du Fragen dazu hast melde dich auch immer gerne direkt bei uns.

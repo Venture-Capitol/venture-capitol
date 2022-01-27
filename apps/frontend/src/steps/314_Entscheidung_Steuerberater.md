@@ -1,4 +1,4 @@
-Du hast im vorherigen Schritt ja schon einiges über die Buchhaltung erfahren. Als _UG/GmbH_ musst du eine GuV, eine sogenannte Gewinn- und Verlustrechnung, und einen Jahresabschluss erstellen. Das, als auch die vorbereitende Buchhaltung, kannst du entweder in die eignenen Hände nehmen oder die Arbeiten an einen Steuerberater abgeben. Das gibt dir den Freiraum dich voll und ganz auf das Kerngeschäft deines Unternehmens zu konzentrieren.
+Du hast im vorherigen Schritt ja schon einiges über die Buchhaltung erfahren. Als $ug{UG}$gmbh{GmbH} musst du eine GuV, eine sogenannte Gewinn- und Verlustrechnung, und einen Jahresabschluss erstellen. Das, als auch die vorbereitende Buchhaltung, kannst du entweder in die eignenen Hände nehmen oder die Arbeiten an einen Steuerberater abgeben. Das gibt dir den Freiraum dich voll und ganz auf das Kerngeschäft deines Unternehmens zu konzentrieren.
 
 Im Folgenden wollen wir dir einige Informationen an die Hand geben, die dir bei der Entscheidung Steuerberater ja oder nein helfen sollen.
 

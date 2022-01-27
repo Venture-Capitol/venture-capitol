@@ -1,4 +1,4 @@
-Wenn du die komplette Buchhaltung, die GuV und den Jahresabschluss für deine _UG/GmbH_ selbst machen willst steht viel Arbeit vor dir. Zu erwähnen ist auch dass diese Aufgaben sehr komplex sind und nicht in einem kurzen Hilfetext abgebildet werden können. Informiere dich also tiefergehend und besuche gegebenenfalls ein entsprechendes Seminar und les dich mit Büchern ins Thema ein.
+Wenn du die komplette Buchhaltung, die GuV und den Jahresabschluss für deine $ug{UG}$gmbh{GmbH} selbst machen willst steht viel Arbeit vor dir. Zu erwähnen ist auch dass diese Aufgaben sehr komplex sind und nicht in einem kurzen Hilfetext abgebildet werden können. Informiere dich also tiefergehend und besuche gegebenenfalls ein entsprechendes Seminar und les dich mit Büchern ins Thema ein.
 
 Bei deiner buchhalterischen Vorbereitung solltest du möglichst strukturiert vorgehen. Dadurch sparst du bereits von Anfang an Zeit. Mit der richtigen Vorbereitung und der richtigen Buchhaltungssoftware bekommst du das auch hin, deine komplette Buchführung selbst in die Hand zu nehmen.
 
@@ -6,7 +6,7 @@ Bei deiner buchhalterischen Vorbereitung solltest du möglichst strukturiert vor
 
 Papiererklärungen nimmt das Finanzamt grundsätzlich nicht mehr entgegen. Das kannst du wie gehabt über ELSTER abwickeln.
 
-Darüber hinaus empfiehlt sich die Verwendung einer [Buchhaltungssoftware](313A) auf die wir vorher im Prozess tiefer eingegangen sind. Intuitiv für Anfänger sind hier unter anderen die Buchhaltungstools von [lexoffice](https://www.lexoffice.de/buchhaltungsprogramm/).
+Darüber hinaus empfiehlt sich die Verwendung einer [Buchhaltungssoftware](/gruendung/313A_Rechnungen) auf die wir vorher im Prozess tiefer eingegangen sind. Intuitiv für Anfänger sind hier unter anderen die Buchhaltungstools von [lexoffice](https://www.lexoffice.de/buchhaltungsprogramm/).
 
 ## Bestandteile und Fristen für den Jahresabschluss
 
