@@ -11,14 +11,25 @@ export async function findUserById(userId: string): Promise<API.User> {
 				id: true,
 				companies: {
 					select: {
-						company: true,
+						company: {
+							include: {
+								completedTask: true,
+								madeDecision: true,
+							},
+						},
 					},
 				},
 			},
 		});
 		return {
 			id: foundUser.id,
-			companies: foundUser.companies.map(company => company.company),
+			companies: foundUser.companies.map(company => ({
+				id: company.company.id,
+				legalForm: company.company.legalForm,
+				name: company.company.name,
+				completedTasks: company.company.completedTask,
+				madeDecisions: company.company.madeDecision,
+			})),
 		};
 	} catch (e) {
 		return {

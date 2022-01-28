@@ -6,7 +6,7 @@ export default defineConfig({
 		output: {
 			mode: "split",
 			target: "./api.ts",
-			client: "react-query",
+			client: "axios-functions",
 		},
 	},
 });

@@ -4,8 +4,8 @@ info:
   description: Open API specification for the Venture Capitol API
   version: 1.0.0
 servers:
-  - url: http://localhost:8101/api
-  - url: https://localhost:8101/api
+  - url: http://localhost:8100
+
 tags:
   - name: company
     description: API for company information
@@ -16,7 +16,7 @@ tags:
   - name: decision
     description: API for task information
 paths:
-  /user/{userId}:
+  /api/user/{userId}:
     get:
       tags:
         - user
@@ -43,7 +43,7 @@ paths:
           description: Invalid parameters.
         404:
           description: User not found.
-  /company:
+  /api/company:
     post:
       tags:
         - company
@@ -74,7 +74,7 @@ paths:
         400:
           description: Invalid parameters.
       x-codegen-request-body-name: company
-  /company/{companyId}:
+  /api/company/{companyId}:
     get:
       tags:
         - company
@@ -113,7 +113,7 @@ paths:
       responses:
         200:
           description: successful operation.
-  /company/{companyId}/tasks:
+  /api/company/{companyId}/tasks:
     get:
       tags:
         - task
@@ -140,7 +140,7 @@ paths:
                   $ref: "#/components/schemas/CompletedTask"
         400:
           description: Invalid status value
-  /company/{companyId}/tasks/{taskId}:
+  /api/company/{companyId}/tasks/{taskId}:
     post:
       tags:
         - task
@@ -193,7 +193,7 @@ paths:
       responses:
         200:
           description: successful deletion.
-  /company/{companyId}/decisions:
+  /api/company/{companyId}/decisions:
     get:
       tags:
         - decision
@@ -218,7 +218,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/MadeDecision"
-  /company/{companyId}/decisions/{decisionId}:
+  /api/company/{companyId}/decisions/{decisionId}:
     post:
       tags:
         - decision
@@ -317,11 +317,17 @@ components:
           type: integer
     Company:
       type: object
+      required:
+        - id
+        - legalForm
+        - completedTasks
+        - madeDecisions
       properties:
         id:
           type: string
         name:
           type: string
+          nullable: true
         users:
           type: array
           items:
@@ -336,11 +342,11 @@ components:
             - PARTG
             - UG
             - GMBH
-        # completedTask:
-        #   type: array
-        #   items:
-        #     $ref: "#/components/schemas/CompletedTask"
-        # madeDecision:
-        #   type: array
-        #   items:
-        #     $ref: "#/components/schemas/MadeDecision"
+        completedTasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/CompletedTask"
+        madeDecisions:
+          type: array
+          items:
+            $ref: "#/components/schemas/MadeDecision"

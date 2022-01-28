@@ -30,7 +30,11 @@ export async function addCompany(
 				},
 			},
 		});
-		return createdCompany;
+		return {
+			...createdCompany,
+			madeDecisions: [],
+			completedTasks: [],
+		};
 	} catch (e) {
 		throw new HttpException(500, e.message);
 	}
@@ -51,6 +55,8 @@ export async function findCompanyById(
 						userId: true,
 					},
 				},
+				completedTask: true,
+				madeDecision: true,
 			},
 		});
 		const company: API.Company = {
@@ -58,6 +64,8 @@ export async function findCompanyById(
 			legalForm: foundCompany.legalForm,
 			name: foundCompany.name,
 			users: foundCompany.users.map(user => user.userId),
+			madeDecisions: foundCompany.madeDecision,
+			completedTasks: foundCompany.completedTask,
 		};
 
 		if (!company.users.find(user => user == requestingUser.uid) == undefined) {

@@ -32,13 +32,6 @@ export const CompanyLegalForm = {
 	GMBH: "GMBH" as CompanyLegalForm,
 };
 
-export interface Company {
-	id?: string;
-	name?: string;
-	users?: string[];
-	legalForm?: CompanyLegalForm;
-}
-
 export interface MadeDecision {
 	decisionId: string;
 	selectedPath: number;
@@ -46,6 +39,15 @@ export interface MadeDecision {
 
 export interface CompletedTask {
 	taskId: string;
+}
+
+export interface Company {
+	id: string;
+	name?: string;
+	users?: string[];
+	legalForm: CompanyLegalForm;
+	completedTasks: CompletedTask[];
+	madeDecisions: MadeDecision[];
 }
 
 export interface User {

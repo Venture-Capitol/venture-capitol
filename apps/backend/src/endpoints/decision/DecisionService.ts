@@ -21,7 +21,7 @@ export async function findAllDecisionsByCompanyId(
 		throw new HttpException(404, "Company not found");
 	}
 
-	if (company.users.find(user => user.userId === requestingUser.uid)) {
+	if (!company.users.find(user => user.userId === requestingUser.uid)) {
 		throw new HttpException(403, "You are not allowed to view this company");
 	}
 
@@ -61,7 +61,7 @@ export async function addDecisionToCompany(
 		throw new HttpException(404, "Company not found");
 	}
 
-	if (company.users.find(user => user.userId === requestingUser.uid)) {
+	if (!company.users.find(user => user.userId === requestingUser.uid)) {
 		throw new HttpException(403, "You are not allowed to view this company");
 	}
 
@@ -93,7 +93,7 @@ export async function deleteDecisionFromCompany(
 		throw new HttpException(404, "Company not found");
 	}
 
-	if (company.users.find(user => user.userId === requestingUser.uid)) {
+	if (!company.users.find(user => user.userId === requestingUser.uid)) {
 		throw new HttpException(403, "You are not allowed to view this company");
 	}
 

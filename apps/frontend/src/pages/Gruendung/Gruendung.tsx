@@ -23,7 +23,6 @@ export default function () {
 
 			<Button
 				onClick={() => {
-					console.log("yes");
 					createCompany("UG");
 				}}
 			>
