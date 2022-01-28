@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import s from "./TextBlock.module.scss";
-import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
+import BackArrow from "../BackArrow/BackArrow";
 
 type TextProps = {
 	title?: string;

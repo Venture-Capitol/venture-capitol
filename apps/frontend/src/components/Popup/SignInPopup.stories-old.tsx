@@ -9,4 +9,6 @@ export default {
 	title: "Components/SignInPopup",
 } as Meta;
 
-export const Primary: React.VFC<{}> = () => <SignInPopup trigger={null} />;
+export const Primary: React.VFC<{}> = () => (
+	<SignInPopup trigger={null} auth={false} />
+);

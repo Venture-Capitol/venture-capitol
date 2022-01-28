@@ -1,6 +1,6 @@
-import Dialog from "@vc/frontend/component/Popup/Dialog";
+import Dialog from "./Dialog";
 import Button from "@vc/ui/src/components/Button/Button";
-import { Link } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
 import s from "./DisclaimerPopup.module.scss";
 
 const DisclaimerPopup: React.FunctionComponent = () => (
@@ -19,8 +19,10 @@ const DisclaimerPopup: React.FunctionComponent = () => (
 		Steuerberater zu bemühen!
 		<br />
 		<span className={s.legals}>
-			<Link to='/legalpages/impressum'>Impressum</Link> |{" "}
-			<Link to='/legalpages/datenschutz'>Datenschutz</Link>
+			<BrowserRouter>
+				<Link to='/legalpages/impressum'>Impressum</Link> |{" "}
+				<Link to='/legalpages/datenschutz'>Datenschutz</Link>
+			</BrowserRouter>
 		</span>
 	</Dialog>
 );

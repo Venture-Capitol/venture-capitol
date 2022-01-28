@@ -1,12 +1,14 @@
-import Dialog from "@vc/frontend/component/Popup/Dialog";
+import Dialog from "./Dialog";
 import { AuthUI } from "@vc/auth";
 
 type SignInPopupProps = {
 	trigger: React.ReactNode;
+	auth: boolean;
 };
 
 const SignInPopup: React.FunctionComponent<SignInPopupProps> = ({
 	trigger,
+	auth,
 }) => (
 	<Dialog
 		title={"Hey!"}
@@ -16,7 +18,7 @@ const SignInPopup: React.FunctionComponent<SignInPopupProps> = ({
 	>
 		Um dich als Dienstleister für unser Unternehmensregister zu registrieren
 		musst du angemeldet sein.
-		<AuthUI />
+		{auth && <AuthUI />}
 	</Dialog>
 );
 
