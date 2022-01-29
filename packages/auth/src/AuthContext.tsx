@@ -1,14 +1,19 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useContext } from "react";
 import { app } from "./firebase";
 import firebase from "firebase/compat/app";
 
-export const AuthContext = React.createContext<firebase.User | null>(null);
-
-interface AuthProviderProps {
-	children: any;
+interface AuthContext {
+	user: firebase.User | null;
 }
 
-export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+export const AuthContext = React.createContext<AuthContext>({
+	user: null,
+});
+export function useAuthContext() {
+	return useContext(AuthContext);
+}
+
+export const AuthProvider: FC = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
 
 	useEffect(() => {
@@ -19,6 +24,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	}, []);
 
 	return (
-		<AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={{ user: currentUser }}>
+			{children}
+		</AuthContext.Provider>
 	);
 };

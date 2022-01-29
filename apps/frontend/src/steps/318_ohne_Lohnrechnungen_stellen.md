@@ -1,0 +1,61 @@
+Wenn du Leute anstellst: Als Arbeitgeber hast du natürlich auch gewisse Pflichten gegenüber deinen Mitarbeitern und musst eine Lohnabrechnung erstellen.
+Diese musst du jedem Mitarbeiter aushändigen. Auch wenn die meisten Mitarbeiter nur einen kurzen Blick darauf werfen, so sollte sich doch jeder über die Wichtigkeit einer Lohnabrechnung bewusst sein. Sie dient bsw. als Einkommens- und Abgabennachweis gegenüber dem Finanzamt. Das bedeutet für dich als Arbeitgeber einiges an Verpflichtung, denn eine Lohnabrechnung sollte immer korrekt ausgestellt sein.
+
+## Was genau ist eine Lohnabrechnung?
+
+Aus der Lohnabrechnung lassen sich die folgenden Daten ableiten:
+
+- Höhe Bruttolohn?
+- Höhe gezahlte Lohnsteuer?
+- Welche Sozialversicherungsbeiträge wurden gezahlt?
+- Höhe Nettogehalt?
+
+Die Lohnabrechnung zeigt also die Höhe des Lohns gibt, welcher einem Arbeitnehmer zusteht.
+Außerdem ergibt sich aus der Lohnabrechnung, wie viele und welche Leistungen an das Finanzamt und die Sozialversicherungsträger geleistet wurden.
+
+## Abzüge
+
+In der Regel werden vom Lohn eines Arbeitnehmers folgende Posten abgezogen:
+
+- Lohnsteuer
+- Kirchensteuer
+- Krankenversicherung
+- Arbeitslosenversicherung
+- Rentenversicherungsbeiträge
+- Pflegeversicherungsbeiträge
+- Solidaritätszuschlag
+
+Alle Abgaben musst du direkt als Arbeitgeber abführen. Dabei wird unterschieden zwischen den Abgaben, die jeweils an dein zuständiges Finanzamt abzuführen sind und den Abgaben, welche an die Krankenkasse gehen.
+
+Abgaben an das Finanzamt:
+
+- Lohnsteuer
+- Solidaritätszuschlag, falls zu entrichten
+- Kirchensteuer, falls Mitgliedschaft vorliegt
+
+Abgaben an die Krankenkasse:
+
+- Krankenversicherung
+- Pflegeversicherung
+- Beiträge zur Rentenversicherung
+- Beiträge zur Arbeitslosenversicherung
+
+Der ein oder andere wird sich jetzt wundern, was hat die Krankenkasse mit der Arbeitslosenversicherung zu tun?
+Aber die Krankenkasse prüft die Beiträge und gibt sie dann weiter an die Arbeitslosenversicherung, Rentenversicherung und Pflegeversicherung weiter.
+
+## Wer muss eine Lohnabrechnung erstellen?
+
+Die Erstellungspflicht für eine Lohnabrechnung oder eine Gehaltsabrechnung ist gesetzlich geregelt. § 108 der Gewerbeordnung (GewO) besagt, dass jeder Arbeitgeber grundsätzlich dazu verpflichtet ist. Es gibt nur zwei bestimmte Fälle, in denen dies nicht der Fall ist:
+
+- Du leistest keine Zahlung an den Arbeitnehmer.
+- Das Arbeitsentgelt fällt in jedem Arbeitszeitraum identisch aus.
+
+Im zweitem Fall musst du, der Arbeitgeber, nur für den ersten Abrechnungszeitraum eine Lohnabrechnung erstellen und dann erst wieder, wenn sich Beträge oder Daten verändern.
+
+## Fazit
+
+Für dich als Gründer wird die Lohnabrechnung wahrscheinlich eine eher lästige Pflicht.
+
+Du kannst dies zwar mit einer Buchhaltungssoftware angehen, musst aber dennoch eine Lohnabrechnung erstellen. Selbst machenlohnt sich hier, wenn du noch wenige Mitarbeiter hast. Auf längere Sicht gesehen wirst du diese Aufgabe aber sehr wahrscheinlich besser an einen Steuerberater oder ein Lohnbüro vergeben.
+
+Hinweis: Du kannst jederzeit in unserer Anwendung ein paar Schritte zurück gehen und dich für die Route mit Steuerberater umentscheiden.

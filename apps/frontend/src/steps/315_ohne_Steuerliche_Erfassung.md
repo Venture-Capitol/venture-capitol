@@ -1,6 +1,14 @@
-Nach § 138 (1b) i.V.m. (4) Abgabenordnung haben natürliche und juristische Personen sowie Personengesellschaften innerhalb eines Monats nach dem meldepflichtigen Ereignis (Eröffnung Gewerbebetrieb / Betriebsstätte) den „Fragebogen zur steuerlichen Erfassung“ bei ihrem zuständigen Finanzamt abzugeben. Dieser Fragebogen ist ohne Aufforderung des Finanzamtes auf elektronischem Weg nach amtlich vorgeschriebenem Datensatz zu übermitteln. Weitere Informationen erhalten die Unternehmer auf www.elster.de, aus der ELSTER-Anleitung unter www.hamburg.de/fb/informationen-fuer-buerger oder von Ihrem zuständigen Finanzamt unter der Behördenrufnummer 115.
+Du willst also das Abenteuer Buchhaltung selbst in die Hand nehmen.
 
-Auf einem Fragebogen müssen Sie verschiedene Fragen zu künftigen Umsätzen und Gewinnen beantworten. Gehen Sie bei der Berechnung dieser Schätzwerte eher vorsichtig vor, da hiervon zunächst die Höhe Ihrer Einkommen- und Gewerbesteuer abhängt. Denken Sie vor allen Dingen daran, dass in der Anlaufphase die Kosten im Verhältnis zu den erzielten Umsatzerlösen überdurchschnittlich hoch sein könnten.
-Die Anmeldung bei Ihrem Finanzamt erfolgt über das folgende Portal: Elster.de
+Erster Schritt ist ist jetzt die steuerliche Erfassung.
+Du kannst den Fragebogen zur steuerlichen Erfassung selbst ausfüllen. Dazu hast du 2 bis 3 Wochen Zeit.
 
-Das Finanzamt teilt Ihnen eine Steuernummer mit. Sie werden bei dem Finanzamt geführt welches für Ihren Betriebssitz zuständig ist.
+## Hintergrund
+
+Rechtlicher Hintergrund: du hast den „Fragebogen zur steuerlichen Erfassung“ bei deinem zuständigen Finanzamt abzugeben. Dieser Fragebogen ist ohne Aufforderung des Finanzamtes auf elektronischem Weg nach amtlich vorgeschriebenem Datensatz zu übermitteln.
+
+Auf einem Fragebogen musst du verschiedene Fragen zu künftigen Umsätzen und Gewinnen beantworten. Gehe bei der Berechnung dieser Schätzwerte eher vorsichtig vor, da hiervon die Höhe deiner Einkommen- und Gewerbesteuer abhängt. Denke vor allen Dingen daran, dass in der Anlaufphase deine Kosten im Verhältnis zu den erzielten Umsatzerlösen überdurchschnittlich hoch sein könnten.
+Die Anmeldung bei deinem Finanzamt erfolgt wie gehabt online über [Elster.de](https://www.elster.de/).
+
+Das Finanzamt teilt dir dann eine Steuernummer und eine UStID mit.
+Du wirst dann ab sofort bei dem Finanzamt geführt welches für deinen Betriebssitz zuständig ist.

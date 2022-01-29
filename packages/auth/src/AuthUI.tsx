@@ -4,11 +4,11 @@ import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
 import "./firebase.scss";
-import { AuthContext } from "./AuthContext";
+import { useAuthContext } from "./AuthContext";
 import { app } from "./firebase";
 
 export const AuthUI: FC = () => {
-	const currentUser = useContext(AuthContext);
+	const { user } = useAuthContext();
 	const [isLoading, setIsLoading] = useState(true);
 
 	const loader = <div id='loader' style={{ height: "72px" }}></div>;
@@ -40,7 +40,7 @@ export const AuthUI: FC = () => {
 	return (
 		<React.Fragment>
 			{isLoading && loader}
-			{!currentUser && <div id='firebaseui-auth-container'></div>}
+			{!user && <div id='firebaseui-auth-container'></div>}
 		</React.Fragment>
 	);
 };

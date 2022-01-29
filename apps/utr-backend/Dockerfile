@@ -18,6 +18,7 @@ RUN npx lerna run build --scope @vc/utr-backend
 RUN (cd apps/utr-backend && npx prisma generate)
 RUN cp apps/utr-backend/node_modules/.prisma/client/libquery_engine-linux-musl.so.node /app/apps/utr-backend/dist
 RUN cp apps/utr-backend/node_modules/.prisma/client/schema.prisma /app/apps/utr-backend/dist
+COPY apps/utr-backend/openapi.yaml ./apps/utr-backend/dist
 
 # Run the app
 FROM node:16-alpine as runner
