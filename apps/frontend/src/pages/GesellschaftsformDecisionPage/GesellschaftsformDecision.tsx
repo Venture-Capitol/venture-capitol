@@ -70,16 +70,13 @@ export default function Gesellschaftsform() {
 						</ul>
 					</TextParagraph>
 
-					<TextParagraph title='Text 2'>
-						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-						nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-						erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-						et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-						Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-						sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-						et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-						accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-						no sea takimata sanctus est Lorem ipsum dolor sit amet.
+					<TextParagraph title='Gängige Rechtsformen'>
+						Dabei vergleichen wir das Einzelunternehmen, die Gesellschaft des
+						bürgerlichen Rechts (GbR), die Offene Handelsgesellschaft (OHG), die
+						Kommanditgesellschaft (KG), die Unternehmergesellschaft UG
+						(haftungsbeschränkt), die Gesellschaft mit beschränkter Haftung
+						(GmbH), die Partnergesellschaft (PartnerG) und die
+						Aktiengesellschaft (AG).
 						<br />
 						<br />
 						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
