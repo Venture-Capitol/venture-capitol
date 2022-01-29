@@ -2,7 +2,7 @@ Die Stammeinlage bei der Gründung einer Kapitalgesellschaft wird direkt am Anfa
 
 ## Was du zum Stammkapital wissen musst
 
-Die Höhe des einzuzahlenden Stammkapitals für die _UG/GmbH_-Gründung hast du mit dem Gesellschaftervertrag festgelegt. Außerdem wurde in dieser Satzung festgelegt wer jeweils wie viel einzuzahlen hat, sofern es mehr als einen Gründer gibt.
+Die Höhe des einzuzahlenden Stammkapitals für die $ug{UG}$gmbh{GmbH}-Gründung hast du mit dem Gesellschaftervertrag festgelegt. $ug{In der Theorie ist das bereits ab einem Euro möglich.}$gmbh{In der Regel sind das 25.000€.} Außerdem wurde in dieser Satzung festgelegt wer jeweils wie viel einzuzahlen hat, sofern es mehr als einen Gründer gibt.
 
 ## Zahle Stammkapital ein
 

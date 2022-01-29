@@ -1,7 +1,19 @@
-## Vorbereitende Buchhaltung und Steuerberater trennen
+Wenn du die komplette Buchhaltung, die GuV und den Jahresabschluss für deine $ug{UG}$gmbh{GmbH} selbst machen willst steht viel Arbeit vor dir. Zu erwähnen ist auch dass diese Aufgaben sehr komplex sind und nicht in einem kurzen Hilfetext abgebildet werden können. Informiere dich also tiefergehend und besuche gegebenenfalls ein entsprechendes Seminar und les dich mit Büchern ins Thema ein.
 
-Wer die vorbereitende Buchhaltung nicht selbst übernehmen möchte, aber auch keine Steuerberater dafür beauftragen will, kann auch beide Aufgaben an verschiedene Dienstleister abgeben. Ein Dienstleister kümmert sich dann um die vorbereitende Buchhaltung, die eigentlich viele Unternehmen selbst erledigen. Man holt dann die sortierten Belege ab und lässt sie dem Steuerberater zukommen. Der Vorteil dieser Lösung liegt auf der Hand, denn Unternehmen können sich auf diese Weise eine Menge Arbeit sparen. Unter Umständen ist es auch möglich, damit Geld zu sparen, weil keine zusätzliche Arbeitskraft eingestellt werden muss; der Nachteil dabei ist, dass natürlich Kosten entstehen, die man sich eigentlich sparen könnte. Jeder muss hier also für sich selbst abwägen, ob es für das eigene Unternehmen sinnvoll ist, die vorbereitende Buchhaltung und den Steuerberater voneinander zu trennen, um beides in kompetente Hände abzugeben.
+Bei deiner buchhalterischen Vorbereitung solltest du möglichst strukturiert vorgehen. Dadurch sparst du bereits von Anfang an Zeit. Mit der richtigen Vorbereitung und der richtigen Buchhaltungssoftware bekommst du das auch hin, deine komplette Buchführung selbst in die Hand zu nehmen.
 
-## Was kostet vorbereitende Buchhaltung?
+## Nur noch digital: Jahresabschluss
 
-Eine nicht unerhebliche Frage ist, wie hoch die Kosten der vorbereitenden Buchhaltung sind. Eine Antwort auf diese Frage ist pauschal nicht möglich. Es ist daher sinnvoll, wie bei jeder anderen Dienstleistung auch, Kosten miteinander zu vergleichen – doch, auch hier unterscheidet sich das nicht von anderen Dienstleistungen, man sollte nicht nur auf den Preis achten. Die Qualität der Arbeit sollte gut sein, der Steuerberater muss mit den Unterlagen hinterher auch arbeiten können. Eine Frage ist hier natürlich auch, ob die vorbereitende Buchhaltung in der Nähe stattfinden soll oder ob die Unterlagen auch per Post gesendet werden können. Fragen, über die sich jeder selbst Gedanken machen muss, um eine Antwort für sich zu finden.
+Papiererklärungen nimmt das Finanzamt grundsätzlich nicht mehr entgegen. Das kannst du wie gehabt über ELSTER abwickeln.
+
+Darüber hinaus empfiehlt sich die Verwendung einer [Buchhaltungssoftware](/gruendung/313A_Rechnungen) auf die wir vorher im Prozess tiefer eingegangen sind. Intuitiv für Anfänger sind hier unter anderen die Buchhaltungstools von [lexoffice](https://www.lexoffice.de/buchhaltungsprogramm/).
+
+## Bestandteile und Fristen für den Jahresabschluss
+
+Deine Unternehmenssituation bestimmt darüber, welche Pflichtbestandteile dein handelsrechtlicher Jahresabschluss enthalten muss.
+
+Mindestbestandteile sind Bilanz sowie Gewinn- und Verlustrechnung (GuV). Außerdem musst du dem Jahresabschluss noch einen Anhang und unter bestimmten Voraussetzungen auch einen Lagebericht hinzufügen. In manchen Branchen gelten ebenfalls noch zusätzliche Anforderungen für den Jahresabschluss.
+
+Welche Fristen du bei deiner Erstellung des Jahresabschluss einzuhalten hast, hängt von der Rechtsform und der Unternehmensgröße ab. § 243 Abs. 3 HGB äußert sich unbestimmt zur Frist, indem dort von einer „einem ordnungsgemäßen Geschäftsgang entsprechenden Zeit“ die Rede ist. Am besten ist es 3 Monate nach Ende des Geschäftsjahres sich um die Formalia zu kümmern, dann ist man auf der sicheren Seite.
+
+Du musst deinen Jahresabschluss nicht sofort am 1. Januar beim Finanzamt vorlegen. Allerdings solltest du frühzeitig mit der Aufstellung anfangen und deinen Gewinn ermitteln. Denn sollte sich herausstellen, dass deine Gewinne im aktuellen Jahr niedriger sind als im Vorjahr und das auch im kommenden Jahr zu erwarten ist, kannst du die Herabsetzung von Einkommen- und Körperschaftsteuervorauszahlungen beantragen.
