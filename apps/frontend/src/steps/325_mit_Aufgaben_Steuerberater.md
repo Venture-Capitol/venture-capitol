@@ -1,5 +1,12 @@
-## Vorbereitende Buchhaltung dem Steuerberater besprechen
+Die Aufgaben des Steuerberaters sind vielfältig.
+Aber für dich ist naürlich wichtig zu wissen in welchen Belangen du langfristig seine Hilfe erwarten kannst.
 
-Es gehören also verschiedene Tätigkeiten zur vorbereitenden Buchhaltung. Zum Beispiel das Sortieren sowie das Abheften von Belegen, das Kontrollieren von Kontobewegungen, das Schreiben von Rechnungen, das Mahnwesen, das Führen von Kassenbüchern sowie Rechnungseingangsbüchern und Rechnungsausgangsbüchern. Auch die Erstellung der Reisekostenabrechnungen gehört zur vorbereitenden Buchhaltung.
-Einzelne Belege werden dabei danach sortiert, ob für das Unternehmen die jährliche Bilanz notwendig ist oder ob eine Einnahmen-Überschuss-Rechnung erstellt werden soll. Ziel der vorbereitenden Buchhaltung ist, dass dem Steuerberater bereits aufgearbeitete, sortierte und geprüfte Belege und Unterlagen gegeben werden.
-Welche Aufgaben es im Detail sind, die der Steuerberater als vorbereitende Buchhaltung sieht, muss und kann individuell besprochen werden. So ist es kein Problem, offen darüber zu sprechen, ob mit einem Teil Selbstarbeit Kosten eingespart werden können. Unternehmen können sich so jeden Monat eine ganze Menge Geld sparen.
+## Die Aufgaben deines Steuerberaters
+
+Allgemein kann man sagen: Dein Steuerberater berät dich umfassend in steuerlichen Angelegenheiten und erstellt GuV und Jahresabschluss für dich.
+Diese Arbeit wird euch über die Jahre verbinden, da hier eine enge Zusammenarbeit sinnvoll ist.
+
+Die Frage die du dir noch stellen kannst ist ob du die vorbereitende Buchhaltung in die eigene Hand nehmen möchtest.
+Ansonsten kannst du wirklich einfach alle Belege sammeln, sie deinem Steuerberater zukommen lassen und dieser kümmert sich darum dass alles andere läuft.
+
+Und nie vergessen: dein Steuerberater ist auch ein guter Partner für viele Fragen rund um deine Gründung, Finanzierungsthemen und Fragen rund um dein Unternehmen organisatorischer Natur. Viele Steuerberater haben einen großen Erfahrunngsschatz und unterstützen sich sicher gerne wenn mal etwas unklar ist.
