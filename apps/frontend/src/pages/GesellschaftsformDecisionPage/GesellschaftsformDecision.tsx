@@ -22,28 +22,52 @@ export default function Gesellschaftsform() {
 					title='Finde die richtige Rechtsform für deine Gründung'
 					arrow={true}
 				>
-					<TextParagraph title='Gedanken vorher'>
-						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-						nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-						erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-						et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-						Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-						sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-						et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-						accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-						no sea takimata sanctus est Lorem ipsum dolor sit amet.
+					<TextParagraph title='Welche Gesellschaftsform eignet sich für dich?'>
+						Schon in einer frühen Phase eurer Gründung werdet ihr vor der Frage
+						stehen, wie ihr eure Firma rein rechtlich organisieren wollt.
+						Startet ihr als Freiberufler, als Einzelunternehmer oder plant ihr
+						eine GmbH und geht den Umweg einer UG (haftungsbeschränkt)? Oder ist
+						eure Geschäftsidee so kapitalintensiv, dass ihr gleich zur
+						Aktiengesellschaft neigt?
 						<br />
 						<br />
-						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-						nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-						erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-						et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-						Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-						sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-						et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-						accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-						no sea takimata sanctus est Lorem ipsum dolor sit amet.
+						Wenn ihr wissen wollt, welche Rechtsform für euer Unternehmen am
+						besten passt, dann haben wir hier für euch die 9 wichtigsten Fragen
+						und Entscheidungshilfen zusammengestellt. Wir zeigen euch hier:
 						<br />
+						<br />
+						<ul>
+							<li>
+								Anzahl der Gründer: Was die passenden Rechtsformen für ein oder
+								mehrere Gründer sind
+							</li>
+							<li>
+								Haftung: Bei welcher Rechtsform ihr die Haftung reduzieren könnt
+							</li>
+							<li>
+								Stammkapital: welche die richtige Rechtsform für euer
+								Stammkapital ist
+							</li>
+							<li>
+								Firmennamen: bei welcher Rechtsform ihr euren Firmennamen frei
+								bestimmen könnt
+							</li>
+							<li>
+								Gründungsformalien: wie die verschiedenen Rechtsformen bezüglich
+								Formalien zu unterscheiden sind
+							</li>
+							<li>
+								Buchhaltung: was ihr beim Thema Buchhaltung beachten müsst
+							</li>
+							<li>welche Steuern bei den Rechtsformen anfallen und</li>
+							<li>
+								Gründungskosten: welche Rechtsformen euch beim Start wieviel
+								kosten
+							</li>
+							<li>
+								Pro Investor: welche Rechtsformen sind für Investoren eignen
+							</li>
+						</ul>
 					</TextParagraph>
 
 					<TextParagraph title='Text 2'>
