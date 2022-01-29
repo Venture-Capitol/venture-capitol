@@ -4,7 +4,8 @@ import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
 import { taskGraph, Node, Nodes } from "../../steps/connections";
 import * as CompanyService from "./company";
-import { API, GPF } from "@vc/api";
+import { GPF } from "@vc/api";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 // 🌍 Context
 
@@ -75,44 +76,50 @@ const GruendungContextProvider: FC = ({ children }) => {
 	const [madeDecisions, setMadeDecisions] = useState<Decision[]>(
 		loadCompletedDecisions
 	);
-	const currentUser = useContext<User | null>(AuthContext);
+	const { user } = useAuthContext();
 
 	// Load current company
 	useEffect(() => {
-		currentUser?.getIdToken().then(idToken => {
+		user?.getIdToken().then(idToken => {
 			axios.defaults.headers.common["Authorization"] = `Bearer ${idToken}`;
 
-			if (currentUser != undefined) {
-				CompanyService.getCurrentCompany(currentUser).then(company => {
-					if (!company) {
-						// @TODO: check if a local company exists, if yes, create a new company and insert tasks and decisions
-						return;
-					} else {
-						setCurrentCompany({
-							legalForm: company.legalForm,
-							id: company.id,
-						});
-						setCompletedTasks(company.completedTasks.map(task => task.taskId));
-						setMadeDecisions(
-							company.madeDecisions.map(decision => ({
-								id: decision.decisionId,
-								path: decision.selectedPath,
-							}))
-						);
-
-						// localStorage.removeItem("company");
-						// localStorage.removeItem("tasks");
-						// localStorage.removeItem("decisions");
-					}
-				});
-			} else {
+			// If user is not logged in, try loading company from local storage
+			if (user == undefined) {
 				const loadedCompany = localStorage.getItem("company");
 				if (loadedCompany) {
 					setCurrentCompany(JSON.parse(loadedCompany));
 				}
+				return;
 			}
+
+			// Otherwise, get company load if exists
+			CompanyService.getCurrentCompany(user).then(company => {
+				// if a company exists on the server, use it
+				if (company != undefined) {
+					setCurrentCompany({
+						legalForm: company.legalForm,
+						id: company.id,
+					});
+					setCompletedTasks(company.completedTasks.map(task => task.taskId));
+					setMadeDecisions(
+						company.madeDecisions.map(decision => ({
+							id: decision.decisionId,
+							path: decision.selectedPath,
+						}))
+					);
+					return;
+				}
+
+				// If there is no remote company, but user has created one when logged out, save it
+				if (currentCompany?.legalForm) {
+					CompanyService.createCompany(currentCompany?.legalForm, {
+						completedTasks,
+						madeDecisions,
+					});
+				}
+			});
 		});
-	}, [currentUser]);
+	}, [user]);
 
 	function loadCompletedTasks() {
 		let tasks = localStorage.getItem("tasks");
@@ -131,11 +138,8 @@ const GruendungContextProvider: FC = ({ children }) => {
 	}
 
 	async function createCompany(legalForm: string) {
-		if (currentUser) {
-			const company = await CompanyService.createCompany(
-				legalForm,
-				currentUser
-			);
+		if (user) {
+			const company = await CompanyService.createCompany(legalForm);
 			if (!company) return;
 
 			setCurrentCompany({

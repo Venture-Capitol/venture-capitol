@@ -1,5 +1,6 @@
 import { User } from "@vc/auth";
 import { API, GPF } from "@vc/api";
+import { Decision } from "./Gruendung";
 
 export async function getCurrentCompany(
 	currUser: User
@@ -14,11 +15,26 @@ export async function getCurrentCompany(
 
 export async function createCompany(
 	legalForm: string,
-	currUser: User
+	existingCompany?: {
+		completedTasks: string[];
+		madeDecisions: Decision[];
+	}
 ): Promise<API.Company> {
 	const company = await GPF.createCompany({
 		legalForm,
 	});
+
+	if (existingCompany != undefined) {
+		existingCompany.completedTasks.forEach(taskId => {
+			GPF.markTaskDone(company.data.id, taskId);
+		});
+
+		existingCompany.madeDecisions.forEach(decision => {
+			GPF.makeDecision(company.data.id, decision.id, {
+				selectedPath: decision.path,
+			});
+		});
+	}
 	return company.data;
 }
 
