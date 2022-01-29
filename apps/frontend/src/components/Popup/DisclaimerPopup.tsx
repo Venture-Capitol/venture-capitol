@@ -1,27 +1,30 @@
-import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
+import Dialog from "./Dialog";
 import Button from "@vc/ui/src/components/Button/Button";
-import { Link } from "react-router-dom";
+import { BrowserRouter, Link } from "react-router-dom";
+import s from "./DisclaimerPopup.module.scss";
 
 const DisclaimerPopup: React.FunctionComponent = () => (
-	<AlertDialog
+	<Dialog
 		title={"Hey du!"}
-		action={
+		close={
 			<div style={{ width: "100%" }}>
 				<Button width='fullwidth'>Alles klar!</Button>
 			</div>
 		}
 		defaultOpen={true}
-		preventEscape={true}
+		preventEscape={false}
 	>
 		Diese Seite ersetzt keine Rechtsberatung, notarielle Beratung,
 		Steuerberatung im Bedarfsfall ist immer ein Rechtsanwalt, Notar oder
 		Steuerberater zu bemühen!
 		<br />
-		<span>
-			<Link to='/legalpages/impressum'>Impressum</Link> |{" "}
-			<Link to='/legalpages/datenschutz'>Datenschutz</Link>
+		<span className={s.legals}>
+			<BrowserRouter>
+				<Link to='/legalpages/impressum'>Impressum</Link> |{" "}
+				<Link to='/legalpages/datenschutz'>Datenschutz</Link>
+			</BrowserRouter>
 		</span>
-	</AlertDialog>
+	</Dialog>
 );
 
 export default DisclaimerPopup;
