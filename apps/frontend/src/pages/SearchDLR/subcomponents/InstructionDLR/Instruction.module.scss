@@ -1,17 +1,19 @@
-.greenSpan {
-	color: var(--color-green-700);
-}
-
-.maindiv_resulttext {
+.maindiv_instruction {
 	display: flex;
 	justify-content: center;
 	padding-top: 5%;
 	margin: 0px 40px;
 }
 
-.resulttext {
+.instruction {
 	font-family: "Space Grotesk";
 	font-weight: bold;
 	font-size: var(--size-24px);
 	text-align: center;
+}
+
+@media only screen and (max-width: 750px) {
+	.instruction {
+		font-size: var(--size-16px);
+	}
 }

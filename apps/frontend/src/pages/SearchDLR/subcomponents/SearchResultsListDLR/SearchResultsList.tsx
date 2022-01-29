@@ -7,8 +7,6 @@ interface Props {
 }
 
 const SearchResultsList = ({ searchResponse }: Props) => {
-	const [response, setResponse] = useState();
-
 	console.log(searchResponse);
 
 	const postListComponents: JSX.Element = searchResponse.map(

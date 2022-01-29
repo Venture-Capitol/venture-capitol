@@ -1,0 +1,20 @@
+.pagination {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	margin-bottom: 2%;
+}
+
+.disabled {
+	padding: 12px 40px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #e7e5e4;
+	cursor: not-allowed;
+	color: var(--color-grey-500);
+	transition: transform 0.1s ease-out;
+	will-change: transform;
+	margin: 0px 8px;
+}

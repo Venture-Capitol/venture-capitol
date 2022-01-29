@@ -4,12 +4,13 @@ import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
 import Header from "./components/Header/Header";
 import Gruendung from "./pages/Gruendung/Gruendung";
-import Search from "./pages/Search/DLRSearch";
-import CreateEntryPage from "./pages/CreateDienstleisterPage/CreateDienstleisterPage";
+import Search from "./pages/SearchDLR/DLRSearch";
+import DienstleisterProfil from "./pages/DienstleisterProfil/DienstleisterProfil";
 import GetEntryPage from "./pages/GetDienstleisterPage/GetDienstleisterPage";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Impressum from "./pages/Impressum/Impressum";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
+import Adminpannel from "./pages/Adminpannel/Adminpannel";
 
 function App() {
 	return (
@@ -28,17 +29,14 @@ function App() {
 							<Gruendung />
 						</GruendungContextProvider>
 					</Route>
-					<Route path='/dienstleister'>
-						<Index />
+					<Route path='/dienstleister/admin' exact>
+						<Adminpannel />
 					</Route>
-					<Route path='/dienstleister/search'>
+					<Route path='/dienstleister'>
 						<Search />
 					</Route>
-					<Route path='/dienstleister/create'>
-						<CreateEntryPage />
-					</Route>
-					<Route path='/dienstleister/get'>
-						<GetEntryPage />
+					<Route path='/profil/dienstleister'>
+						<DienstleisterProfil />
 					</Route>
 					<Route path='/demoAuth'>
 						<DemoAuth />

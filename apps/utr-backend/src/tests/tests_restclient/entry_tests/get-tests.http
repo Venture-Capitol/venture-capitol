@@ -1,7 +1,7 @@
 ### ----- GET BY ID: localhost:8103/entry/:id -----
 
 ### providing valid id of type number for entry that exists (check database)
-GET http://localhost:8103/entry/30
+GET http://localhost:8103/entry/1
 
 ### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
 GET http://localhost:8103/entry/12932

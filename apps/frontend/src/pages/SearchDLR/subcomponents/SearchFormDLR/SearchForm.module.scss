@@ -47,22 +47,21 @@ input:focus {
 	border-bottom: 0.5px solid var(--color-grey-700);
 }
 
-.submit {
-	padding: 10px 60px;
-	font-family: "Space Grotesk";
-	font-weight: 500;
-	border-radius: 10px;
-	border-width: 1px;
-	background-color: #fff;
-	cursor: pointer;
-
-	&[data-width="fullwidth"] {
-		width: 100%;
-	}
-}
-
 .form {
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;
+}
+
+@media only screen and (max-width: 750px) {
+	.form {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+	}
+
+	.input_block {
+		margin: 6% 0%;
+		padding: 0;
+	}
 }
