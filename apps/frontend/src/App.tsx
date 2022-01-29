@@ -8,8 +8,9 @@ import Search from "./pages/Search/DLRSearch";
 import CreateEntryPage from "./pages/CreateDienstleisterPage/CreateDienstleisterPage";
 import GetEntryPage from "./pages/GetDienstleisterPage/GetDienstleisterPage";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
-import Impressum from "./pages/Impressum/Impressum";
+import Gesellschaftsform from "./pages/GesellschaftsformDecisionPage/GesellschaftsformDecision";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
+import Impressum from "./pages/Impressum/Impressum";
 import Gruendung_TaskId from "./pages/Gruendung/$task";
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
 						</Route>
 						<Route path='/datenschutz'>
 							<Datenschutzerklaerung />
+						</Route>
+						<Route path='/gesellschaftsform'>
+							<Gesellschaftsform />
 						</Route>
 					</Switch>
 				</Router>

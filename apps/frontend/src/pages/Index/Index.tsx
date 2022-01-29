@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import s from "./Index.module.scss";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import Button from "@vc/ui/src/components/Button/Button";
@@ -7,6 +8,11 @@ import Footer from "@vc/frontend/component/Footer/Footer";
 
 const Landing: React.FunctionComponent = () => {
 	const isMobile = useMediaQuery("(max-width: 900px)");
+	const history = useHistory();
+	const handleOnClick = useCallback(
+		() => history.push("/gesellschaftsform"),
+		[history]
+	);
 
 	return (
 		<div className={s.landingPage}>
@@ -84,7 +90,7 @@ const Landing: React.FunctionComponent = () => {
 			<section className={s.center}>
 				<h1>Noch nicht? Kein Problem!</h1>
 				<div className={s.buttons}>
-					<Button variant='secondary'>
+					<Button variant='secondary' onClick={handleOnClick}>
 						<div className={s.searchButtonContent}>
 							<SearchIcon /> Gesellschaftsform finden
 						</div>
