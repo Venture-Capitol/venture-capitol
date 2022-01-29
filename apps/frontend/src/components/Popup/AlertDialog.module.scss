@@ -66,4 +66,25 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	button:not(:first-of-type) {
+		background-color: rgb(255, 229, 229);
+		color: rgb(205, 43, 49);
+		transition: 0.3s ease-in-out;
+
+		&:hover {
+			background-color: #cd2b31;
+			color: #fff;
+		}
+	}
+}
+
+h2 {
+	font-size: var(--size-28px);
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+p {
+	margin-bottom: 40px;
 }

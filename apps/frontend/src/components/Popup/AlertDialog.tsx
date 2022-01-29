@@ -21,7 +21,11 @@ const AlertDialog: React.FunctionComponent<AlertDialogProps> = ({
 	defaultOpen: open,
 }: AlertDialogProps) => (
 	<RadixAlertDialog.Root defaultOpen={open}>
-		{trigger && <RadixAlertDialog.Trigger>{trigger}</RadixAlertDialog.Trigger>}
+		{trigger && (
+			<RadixAlertDialog.Trigger asChild={true}>
+				{trigger}
+			</RadixAlertDialog.Trigger>
+		)}
 		<RadixAlertDialog.Portal>
 			<RadixAlertDialog.Overlay className={s.overlay} />
 			<RadixAlertDialog.Content
