@@ -239,16 +239,19 @@
 		font-weight: 600;
 		align-items: center;
 		gap: 0.5rem;
-
-		background: linear-gradient(120.92deg, #acd7ff -9.42%, #6d73fe 111.3%),
-			#c4c4c4;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
+		display: flex;
 
 		svg {
 			display: inline;
 			height: 18px;
 			color: #acd7ff;
+		}
+
+		span {
+			background: linear-gradient(120.92deg, #acd7ff -9.42%, #6d73fe 111.3%),
+				#c4c4c4;
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
 		}
 
 		@media (min-width: 600px) {
