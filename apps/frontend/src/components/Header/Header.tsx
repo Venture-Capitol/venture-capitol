@@ -1,5 +1,5 @@
-import { AuthContext, AuthUI, User } from "@vc/auth";
-import React, { FC, useContext, useRef, useState } from "react";
+import { AuthUI } from "@vc/auth";
+import React, { FC, useRef, useState } from "react";
 import s from "./Header.module.scss";
 import wordmarkIcon from "../../assets/wordmark.svg";
 import emblemIcon from "../../assets/emblem.svg";
@@ -9,11 +9,12 @@ import { Link, NavLink } from "react-router-dom";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import { DotsHorizontalIcon, UserCircleIcon } from "@heroicons/react/solid/esm";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 const Header: FC = () => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-	const currentUser = useContext<User | null>(AuthContext);
+	const { user: currentUser } = useAuthContext();
 	const isMobileWidth = useMediaQuery("(max-width: 950px)");
 	const menuRef = useRef<HTMLDivElement>(null);
 

@@ -6,11 +6,18 @@ type ButtonProps = {
 	width?: "auto" | "fullwidth";
 	children: React.ReactNode;
 	disabled?: boolean;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	(
-		{ children, width = "auto", variant = "primary", disabled = "false" },
+		{
+			children,
+			width = "auto",
+			variant = "primary",
+			disabled = "false",
+			onClick,
+		},
 		ref
 	) => {
 		return (
@@ -20,6 +27,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				data-variant={variant}
 				data-width={width}
 				data-disabled={disabled}
+				onClick={onClick}
 			>
 				{children}
 			</button>
