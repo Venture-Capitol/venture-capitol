@@ -1,10 +1,9 @@
 import { AuthContext, AuthUI, User } from "@vc/auth";
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useRef, useState } from "react";
 import s from "./Header.module.scss";
 import wordmarkIcon from "../../assets/wordmark.svg";
 import emblemIcon from "../../assets/emblem.svg";
 import Menu from "../Menu/Menu";
-import * as DropdownMenuTemplate from "@radix-ui/react-dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Link, NavLink } from "react-router-dom";
 import MobileMenu from "../MobileMenu/MobileMenu";
@@ -13,8 +12,10 @@ import { DotsHorizontalIcon, UserCircleIcon } from "@heroicons/react/solid/esm";
 
 const Header: FC = () => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 	const currentUser = useContext<User | null>(AuthContext);
 	const isMobileWidth = useMediaQuery("(max-width: 950px)");
+	const menuRef = useRef<HTMLDivElement>(null);
 
 	const userInfo = (
 		<div className={s.userInfo}>
@@ -35,6 +36,21 @@ const Header: FC = () => {
 		</div>
 	);
 
+	const handleMenuClick = () => {
+		if (!isMenuOpen) {
+			document.addEventListener("click", handleOutsideClick, true);
+		}
+		setIsMenuOpen(!isMenuOpen);
+	};
+
+	function handleOutsideClick(e: MouseEvent) {
+		if (!menuRef.current) return;
+		if (!menuRef.current.contains(e.target as Node)) {
+			setIsMenuOpen(false);
+			document.removeEventListener("click", handleOutsideClick, true);
+		}
+	}
+
 	function getInitials(string: string) {
 		var names = string.split(" "),
 			initials = names[0].substring(0, 1).toUpperCase();
@@ -49,6 +65,10 @@ const Header: FC = () => {
 		setIsMobileMenuOpen(false);
 	}
 
+	function closeMenu() {
+		setIsMenuOpen(false);
+	}
+
 	const loggedOutMenuIcon = (
 		<div className={s.menuIconWrapper}>
 			<DotsHorizontalIcon className={s.menuIcon} />
@@ -57,12 +77,14 @@ const Header: FC = () => {
 
 	const menu = (
 		<>
-			<DropdownMenuTemplate.Root>
-				<DropdownMenuTemplate.Trigger className={s.dropdownMenuTrigger}>
-					{currentUser ? userInfo : loggedOutMenuIcon}
-				</DropdownMenuTemplate.Trigger>
-				<Menu isLoggedIn={currentUser != null} />
-			</DropdownMenuTemplate.Root>
+			<div className={s.dropdownMenuTrigger} onClick={handleMenuClick}>
+				{currentUser ? userInfo : loggedOutMenuIcon}
+			</div>
+			{isMenuOpen && (
+				<div ref={menuRef}>
+					<Menu isLoggedIn={currentUser != null} closeMenu={closeMenu} />
+				</div>
+			)}
 		</>
 	);
 
