@@ -3,7 +3,8 @@ import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import { Redirect } from "react-router";
 
 export default function () {
-	const { currentCompany, nodes, initialNodeId } = useGruendungContext();
+	const { currentCompany, nodes, initialNodeId, createCompany } =
+		useGruendungContext();
 
 	function findNextNode() {
 		let node = nodes[initialNodeId];
@@ -20,7 +21,13 @@ export default function () {
 		<div style={{ padding: "20rem" }}>
 			{currentCompany && <Redirect to={"/gruendung/" + findNextNode().id} />}
 
-			<Button>UG erstellen</Button>
+			<Button
+				onClick={() => {
+					createCompany("UG");
+				}}
+			>
+				UG erstellen
+			</Button>
 		</div>
 	);
 }

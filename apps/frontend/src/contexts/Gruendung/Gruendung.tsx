@@ -1,7 +1,11 @@
+import { AuthContext, User } from "@vc/auth";
+import axios from "axios";
 import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
 import { taskGraph, Node, Nodes } from "../../steps/connections";
 import * as CompanyService from "./company";
+import { GPF } from "@vc/api";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 // 🌍 Context
 
@@ -56,6 +60,7 @@ export interface Decision {
 }
 
 export interface Company {
+	id?: string;
 	legalForm: string;
 }
 
@@ -65,15 +70,56 @@ const GruendungContextProvider: FC = ({ children }) => {
 	const [nodes, setNodes] = useState<ProcessedTaskNodes>({});
 	const [initialNodeId, setInitialNodeId] = useState("");
 
-	const [currentCompany, setCurrentCompany] = useState<Company | undefined>(
-		undefined
+	const [currentCompany, setCurrentCompany] = useState<Company>();
+	const [completedTasks, setCompletedTasks] =
+		useState<string[]>(loadCompletedTasks);
+	const [madeDecisions, setMadeDecisions] = useState<Decision[]>(
+		loadCompletedDecisions
 	);
-	const [completedTasks, setCompletedTasks] = useState<string[]>(() =>
-		loadCompletedTasks()
-	);
-	const [madeDecisions, setMadeDecisions] = useState<Decision[]>(() =>
-		loadCompletedDecisions()
-	);
+	const { user } = useAuthContext();
+
+	// Load current company
+	useEffect(() => {
+		// If user is not logged in, try loading company from local storage
+		if (user == undefined) {
+			const loadedCompany = localStorage.getItem("company");
+			if (loadedCompany) {
+				setCurrentCompany(JSON.parse(loadedCompany));
+			}
+			return;
+		}
+
+		user?.getIdToken().then(idToken => {
+			axios.defaults.headers.common["Authorization"] = `Bearer ${idToken}`;
+
+			// Otherwise, get company from API
+			CompanyService.getCurrentCompany(user).then(company => {
+				// if a company exists on the server, use it
+				if (company != undefined) {
+					setCurrentCompany({
+						legalForm: company.legalForm,
+						id: company.id,
+					});
+					setCompletedTasks(company.completedTasks.map(task => task.taskId));
+					setMadeDecisions(
+						company.madeDecisions.map(decision => ({
+							id: decision.decisionId,
+							path: decision.selectedPath,
+						}))
+					);
+					return;
+				}
+
+				// If there is no remote company, but user has created one when logged out, save it
+				if (currentCompany?.legalForm) {
+					CompanyService.createCompany(currentCompany?.legalForm, {
+						completedTasks,
+						madeDecisions,
+					});
+				}
+			});
+		});
+	}, [user]);
 
 	function loadCompletedTasks() {
 		let tasks = localStorage.getItem("tasks");
@@ -91,12 +137,23 @@ const GruendungContextProvider: FC = ({ children }) => {
 		return [];
 	}
 
-	// Load current company on initial load
-	useEffect(() => {
-		CompanyService.getCurrentCompany().then(company =>
-			setCurrentCompany(company)
-		);
-	}, []);
+	async function createCompany(legalForm: string) {
+		if (user) {
+			const company = await CompanyService.createCompany(legalForm);
+			if (!company) return;
+
+			setCurrentCompany({
+				legalForm: company.legalForm,
+				id: company.id,
+			});
+		} else {
+			let tempCompany = {
+				legalForm,
+			};
+			setCurrentCompany(tempCompany);
+			localStorage.setItem("company", JSON.stringify(tempCompany));
+		}
+	}
 
 	// Process task graph
 	useEffect(() => {
@@ -144,9 +201,16 @@ const GruendungContextProvider: FC = ({ children }) => {
 				updatedTasks = [...completedTasks, taskId];
 				setCompletedTasks(updatedTasks);
 			}
+
+			if (currentCompany?.id) {
+				GPF.markTaskDone(currentCompany.id, taskId);
+			}
 		} else {
 			updatedTasks = completedTasks.filter(task => task !== taskId);
 			setCompletedTasks(updatedTasks);
+			if (currentCompany?.id) {
+				GPF.undoTaskCompletion(currentCompany.id, taskId);
+			}
 		}
 
 		window.localStorage.setItem("tasks", JSON.stringify(updatedTasks));
@@ -166,19 +230,22 @@ const GruendungContextProvider: FC = ({ children }) => {
 				{ id: decisionId, path },
 			];
 			setMadeDecisions(changedDecisions);
+
+			if (currentCompany?.id) {
+				GPF.makeDecision(currentCompany?.id, decisionId, {
+					selectedPath: path,
+				});
+			}
 		} else {
 			changedDecisions = [
 				...madeDecisions.filter(decision => decision.id !== decisionId),
 			];
 			setMadeDecisions(changedDecisions);
+			if (currentCompany?.id) {
+				GPF.undoDecision(currentCompany?.id, decisionId);
+			}
 		}
-
 		window.localStorage.setItem("decisions", JSON.stringify(changedDecisions));
-	}
-
-	async function createCompany(legalForm: string) {
-		const company = await CompanyService.createCompany(legalForm);
-		setCurrentCompany(company);
 	}
 
 	return (
