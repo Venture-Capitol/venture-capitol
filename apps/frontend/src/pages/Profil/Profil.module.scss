@@ -5,14 +5,14 @@
 	position: relative;
 
 	.profileNav {
+		svg {
+			top: 0;
+		}
+
 		.navContainer {
 			overflow: hidden;
 			display: flex;
 			gap: 50px;
-
-			svg {
-				top: 0;
-			}
 		}
 
 		.navLink {

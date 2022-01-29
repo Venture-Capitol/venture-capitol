@@ -11,7 +11,7 @@ import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Impressum from "./pages/Impressum/Impressum";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
 import Gruendung_TaskId from "./pages/Gruendung/$task";
-import Profile from "./pages/Profile/Profile";
+import Profil from "./pages/Profil/Profil";
 
 function App() {
 	return (
@@ -50,8 +50,8 @@ function App() {
 						<Route path='/datenschutz'>
 							<Datenschutzerklaerung />
 						</Route>
-						<Route path='/profile'>
-							<Profile />
+						<Route path='/profil'>
+							<Profil />
 						</Route>
 					</Switch>
 				</Router>

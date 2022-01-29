@@ -1,4 +1,4 @@
-import s from "./Profile.module.scss";
+import s from "./Profil.module.scss";
 import GPFProfileContent from "@vc/frontend/component/ProfileContent/GPFProfileContent";
 import { useState } from "react";
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
