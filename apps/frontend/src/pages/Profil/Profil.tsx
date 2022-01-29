@@ -2,11 +2,11 @@ import s from "./Profil.module.scss";
 import GPFProfileContent from "@vc/frontend/component/ProfileContent/GPFProfileContent";
 import { useState } from "react";
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function () {
-	var platform = useParams();
-	const [GPF_DLR, switchProfile] = useState(platform.platform);
+	var params = useParams();
+	const [GPF_DLR, switchProfile] = useState(params.platform);
 
 	return (
 		<div
