@@ -20,7 +20,7 @@ const Menu: FC<MenuProps> = ({ isLoggedIn, closeMenu }) => {
 		<div className={styles.dropdownMenu}>
 			{isLoggedIn && (
 				<div className={styles.dropdownItemWrapper}>
-					<Link to='/profil' className={styles.dropdownItem}>
+					<Link to='/profil/gpf' className={styles.dropdownItem}>
 						Mein Profil
 					</Link>
 				</div>

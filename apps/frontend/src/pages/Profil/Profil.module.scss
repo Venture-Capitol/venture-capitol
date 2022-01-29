@@ -4,9 +4,18 @@
 	height: 60vh;
 	position: relative;
 
+	@media (max-width: 950px) {
+		padding: 0 20px;
+		height: 70vh;
+	}
+
 	.profileNav {
 		svg {
-			top: 0;
+			top: 0px;
+
+			@media (max-width: 900px) {
+				top: -40px;
+			}
 		}
 
 		.navContainer {
@@ -23,6 +32,10 @@
 			padding: 2px 0;
 			margin-right: 130px;
 			cursor: pointer;
+
+			@media (max-width: 900px) {
+				margin-right: 0;
+			}
 
 			&::after {
 				content: "";

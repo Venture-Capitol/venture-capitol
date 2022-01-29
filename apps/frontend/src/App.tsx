@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 import { AuthProvider } from "@vc/auth";
 import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
@@ -50,7 +55,10 @@ function App() {
 						<Route path='/datenschutz'>
 							<Datenschutzerklaerung />
 						</Route>
-						<Route path='/profil'>
+						<Route path='/profil' exact>
+							<Redirect to='/profil/gpf'></Redirect>
+						</Route>
+						<Route path='/profil/:platform'>
 							<Profil />
 						</Route>
 					</Switch>

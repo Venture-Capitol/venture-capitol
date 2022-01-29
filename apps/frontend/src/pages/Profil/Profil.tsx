@@ -2,9 +2,11 @@ import s from "./Profil.module.scss";
 import GPFProfileContent from "@vc/frontend/component/ProfileContent/GPFProfileContent";
 import { useState } from "react";
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 export default function () {
-	const [GPF_DLR, switchProfile] = useState("GPF");
+	var platform = useParams();
+	const [GPF_DLR, switchProfile] = useState(platform.platform);
 
 	return (
 		<div
@@ -21,26 +23,30 @@ export default function () {
 				<div className={s.profileNav}>
 					<BackArrow />
 					<div className={s.navContainer}>
-						<div
-							onClick={() => {
-								switchProfile("GPF");
+						<Link
+							to={{
+								pathname: "/profil/gpf",
 							}}
-							className={`${s.navLink} ${GPF_DLR == "GPF" && s.active}`}
+							onClick={() => switchProfile("gpf")}
+							className={`${GPF_DLR == "gpf" && s.active} ${s.navLink}`}
+							replace
 						>
 							Mein Gründerprofil
-						</div>
-						<div
-							onClick={() => {
-								switchProfile("DLR");
+						</Link>
+						<Link
+							to={{
+								pathname: "/profil/dlr",
 							}}
-							className={`${s.navLink} ${GPF_DLR == "DLR" && s.active}`}
+							onClick={() => switchProfile("dlr")}
+							className={`${GPF_DLR == "dlr" && s.active} ${s.navLink}`}
+							replace
 						>
 							Mein Dienstleisterprofil
-						</div>
+						</Link>
 					</div>
 				</div>
-				{GPF_DLR == "GPF" && <GPFProfileContent />}
-				{GPF_DLR == "DLR" && <div>DLR coming soon...</div>}
+				{GPF_DLR == "gpf" && <GPFProfileContent />}
+				{GPF_DLR == "dlr" && <div>DLR coming soon...</div>}
 			</div>
 		</div>
 	);
