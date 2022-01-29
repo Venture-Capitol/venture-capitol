@@ -177,16 +177,17 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 100%;
+	height: 100vh;
+	clip-path: polygon(0 0, 100% 0, 100% 100px, 0 100px);
 	width: 100%;
 	backdrop-filter: blur(20px);
 	z-index: -10;
-	transition: height 0.2s 0.1s ease-in-out;
+	transition: clip-path 0.2s 0.1s ease-in-out;
 
 	&[data-mobile-open="true"][data-mobile-active="true"] {
 		background-color: rgba(223, 223, 223, 0.5);
-		height: 100vh;
-		transition: height 0.2s ease-in-out;
+		clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+		transition: clip-path 0.2s ease-in-out;
 	}
 
 	@supports not (backdrop-filter: blur(20px)) {
@@ -277,6 +278,10 @@
 	.header {
 		height: 50px;
 		transition: height ease-in-out 0.1s;
+	}
+
+	.blurBg {
+		clip-path: polygon(0 0, 100% 0, 100% 50px, 0 50px);
 	}
 
 	.logo {
