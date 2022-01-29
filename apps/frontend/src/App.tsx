@@ -4,7 +4,6 @@ import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
 import Header from "./components/Header/Header";
 import Gruendung from "./pages/Gruendung/Gruendung";
-import GruendungAuswahl from "./pages/Gruendung/GruendungAuswahl";
 import Search from "./pages/Search/DLRSearch";
 import CreateEntryPage from "./pages/CreateDienstleisterPage/CreateDienstleisterPage";
 import GetEntryPage from "./pages/GetDienstleisterPage/GetDienstleisterPage";
