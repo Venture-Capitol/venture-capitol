@@ -80,19 +80,19 @@ const GruendungContextProvider: FC = ({ children }) => {
 
 	// Load current company
 	useEffect(() => {
+		// If user is not logged in, try loading company from local storage
+		if (user == undefined) {
+			const loadedCompany = localStorage.getItem("company");
+			if (loadedCompany) {
+				setCurrentCompany(JSON.parse(loadedCompany));
+			}
+			return;
+		}
+
 		user?.getIdToken().then(idToken => {
 			axios.defaults.headers.common["Authorization"] = `Bearer ${idToken}`;
 
-			// If user is not logged in, try loading company from local storage
-			if (user == undefined) {
-				const loadedCompany = localStorage.getItem("company");
-				if (loadedCompany) {
-					setCurrentCompany(JSON.parse(loadedCompany));
-				}
-				return;
-			}
-
-			// Otherwise, get company load if exists
+			// Otherwise, get company from API
 			CompanyService.getCurrentCompany(user).then(company => {
 				// if a company exists on the server, use it
 				if (company != undefined) {
