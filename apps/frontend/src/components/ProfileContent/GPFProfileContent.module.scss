@@ -19,6 +19,17 @@
 		transition: 0.3s ease-in-out;
 	}
 
+	.trigger {
+		width: max-content;
+		&.disabled {
+			cursor: not-allowed;
+
+			Button {
+				pointer-events: none;
+			}
+		}
+	}
+
 	.visible {
 		margin-top: 10px;
 		visibility: visible;

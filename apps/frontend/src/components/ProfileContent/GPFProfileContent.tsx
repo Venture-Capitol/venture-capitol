@@ -11,6 +11,7 @@ const GPFProfileContent: FunctionComponent = ({}) => {
 	const [companyDeletedError, showErrorNotice] = useState(false);
 
 	const { currentCompany } = useGruendungContext();
+	console.log(currentCompany.id);
 
 	async function deleteCompany(): Promise<boolean | undefined> {
 		if (currentCompany == undefined) {
@@ -18,7 +19,7 @@ const GPFProfileContent: FunctionComponent = ({}) => {
 			return undefined;
 		}
 		try {
-			const company = await GPF.deleteCompany(currentCompany.id as string);
+			const company = await GPF.deleteCompany(currentCompany.id);
 			showNotice(true);
 			return true;
 		} catch (e) {
