@@ -1,5 +1,4 @@
 import { PrismaClient, Prisma, Entry } from "@prisma/client";
-import logger = require("../../config/winston");
 
 import ApplicationError from "../utils/ApplicationError";
 
@@ -9,7 +8,7 @@ export interface DistanceEntry extends Entry {
 	distance: number;
 }
 
-async function searchEntries(
+export async function searchEntries(
 	jobname: string,
 	lat: number,
 	long: number,
@@ -82,7 +81,8 @@ async function searchEntries(
 		} catch (exception) {
 			return callback(
 				new ApplicationError(
-					"Es sind unerwartete Probleme bei der Suche aufgetreten.",
+					"Es sind unerwartete Probleme bei der Suche aufgetreten. " +
+						exception,
 					500
 				),
 				null
@@ -91,7 +91,8 @@ async function searchEntries(
 	}
 }
 
-async function getAllEntries(
+// TODO: Fails ATM if amount is not set - See amount is NaN
+export async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
 	amount?: number,
@@ -144,7 +145,7 @@ async function getAllEntries(
 }
 
 // TODO Add code which makes admin create a verified Entry
-async function createEntry(
+export async function createEntry(
 	job: string,
 	company: string,
 	address: string,
@@ -194,7 +195,7 @@ async function createEntry(
 	}
 }
 
-async function getEntry(entryID: number, callback: Function) {
+export async function getEntry(entryID: number, callback: Function) {
 	if (isNaN(entryID)) {
 		return callback(
 			new ApplicationError(
@@ -235,7 +236,7 @@ async function getEntry(entryID: number, callback: Function) {
 	}
 }
 
-async function updateEntry(id: number, body: any, callback: Function) {
+export async function updateEntry(id: number, body: any, callback: Function) {
 	if (isNaN(id) || !body) {
 		return callback(
 			new ApplicationError(
@@ -285,7 +286,7 @@ async function updateEntry(id: number, body: any, callback: Function) {
 	}
 }
 
-async function deleteEntry(id: number, callback: Function) {
+export async function deleteEntry(id: number, callback: Function) {
 	if (isNaN(id)) {
 		return callback(
 			new ApplicationError("Fehlerhafte Anfrage. ID muss number sein.", 400)
@@ -316,12 +317,3 @@ async function deleteEntry(id: number, callback: Function) {
 		}
 	}
 }
-
-module.exports = {
-	searchEntries,
-	getAllEntries,
-	createEntry,
-	getEntry,
-	updateEntry,
-	deleteEntry,
-};

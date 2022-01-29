@@ -1,22 +1,22 @@
 import { Router } from "express";
-const router = Router();
 import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 
-import logger = require("../../config/winston");
+import * as logger from "../../config/winston";
 
 import { Entry } from "@prisma/client";
 import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
-const EntryService = require("./EntryService");
-const EntryUtils = require("../utils/EntryUtils");
+import * as EntryService from "./EntryService";
+
+export const router = Router();
 
 router.get("/search", function (req, res, next) {
 	EntryService.searchEntries(
-		req.query.jobname,
-		req.query.latitude,
-		req.query.longitude,
-		req.query.page,
+		String(req.query.jobname),
+		Number(req.query.latitude),
+		Number(req.query.longitude),
+		Number(req.query.page),
 		function (error: Error | ApplicationError, result: DistanceEntry[]) {
 			if (error) {
 				logger.error(error.message);
@@ -58,9 +58,9 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 				res.send(result);
 			}
 		},
-		req.query.verified,
-		req.query.amount,
-		req.query.page
+		Boolean(req.query.verified),
+		Number(req.query.amount),
+		Number(req.query.page)
 	);
 });
 
@@ -111,9 +111,8 @@ router.get("/:id", function (req, res, next) {
 });
 
 router.put("/:id", getUser, isAdmin, function (req, res, next) {
-	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.updateEntry(
-		idAsNumber,
+		Number(req.params.id),
 		req.body.editedEntry,
 		function (error: Error | ApplicationError, result: Entry) {
 			if (error) {
@@ -131,9 +130,8 @@ router.put("/:id", getUser, isAdmin, function (req, res, next) {
 });
 
 router.delete("/:id", getUser, isAdmin, function (req, res, next) {
-	const idAsNumber = EntryUtils.parseToNumber(req.params.id);
 	EntryService.deleteEntry(
-		idAsNumber,
+		Number(req.params.id),
 		function (error: Error | ApplicationError) {
 			if (error) {
 				logger.error(error.message);
@@ -164,6 +162,4 @@ router.post("/addMany", function (req, res, next) {
 		}
 	});
 });
-*/
-
-module.exports = router;
+ */
