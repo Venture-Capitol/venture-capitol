@@ -1,3 +1,9 @@
-Wenn Sie Arbeitnehmer beschäftigen, benötigen Sie für Ihren Betrieb eine Betriebsnummer. Diese erhalten Sie seit Beginn des Jahres 2008 zentral beim Betriebsnummern-Service der Bundesagentur für Arbeit in Saarbrücken. Die Betriebsnummer ist von Ihnen in die Versicherungsnachweise Ihrer Arbeitnehmer einzutragen.
-Auch wenn Sie einen schon bestehenden Betrieb übernehmen, müssen Sie eine neue Betriebsnummer beantragen, da Sie an den Inhaber eines jeden Betriebes gebunden ist. Gleichzeitig benötigen Sie für die Anmeldung zur Sozialversicherung ein Schlüsselverzeichnis über die Art der versicherungspflichtigen Tätigkeiten.
-Weitere Informationen zum Meldeverfahren finden Sie im Internet unter www.arbeitsagentur.de.
+Wenn du vor hast Arbeitnehmer zu beschäftigen, benötigst du für deinen Betrieb eine Betriebsnummer.
+
+## Betriebsnummer anfragen
+
+Diese Nummer bekommst unkompliziert online auf folgender Seite:
+[web.arbeitsagentur.de/bno-prod/ui/#/start](https://web.arbeitsagentur.de/bno-prod/ui/#/start)
+
+Die Betriebsnummer ist von dir in die Versicherungsnachweise deiner Arbeitnehmer einzutragen.
+Weitere Informationen zum Meldeverfahren findest du im Internet unter [arbeitsagentur.de/unternehmen](https://www.arbeitsagentur.de/unternehmen).
