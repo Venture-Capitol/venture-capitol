@@ -2,6 +2,7 @@
 	display: flex;
 	height: 100%;
 	background: var(--color-background-gradient);
+	padding-top: 100px;
 	gap: 3rem;
 
 	.nav {
@@ -9,6 +10,7 @@
 		padding: 2rem 0rem 2rem 2rem;
 		overflow-y: auto;
 		direction: rtl;
+		scroll-behavior: smooth;
 
 		nav {
 			margin-left: auto;

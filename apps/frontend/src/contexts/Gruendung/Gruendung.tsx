@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
 import { taskGraph, Node, Nodes } from "../../steps/connections";
+import * as CompanyService from "./company";
 
 // 🌍 Context
 
@@ -8,8 +9,10 @@ type GruendungContext = {
 	nodes: ProcessedTaskNodes;
 	initialNodeId: string;
 	unprocessedNodes: Nodes;
+	currentCompany?: Company;
 	setTaskStatus(taskId: string, status: boolean): void;
 	setDecisionStatus(decisionId: string, path?: number): void;
+	createCompany(legalForm: string): void;
 };
 
 const GruendungContext = React.createContext<GruendungContext>({
@@ -18,6 +21,7 @@ const GruendungContext = React.createContext<GruendungContext>({
 	unprocessedNodes: taskGraph.nodes,
 	setTaskStatus: () => {},
 	setDecisionStatus: () => {},
+	createCompany: () => {},
 });
 
 export function useGruendungContext() {
@@ -46,43 +50,55 @@ interface ProcessedTaskGraph {
 	nodes: ProcessedTaskNodes;
 }
 
+export interface Decision {
+	id: string;
+	path: number;
+}
+
+export interface Company {
+	legalForm: string;
+}
+
 // 💾 Provider
 
 const GruendungContextProvider: FC = ({ children }) => {
 	const [nodes, setNodes] = useState<ProcessedTaskNodes>({});
 	const [initialNodeId, setInitialNodeId] = useState("");
 
-	const [completedTasks, setCompletedTasks] = useState<string[]>([]);
-	const [madeDecisions, setMadeDecisions] = useState<
-		{
-			id: string;
-			path: number;
-		}[]
-	>([]);
+	const [currentCompany, setCurrentCompany] = useState<Company | undefined>(
+		undefined
+	);
+	const [completedTasks, setCompletedTasks] = useState<string[]>(() =>
+		loadCompletedTasks()
+	);
+	const [madeDecisions, setMadeDecisions] = useState<Decision[]>(() =>
+		loadCompletedDecisions()
+	);
 
-	function setTaskStatus(taskId: string, status: boolean) {
-		if (status) {
-			if (!completedTasks.find(task => task == taskId)) {
-				setCompletedTasks([...completedTasks, taskId]);
-			}
-		} else {
-			setCompletedTasks(completedTasks.filter(task => task !== taskId));
+	function loadCompletedTasks() {
+		let tasks = localStorage.getItem("tasks");
+		if (tasks) {
+			return JSON.parse(tasks);
 		}
+		return [];
 	}
 
-	function setDecisionStatus(decisionId: string, path?: number) {
-		if (path != undefined) {
-			setMadeDecisions([
-				...madeDecisions.filter(decision => decision.id !== decisionId),
-				{ id: decisionId, path },
-			]);
-		} else {
-			setMadeDecisions([
-				...madeDecisions.filter(decision => decision.id !== decisionId),
-			]);
+	function loadCompletedDecisions() {
+		let decisions = localStorage.getItem("decisions");
+		if (decisions) {
+			return JSON.parse(decisions);
 		}
+		return [];
 	}
 
+	// Load current company on initial load
+	useEffect(() => {
+		CompanyService.getCurrentCompany().then(company =>
+			setCurrentCompany(company)
+		);
+	}, []);
+
+	// Process task graph
 	useEffect(() => {
 		let processedTaskGraph: ProcessedTaskGraph = {
 			initialNode: taskGraph.initialNode,
@@ -116,6 +132,55 @@ const GruendungContextProvider: FC = ({ children }) => {
 		setInitialNodeId(processedTaskGraph.initialNode);
 	}, [taskGraph, completedTasks, madeDecisions]);
 
+	/**
+	 * Set wheter a task is done or not
+	 * @param taskId id of the task to mark as either done or not
+	 * @param status true if done, false if not
+	 */
+	function setTaskStatus(taskId: string, status: boolean) {
+		let updatedTasks;
+		if (status) {
+			if (!completedTasks.find(task => task == taskId)) {
+				updatedTasks = [...completedTasks, taskId];
+				setCompletedTasks(updatedTasks);
+			}
+		} else {
+			updatedTasks = completedTasks.filter(task => task !== taskId);
+			setCompletedTasks(updatedTasks);
+		}
+
+		window.localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+	}
+
+	/**
+	 * Make a decision by selecting a path, or revoke it by setting path to undefined
+	 * @param decisionId id of the decision
+	 * @param path 0 or two, depending on the left or right branch, undefined if decision should be revoked
+	 */
+	function setDecisionStatus(decisionId: string, path?: number) {
+		let changedDecisions;
+
+		if (path != undefined) {
+			changedDecisions = [
+				...madeDecisions.filter(decision => decision.id !== decisionId),
+				{ id: decisionId, path },
+			];
+			setMadeDecisions(changedDecisions);
+		} else {
+			changedDecisions = [
+				...madeDecisions.filter(decision => decision.id !== decisionId),
+			];
+			setMadeDecisions(changedDecisions);
+		}
+
+		window.localStorage.setItem("decisions", JSON.stringify(changedDecisions));
+	}
+
+	async function createCompany(legalForm: string) {
+		const company = await CompanyService.createCompany(legalForm);
+		setCurrentCompany(company);
+	}
+
 	return (
 		<GruendungContext.Provider
 			value={{
@@ -124,6 +189,8 @@ const GruendungContextProvider: FC = ({ children }) => {
 				unprocessedNodes: taskGraph.nodes,
 				setTaskStatus,
 				setDecisionStatus,
+				currentCompany,
+				createCompany,
 			}}
 		>
 			{children}
@@ -154,10 +221,8 @@ function calculatePreviousNodes(nodes: ProcessedTaskNodes) {
 	});
 }
 
-// recursive add path to nodes and next in decision
-
 /**
- *
+ * recursive add path to nodes and next in decision
  * @param path
  * @param nodeId
  * @param count
