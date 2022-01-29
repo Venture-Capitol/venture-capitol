@@ -6,7 +6,7 @@ import { CheckIcon } from "@heroicons/react/solid/esm";
 
 export interface TaskProps {
 	id: string;
-	name: string;
+	shortName: string;
 	next: string[];
 	url: string;
 	checked: boolean;
@@ -14,7 +14,7 @@ export interface TaskProps {
 
 const Task: FunctionComponent<TaskProps> = ({
 	id,
-	name,
+	shortName,
 	next,
 	url,
 	checked,
@@ -50,7 +50,7 @@ const Task: FunctionComponent<TaskProps> = ({
 			<label htmlFor={inputId} onClick={e => e.stopPropagation()}>
 				<CheckIcon />
 			</label>
-			<span>{name}</span>
+			<span>{shortName}</span>
 		</div>
 	);
 };

@@ -1,12 +1,12 @@
-Gleich als Erstes eine wichtige Frage: Wie wird deine _UG/GmbH_ heißen?
+Gleich als Erstes eine wichtige Frage: Wie wird deine $ug{UG}$gmbh{GmbH} heißen?
 
-Die Namensvergabe ist oft spannend aber auch schnell kräftezehrend. Immerhin wird dich der Unternehmensname lange Zeit begleiten. Denn eine _UG/GmbH_ lässt sich nur umbenennen, indem du auch den Gesellschaftsvertrag änderst.
+Die Namensvergabe ist oft spannend aber auch schnell kräftezehrend. Immerhin wird dich der Unternehmensname lange Zeit begleiten. Denn eine $ug{UG}$gmbh{GmbH} lässt sich nur umbenennen, indem du auch den Gesellschaftsvertrag änderst.
 
 Im Zweifelsfall ist das aber natürlich immer möglich solltest du mit dem Namen unglücklich sein, also wähle einfach einen Namen, der dir gefällt und lasse das Thema nicht zu groß werden. Er muss nicht perfekt sein.
 
 ## Wichtige Hinweise
 
-Bei der Planung nicht vergessen, dass du gesetzlich dazu verpflichtet bist später in jedem Fall den Zusatz _GmbH/UG (haftungsbeschränkt)_ im Namen zu führen. Also beispielweise Bäckerei Lustig _GmbH/UG (haftungsbeschränkt)_. Ansonsten bist du relativ frei und kannst deinen eigenen Namen wählen oder dir einen Sach- oder Fantasienamen ausdenken.
+Bei der Planung nicht vergessen, dass du gesetzlich dazu verpflichtet bist später in jedem Fall den Zusatz $ug{UG (haftungsbeschränkt)}$gmbh{GmbH} im Namen zu führen. Also beispielweise Bäckerei Lustig $ug{UG (haftungsbeschränkt)}$gmbh{GmbH}. Ansonsten bist du relativ frei und kannst deinen eigenen Namen wählen oder dir einen Sach- oder Fantasienamen ausdenken.
 
 Denke aber hier in jedem Fall langfristig und wähle im Zweifelsfall einen seriösen Namen, mit dem du auch später gegenüber Geschäftspartnern sicher auftreten kannst und nicht dauernd erklären musst, wie du gerade auf diesen Namen gekommen bist.
 

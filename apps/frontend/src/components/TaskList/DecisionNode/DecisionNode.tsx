@@ -3,14 +3,14 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import styles from "./DecisionNode.module.scss";
 export interface DecisionNodeProps {
 	id: string;
-	name: string;
+	shortName: string;
 	next: string[];
 	url: string;
 	selectedPath?: number;
 }
 const DecisionNode: FC<DecisionNodeProps> = ({
 	id,
-	name,
+	shortName,
 	next,
 	url,
 	selectedPath,
@@ -32,7 +32,7 @@ const DecisionNode: FC<DecisionNodeProps> = ({
 			data-checked={selectedPath !== undefined}
 			onClick={handleClick}
 		>
-			<span>{name}</span>
+			<span>{shortName}</span>
 		</div>
 	);
 };
