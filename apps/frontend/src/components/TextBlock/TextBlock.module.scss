@@ -5,7 +5,27 @@
 	line-break: break-all;
 
 	@media (max-width: 950px) {
-		padding: 20px 15px 0px;
+		padding: 100px 15px 0px;
+		height: 100vh;
+
+		svg {
+			top: 70px;
+		}
+	}
+
+	@media (max-width: 950px) {
+		h1 {
+			font-size: var(--size-24px);
+		}
+		h2 {
+			font-size: var(--size-22px);
+		}
+		h3 {
+			font-size: var(--size-20px);
+		}
+		p {
+			font-size: var(--size-16px);
+		}
 	}
 
 	.page_content {
