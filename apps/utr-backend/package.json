@@ -18,7 +18,7 @@
 		"url": "git+https://github.com/Venture-Capitol/venture-capitol.git"
 	},
 	"scripts": {
-		"start": "docker-compose up -d && ts-node-dev -r dotenv/config src/index.ts",
+		"start": "docker-compose up -d db && ts-node-dev -r dotenv/config src/index.ts",
 		"build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node16",
 		"clean": "rm -rf ./dist",
 		"compile": "tsc -p tsconfig.build.json",

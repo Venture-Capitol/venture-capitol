@@ -1,15 +1,14 @@
-import express = require("express");
+import express from "express";
 import cors from "cors";
 import { initializeApp } from "firebase-admin/app";
 
 import * as OpenApiValidator from "express-openapi-validator";
 
-var indexRouter = require("./endpoints/index/IndexRoute");
-var entryRouter = require("./endpoints/entry/EntryRoute");
+import { router as entryRouter } from "./endpoints/entry/EntryRoute";
 
 initializeApp();
 
-var app = express();
+export var app = express();
 
 app.use("*", cors());
 app.use(function (req, res, next) {
@@ -41,7 +40,4 @@ app.use((err: any, req: any, res: any, next: any) => {
 });
 
 // Adding Routes
-app.use("/", indexRouter);
 app.use("/entry", entryRouter);
-
-export = app;

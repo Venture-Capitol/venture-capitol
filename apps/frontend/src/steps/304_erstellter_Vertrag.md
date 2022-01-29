@@ -1,4 +1,4 @@
-Manchmal brauchst du einen individuellen Gesellschaftsvertrag für deine _UG/GmbH_.
+Manchmal brauchst du einen individuellen Gesellschaftsvertrag für deine $ug{UG}$gmbh{GmbH}.
 
 ## Welche Punkte regelt deine individuelle Satzung?
 
@@ -19,9 +19,9 @@ Kleiner Hinweis: Bei Kapitalgesellschaften werden unter anderem hohe Anforderung
 
 Auch wenn der Anwalt sicher hilft, macht euch vorher schon mal Gedanken über den Unternehmensgegenstand.
 
-Der Unternehmensgegenstand beschreibt die Art der Betätigung einer Gesellschaft, bzw. den Bereich in dem ihr vor habt tätig zu sein. Er darf interessanterweise sowohl gewerblich als auch ideell sein. Der Unternehmensgegenstand ist zwingenden Inhalt der Satzung der _UG/GmbH_ und wird später im Prozess auch in das Handelsregister eingetragen
+Der Unternehmensgegenstand beschreibt die Art der Betätigung einer Gesellschaft, bzw. den Bereich in dem ihr vor habt tätig zu sein. Er darf interessanterweise sowohl gewerblich als auch ideell sein. Der Unternehmensgegenstand ist zwingenden Inhalt der Satzung der $ug{UG}$gmbh{GmbH} und wird später im Prozess auch in das Handelsregister eingetragen
 
-Ziel ist dass der Schwerpunkt der Geschäftstätigkeit der Gesellschaft deutlich erkennbar wird. Man sollte mit dem Unternehmensgegenstand sofort erkennen können, in welcher Art und in welchem unternehmerischen Geschäftszweig eine _UG/GmbH_ tätig ist.
+Ziel ist dass der Schwerpunkt der Geschäftstätigkeit der Gesellschaft deutlich erkennbar wird. Man sollte mit dem Unternehmensgegenstand sofort erkennen können, in welcher Art und in welchem unternehmerischen Geschäftszweig eine $ug{UG}$gmbh{GmbH} tätig ist.
 
 Für einen gut formulierten Unternehmensgegenstand gilt: Man sollte den Unternehmensgegenstand so weit wie nötig und so eng wie möglich formulieren. Denn eine enge Formulierung empfiehlt sich besonders dann, wenn eure Gesellschafter die Kompetenzen der Geschäftsführer einschränken wollen.
 

@@ -1,12 +1,12 @@
 import { FunctionComponent, useState, MouseEvent, useMemo } from "react";
 import styles from "./TaskNode.module.scss";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import { CheckIcon } from "@heroicons/react/solid/esm";
 
 export interface TaskProps {
 	id: string;
-	name: string;
+	shortName: string;
 	next: string[];
 	url: string;
 	checked: boolean;
@@ -14,13 +14,14 @@ export interface TaskProps {
 
 const Task: FunctionComponent<TaskProps> = ({
 	id,
-	name,
+	shortName,
 	next,
 	url,
 	checked,
 }) => {
 	const [inputId] = useState(Math.random().toString());
 	const { setTaskStatus } = useGruendungContext();
+	const match = useRouteMatch("/gruendung/" + id);
 
 	const history = useHistory();
 
@@ -33,6 +34,7 @@ const Task: FunctionComponent<TaskProps> = ({
 			className={`${styles.task} box`}
 			data-task
 			data-checked={checked}
+			data-selected={match !== null}
 			data-id={id}
 			data-next={next}
 			onClick={handleClick}
@@ -48,7 +50,7 @@ const Task: FunctionComponent<TaskProps> = ({
 			<label htmlFor={inputId} onClick={e => e.stopPropagation()}>
 				<CheckIcon />
 			</label>
-			<span>{name}</span>
+			<span>{shortName}</span>
 		</div>
 	);
 };

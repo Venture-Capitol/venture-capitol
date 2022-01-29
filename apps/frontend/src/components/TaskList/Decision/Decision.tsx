@@ -5,7 +5,7 @@ import styles from "./Decision.module.scss";
 
 interface DecisionProps {
 	id: string;
-	name: string;
+	shortName: string;
 	next: string[];
 	url: string;
 	children: Array<ReactElement<DecisionPathProps>>;
@@ -14,7 +14,7 @@ interface DecisionProps {
 
 const Decision: FC<DecisionProps> = ({
 	id,
-	name,
+	shortName,
 	next,
 	url,
 	children,
@@ -24,7 +24,7 @@ const Decision: FC<DecisionProps> = ({
 		<div className={styles.decision}>
 			<DecisionNode
 				id={id}
-				name={name}
+				shortName={shortName}
 				next={next}
 				url={url}
 				selectedPath={selectedPath}
