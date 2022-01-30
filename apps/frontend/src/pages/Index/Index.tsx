@@ -5,14 +5,27 @@ import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import Button from "@vc/ui/src/components/Button/Button";
 import { SearchIcon } from "@heroicons/react/solid/esm";
 import Footer from "@vc/frontend/component/Footer/Footer";
+import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 
 const Landing: React.FunctionComponent = () => {
 	const isMobile = useMediaQuery("(max-width: 900px)");
 	const history = useHistory();
-	const handleOnClick = useCallback(
+	const handleOnClickGesellschaftsform = useCallback(
 		() => history.push("/gesellschaftsform"),
 		[history]
 	);
+	const { nodes, initialNodeId, createCompany } = useGruendungContext();
+
+	function findNextNode() {
+		let node = nodes[initialNodeId];
+		while (node.checked || node.selectedPath != undefined) {
+			if (node.selectedPath != undefined) {
+				node = nodes[node.next[node.selectedPath]];
+			}
+			node = nodes[node.next[0]];
+		}
+		return node;
+	}
 
 	return (
 		<div className={s.landingPage}>
@@ -72,13 +85,25 @@ const Landing: React.FunctionComponent = () => {
 			<section className={s.startCompany}>
 				<h1>Weißt du schon, welche Gesellschaftsform du gründen willst? </h1>
 				<div className={s.buttons}>
-					<Button variant='secondary'>
+					<Button
+						variant='secondary'
+						onClick={() => {
+							createCompany("UG");
+							history.push("/gruendung/" + findNextNode().id);
+						}}
+					>
 						<div className={s.buttonTitle} data-color='blue'>
 							UG
 						</div>
 						<div className={s.buttonDescription}>Gründen</div>
 					</Button>
-					<Button variant='secondary'>
+					<Button
+						variant='secondary'
+						onClick={() => {
+							createCompany("GMBH");
+							history.push("/gruendung/" + findNextNode().id);
+						}}
+					>
 						<div className={s.buttonTitle} data-color='purple'>
 							GmbH
 						</div>
@@ -90,7 +115,7 @@ const Landing: React.FunctionComponent = () => {
 			<section className={s.center}>
 				<h1>Noch nicht? Kein Problem!</h1>
 				<div className={s.buttons}>
-					<Button variant='secondary' onClick={handleOnClick}>
+					<Button variant='secondary' onClick={handleOnClickGesellschaftsform}>
 						<div className={s.searchButtonContent}>
 							<SearchIcon /> Gesellschaftsform finden
 						</div>
