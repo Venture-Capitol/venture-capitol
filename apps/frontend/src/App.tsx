@@ -29,9 +29,6 @@ function App() {
 							<Gruendung_TaskId />
 						</Route>
 						<Route path='/dienstleister'>
-							<Index />
-						</Route>
-						<Route path='/dienstleister/search'>
 							<Search />
 						</Route>
 						<Route path='/dienstleister/create'>

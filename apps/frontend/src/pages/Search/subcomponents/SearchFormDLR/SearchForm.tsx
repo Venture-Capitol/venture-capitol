@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext, AuthUI, User } from "@vc/auth";
+import AddressField from "../../../../components/AddressField/AddressField";
 import s from "./SearchForm.module.scss";
 
 interface Props {
@@ -56,12 +57,13 @@ const SearchForm = ({ passSearchResponse }: Props) => {
 				</label>
 				<label className={s.input_block}>
 					Adresse
-					<input
+					{/* <input
 						type='text'
 						value={chosenAddress}
 						className={s.textinput}
 						onChange={event => setChosenAddress(event.target.value)}
-					/>
+					/> */}
+					<AddressField />
 				</label>
 				<input type='submit' value='Suchen' className={s.submit} />
 			</form>
