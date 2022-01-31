@@ -3,9 +3,10 @@ import s from "./EditDeleteDienstleister.module.scss";
 import { AuthContext, AuthUI, User } from "@vc/auth";
 import React, { useState, useContext } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 export default function EditDeleteDienstleister() {
-	const currentUser = useContext<User | null>(AuthContext);
+	const { user } = useAuthContext();
 
 	// NEEDS LOGIC TO GET USER WHO THIS DIENSTLEISTER BELONGS TO
 	// USE GET TO GET ALL INFOS, ADD INTO FORM, PERFORM EDIT & DELETE WITH ID
@@ -50,7 +51,7 @@ export default function EditDeleteDienstleister() {
 		var userID = "";
 		const fetchURL = "http://localhost:8103/entry/" + userID;
 
-		currentUser?.getIdToken().then(token => {
+		user?.getIdToken().then(token => {
 			const requestOptions = {
 				method: "PUT",
 				headers: {
@@ -87,7 +88,7 @@ export default function EditDeleteDienstleister() {
 		var userID = "";
 		const fetchURL = "http://localhost:8103/entry/" + userID;
 
-		currentUser?.getIdToken().then(token => {
+		user?.getIdToken().then(token => {
 			const requestOptions = {
 				method: "DELETE",
 				headers: {

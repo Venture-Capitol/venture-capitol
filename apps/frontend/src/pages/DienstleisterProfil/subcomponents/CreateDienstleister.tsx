@@ -3,9 +3,10 @@ import s from "./CreateDienstleister.module.scss";
 import { AuthContext, AuthUI, User } from "@vc/auth";
 import React, { useState, useContext } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 export default function CreateDienstleister() {
-	const currentUser = useContext<User | null>(AuthContext);
+	const { user } = useAuthContext();
 
 	const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -39,7 +40,7 @@ export default function CreateDienstleister() {
 			description: description,
 		};
 
-		currentUser?.getIdToken().then(token => {
+		user?.getIdToken().then(token => {
 			const requestOptions = {
 				method: "POST",
 				headers: {

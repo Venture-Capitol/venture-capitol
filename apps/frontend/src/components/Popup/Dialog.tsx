@@ -8,6 +8,8 @@ type DialogProps = {
 	close?: React.ReactNode;
 	preventEscape?: boolean;
 	defaultOpen: boolean;
+	open?: boolean;
+	onOpenChange?: (open: boolean) => void;
 };
 
 const Dialog: React.FunctionComponent<DialogProps> = ({
@@ -16,9 +18,15 @@ const Dialog: React.FunctionComponent<DialogProps> = ({
 	trigger,
 	close,
 	preventEscape = false,
-	defaultOpen: open,
+	defaultOpen,
+	open,
+	onOpenChange,
 }: DialogProps) => (
-	<RadixDialog.Root defaultOpen={open}>
+	<RadixDialog.Root
+		defaultOpen={defaultOpen}
+		open={open}
+		onOpenChange={onOpenChange}
+	>
 		{trigger && <RadixDialog.Trigger>{trigger}</RadixDialog.Trigger>}
 		<RadixDialog.Portal>
 			<RadixDialog.Overlay className={s.overlay} />

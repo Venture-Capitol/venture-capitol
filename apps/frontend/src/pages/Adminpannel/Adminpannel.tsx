@@ -4,18 +4,24 @@ import { AuthContext, AuthUI, User } from "@vc/auth";
 import Button from "@vc/ui/src/components/Button/Button";
 import GetAllResultList from "./subcomponents/GetAllResultList/GetAllResultList";
 import CreateFormAdmin from "./subcomponents/CreateFormAdmin/CreateFormAdmin";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
+import EditFormAdmin from "./subcomponents/EditFormAdmin/EditFormAdmin";
 
 export default function Adminpannel() {
-	const currentUser = useContext<User | null>(AuthContext);
+	const { user } = useAuthContext();
 	const [chosenVerfified, setChosenVerified] = useState("Alle");
 	const [response, setResponse] = useState("");
 	const [currentlyCreating, setCurrentlyCreating] = useState(false);
+	const [currentlyEditing, setCurrentlyEditing] = useState(false);
+	const [editData, setEditData] = useState();
 
 	function handleSubmit(event: any) {
-		event.preventDefault();
+		if (event) {
+			event.preventDefault();
+		}
 		console.log("Hi");
 
-		currentUser?.getIdToken().then(token => {
+		user?.getIdToken().then(token => {
 			var fetchURL;
 
 			if (chosenVerfified == "Ja") {
@@ -45,6 +51,7 @@ export default function Adminpannel() {
 
 	function backToAdminpannel() {
 		setCurrentlyCreating(false);
+		setCurrentlyEditing(false);
 	}
 
 	function checkResponse(data: any) {
@@ -52,8 +59,44 @@ export default function Adminpannel() {
 		setResponse(data);
 	}
 
+	function checkResponseListRendering() {
+		if (response == "") {
+			return <></>;
+		} else {
+			return (
+				<div className={s.searchResultsDiv}>
+					<GetAllResultList
+						getAllResponse={response}
+						searchAgain={handleSubmit}
+						setDataForEdit={setDataForEdit}
+					/>
+				</div>
+			);
+		}
+	}
+
+	function setDataForEdit(data: any) {
+		setEditData(data);
+		setCurrentlyEditing(true);
+	}
+
 	function checkSPARendering() {
-		if (currentlyCreating === false) {
+		if (currentlyCreating === true) {
+			return (
+				<CreateFormAdmin
+					returnToAdminpannel={backToAdminpannel}
+					searchAgain={handleSubmit}
+				/>
+			);
+		} else if (currentlyEditing === true) {
+			return (
+				<EditFormAdmin
+					returnToAdminpannel={backToAdminpannel}
+					searchAgain={handleSubmit}
+					editData={editData}
+				/>
+			);
+		} else {
 			return (
 				<>
 					<div className={s.maindiv_headlineAdminpannel}>
@@ -88,20 +131,6 @@ export default function Adminpannel() {
 					</div>
 					{checkResponseListRendering()}
 				</>
-			);
-		} else {
-			return <CreateFormAdmin returnToAdminpannel={backToAdminpannel} />;
-		}
-	}
-
-	function checkResponseListRendering() {
-		if (response == "") {
-			return <></>;
-		} else {
-			return (
-				<div className={s.searchResultsDiv}>
-					<GetAllResultList getAllResponse={response} />
-				</div>
 			);
 		}
 	}

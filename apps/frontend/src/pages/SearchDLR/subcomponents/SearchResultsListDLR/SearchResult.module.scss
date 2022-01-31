@@ -10,6 +10,22 @@
 	flex: 1 0 20em;
 }
 
+.modalInfopoint {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	margin: 0;
+	gap: 0;
+}
+
+.modalTitle {
+	font-family: "Space Grotesk";
+	font-weight: normal;
+	font-size: var(--size-18px);
+	margin: 0;
+	gap: 0;
+}
+
 .result_company {
 	font-family: "Space Grotesk";
 	font-weight: bold;

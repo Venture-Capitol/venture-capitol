@@ -80,7 +80,6 @@
 	border-radius: 10px;
 	border-width: 1px;
 	background-color: #e7e5e4;
-	cursor: not-allowed;
 	color: var(--color-grey-500);
 	transition: transform 0.1s ease-out;
 	will-change: transform;
@@ -116,11 +115,35 @@
 	color: var(--color-grey-900);
 	transition: transform 0.1s ease-out;
 	will-change: transform;
+	width: 100%;
 
 	&:hover {
 		background: #f87b7b;
 		border-color: var(--color-grey-900);
 	}
+}
+
+.deleteModalButton {
+	padding: 12px 40px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	border-color: #ff8f8f;
+	background-color: #ff8f8f;
+	cursor: pointer;
+	color: var(--color-grey-900);
+	transition: transform 0.1s ease-out;
+	will-change: transform;
+
+	&:hover {
+		background: #f87b7b;
+		border-color: var(--color-grey-900);
+	}
+}
+
+.deleteModalText {
+	margin-bottom: 5%;
 }
 
 @media only screen and (max-width: 750px) {
@@ -139,6 +162,10 @@
 	}
 
 	.editDLButton {
+		margin: 2% 0%;
+	}
+
+	.deleteModalButton {
 		margin: 2% 0%;
 	}
 }

@@ -2,27 +2,31 @@ import React, { useState, useContext } from "react";
 import s from "./GetAllResult.module.scss";
 import { AuthContext, AuthUI, User } from "@vc/auth";
 import Button from "@vc/ui/src/components/Button/Button";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
+import AlertDialogWithFunc from "@vc/frontend/component/Popup/AlertDialogWithFunc";
 
 interface Props {
 	resultData: any;
+	searchAgain: any;
+	setDataForEdit: any;
 }
 
-const GetAllResult = ({ resultData }: Props) => {
-	const currentUser = useContext<User | null>(AuthContext);
+const GetAllResult = ({ resultData, searchAgain, setDataForEdit }: Props) => {
+	const { user } = useAuthContext();
 	const [isVerified, setIsVerified] = useState(resultData.verified);
 
-	function verifyEntry(event: any) {
+	function changeVerifyEntry(event: any) {
 		event.preventDefault();
 
 		const body = {
 			editedEntry: {
-				verified: true,
+				verified: !isVerified,
 			},
 		};
 
 		const fetchURL = "http://localhost:8103/entry/" + resultData.id;
 
-		currentUser?.getIdToken().then(token => {
+		user?.getIdToken().then(token => {
 			const requestOptions = {
 				method: "PUT",
 				headers: {
@@ -40,24 +44,60 @@ const GetAllResult = ({ resultData }: Props) => {
 
 	function updateVerifiedStatus(data: any) {
 		if (data.ok) {
-			setIsVerified(true);
-		} else {
-			setIsVerified(false);
+			setIsVerified(!isVerified);
 		}
 	}
 
 	function checkVerfiyButtonVariant() {
 		if (isVerified === true) {
 			return (
-				<button className={s.isVerifiedButton}>Bereits verifiziert</button>
+				<button
+					className={s.isVerifiedButton}
+					onClick={e => changeVerifyEntry(e)}
+				>
+					Bereits verifiziert
+				</button>
 			);
 		} else {
 			return (
-				<button className={s.verifyDLButton} onClick={e => verifyEntry(e)}>
+				<button
+					className={s.verifyDLButton}
+					onClick={e => changeVerifyEntry(e)}
+				>
 					Verifizieren
 				</button>
 			);
 		}
+	}
+
+	function deleteEntry() {
+		const fetchURL = "http://localhost:8103/entry/" + resultData.id;
+
+		user?.getIdToken().then(token => {
+			const requestOptions = {
+				method: "DELETE",
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			};
+
+			return fetch(fetchURL, requestOptions)
+				.then(data => checkDeleteResponse(data))
+				.catch(error => console.log(error));
+		});
+	}
+
+	function checkDeleteResponse(data: any) {
+		if (data.ok) {
+			console.log("hat geklappt");
+			searchAgain();
+		} else {
+			console.log("hat nicht geklappt");
+		}
+	}
+
+	function passEditData() {
+		setDataForEdit(resultData);
 	}
 
 	return (
@@ -103,8 +143,22 @@ const GetAllResult = ({ resultData }: Props) => {
 				</div>
 				<div className={s.buttonControls}>
 					{checkVerfiyButtonVariant()}
-					<button className={s.editDLButton}>Bearbeiten</button>
-					<button className={s.deleteDLButton}>Löschen</button>
+					<button className={s.editDLButton} onClick={e => passEditData()}>
+						Bearbeiten
+					</button>
+					<AlertDialogWithFunc
+						defaultOpen={false}
+						title={"Bist du sicher?"}
+						trigger={<button className={s.deleteDLButton}>Löschen</button>}
+						cancel={<Button>Abbrechen</Button>}
+						action={<button className={s.deleteModalButton}>Löschen</button>}
+						func={deleteEntry}
+					>
+						<p className={s.deleteModalText}>
+							Möchtest du den Dienstleister <b>{resultData.company}</b> wirklich
+							löschen? Diese Änderung kann nicht rückgängig gemacht werden!
+						</p>
+					</AlertDialogWithFunc>
 				</div>
 			</div>
 		</>

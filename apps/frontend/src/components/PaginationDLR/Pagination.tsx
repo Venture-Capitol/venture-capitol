@@ -2,6 +2,7 @@ import s from "./Pagination.module.scss";
 import React, { useState, useContext } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import { AuthContext, AuthUI, User } from "@vc/auth";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {
 	requestOfParent: any;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const Pagination = ({ requestOfParent, responseOfParent, page }: Props) => {
-	const currentUser = useContext<User | null>(AuthContext);
+	const { user } = useAuthContext();
 	const [enableZurueckButton, setEnableZurueckButton] = useState(
 		page == "page=1" && responseOfParent.ok
 	);
@@ -33,7 +34,7 @@ const Pagination = ({ requestOfParent, responseOfParent, page }: Props) => {
 	}
 
 	function checkWeiterButton() {
-		currentUser?.getIdToken().then(token => {
+		user?.getIdToken().then(token => {
 			const requestOptions = {
 				method: "GET",
 				headers: {

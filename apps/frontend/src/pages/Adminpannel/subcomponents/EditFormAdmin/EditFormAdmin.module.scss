@@ -1,50 +1,40 @@
-.maindiv_headline_admin_createEntry {
+.maindiv_headline_admin_editEntry {
 	display: flex;
 	justify-content: center;
 	padding-top: 10%;
 	align-items: center;
 }
 
-.DienstleisterEintragen {
+.DienstleisterBearbeiten {
 	font-family: "Space Grotesk";
 	font-weight: bold;
 	font-size: var(--size-28px);
 }
 
 @media only screen and (max-width: 750px) {
-	.DienstleisterEintragen {
+	.DienstleisterBearbeiten {
 		font-size: var(--size-20px);
 	}
 
-	.maindiv_headline_admin_createEntry {
+	.maindiv_headline_admin_editEntry {
 		padding-top: 15%;
 	}
 }
 
-/*
-.createsuccessAdmin_div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	color: var(--color-green-700);
-}
-*/
-
 ////////////////////////////////////////////
 
-.maindiv_admin_createForm {
+.maindiv_admin_editForm {
 	padding-top: 3.5%;
 	display: flex;
 	justify-content: center;
 }
 
-.createFormAdmin {
+.editFormAdmin {
 	flex: 0 1 30em;
 	margin: 0px 5%;
 }
 
-.label_createFormAdmin {
+.label_editFormAdmin {
 	font-family: "Space Grotesk";
 	font-weight: 500;
 	font-size: var(--size-18px);
@@ -53,7 +43,7 @@
 	padding: 25px 0px;
 }
 
-.textinput_createFormAdmin {
+.textinput_editFormAdmin {
 	border-bottom: 0.5px solid var(--color-grey-500);
 	font-family: "Space Grotesk";
 	font-weight: bold;
@@ -70,7 +60,7 @@ input:focus {
 	outline: none;
 }
 
-.joboption_createFormAdmin {
+.joboption_editFormAdmin {
 	border-bottom: 0.5px solid var(--color-grey-700);
 	font-family: "Space Grotesk";
 	font-weight: bold;
@@ -79,7 +69,7 @@ input:focus {
 	margin: 12px 20px 4px 0px;
 }
 
-.divforthatAdmin {
+.divforthatEditAdmin {
 	display: grid;
 	place-items: center;
 	grid-gap: 0;
@@ -101,7 +91,7 @@ textarea:focus {
 	outline: none;
 }
 
-.label_verified {
+.label_verifiedEdit {
 	font-family: "Space Grotesk";
 	font-weight: 500;
 	font-size: var(--size-18px);
@@ -110,7 +100,7 @@ textarea:focus {
 	margin-left: 8px;
 }
 
-.verifiedCheckbox {
+.verifiedCheckboxEdit {
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: center;

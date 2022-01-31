@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { query, Router } from "express";
 import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 
 import * as logger from "../../config/winston";
@@ -8,6 +8,7 @@ import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
 import * as EntryService from "./EntryService";
+import * as EntryUtils from "../utils/EntryUtils";
 
 export const router = Router();
 
@@ -45,6 +46,7 @@ router.get("/search", function (req, res, next) {
 });
 
 router.get("/", getUser, isAdmin, function (req, res, next) {
+	const parsedVerified = EntryUtils.parseToBoolean(req.query.verified);
 	EntryService.getAllEntries(
 		function (error: Error | ApplicationError, result: Entry[]) {
 			if (error) {
@@ -58,7 +60,7 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 				res.send(result);
 			}
 		},
-		Boolean(req.query.verified),
+		parsedVerified,
 		Number(req.query.amount),
 		Number(req.query.page)
 	);

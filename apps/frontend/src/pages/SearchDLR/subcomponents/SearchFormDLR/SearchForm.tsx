@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { AuthContext, AuthUI, User } from "@vc/auth";
 import s from "./SearchForm.module.scss";
 import Button from "@vc/ui/src/components/Button/Button";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {
 	passSearchResponse: (data: any, job: any, address: any) => void;
@@ -15,7 +16,7 @@ const SearchForm = ({
 	passSearchRequest,
 	passPageOfRequest,
 }: Props) => {
-	const currentUser = useContext<User | null>(AuthContext);
+	const { user } = useAuthContext();
 	const queryParams = new URLSearchParams(useLocation().search);
 	const [chosenAddress, setChosenAddress] = useState("");
 	const jobparam = queryParams.get("jobname");
@@ -24,7 +25,7 @@ const SearchForm = ({
 	function handleSubmit(eventtarget: any) {
 		eventtarget.preventDefault();
 
-		currentUser?.getIdToken().then(token => {
+		user?.getIdToken().then(token => {
 			const fetchURL =
 				"http://localhost:8103/entry/search?jobname=" +
 				chosenJobname +

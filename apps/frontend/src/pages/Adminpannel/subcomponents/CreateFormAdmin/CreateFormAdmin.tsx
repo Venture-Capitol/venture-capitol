@@ -2,14 +2,17 @@ import s from "./CreateFormAdmin.module.scss";
 import { AuthContext, AuthUI, User } from "@vc/auth";
 import React, { useState, useContext } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
-import BackToAdminpannel from "./BackToAdminpannel";
+import BackToAdminpannel from "../BackToAdminpannel/BackToAdminpannel";
+import Dialog from "@vc/frontend/component/Popup/Dialog";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {
 	returnToAdminpannel: any;
+	searchAgain: any;
 }
 
-const CreateFormAdmin = ({ returnToAdminpannel }: Props) => {
-	const currentUser = useContext<User | null>(AuthContext);
+const CreateFormAdmin = ({ returnToAdminpannel, searchAgain }: Props) => {
+	const { user } = useAuthContext();
 
 	const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -38,7 +41,7 @@ const CreateFormAdmin = ({ returnToAdminpannel }: Props) => {
 			verified: verified,
 		};
 
-		currentUser?.getIdToken().then(token => {
+		user?.getIdToken().then(token => {
 			const requestOptions = {
 				method: "POST",
 				headers: {
@@ -65,19 +68,31 @@ const CreateFormAdmin = ({ returnToAdminpannel }: Props) => {
 	function checkConfirmation() {
 		if (showConfirmation) {
 			return (
-				<div className={s.createsuccessAdmin_div}>
-					<p>Dienstleister erfolgreich hinzugefügt!</p>
-				</div>
+				<Dialog
+					title={"Hinzufügen erfolgreich!"}
+					defaultOpen={true}
+					open={showConfirmation}
+					onOpenChange={open => setShowConfirmation(open)}
+				>
+					<p>
+						Der Dienstleister <b>{company}</b> wurde erfolgreich hinzugefügt!
+					</p>
+				</Dialog>
 			);
 		} else {
 			return <div></div>;
 		}
 	}
 
+	function backToAdminpannel() {
+		searchAgain();
+		returnToAdminpannel();
+	}
+
 	return (
 		<>
 			<div className={s.maindiv_headline_admin_createEntry}>
-				<div onClick={returnToAdminpannel}>
+				<div onClick={backToAdminpannel}>
 					<BackToAdminpannel />
 				</div>
 				<p className={s.DienstleisterEintragen}>

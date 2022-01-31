@@ -112,6 +112,7 @@ export async function getAllEntries(
 				});
 				return callback(null, allEntries);
 			} else {
+				console.log(verified);
 				const allEntries = await prisma.entry.findMany({
 					where: {
 						verified: {
