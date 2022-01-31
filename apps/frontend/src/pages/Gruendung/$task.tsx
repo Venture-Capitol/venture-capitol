@@ -13,7 +13,8 @@ import s from "./Gruendung.module.scss";
 import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle";
 
 const Gruendung_TaskId = () => {
-	const { unprocessedNodes, nodes, setDecisionStatus } = useGruendungContext();
+	const { unprocessedNodes, nodes, setDecisionStatus, currentCompany } =
+		useGruendungContext();
 	const [htmlContent, setHtmlContent] = useState<string | undefined>();
 	const [loadingState, setLoadingState] = useState<
 		undefined | "loading" | "error"
@@ -25,8 +26,31 @@ const Gruendung_TaskId = () => {
 
 		try {
 			const module = await import("../../steps/" + task + ".md");
-			setHtmlContent(module.html);
-			setLoadingState(undefined);
+
+			let html: string = module.html;
+
+			if (currentCompany) {
+				const regexNotLegalForm = new RegExp(
+					"\\$[^\\${}]*(?<!" +
+						currentCompany.legalForm.toLowerCase() +
+						"){.*?}",
+					"gsm"
+				);
+				const regexLegalForm = new RegExp(
+					"\\$[^\\${}]*(?<=" +
+						currentCompany.legalForm.toLowerCase() +
+						"){(.*?)}",
+					"gsm"
+				);
+
+				// remove text that is marked with another legal form than selected, remove markers from text with selected legal form
+				html = html
+					.replaceAll(regexNotLegalForm, "")
+					.replaceAll(regexLegalForm, (match, g1) => g1);
+
+				setHtmlContent(html);
+				setLoadingState(undefined);
+			}
 		} catch (error) {
 			console.log(error);
 
@@ -38,11 +62,11 @@ const Gruendung_TaskId = () => {
 	useEffect(() => {
 		setMarkDownComponent();
 
-		// @ts-ignoreest 5
 		document
 			.querySelector(`[data-id="${task}"]`)
+			// @ts-ignoreest 5
 			?.scrollIntoViewIfNeeded(false);
-	}, [task]);
+	}, [task, currentCompany]);
 
 	return (
 		<div className={s.splitView}>
