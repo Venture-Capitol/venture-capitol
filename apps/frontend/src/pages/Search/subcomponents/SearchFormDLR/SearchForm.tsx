@@ -4,8 +4,8 @@ import AddressField from "../../../../components/AddressField/AddressField";
 import s from "./SearchForm.module.scss";
 
 interface Props {
-	passSearchResponse: (data: any, job: any, address: any) => void;
-	passValidAddress: (valid: any) => void;
+	passSearchResponse: (data: any, job: string, address: string) => void;
+	passValidAddress: (valid: boolean) => void;
 }
 
 const SearchForm: FC<Props> = ({ passSearchResponse, passValidAddress }) => {
@@ -16,7 +16,7 @@ const SearchForm: FC<Props> = ({ passSearchResponse, passValidAddress }) => {
 	const [lat, setLat] = useState("");
 	const [long, setLong] = useState("");
 
-	function handleSubmit(eventtarget: any) {
+	function handleSubmit(eventtarget: React.FormEvent<HTMLFormElement>) {
 		eventtarget.preventDefault();
 
 		if (validAddress) {

@@ -8,18 +8,18 @@ import { useState } from "react";
 
 export default function UTRSearch() {
 	const [searchResponse, setSearchResponse] = useState(false);
-	const [chosenJob, setChosenJob] = useState();
-	const [chosenAddress, setChosenAddress] = useState();
+	const [chosenJob, setChosenJob] = useState("");
+	const [chosenAddress, setChosenAddress] = useState("");
 	const [validAddress, setValidAddress] = useState(true);
 
-	const passSearchResponse = (data: any, job: any, address: any) => {
+	const passSearchResponse = (data: any, job: string, address: string) => {
 		console.log("passed search response to parent");
 		setChosenJob(job);
 		setChosenAddress(address);
 		setSearchResponse(data);
 	};
 
-	const passValidAddress = (valid: any) => {
+	const passValidAddress = (valid: boolean) => {
 		setValidAddress(valid);
 	};
 

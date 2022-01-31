@@ -5,10 +5,10 @@ import { Loader } from "@googlemaps/js-api-loader";
 let autocomplete: any;
 
 const loadScript = (
-	setValidAddress: any,
-	setAddress: any,
-	setLat: any,
-	setLong: any
+	setValidAddress: React.Dispatch<React.SetStateAction<boolean>>,
+	setAddress: React.Dispatch<React.SetStateAction<string>>,
+	setLat: React.Dispatch<React.SetStateAction<string>>,
+	setLong: React.Dispatch<React.SetStateAction<string>>
 ) => {
 	let apiKey =
 		typeof import.meta.env.VITE_FIREBASE_API_KEY == "string"
@@ -42,10 +42,10 @@ const loadScript = (
 };
 
 function onPlaceChanged(
-	setValidAddress: any,
-	setAddress: any,
-	setLat: any,
-	setLong: any
+	setValidAddress: React.Dispatch<React.SetStateAction<boolean>>,
+	setAddress: React.Dispatch<React.SetStateAction<string>>,
+	setLat: React.Dispatch<React.SetStateAction<string>>,
+	setLong: React.Dispatch<React.SetStateAction<string>>
 ) {
 	var place = autocomplete.getPlace();
 	if (place.geometry) {
@@ -56,10 +56,10 @@ function onPlaceChanged(
 	}
 }
 interface Props {
-	setValidAddress: any;
-	setAddress: any;
-	setLat: any;
-	setLong: any;
+	setValidAddress: React.Dispatch<React.SetStateAction<boolean>>;
+	setAddress: React.Dispatch<React.SetStateAction<string>>;
+	setLat: React.Dispatch<React.SetStateAction<string>>;
+	setLong: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AddressField: FC<Props> = ({
