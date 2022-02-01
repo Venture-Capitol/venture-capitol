@@ -1,4 +1,5 @@
 import { PrismaClient, Prisma, Entry } from "@prisma/client";
+import { DecodedIdToken } from "firebase-admin/auth";
 
 import ApplicationError from "../utils/ApplicationError";
 
@@ -237,7 +238,12 @@ export async function getEntry(entryID: number, callback: Function) {
 	}
 }
 
-export async function updateEntry(id: number, body: any, callback: Function) {
+export async function updateEntry(
+	id: number,
+	body: any,
+	user: DecodedIdToken,
+	callback: Function
+) {
 	if (isNaN(id) || !body) {
 		return callback(
 			new ApplicationError(
@@ -246,8 +252,9 @@ export async function updateEntry(id: number, body: any, callback: Function) {
 			),
 			null
 		);
-	} else {
-		try {
+	}
+	try {
+		if (user.role == "admin") {
 			const updatedEntry = await prisma.entry.update({
 				where: {
 					id: id,
@@ -262,26 +269,46 @@ export async function updateEntry(id: number, body: any, callback: Function) {
 					telefon: body.telefon,
 					website: body.website,
 					description: body.description,
+					verified: body.verified,
 				},
 			});
 			return callback(null, updatedEntry);
-		} catch (exception) {
-			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
-				if (exception.code == "P2025") {
-					return callback(
-						new ApplicationError("Es exisiert kein Eintrag für diese ID.", 404),
-						null
-					);
-				}
-			} else {
+		} else {
+			const updatedEntry = await prisma.entry.update({
+				where: {
+					id: id,
+					ownedBy: user.uid,
+				},
+				data: {
+					job: body.job,
+					company: body.company,
+					address: body.address,
+					latitude: body.latitude,
+					longitude: body.longitude,
+					email: body.email,
+					telefon: body.telefon,
+					website: body.website,
+					description: body.description,
+				},
+			});
+			return callback(null, updatedEntry);
+		}
+	} catch (exception) {
+		if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+			if (exception.code == "P2025") {
 				return callback(
-					new ApplicationError(
-						"Es ist ein unerwarteter Fehler beim Aktualisieren eines Eintrags aufgetretren.",
-						500
-					),
+					new ApplicationError("Es exisiert kein Eintrag für diese ID.", 404),
 					null
 				);
 			}
+		} else {
+			return callback(
+				new ApplicationError(
+					"Es ist ein unerwarteter Fehler beim Aktualisieren eines Eintrags aufgetretren.",
+					500
+				),
+				null
+			);
 		}
 	}
 }
