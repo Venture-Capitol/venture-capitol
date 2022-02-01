@@ -86,7 +86,8 @@ router.post("/", getUser, function (req, res, next) {
 		},
 		req.body.telefon,
 		req.body.website,
-		req.body.description
+		req.body.description,
+		req.user.role == "admin" ? req.body.verified : undefined
 	);
 });
 

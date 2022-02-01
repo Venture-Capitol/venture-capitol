@@ -155,7 +155,8 @@ export async function createEntry(
 	callback: Function,
 	telefon?: string,
 	website?: string,
-	description?: string
+	description?: string,
+	verified?: boolean
 ) {
 	if (!company || !email || !job || !address || !latitude || !longitude) {
 		return callback(
@@ -165,31 +166,31 @@ export async function createEntry(
 			),
 			null
 		);
-	} else {
-		try {
-			const createdEntry = await prisma.entry.create({
-				data: {
-					job: job,
-					company: company,
-					address: address,
-					latitude: latitude,
-					longitude: longitude,
-					email: email,
-					telefon: telefon,
-					website: website,
-					description: description,
-				},
-			});
-			return callback(null, createdEntry);
-		} catch (exception) {
-			return callback(
-				new ApplicationError(
-					"Es sind unerwartete Probleme bei der Erstellung eines Eintrags aufgetreten.",
-					500
-				),
-				null
-			);
-		}
+	}
+	try {
+		const createdEntry = await prisma.entry.create({
+			data: {
+				job: job,
+				company: company,
+				address: address,
+				latitude: latitude,
+				longitude: longitude,
+				email: email,
+				telefon: telefon,
+				website: website,
+				description: description,
+				verified: verified,
+			},
+		});
+		return callback(null, createdEntry);
+	} catch (exception) {
+		return callback(
+			new ApplicationError(
+				"Es sind unerwartete Probleme bei der Erstellung eines Eintrags aufgetreten.",
+				500
+			),
+			null
+		);
 	}
 }
 
