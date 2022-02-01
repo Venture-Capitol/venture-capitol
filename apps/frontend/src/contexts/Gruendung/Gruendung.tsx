@@ -78,6 +78,26 @@ const GruendungContextProvider: FC = ({ children }) => {
 	);
 	const { user } = useAuthContext();
 
+	useEffect(() => {
+		const interceptor = GPF.axiosInstance.interceptors.request.use(
+			async request => {
+				if (!user) console.log("no user :(");
+
+				user?.getIdToken().then(idToken => {
+					if (request.headers) {
+						request.headers.Authorization = `Bearer ${idToken}`;
+					}
+				});
+				return request;
+			},
+			function (error) {
+				return Promise.reject(error);
+			}
+		);
+
+		return () => GPF.axiosInstance.interceptors.request.eject(interceptor);
+	}, [user]);
+
 	// Load current company
 	useEffect(() => {
 		// If user is not logged in, try loading company from local storage
@@ -89,35 +109,31 @@ const GruendungContextProvider: FC = ({ children }) => {
 			return;
 		}
 
-		user?.getIdToken().then(idToken => {
-			axios.defaults.headers.common["Authorization"] = `Bearer ${idToken}`;
+		// Otherwise, get company from API
+		CompanyService.getCurrentCompany(user).then(company => {
+			// if a company exists on the server, use it
+			if (company != undefined) {
+				setCurrentCompany({
+					legalForm: company.legalForm,
+					id: company.id,
+				});
+				setCompletedTasks(company.completedTasks.map(task => task.taskId));
+				setMadeDecisions(
+					company.madeDecisions.map(decision => ({
+						id: decision.decisionId,
+						path: decision.selectedPath,
+					}))
+				);
+				return;
+			}
 
-			// Otherwise, get company from API
-			CompanyService.getCurrentCompany(user).then(company => {
-				// if a company exists on the server, use it
-				if (company != undefined) {
-					setCurrentCompany({
-						legalForm: company.legalForm,
-						id: company.id,
-					});
-					setCompletedTasks(company.completedTasks.map(task => task.taskId));
-					setMadeDecisions(
-						company.madeDecisions.map(decision => ({
-							id: decision.decisionId,
-							path: decision.selectedPath,
-						}))
-					);
-					return;
-				}
-
-				// If there is no remote company, but user has created one when logged out, save it
-				if (currentCompany?.legalForm) {
-					CompanyService.createCompany(currentCompany?.legalForm, {
-						completedTasks,
-						madeDecisions,
-					});
-				}
-			});
+			// If there is no remote company, but user has created one when logged out, save it
+			if (currentCompany?.legalForm) {
+				CompanyService.createCompany(currentCompany?.legalForm, {
+					completedTasks,
+					madeDecisions,
+				});
+			}
 		});
 	}, [user]);
 

@@ -7,6 +7,12 @@ export default defineConfig({
 			mode: "split",
 			target: "./api.ts",
 			client: "axios-functions",
+			override: {
+				mutator: {
+					path: "./axios.ts",
+					name: "makeAxiosFn",
+				},
+			},
 		},
 	},
 });
