@@ -64,6 +64,7 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 	);
 });
 
+//Add ability to add a company to an admin user
 router.post("/", getUser, function (req, res, next) {
 	EntryService.createEntry(
 		req.body.job,
@@ -72,6 +73,8 @@ router.post("/", getUser, function (req, res, next) {
 		req.body.latitude,
 		req.body.longitude,
 		req.body.email,
+		req.user.role == "admin" ? req.body.verified : false,
+		req.user.role != "admin" ? req.user.uid : null,
 		function (error: Error | ApplicationError, result: Entry) {
 			if (error) {
 				logger.error(error.message);
@@ -86,8 +89,7 @@ router.post("/", getUser, function (req, res, next) {
 		},
 		req.body.telefon,
 		req.body.website,
-		req.body.description,
-		req.user.role == "admin" ? req.body.verified : undefined
+		req.body.description
 	);
 });
 

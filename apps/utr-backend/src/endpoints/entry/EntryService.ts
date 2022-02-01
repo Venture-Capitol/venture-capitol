@@ -152,11 +152,12 @@ export async function createEntry(
 	latitude: number,
 	longitude: number,
 	email: string,
+	verified: boolean,
+	uid: string,
 	callback: Function,
 	telefon?: string,
 	website?: string,
-	description?: string,
-	verified?: boolean
+	description?: string
 ) {
 	if (!company || !email || !job || !address || !latitude || !longitude) {
 		return callback(
@@ -176,10 +177,11 @@ export async function createEntry(
 				latitude: latitude,
 				longitude: longitude,
 				email: email,
+				verified: verified,
+				ownedBy: uid,
 				telefon: telefon,
 				website: website,
 				description: description,
-				verified: verified,
 			},
 		});
 		return callback(null, createdEntry);
