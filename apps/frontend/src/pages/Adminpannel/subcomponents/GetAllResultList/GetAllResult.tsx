@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import s from "./GetAllResult.module.scss";
-import { AuthContext, AuthUI, User } from "@vc/auth";
 import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 import AlertDialogWithFunc from "@vc/frontend/component/Popup/AlertDialogWithFunc";

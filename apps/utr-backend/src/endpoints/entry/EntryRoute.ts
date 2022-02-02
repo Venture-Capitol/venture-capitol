@@ -46,7 +46,6 @@ router.get("/search", function (req, res, next) {
 });
 
 router.get("/", getUser, isAdmin, function (req, res, next) {
-	const parsedVerified = EntryUtils.parseToBoolean(req.query.verified);
 	EntryService.getAllEntries(
 		function (error: Error | ApplicationError, result: Entry[]) {
 			if (error) {
@@ -61,9 +60,9 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 				res.send(result);
 			}
 		},
-		parsedVerified,
+		EntryUtils.parseToBoolean(req.query.verified),
 		EntryUtils.parseToNumber(req.query.amount),
-		Number(req.query.page)
+		EntryUtils.parseToNumber(req.query.page)
 	);
 });
 
@@ -149,20 +148,3 @@ router.delete("/:id", getUser, isAdmin, function (req, res, next) {
 		}
 	);
 });
-
-/* WILL BE DELETED AFTER ALL TESTS ARE COMPLETE
-router.post("/addMany", function (req, res, next) {
-	EntryUtils.addManyEntries(function (error: Error | ApplicationError) {
-		if (error) {
-			logger.error(error.message);
-			if (error instanceof ApplicationError) {
-				res.status(error.errorCode).end(error.message);
-			} else {
-				res.status(500).end(error.message);
-			}
-		} else {
-			res.status(200).end();
-		}
-	});
-});
- */

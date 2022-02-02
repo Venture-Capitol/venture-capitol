@@ -1,7 +1,5 @@
-import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
 import s from "./EditDeleteDienstleister.module.scss";
-import { AuthContext, AuthUI, User } from "@vc/auth";
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 

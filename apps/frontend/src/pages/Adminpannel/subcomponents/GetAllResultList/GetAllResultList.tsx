@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import s from "./GetAllResultList.module.scss";
 import GetAllResult from "./GetAllResult";
 

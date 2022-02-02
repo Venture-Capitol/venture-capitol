@@ -1,6 +1,5 @@
 import s from "./Adminpannel.module.scss";
-import React, { useState, useContext } from "react";
-import { AuthContext, AuthUI, User } from "@vc/auth";
+import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import GetAllResultList from "./subcomponents/GetAllResultList/GetAllResultList";
 import CreateFormAdmin from "./subcomponents/CreateFormAdmin/CreateFormAdmin";

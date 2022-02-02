@@ -1,5 +1,3 @@
-// REMOVE AFTER FURTHER TESTING
-// change to type if known
 export function parseToBoolean(value: any) {
 	if (value === undefined || value === true || value === false) {
 		return value;

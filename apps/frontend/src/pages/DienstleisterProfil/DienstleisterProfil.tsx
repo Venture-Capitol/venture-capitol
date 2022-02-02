@@ -1,4 +1,3 @@
-import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
 import s from "./GetDienstleisterPage.module.scss";
 
 import CreateDienstleister from "./subcomponents/CreateDienstleister";

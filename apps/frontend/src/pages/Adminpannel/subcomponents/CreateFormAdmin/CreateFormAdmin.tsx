@@ -1,6 +1,5 @@
 import s from "./CreateFormAdmin.module.scss";
-import { AuthContext, AuthUI, User } from "@vc/auth";
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import BackToAdminpannel from "../BackToAdminpannel/BackToAdminpannel";
 import Dialog from "@vc/frontend/component/Popup/Dialog";

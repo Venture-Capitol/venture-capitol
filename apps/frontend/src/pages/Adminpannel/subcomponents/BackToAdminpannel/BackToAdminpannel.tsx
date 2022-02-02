@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import s from "./BackToAdminpannel.module.scss";
 
 const BackToAdminpannel: React.FunctionComponent = () => {

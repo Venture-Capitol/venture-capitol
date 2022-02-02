@@ -52,7 +52,6 @@ export async function searchEntries(
 			});
 			if (searchResults) {
 				const offset = (page - 1) * 10;
-				// TODO Change to verified=true when false is not needed anymore for testing
 				const query = await prisma.$queryRaw<
 					{ id: number; distance: number }[]
 				>(
@@ -91,7 +90,6 @@ export async function searchEntries(
 	}
 }
 
-// TODO: Fails ATM if amount is not set - See amount is NaN
 export async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
@@ -144,7 +142,6 @@ export async function getAllEntries(
 	}
 }
 
-// TODO Add code which makes admin create a verified Entry
 export async function createEntry(
 	job: string,
 	company: string,

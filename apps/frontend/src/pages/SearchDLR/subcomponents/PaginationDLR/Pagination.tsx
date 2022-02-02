@@ -1,7 +1,6 @@
 import s from "./Pagination.module.scss";
-import React, { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
-import { AuthContext, AuthUI, User } from "@vc/auth";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {

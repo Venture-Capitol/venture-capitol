@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import s from "./SearchResult.module.scss";
-import { AuthContext, AuthUI, User } from "@vc/auth";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
 
