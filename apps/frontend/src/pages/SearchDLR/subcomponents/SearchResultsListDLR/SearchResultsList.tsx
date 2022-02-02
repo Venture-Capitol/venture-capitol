@@ -7,8 +7,6 @@ interface Props {
 }
 
 const SearchResultsList = ({ searchResponse }: Props) => {
-	console.log(searchResponse);
-
 	const postListComponents: JSX.Element = searchResponse.map(
 		(currentResult: any, index: any) => {
 			return <SearchResult resultData={currentResult} key={currentResult.id} />;

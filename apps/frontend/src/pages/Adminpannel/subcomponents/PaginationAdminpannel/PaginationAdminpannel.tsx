@@ -26,9 +26,7 @@ const PaginationAdminpannel = ({
 			setEnableZurueckButton(true);
 		}
 		startGetallRequest(page + 1);
-		console.log(page + 1);
 		setCurrentPage(page + 1);
-		console.log(page + 1);
 	}
 
 	function zurück() {
@@ -36,16 +34,13 @@ const PaginationAdminpannel = ({
 			setEnableZurueckButton(false);
 		}
 		startGetallRequest(page - 1);
-		console.log(page - 1);
 		setCurrentPage(page - 1);
-		console.log(page - 1);
 	}
 
 	function checkZurueckButton() {
-		console.log("checkzurueck");
 		if (page - 1 >= 0) {
 			return (
-				<div onClick={e => zurück()}>
+				<div onClick={e => zurück()} className={s.enabled}>
 					<Button>{"< "}Zurück</Button>
 				</div>
 			);
@@ -70,7 +65,6 @@ const PaginationAdminpannel = ({
 			return fetch(requestURL + (page + 1), requestOptions)
 				.then(data => data.json())
 				.then(parsedData => {
-					console.log(parsedData.length);
 					if (parsedData.length == 0) {
 						setEnableWeiterButton(false);
 					} else {
@@ -82,7 +76,7 @@ const PaginationAdminpannel = ({
 
 		if (enableWeiterButton) {
 			return (
-				<div onClick={e => weiter()}>
+				<div onClick={e => weiter()} className={s.enabled}>
 					<Button>Weiter {" >"}</Button>
 				</div>
 			);

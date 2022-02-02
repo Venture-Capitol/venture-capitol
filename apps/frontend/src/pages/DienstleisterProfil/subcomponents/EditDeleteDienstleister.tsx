@@ -26,13 +26,6 @@ export default function EditDeleteDienstleister() {
 
 	function editDienstleister(event: any) {
 		event.preventDefault();
-		console.log(company);
-		console.log(jobname);
-		console.log(address);
-		console.log(email);
-		console.log(telefon);
-		console.log(website);
-		console.log(description);
 
 		const body = {
 			editedEntry: {
@@ -77,13 +70,6 @@ export default function EditDeleteDienstleister() {
 
 	function deleteDienstleister(event: any) {
 		event.preventDefault();
-		console.log(company);
-		console.log(jobname);
-		console.log(address);
-		console.log(email);
-		console.log(telefon);
-		console.log(website);
-		console.log(description);
 
 		var userID = "";
 		const fetchURL = "http://localhost:8103/entry/" + userID;

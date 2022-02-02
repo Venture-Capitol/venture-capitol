@@ -20,14 +20,6 @@ export default function CreateDienstleister() {
 
 	function createDienstleister(event: any) {
 		event.preventDefault();
-		console.log(company);
-		console.log(jobname);
-		console.log(address);
-		console.log(email);
-		console.log(telefon);
-		console.log(website);
-		console.log(description);
-
 		const body = {
 			job: jobname,
 			company: company,

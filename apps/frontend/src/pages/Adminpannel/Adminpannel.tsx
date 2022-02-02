@@ -37,8 +37,6 @@ export default function Adminpannel() {
 
 			setRequestURL(fetchURL);
 			setCurrentPage(page);
-			console.log(page);
-			console.log(fetchURL);
 
 			const requestOptions = {
 				method: "GET",
@@ -51,7 +49,6 @@ export default function Adminpannel() {
 				.then(data => data.json())
 				.then(parseddata => {
 					setResponse(parseddata);
-					console.log(currentPage);
 				})
 				.catch(error => console.log(error));
 		});

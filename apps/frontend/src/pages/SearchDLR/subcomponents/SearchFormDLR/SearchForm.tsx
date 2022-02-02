@@ -73,7 +73,13 @@ const SearchForm = ({
 					onChange={event => setChosenJobname(event.target.value)}
 					required
 				>
-					<option value='' selected disabled hidden>
+					<option
+						value=''
+						selected
+						disabled
+						hidden
+						className={s.disabledOption}
+					>
 						Bitte auswählen
 					</option>
 					<option value='Notar'>Notar</option>

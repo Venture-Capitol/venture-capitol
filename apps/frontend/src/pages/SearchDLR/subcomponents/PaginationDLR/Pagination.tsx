@@ -38,10 +38,9 @@ const Pagination = ({
 	}
 
 	function checkZurueckButton() {
-		console.log("checkzurueck");
 		if (enableZurueckButton && page - 1 >= 1) {
 			return (
-				<div onClick={e => zurück()}>
+				<div onClick={e => zurück()} className={s.enabled}>
 					<Button>{"< "}Zurück</Button>
 				</div>
 			);
@@ -66,7 +65,6 @@ const Pagination = ({
 			return fetch(requestOfParent + (page + 1), requestOptions)
 				.then(data => data.json())
 				.then(parsedData => {
-					console.log(parsedData.length);
 					if (parsedData.length == 0) {
 						setEnableWeiterButton(false);
 					} else {
@@ -78,7 +76,7 @@ const Pagination = ({
 
 		if (enableWeiterButton) {
 			return (
-				<div onClick={e => weiter()}>
+				<div onClick={e => weiter()} className={s.enabled}>
 					<Button>Weiter {" >"}</Button>
 				</div>
 			);

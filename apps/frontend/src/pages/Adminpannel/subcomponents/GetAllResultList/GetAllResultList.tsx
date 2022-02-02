@@ -15,10 +15,6 @@ const GetAllResultList = ({
 	setDataForEdit,
 	page,
 }: Props) => {
-	const [getResponse, setGetResponse] = useState();
-
-	console.log(getAllResponse);
-
 	const postListComponents: JSX.Element = getAllResponse.map(
 		(currentResult: any, index: any) => {
 			return (

@@ -105,7 +105,6 @@ const EditFormAdmin = ({
 	}
 
 	function backToAdminpannel() {
-		console.log(page);
 		searchAgain(page);
 		returnToAdminpannel();
 	}

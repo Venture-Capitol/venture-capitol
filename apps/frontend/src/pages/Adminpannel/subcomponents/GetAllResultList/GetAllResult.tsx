@@ -95,10 +95,7 @@ const GetAllResult = ({
 
 	function checkDeleteResponse(data: any) {
 		if (data.ok) {
-			console.log("hat geklappt");
 			searchAgain(page);
-		} else {
-			console.log("hat nicht geklappt");
 		}
 	}
 

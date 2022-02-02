@@ -4,7 +4,7 @@ import s from "./DLRSearch.module.scss";
 import Headline from "./subcomponents/HeadlineDLR/Headline";
 import Instruction from "./subcomponents/InstructionDLR/Instruction";
 import SearchResultsList from "./subcomponents/SearchResultsListDLR/SearchResultsList";
-import Pagination from "@vc/frontend/component/PaginationDLR/Pagination";
+import Pagination from "@vc/frontend/page/SearchDLR/subcomponents/PaginationDLR/Pagination";
 import React, { useState } from "react";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
@@ -33,7 +33,6 @@ export default function UTRSearch() {
 	}
 
 	const passFormResponse = (job: any, address: any) => {
-		console.log("passed form data to parent");
 		setChosenJob(job);
 		setChosenAddress(address);
 	};

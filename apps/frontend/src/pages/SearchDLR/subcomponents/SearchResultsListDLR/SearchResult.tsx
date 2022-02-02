@@ -21,7 +21,6 @@ const SearchResult = ({ resultData }: Props) => {
 	const [description, setDescription] = useState("");
 
 	function openMoreInfo() {
-		console.log("sdsd");
 		const fetchURL = "http://localhost:8103/entry/" + resultData.id;
 
 		user?.getIdToken().then(token => {

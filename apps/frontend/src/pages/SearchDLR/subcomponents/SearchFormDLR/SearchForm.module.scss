@@ -53,6 +53,10 @@ input:focus {
 	align-items: center;
 }
 
+.disabledOption {
+	color: var(--color-grey-600);
+}
+
 @media only screen and (max-width: 750px) {
 	.form {
 		display: flex;
