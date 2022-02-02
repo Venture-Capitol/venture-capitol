@@ -64,7 +64,6 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 	);
 });
 
-// TODO Add ability to add a company to an admin user
 router.post("/", getUser, function (req, res, next) {
 	EntryService.createEntry(
 		req.body.job,
@@ -94,9 +93,8 @@ router.post("/", getUser, function (req, res, next) {
 });
 
 router.get("/:id", function (req, res, next) {
-	const idAsNumber = Number(req.params.id);
 	EntryService.getEntry(
-		idAsNumber,
+		Number(req.params.id),
 		function (error: Error | ApplicationError, result: Entry) {
 			if (error) {
 				logger.error(error.message);
@@ -150,20 +148,3 @@ router.delete("/:id", getUser, function (req, res, next) {
 		}
 	);
 });
-
-/* WILL BE DELETED AFTER ALL TESTS ARE COMPLETE
-router.post("/addMany", function (req, res, next) {
-	EntryUtils.addManyEntries(function (error: Error | ApplicationError) {
-		if (error) {
-			logger.error(error.message);
-			if (error instanceof ApplicationError) {
-				res.status(error.errorCode).end(error.message);
-			} else {
-				res.status(500).end(error.message);
-			}
-		} else {
-			res.status(200).end();
-		}
-	});
-});
- */
