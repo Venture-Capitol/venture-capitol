@@ -33,53 +33,65 @@ export default function () {
 				{currentCompany && <Redirect to={"/gruendung/" + findNextNode().id} />}
 				<h1 className={s.title}>Welche Gesellschaftsform willst du Gründen?</h1>
 				<div className={s.container}>
-					<Button
-						onClick={() => {
-							createCompany("GMBH");
-						}}
-						disabled={true}
-					>
-						GmbH
-					</Button>
-					<Button
-						onClick={() => {
-							createCompany("EINZELUNTERNEHMEN");
-						}}
-						disabled={true}
-					>
-						Einzel&shy;unternehmen
-					</Button>
-					<Button
-						onClick={() => {
-							createCompany("FREIBERUFLER");
-						}}
-						disabled={true}
-					>
-						Freiberufler
-					</Button>
-					<Button
-						onClick={() => {
-							createCompany("UG");
-						}}
-					>
-						UG
-					</Button>
-					<Button
-						onClick={() => {
-							createCompany("GBR");
-						}}
-						disabled={true}
-					>
-						GBR
-					</Button>
-					<Button
-						onClick={() => {
-							createCompany("PARTG");
-						}}
-						disabled={true}
-					>
-						PartG
-					</Button>
+					<div className={`${s.disabledBtn} ${s.btnContainer}`}>
+						<Button
+							onClick={() => {
+								createCompany("GMBH");
+							}}
+							disabled={true}
+						>
+							GmbH
+						</Button>
+					</div>
+					<div className={`${s.disabledBtn} ${s.btnContainer}`}>
+						<Button
+							onClick={() => {
+								createCompany("EINZELUNTERNEHMEN");
+							}}
+							disabled={true}
+						>
+							Einzel&shy;unternehmen
+						</Button>
+					</div>
+					<div className={`${s.disabledBtn} ${s.btnContainer}`}>
+						<Button
+							onClick={() => {
+								createCompany("FREIBERUFLER");
+							}}
+							disabled={true}
+						>
+							Freiberufler
+						</Button>
+					</div>
+					<div className={s.btnContainer}>
+						<Button
+							onClick={() => {
+								createCompany("UG");
+							}}
+						>
+							UG
+						</Button>
+					</div>
+					<div className={`${s.disabledBtn} ${s.btnContainer}`}>
+						<Button
+							onClick={() => {
+								createCompany("GBR");
+							}}
+							disabled={true}
+						>
+							GBR
+						</Button>
+					</div>
+					<div className={`${s.disabledBtn} ${s.btnContainer}`}>
+						<Button
+							onClick={() => {
+								createCompany("PARTG");
+							}}
+							disabled={true}
+						>
+							PartG
+						</Button>
+					</div>
 				</div>
 			</div>
 		</div>
