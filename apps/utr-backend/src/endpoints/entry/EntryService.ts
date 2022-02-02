@@ -9,6 +9,10 @@ export interface DistanceEntry extends Entry {
 	distance: number;
 }
 
+export interface BatchPayload {
+	count: number;
+}
+
 export async function searchEntries(
 	jobname: string,
 	lat: number,
@@ -274,7 +278,7 @@ export async function updateEntry(
 			});
 			return callback(null, updatedEntry);
 		} else {
-			const updatedEntry = await prisma.entry.update({
+			const updatedEntries = await prisma.entry.updateMany({
 				where: {
 					id: id,
 					ownedBy: user.uid,
@@ -291,7 +295,17 @@ export async function updateEntry(
 					description: body.description,
 				},
 			});
-			return callback(null, updatedEntry);
+			if (updatedEntries.count == 1) {
+				return callback(null, updatedEntries);
+			} else {
+				return callback(
+					new ApplicationError(
+						"Es exisiert kein Eintrag mit dieser ID von diesem Nutzer.",
+						400
+					),
+					null
+				);
+			}
 		}
 	} catch (exception) {
 		if (exception instanceof Prisma.PrismaClientKnownRequestError) {

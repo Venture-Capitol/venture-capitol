@@ -4,7 +4,7 @@ import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 import * as logger from "../../config/winston";
 
 import { Entry } from "@prisma/client";
-import { DistanceEntry } from "./EntryService";
+import { DistanceEntry, BatchPayload } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
 import * as EntryService from "./EntryService";
@@ -117,7 +117,7 @@ router.put("/:id", getUser, function (req, res, next) {
 		Number(req.params.id),
 		req.body.editedEntry,
 		req.user,
-		function (error: Error | ApplicationError, result: Entry) {
+		function (error: Error | ApplicationError, result: Entry | BatchPayload) {
 			if (error) {
 				logger.error(error.message);
 				if (error instanceof ApplicationError) {
