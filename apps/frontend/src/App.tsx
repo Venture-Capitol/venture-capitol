@@ -6,11 +6,10 @@ import Header from "./components/Header/Header";
 import Gruendung from "./pages/Gruendung/Gruendung";
 import Search from "./pages/SearchDLR/DLRSearch";
 import DienstleisterProfil from "./pages/DienstleisterProfil/DienstleisterProfil";
-import GetEntryPage from "./pages/GetDienstleisterPage/GetDienstleisterPage";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Impressum from "./pages/Impressum/Impressum";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
-import Adminpannel from "./pages/Adminpannel/Adminpannel";
+import Adminpanel from "./pages/Adminpanel/Adminpanel";
 import Gruendung_TaskId from "./pages/Gruendung/$task";
 
 function App() {
@@ -30,7 +29,7 @@ function App() {
 							<Gruendung_TaskId />
 						</Route>
 						<Route path='/dienstleister/admin' exact>
-							<Adminpannel />
+							<Adminpanel />
 						</Route>
 						<Route path='/dienstleister'>
 							<Search />

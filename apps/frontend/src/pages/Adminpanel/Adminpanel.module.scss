@@ -1,21 +1,21 @@
-.maindiv_headlineAdminpannel {
+.maindiv_headlineAdminpanel {
 	display: flex;
 	justify-content: center;
 	padding-top: 10%;
 }
 
-.headlineAdminpannel {
+.headlineAdminpanel {
 	font-family: "Space Grotesk";
 	font-weight: bold;
 	font-size: var(--size-32px);
 }
 
 @media only screen and (max-width: 750px) {
-	.headlineAdminpannel {
+	.headlineAdminpanel {
 		font-size: var(--size-24px);
 	}
 
-	.maindiv_headlineAdminpannel {
+	.maindiv_headlineAdminpanel {
 		padding-top: 15%;
 		margin-bottom: 4%;
 	}
@@ -31,7 +31,7 @@
 	margin: 0% 4%;
 }
 
-.inputblock_adminpannel {
+.inputblock_adminpanel {
 	font-size: var(--size-18px);
 	display: flex;
 	flex-flow: column nowrap;
@@ -80,7 +80,7 @@ input:focus {
 		margin: 0% 4%;
 	}
 
-	.inputblock_adminpannel {
+	.inputblock_adminpanel {
 		margin-bottom: 8%;
 	}
 

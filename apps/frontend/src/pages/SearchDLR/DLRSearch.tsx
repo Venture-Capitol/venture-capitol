@@ -5,47 +5,50 @@ import Instruction from "./subcomponents/InstructionDLR/Instruction";
 import SearchResultsList from "./subcomponents/SearchResultsListDLR/SearchResultsList";
 import Pagination from "@vc/frontend/page/SearchDLR/subcomponents/PaginationDLR/Pagination";
 import { useState } from "react";
-import { useAuthContext } from "@vc/auth/src/AuthContext";
 
-export default function UTRSearch() {
-	const { user } = useAuthContext();
-	const [searchResponse, setSearchResponse] = useState();
-	const [chosenJob, setChosenJob] = useState();
-	const [chosenAddress, setChosenAddress] = useState();
-	const [searchRequest, setSearchRequest] = useState("");
+export default function DLRSearch() {
+	const [loadedPages, setLoadedPages] = useState<any>([]);
+
+	const [chosenJob, setChosenJob] = useState("");
+	const [chosenAddress, setChosenAddress] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
 
-	function startSearchRequest(page: any) {
-		user?.getIdToken().then(token => {
-			const requestOptions = {
-				method: "GET",
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			};
+	async function startSearchRequest() {
+		let pageOne = await getSearchResult(1);
+		let pageTwo = await getSearchResult(2);
 
-			return fetch(searchRequest + page, requestOptions)
-				.then(data => data.json())
-				.then(parseddata => setSearchResponse(parseddata))
-				.catch(error => console.log(error));
-		});
+		setLoadedPages([pageOne, pageTwo]);
+		setCurrentPage(1);
 	}
 
-	const passFormResponse = (job: any, address: any) => {
-		setChosenJob(job);
-		setChosenAddress(address);
-	};
+	async function weiter() {
+		setCurrentPage(currentPage + 1);
+		if (loadedPages[currentPage + 1] == undefined) {
+			let newSearchResult = await getSearchResult(currentPage + 2);
+			setLoadedPages([...loadedPages, newSearchResult]);
+		}
+	}
 
-	if (searchResponse) {
+	async function getSearchResult(page: number) {
+		const fetchURL =
+			"http://localhost:8103/entry/search?jobname=" +
+			chosenJob +
+			"&latitude=52.516217&longitude=13.377004&page=";
+
+		let fetchData = await fetch(fetchURL + page);
+		return fetchData.json();
+	}
+
+	if (loadedPages.length > 0) {
 		return (
 			<>
 				<Headline />
 				<SearchForm
-					passFormResponse={passFormResponse}
-					setSearchRequest={setSearchRequest}
-					setCurrentPage={setCurrentPage}
 					startSearchRequest={startSearchRequest}
-					setSearchResponse={setSearchResponse}
+					chosenJob={chosenJob}
+					setChosenJob={setChosenJob}
+					chosenAddress={chosenAddress}
+					setChosenAddress={setChosenAddress}
 				/>
 				<div className={s.maindiv_resulttext}>
 					<p className={s.resulttext}>
@@ -53,12 +56,12 @@ export default function UTRSearch() {
 						<span className={s.greenSpan}>{chosenAddress}</span>
 					</p>
 				</div>
-				<SearchResultsList searchResponse={searchResponse} />
+				<SearchResultsList searchResponse={loadedPages[currentPage - 1]} />
 				<Pagination
-					requestOfParent={searchRequest}
 					page={currentPage}
-					setCurrentPage={setCurrentPage}
-					startSearchRequest={startSearchRequest}
+					loadedPages={loadedPages}
+					weiter={weiter}
+					zurueck={() => setCurrentPage(currentPage - 1)}
 				/>
 			</>
 		);
@@ -67,11 +70,11 @@ export default function UTRSearch() {
 			<>
 				<Headline />
 				<SearchForm
-					passFormResponse={passFormResponse}
-					setSearchRequest={setSearchRequest}
-					setCurrentPage={setCurrentPage}
 					startSearchRequest={startSearchRequest}
-					setSearchResponse={setSearchResponse}
+					chosenJob={chosenJob}
+					setChosenJob={setChosenJob}
+					chosenAddress={chosenAddress}
+					setChosenAddress={setChosenAddress}
 				/>
 				<Instruction />
 			</>

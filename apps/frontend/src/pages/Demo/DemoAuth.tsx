@@ -1,19 +1,10 @@
-import React, { FC, useContext } from "react";
-import { AuthContext, AuthUI, User } from "@vc/auth";
-import { signOut } from "@vc/auth";
+import React, { FC } from "react";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 const DemoAuth: FC = () => {
 	const { user } = useAuthContext();
 
 	console.log(user?.getIdToken().then(token => console.log(token)));
-
-	const userInfoPanel = (
-		<div>
-			{user && "Hello, " + user.displayName}
-			<button onClick={signOut}>Logout</button>
-		</div>
-	);
 	return (
 		<div
 			style={{

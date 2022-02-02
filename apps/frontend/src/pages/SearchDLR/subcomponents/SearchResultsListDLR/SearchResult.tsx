@@ -49,7 +49,7 @@ const SearchResult = ({ resultData }: Props) => {
 	}
 
 	function checkDescription() {
-		if (resultData.description.split(" ").length > 20) {
+		if (resultData.description?.length > 20) {
 			return (
 				<p className={s.result_description}>
 					{resultData.description.split(" ").slice(0, 20).join(" ") + "[...]"}

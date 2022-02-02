@@ -1,15 +1,16 @@
-import s from "./Adminpannel.module.scss";
+import s from "./Adminpanel.module.scss";
 import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import GetAllResultList from "./subcomponents/GetAllResultList/GetAllResultList";
 import CreateFormAdmin from "./subcomponents/CreateFormAdmin/CreateFormAdmin";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 import EditFormAdmin from "./subcomponents/EditFormAdmin/EditFormAdmin";
-import PaginationAdminpannel from "./subcomponents/PaginationAdminpannel/PaginationAdminpannel";
+import PaginationAdminpanel from "./subcomponents/PaginationAdminpanel/PaginationAdminpanel";
 
-export default function Adminpannel() {
+export default function Adminpanel() {
 	const { user } = useAuthContext();
-	const [chosenVerfified, setChosenVerified] = useState("Alle");
+	// Filter Companies by verified status
+	const [chosenVerified, setChosenVerified] = useState("Alle");
 	const [response, setResponse] = useState("");
 	const [currentlyCreating, setCurrentlyCreating] = useState(false);
 	const [currentlyEditing, setCurrentlyEditing] = useState(false);
@@ -26,9 +27,9 @@ export default function Adminpannel() {
 		user?.getIdToken().then(token => {
 			var fetchURL;
 
-			if (chosenVerfified == "Ja") {
+			if (chosenVerified == "Ja") {
 				fetchURL = "http://localhost:8103/entry?verified=true&amount=10&page=";
-			} else if (chosenVerfified == "Nein") {
+			} else if (chosenVerified == "Nein") {
 				fetchURL = "http://localhost:8103/entry?verified=false&amount=10&page=";
 			} else {
 				fetchURL = "http://localhost:8103/entry?amount=10&page=";
@@ -53,7 +54,7 @@ export default function Adminpannel() {
 		});
 	}
 
-	function backToAdminpannel() {
+	function backToAdminpanel() {
 		setCurrentlyCreating(false);
 		setCurrentlyEditing(false);
 	}
@@ -72,7 +73,7 @@ export default function Adminpannel() {
 							page={currentPage}
 						/>
 					</div>
-					<PaginationAdminpannel
+					<PaginationAdminpanel
 						page={currentPage}
 						startGetallRequest={handleSubmit}
 						setCurrentPage={setCurrentPage}
@@ -88,62 +89,58 @@ export default function Adminpannel() {
 		setCurrentlyEditing(true);
 	}
 
-	function checkSPARendering() {
-		if (currentlyCreating === true) {
-			return (
-				<CreateFormAdmin
-					returnToAdminpannel={backToAdminpannel}
-					searchAgain={handleSubmit}
-					page={currentPage}
-				/>
-			);
-		} else if (currentlyEditing === true) {
-			return (
-				<EditFormAdmin
-					returnToAdminpannel={backToAdminpannel}
-					searchAgain={handleSubmit}
-					editData={editData}
-					page={currentPage}
-				/>
-			);
-		} else {
-			return (
-				<>
-					<div className={s.maindiv_headlineAdminpannel}>
-						<p className={s.headlineAdminpannel}>Adminpannel</p>
+	if (currentlyCreating === true) {
+		return (
+			<CreateFormAdmin
+				returnToAdminpanel={backToAdminpanel}
+				searchAgain={handleSubmit}
+				page={currentPage}
+			/>
+		);
+	} else if (currentlyEditing === true) {
+		return (
+			<EditFormAdmin
+				returnToAdminpanel={backToAdminpanel}
+				searchAgain={handleSubmit}
+				editData={editData}
+				page={currentPage}
+			/>
+		);
+	} else {
+		return (
+			<>
+				<div className={s.maindiv_headlineAdminpanel}>
+					<p className={s.headlineAdminpanel}>Adminpanel</p>
+				</div>
+				<div className={s.SearchAllAndAdd}>
+					<form
+						className={s.searchAllForm}
+						onSubmit={event => handleSubmit(0, event)}
+					>
+						<label className={s.inputblock_adminpanel}>
+							Verifiziert
+							<select
+								name='Dienstleistungen'
+								className={s.verifiedoption}
+								onChange={event => setChosenVerified(event.target.value)}
+								required
+							>
+								<option value='Alle'>Alle</option>
+								<option value='Ja'>Ja</option>
+								<option value='Nein'>Nein</option>
+							</select>
+						</label>
+						<Button>Suchen</Button>
+					</form>
+					<div
+						className={s.addButtonDiv}
+						onClick={event => setCurrentlyCreating(true)}
+					>
+						<Button>+ Dienstleister hinzufügen</Button>
 					</div>
-					<div className={s.SearchAllAndAdd}>
-						<form
-							className={s.searchAllForm}
-							onSubmit={event => handleSubmit(0, event)}
-						>
-							<label className={s.inputblock_adminpannel}>
-								Verifiziert
-								<select
-									name='Dienstleistungen'
-									className={s.verifiedoption}
-									onChange={event => setChosenVerified(event.target.value)}
-									required
-								>
-									<option value='Alle'>Alle</option>
-									<option value='Ja'>Ja</option>
-									<option value='Nein'>Nein</option>
-								</select>
-							</label>
-							<Button>Suchen</Button>
-						</form>
-						<div
-							className={s.addButtonDiv}
-							onClick={event => setCurrentlyCreating(true)}
-						>
-							<Button>+ Dienstleister hinzufügen</Button>
-						</div>
-					</div>
-					{checkResponseListRendering()}
-				</>
-			);
-		}
+				</div>
+				{checkResponseListRendering()}
+			</>
+		);
 	}
-
-	return checkSPARendering();
 }

@@ -1,19 +1,19 @@
 import s from "./EditFormAdmin.module.scss";
 import { useState, useEffect } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
-import BackToAdminpannel from "../BackToAdminpannel/BackToAdminpannel";
+import BackToAdminpanel from "../BackToAdminpanel/BackToAdminpanel";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {
-	returnToAdminpannel: any;
+	returnToAdminpanel: any;
 	searchAgain: any;
 	editData: any;
 	page: any;
 }
 
 const EditFormAdmin = ({
-	returnToAdminpannel,
+	returnToAdminpanel,
 	searchAgain,
 	editData,
 	page,
@@ -89,7 +89,7 @@ const EditFormAdmin = ({
 					onOpenChange={open => {
 						setShowConfirmation(open);
 						if (open === false) {
-							backToAdminpannel();
+							backToAdminpanel();
 						}
 					}}
 				>
@@ -103,16 +103,16 @@ const EditFormAdmin = ({
 		}
 	}
 
-	function backToAdminpannel() {
+	function backToAdminpanel() {
 		searchAgain(page);
-		returnToAdminpannel();
+		returnToAdminpanel();
 	}
 
 	return (
 		<>
 			<div className={s.maindiv_headline_admin_editEntry}>
-				<div onClick={backToAdminpannel}>
-					<BackToAdminpannel />
+				<div onClick={backToAdminpanel}>
+					<BackToAdminpanel />
 				</div>
 				<p className={s.DienstleisterBearbeiten}>Dienstleister bearbeiten</p>
 			</div>

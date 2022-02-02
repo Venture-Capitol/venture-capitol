@@ -153,7 +153,7 @@ const GetAllResult = ({
 						title={"Bist du sicher?"}
 						trigger={<button className={s.deleteDLButton}>Löschen</button>}
 						cancel={<Button>Abbrechen</Button>}
-						action={<button className={s.deleteModalButton}>Löschen</button>}
+						action={<span className={s.deleteModalButton}>Löschen</span>}
 						func={deleteEntry}
 					>
 						<p className={s.deleteModalText}>

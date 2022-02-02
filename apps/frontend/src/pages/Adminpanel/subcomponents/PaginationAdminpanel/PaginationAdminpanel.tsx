@@ -1,4 +1,4 @@
-import s from "./PaginationAdminpannel.module.scss";
+import s from "./PaginationAdminpanel.module.scss";
 import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
@@ -10,7 +10,7 @@ interface Props {
 	requestURL: any;
 }
 
-const PaginationAdminpannel = ({
+const PaginationAdminpanel = ({
 	page,
 	startGetallRequest,
 	setCurrentPage,
@@ -98,4 +98,4 @@ const PaginationAdminpannel = ({
 	);
 };
 
-export default PaginationAdminpannel;
+export default PaginationAdminpanel;

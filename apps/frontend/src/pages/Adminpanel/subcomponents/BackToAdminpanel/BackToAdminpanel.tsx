@@ -1,7 +1,7 @@
 import React from "react";
-import s from "./BackToAdminpannel.module.scss";
+import s from "./BackToAdminpanel.module.scss";
 
-const BackToAdminpannel: React.FunctionComponent = () => {
+const BackToAdminpanel: React.FunctionComponent = () => {
 	return (
 		<>
 			<div className={s.back}>
@@ -22,4 +22,4 @@ const BackToAdminpannel: React.FunctionComponent = () => {
 	);
 };
 
-export default BackToAdminpannel;
+export default BackToAdminpanel;

@@ -1,17 +1,17 @@
 import s from "./CreateFormAdmin.module.scss";
 import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
-import BackToAdminpannel from "../BackToAdminpannel/BackToAdminpannel";
+import BackToAdminpanel from "../BackToAdminpanel/BackToAdminpanel";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {
-	returnToAdminpannel: any;
+	returnToAdminpanel: any;
 	searchAgain: any;
 	page: any;
 }
 
-const CreateFormAdmin = ({ returnToAdminpannel, searchAgain, page }: Props) => {
+const CreateFormAdmin = ({ returnToAdminpanel, searchAgain, page }: Props) => {
 	const { user } = useAuthContext();
 
 	const [showConfirmation, setShowConfirmation] = useState(false);
@@ -84,16 +84,16 @@ const CreateFormAdmin = ({ returnToAdminpannel, searchAgain, page }: Props) => {
 		}
 	}
 
-	function backToAdminpannel() {
+	function backToAdminpanel() {
 		searchAgain(page);
-		returnToAdminpannel();
+		returnToAdminpanel();
 	}
 
 	return (
 		<>
 			<div className={s.maindiv_headline_admin_createEntry}>
-				<div onClick={backToAdminpannel}>
-					<BackToAdminpannel />
+				<div onClick={backToAdminpanel}>
+					<BackToAdminpanel />
 				</div>
 				<p className={s.DienstleisterEintragen}>
 					Einen Dienstleister hinzufügen
