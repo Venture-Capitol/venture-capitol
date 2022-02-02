@@ -71,15 +71,10 @@ const SearchForm = ({
 					name='Dienstleistungen'
 					className={s.joboption}
 					onChange={event => setChosenJobname(event.target.value)}
+					defaultValue={""}
 					required
 				>
-					<option
-						value=''
-						selected
-						disabled
-						hidden
-						className={s.disabledOption}
-					>
+					<option value='' disabled hidden className={s.disabledOption}>
 						Bitte auswählen
 					</option>
 					<option value='Notar'>Notar</option>
@@ -88,68 +83,19 @@ const SearchForm = ({
 					<option value='Webagentur'>Webagentur</option>
 				</select>
 			);
-		} else if (jobparam == "Notar") {
+		} else {
 			return (
 				<select
 					name='Dienstleistungen'
 					className={s.joboption}
 					onChange={event => setChosenJobname(event.target.value)}
-					required
-				>
-					<option value='Notar' selected>
-						Notar
-					</option>
-					<option value='Rechtsanwalt'>Rechtsanwalt</option>
-					<option value='Steuerberater'>Steuerberater</option>
-					<option value='Webagentur'>Webagentur</option>
-				</select>
-			);
-		} else if (jobparam == "Rechtsanwalt") {
-			return (
-				<select
-					name='Dienstleistungen'
-					className={s.joboption}
-					onChange={event => setChosenJobname(event.target.value)}
-					required
-				>
-					<option value='Notar'>Notar</option>
-					<option value='Rechtsanwalt' selected>
-						Rechtsanwalt
-					</option>
-					<option value='Steuerberater'>Steuerberater</option>
-					<option value='Webagentur'>Webagentur</option>
-				</select>
-			);
-		} else if (jobparam == "Steuerberater") {
-			return (
-				<select
-					name='Dienstleistungen'
-					className={s.joboption}
-					onChange={event => setChosenJobname(event.target.value)}
-					required
-				>
-					<option value='Notar'>Notar</option>
-					<option value='Rechtsanwalt'>Rechtsanwalt</option>
-					<option value='Steuerberater' selected>
-						Steuerberater
-					</option>
-					<option value='Webagentur'>Webagentur</option>
-				</select>
-			);
-		} else if (jobparam == "Webagentur") {
-			return (
-				<select
-					name='Dienstleistungen'
-					className={s.joboption}
-					onChange={event => setChosenJobname(event.target.value)}
+					defaultValue={jobparam}
 					required
 				>
 					<option value='Notar'>Notar</option>
 					<option value='Rechtsanwalt'>Rechtsanwalt</option>
 					<option value='Steuerberater'>Steuerberater</option>
-					<option value='Webagentur' selected>
-						Webagentur
-					</option>
+					<option value='Webagentur'>Webagentur</option>
 				</select>
 			);
 		}

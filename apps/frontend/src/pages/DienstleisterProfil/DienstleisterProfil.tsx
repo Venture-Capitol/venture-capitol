@@ -9,7 +9,7 @@ export default function DienstleisterProfil() {
 	// SHOULD BE BASED ON WHETHER CURRENT USER ALREADY HAS DIENSTLEISTEREINTRAG
 	return (
 		<>
-			<CreateDienstleister />
+			<></>
 		</>
 	);
 }
