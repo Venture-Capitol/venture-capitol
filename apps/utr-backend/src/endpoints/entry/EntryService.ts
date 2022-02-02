@@ -327,34 +327,56 @@ export async function updateEntry(
 	}
 }
 
-export async function deleteEntry(id: number, callback: Function) {
+export async function deleteEntry(
+	id: number,
+	user: DecodedIdToken,
+	callback: Function
+) {
 	if (isNaN(id)) {
 		return callback(
 			new ApplicationError("Fehlerhafte Anfrage. ID muss number sein.", 400)
 		);
-	} else {
-		try {
+	}
+	try {
+		if (user.role == "admin") {
 			const deleteUser = await prisma.entry.delete({
 				where: {
 					id: id,
 				},
 			});
 			return callback(null);
-		} catch (exception) {
-			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
-				if (exception.code == "P2025") {
-					return callback(
-						new ApplicationError("Es exisiert kein Eintrag für diese ID", 404)
-					);
-				}
+		} else {
+			const deletedUsers = await prisma.entry.deleteMany({
+				where: {
+					id: id,
+					ownedBy: user.uid,
+				},
+			});
+			if (deletedUsers.count == 1) {
+				return callback(null);
 			} else {
 				return callback(
 					new ApplicationError(
-						"Es ist ein unerwarteter Fehler beim Loeschen eines Eintrags aufgetreten",
-						500
+						"Es exisiert kein Eintrag mit dieser ID von diesem Nutzer.",
+						400
 					)
 				);
 			}
+		}
+	} catch (exception) {
+		if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+			if (exception.code == "P2025") {
+				return callback(
+					new ApplicationError("Es exisiert kein Eintrag für diese ID", 404)
+				);
+			}
+		} else {
+			return callback(
+				new ApplicationError(
+					"Es ist ein unerwarteter Fehler beim Loeschen eines Eintrags aufgetreten",
+					500
+				)
+			);
 		}
 	}
 }

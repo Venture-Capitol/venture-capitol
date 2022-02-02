@@ -132,9 +132,10 @@ router.put("/:id", getUser, function (req, res, next) {
 	);
 });
 
-router.delete("/:id", getUser, isAdmin, function (req, res, next) {
+router.delete("/:id", getUser, function (req, res, next) {
 	EntryService.deleteEntry(
 		Number(req.params.id),
+		req.user,
 		function (error: Error | ApplicationError) {
 			if (error) {
 				logger.error(error.message);
