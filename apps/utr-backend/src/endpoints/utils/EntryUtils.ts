@@ -10,7 +10,7 @@ export function parseToBoolean(value: any) {
 	}
 }
 
-export function parseToNumber(value: string) {
+export function parseToNumber(value: any) {
 	if (value === undefined) {
 		return value;
 	} else {

@@ -6,12 +6,14 @@ interface Props {
 	getAllResponse: any;
 	searchAgain: any;
 	setDataForEdit: any;
+	page: any;
 }
 
 const GetAllResultList = ({
 	getAllResponse,
 	searchAgain,
 	setDataForEdit,
+	page,
 }: Props) => {
 	const [getResponse, setGetResponse] = useState();
 
@@ -25,6 +27,7 @@ const GetAllResultList = ({
 					key={currentResult.id}
 					searchAgain={searchAgain}
 					setDataForEdit={setDataForEdit}
+					page={page}
 				/>
 			);
 		}

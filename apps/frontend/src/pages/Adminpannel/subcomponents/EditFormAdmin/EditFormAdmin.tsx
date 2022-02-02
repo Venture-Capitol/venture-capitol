@@ -10,12 +10,14 @@ interface Props {
 	returnToAdminpannel: any;
 	searchAgain: any;
 	editData: any;
+	page: any;
 }
 
 const EditFormAdmin = ({
 	returnToAdminpannel,
 	searchAgain,
 	editData,
+	page,
 }: Props) => {
 	const { user } = useAuthContext();
 
@@ -103,7 +105,8 @@ const EditFormAdmin = ({
 	}
 
 	function backToAdminpannel() {
-		searchAgain();
+		console.log(page);
+		searchAgain(page);
 		returnToAdminpannel();
 	}
 

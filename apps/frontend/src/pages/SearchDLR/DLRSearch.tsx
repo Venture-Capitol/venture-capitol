@@ -6,27 +6,36 @@ import Instruction from "./subcomponents/InstructionDLR/Instruction";
 import SearchResultsList from "./subcomponents/SearchResultsListDLR/SearchResultsList";
 import Pagination from "@vc/frontend/component/PaginationDLR/Pagination";
 import React, { useState } from "react";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 export default function UTRSearch() {
-	const [searchResponse, setSearchResponse] = useState(false);
+	const { user } = useAuthContext();
+	const [searchResponse, setSearchResponse] = useState();
 	const [chosenJob, setChosenJob] = useState();
 	const [chosenAddress, setChosenAddress] = useState();
-	const [searchRequest, setSearchRequest] = useState();
-	const [currentPage, setCurrentPage] = useState();
+	const [searchRequest, setSearchRequest] = useState("");
+	const [currentPage, setCurrentPage] = useState(1);
 
-	const passSearchResponse = (data: any, job: any, address: any) => {
-		console.log("passed search response to parent");
+	function startSearchRequest(page: any) {
+		user?.getIdToken().then(token => {
+			const requestOptions = {
+				method: "GET",
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			};
+
+			return fetch(searchRequest + page, requestOptions)
+				.then(data => data.json())
+				.then(parseddata => setSearchResponse(parseddata))
+				.catch(error => console.log(error));
+		});
+	}
+
+	const passFormResponse = (job: any, address: any) => {
+		console.log("passed form data to parent");
 		setChosenJob(job);
 		setChosenAddress(address);
-		setSearchResponse(data);
-	};
-
-	const passSearchRequest = (request: any) => {
-		setSearchRequest(request);
-	};
-
-	const passPageOfRequest = (page: any) => {
-		setCurrentPage(page);
 	};
 
 	if (searchResponse) {
@@ -34,9 +43,11 @@ export default function UTRSearch() {
 			<>
 				<Headline />
 				<SearchForm
-					passSearchResponse={passSearchResponse}
-					passSearchRequest={passSearchRequest}
-					passPageOfRequest={passPageOfRequest}
+					passFormResponse={passFormResponse}
+					setSearchRequest={setSearchRequest}
+					setCurrentPage={setCurrentPage}
+					startSearchRequest={startSearchRequest}
+					setSearchResponse={setSearchResponse}
 				/>
 				<div className={s.maindiv_resulttext}>
 					<p className={s.resulttext}>
@@ -47,8 +58,9 @@ export default function UTRSearch() {
 				<SearchResultsList searchResponse={searchResponse} />
 				<Pagination
 					requestOfParent={searchRequest}
-					responseOfParent={searchResponse}
 					page={currentPage}
+					setCurrentPage={setCurrentPage}
+					startSearchRequest={startSearchRequest}
 				/>
 			</>
 		);
@@ -57,9 +69,11 @@ export default function UTRSearch() {
 			<>
 				<Headline />
 				<SearchForm
-					passSearchResponse={passSearchResponse}
-					passSearchRequest={passSearchRequest}
-					passPageOfRequest={passPageOfRequest}
+					passFormResponse={passFormResponse}
+					setSearchRequest={setSearchRequest}
+					setCurrentPage={setCurrentPage}
+					startSearchRequest={startSearchRequest}
+					setSearchResponse={setSearchResponse}
 				/>
 				<Instruction />
 			</>

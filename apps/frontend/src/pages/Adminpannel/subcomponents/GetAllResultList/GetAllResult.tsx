@@ -9,9 +9,15 @@ interface Props {
 	resultData: any;
 	searchAgain: any;
 	setDataForEdit: any;
+	page: any;
 }
 
-const GetAllResult = ({ resultData, searchAgain, setDataForEdit }: Props) => {
+const GetAllResult = ({
+	resultData,
+	searchAgain,
+	setDataForEdit,
+	page,
+}: Props) => {
 	const { user } = useAuthContext();
 	const [isVerified, setIsVerified] = useState(resultData.verified);
 
@@ -90,7 +96,7 @@ const GetAllResult = ({ resultData, searchAgain, setDataForEdit }: Props) => {
 	function checkDeleteResponse(data: any) {
 		if (data.ok) {
 			console.log("hat geklappt");
-			searchAgain();
+			searchAgain(page);
 		} else {
 			console.log("hat nicht geklappt");
 		}

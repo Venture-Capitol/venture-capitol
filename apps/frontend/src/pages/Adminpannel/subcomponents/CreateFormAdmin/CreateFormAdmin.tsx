@@ -9,9 +9,10 @@ import { useAuthContext } from "@vc/auth/src/AuthContext";
 interface Props {
 	returnToAdminpannel: any;
 	searchAgain: any;
+	page: any;
 }
 
-const CreateFormAdmin = ({ returnToAdminpannel, searchAgain }: Props) => {
+const CreateFormAdmin = ({ returnToAdminpannel, searchAgain, page }: Props) => {
 	const { user } = useAuthContext();
 
 	const [showConfirmation, setShowConfirmation] = useState(false);
@@ -85,7 +86,7 @@ const CreateFormAdmin = ({ returnToAdminpannel, searchAgain }: Props) => {
 	}
 
 	function backToAdminpannel() {
-		searchAgain();
+		searchAgain(page);
 		returnToAdminpannel();
 	}
 

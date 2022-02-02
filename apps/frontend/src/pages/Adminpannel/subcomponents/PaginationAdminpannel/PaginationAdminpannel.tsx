@@ -1,21 +1,21 @@
-import s from "./Pagination.module.scss";
+import s from "./PaginationAdminpannel.module.scss";
 import React, { useState, useContext, useEffect } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import { AuthContext, AuthUI, User } from "@vc/auth";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {
-	requestOfParent: any;
 	page: any;
+	startGetallRequest: any;
 	setCurrentPage: any;
-	startSearchRequest: any;
+	requestURL: any;
 }
 
-const Pagination = ({
-	requestOfParent,
+const PaginationAdminpannel = ({
 	page,
+	startGetallRequest,
 	setCurrentPage,
-	startSearchRequest,
+	requestURL,
 }: Props) => {
 	const { user } = useAuthContext();
 	const [enableZurueckButton, setEnableZurueckButton] = useState(false);
@@ -25,21 +25,25 @@ const Pagination = ({
 		if (enableZurueckButton == false) {
 			setEnableZurueckButton(true);
 		}
-		startSearchRequest(page + 1);
+		startGetallRequest(page + 1);
+		console.log(page + 1);
 		setCurrentPage(page + 1);
+		console.log(page + 1);
 	}
 
 	function zurück() {
-		if (page - 1 <= 1) {
+		if (page - 1 <= 0) {
 			setEnableZurueckButton(false);
 		}
-		startSearchRequest(page - 1);
+		startGetallRequest(page - 1);
+		console.log(page - 1);
 		setCurrentPage(page - 1);
+		console.log(page - 1);
 	}
 
 	function checkZurueckButton() {
 		console.log("checkzurueck");
-		if (enableZurueckButton && page - 1 >= 1) {
+		if (page - 1 >= 0) {
 			return (
 				<div onClick={e => zurück()}>
 					<Button>{"< "}Zurück</Button>
@@ -63,7 +67,7 @@ const Pagination = ({
 				},
 			};
 
-			return fetch(requestOfParent + (page + 1), requestOptions)
+			return fetch(requestURL + (page + 1), requestOptions)
 				.then(data => data.json())
 				.then(parsedData => {
 					console.log(parsedData.length);
@@ -101,4 +105,4 @@ const Pagination = ({
 	);
 };
 
-export default Pagination;
+export default PaginationAdminpannel;

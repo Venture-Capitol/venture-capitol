@@ -51,6 +51,7 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 		function (error: Error | ApplicationError, result: Entry[]) {
 			if (error) {
 				logger.error(error.message);
+
 				if (error instanceof ApplicationError) {
 					res.status(error.errorCode).end(error.message);
 				} else {
@@ -61,7 +62,7 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 			}
 		},
 		parsedVerified,
-		Number(req.query.amount),
+		EntryUtils.parseToNumber(req.query.amount),
 		Number(req.query.page)
 	);
 });

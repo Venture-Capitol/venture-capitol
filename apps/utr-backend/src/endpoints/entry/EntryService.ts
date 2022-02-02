@@ -51,12 +51,12 @@ export async function searchEntries(
 				},
 			});
 			if (searchResults) {
-				const offset = (page - 1) * 15;
+				const offset = (page - 1) * 10;
 				// TODO Change to verified=true when false is not needed anymore for testing
 				const query = await prisma.$queryRaw<
 					{ id: number; distance: number }[]
 				>(
-					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND verified ORDER BY distance ASC LIMIT 15 OFFSET ${offset}`
+					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND verified ORDER BY distance ASC LIMIT 10 OFFSET ${offset}`
 				);
 				const map = query.map(result => {
 					let found = searchResults.find(x => {
@@ -112,7 +112,6 @@ export async function getAllEntries(
 				});
 				return callback(null, allEntries);
 			} else {
-				console.log(verified);
 				const allEntries = await prisma.entry.findMany({
 					where: {
 						verified: {

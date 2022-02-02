@@ -6,15 +6,19 @@ import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {
-	passSearchResponse: (data: any, job: any, address: any) => void;
-	passSearchRequest: (request: any) => void;
-	passPageOfRequest: (page: any) => void;
+	passFormResponse: (job: any, address: any) => void;
+	setSearchRequest: (request: any) => void;
+	setCurrentPage: (page: any) => void;
+	startSearchRequest: (page: any) => void;
+	setSearchResponse: any;
 }
 
 const SearchForm = ({
-	passSearchResponse,
-	passSearchRequest,
-	passPageOfRequest,
+	passFormResponse,
+	setSearchRequest,
+	setCurrentPage,
+	startSearchRequest,
+	setSearchResponse,
 }: Props) => {
 	const { user } = useAuthContext();
 	const queryParams = new URLSearchParams(useLocation().search);
@@ -29,11 +33,9 @@ const SearchForm = ({
 			const fetchURL =
 				"http://localhost:8103/entry/search?jobname=" +
 				chosenJobname +
-				"&latitude=52.516217&longitude=13.377004&";
+				"&latitude=52.516217&longitude=13.377004&page=";
 
-			const page = "page=1";
-			passSearchRequest(fetchURL);
-			passPageOfRequest(page);
+			setSearchRequest(fetchURL);
 
 			const requestOptions = {
 				method: "GET",
@@ -42,15 +44,19 @@ const SearchForm = ({
 				},
 			};
 
-			return fetch(fetchURL + page, requestOptions)
+			return fetch(fetchURL + 1, requestOptions)
 				.then(data => data.json())
-				.then(parseddata => checkResponse(parseddata))
+				.then(parseddata => {
+					setSearchResponse(parseddata);
+					handleResponse(parseddata, fetchURL);
+				})
 				.catch(error => console.log(error));
 		});
 	}
 
-	function checkResponse(data: any) {
-		passSearchResponse(data, chosenJobname, chosenAddress);
+	function handleResponse(data: any, url: any) {
+		setCurrentPage(1);
+		passFormResponse(chosenJobname, chosenAddress);
 	}
 
 	function getSelect() {

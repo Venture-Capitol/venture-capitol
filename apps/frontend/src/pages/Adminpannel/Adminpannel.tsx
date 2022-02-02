@@ -6,6 +6,7 @@ import GetAllResultList from "./subcomponents/GetAllResultList/GetAllResultList"
 import CreateFormAdmin from "./subcomponents/CreateFormAdmin/CreateFormAdmin";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 import EditFormAdmin from "./subcomponents/EditFormAdmin/EditFormAdmin";
+import PaginationAdminpannel from "./subcomponents/PaginationAdminpannel/PaginationAdminpannel";
 
 export default function Adminpannel() {
 	const { user } = useAuthContext();
@@ -15,24 +16,28 @@ export default function Adminpannel() {
 	const [currentlyEditing, setCurrentlyEditing] = useState(false);
 	const [editData, setEditData] = useState();
 
-	function handleSubmit(event: any) {
+	const [requestURL, setRequestURL] = useState("");
+	const [currentPage, setCurrentPage] = useState(0);
+
+	function handleSubmit(page: any, event?: any) {
 		if (event) {
 			event.preventDefault();
 		}
-		console.log("Hi");
 
 		user?.getIdToken().then(token => {
 			var fetchURL;
 
 			if (chosenVerfified == "Ja") {
-				fetchURL = "http://localhost:8103/entry?verified=true&amount=10&page=0";
+				fetchURL = "http://localhost:8103/entry?verified=true&amount=10&page=";
 			} else if (chosenVerfified == "Nein") {
-				fetchURL =
-					"http://localhost:8103/entry?verified=false&amount=10&page=0";
+				fetchURL = "http://localhost:8103/entry?verified=false&amount=10&page=";
 			} else {
-				fetchURL = "http://localhost:8103/entry?amount=10&page=0";
+				fetchURL = "http://localhost:8103/entry?amount=10&page=";
 			}
 
+			setRequestURL(fetchURL);
+			setCurrentPage(page);
+			console.log(page);
 			console.log(fetchURL);
 
 			const requestOptions = {
@@ -42,9 +47,12 @@ export default function Adminpannel() {
 				},
 			};
 
-			return fetch(fetchURL, requestOptions)
+			return fetch(fetchURL + page, requestOptions)
 				.then(data => data.json())
-				.then(parseddata => checkResponse(parseddata))
+				.then(parseddata => {
+					setResponse(parseddata);
+					console.log(currentPage);
+				})
 				.catch(error => console.log(error));
 		});
 	}
@@ -54,21 +62,25 @@ export default function Adminpannel() {
 		setCurrentlyEditing(false);
 	}
 
-	function checkResponse(data: any) {
-		console.log(data);
-		setResponse(data);
-	}
-
 	function checkResponseListRendering() {
 		if (response == "") {
 			return <></>;
 		} else {
 			return (
-				<div className={s.searchResultsDiv}>
-					<GetAllResultList
-						getAllResponse={response}
-						searchAgain={handleSubmit}
-						setDataForEdit={setDataForEdit}
+				<div>
+					<div className={s.searchResultsDiv}>
+						<GetAllResultList
+							getAllResponse={response}
+							searchAgain={handleSubmit}
+							setDataForEdit={setDataForEdit}
+							page={currentPage}
+						/>
+					</div>
+					<PaginationAdminpannel
+						page={currentPage}
+						startGetallRequest={handleSubmit}
+						setCurrentPage={setCurrentPage}
+						requestURL={requestURL}
 					/>
 				</div>
 			);
@@ -86,6 +98,7 @@ export default function Adminpannel() {
 				<CreateFormAdmin
 					returnToAdminpannel={backToAdminpannel}
 					searchAgain={handleSubmit}
+					page={currentPage}
 				/>
 			);
 		} else if (currentlyEditing === true) {
@@ -94,6 +107,7 @@ export default function Adminpannel() {
 					returnToAdminpannel={backToAdminpannel}
 					searchAgain={handleSubmit}
 					editData={editData}
+					page={currentPage}
 				/>
 			);
 		} else {
@@ -105,7 +119,7 @@ export default function Adminpannel() {
 					<div className={s.SearchAllAndAdd}>
 						<form
 							className={s.searchAllForm}
-							onSubmit={event => handleSubmit(event)}
+							onSubmit={event => handleSubmit(0, event)}
 						>
 							<label className={s.inputblock_adminpannel}>
 								Verifiziert
