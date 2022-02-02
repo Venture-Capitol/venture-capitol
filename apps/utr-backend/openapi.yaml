@@ -34,11 +34,11 @@ components:
           description: Formatierte Adresse mit Straße, Straßennummer, PLZ und Ort.
           example: Luxemburger Str. 10, 15193 Berlin, Deutschland
         latitude:
-          type: string
+          type: number
           description: Die Latitude-Koordinate der Addresse des Eintrags.
           example: 52.543205
         longitude:
-          type: string
+          type: number
           description: Die Longitude-Koordinate der Addresse des Eintrags.
           example: 13.350857
         email:
@@ -74,6 +74,10 @@ components:
               type: boolean
               description: Der Status, ob der Eintrag verifiziert ist oder nicht.
               example: true
+            ownedBy:
+              type: string
+              description: UID des Nutzers, der den Eintrag erstellt https://api.example.com
+              example: s0hv5IdUULZsbr48BvrCEhCE4fC2
           required:
             - id
             - job

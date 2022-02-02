@@ -44,6 +44,24 @@ router.get("/search", function (req, res, next) {
 	);
 });
 
+router.get("/user", getUser, function (req, res, next) {
+	EntryService.getEntryByUID(
+		req.user,
+		function (error: Error | ApplicationError, result: Entry) {
+			if (error) {
+				logger.error(error.message);
+				if (error instanceof ApplicationError) {
+					res.status(error.errorCode).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else if (result) {
+				res.send(result);
+			}
+		}
+	);
+});
+
 router.get("/", getUser, isAdmin, function (req, res, next) {
 	EntryService.getAllEntries(
 		function (error: Error | ApplicationError, result: Entry[]) {
@@ -144,24 +162,6 @@ router.delete("/:id", getUser, function (req, res, next) {
 				}
 			} else {
 				res.send("Eintrag mit ID: " + req.params.id + " geloescht.");
-			}
-		}
-	);
-});
-
-router.get("/user", getUser, function (req, res, next) {
-	EntryService.getEntryByUID(
-		req.user,
-		function (error: Error | ApplicationError, result: Entry) {
-			if (error) {
-				logger.error(error.message);
-				if (error instanceof ApplicationError) {
-					res.status(error.errorCode).end(error.message);
-				} else {
-					res.status(500).end(error.message);
-				}
-			} else if (result) {
-				res.send(result);
 			}
 		}
 	);

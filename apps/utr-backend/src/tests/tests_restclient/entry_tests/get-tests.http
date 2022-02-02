@@ -1,7 +1,7 @@
 ### ----- GET BY ID: localhost:8103/entry/:id -----
 
 ### providing valid id of type number for entry that exists (check database)
-GET http://localhost:8103/entry/1
+GET http://localhost:8103/entry/17
 
 ### providing valid id of type number for entry that DOES NOT exist | SHOULD FAIL & RETURN 404
 GET http://localhost:8103/entry/12932
@@ -14,7 +14,7 @@ GET http://localhost:8103/entry/4gustav
 ### using the token of a logged in User which has the Custom Claim role not set. Save it here.
 @Token = 
 
-### providing valid id of type number for entry that exists (check database)
+### providing valid auth Token from a user which has a company
 GET http://localhost:8103/entry/user
 Authorization: Bearer {{Token}}
 
