@@ -55,7 +55,7 @@ content-type: application/json
     }
 }
 
-### Try to edit entry with unknown id | SHOULD FAIL & RETURN 404
+### Try to edit entry with unknown id | SHOULD FAIL & RETURN 404 -> returned 400 bei user / 404 bei admin, ändert nichts, sollte okay sein
 PUT http://localhost:8103/entry/9203
 Authorization: Bearer {{Token}}
 content-type: application/json
@@ -94,6 +94,3 @@ content-type: application/json
         "company": 13
     }
 }
-
-
-
