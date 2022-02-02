@@ -148,3 +148,21 @@ router.delete("/:id", getUser, function (req, res, next) {
 		}
 	);
 });
+
+router.get("/user", getUser, function (req, res, next) {
+	EntryService.getEntryByUID(
+		req.user,
+		function (error: Error | ApplicationError, result: Entry) {
+			if (error) {
+				logger.error(error.message);
+				if (error instanceof ApplicationError) {
+					res.status(error.errorCode).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else if (result) {
+				res.send(result);
+			}
+		}
+	);
+});

@@ -377,3 +377,32 @@ export async function deleteEntry(
 		}
 	}
 }
+
+export async function getEntryByUID(user: DecodedIdToken, callback: Function) {
+	try {
+		const foundEntry = await prisma.entry.findUnique({
+			where: {
+				ownedBy: user.uid,
+			},
+		});
+		if (foundEntry == null) {
+			return callback(
+				new ApplicationError(
+					"Der Nutzer hat noch keinen Eintrag angelegt.",
+					404
+				),
+				null
+			);
+		} else {
+			return callback(null, foundEntry);
+		}
+	} catch (exception) {
+		return callback(
+			new ApplicationError(
+				"Es ist ein unerwarteter Fehler bei der Suche nach genau einem Eintrag aufgetreten.",
+				500
+			),
+			null
+		);
+	}
+}

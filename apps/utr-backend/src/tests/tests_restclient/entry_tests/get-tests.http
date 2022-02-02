@@ -9,11 +9,16 @@ GET http://localhost:8103/entry/12932
 ### providing invalid id (not in form of number) | SHOULD FAIL & RETURN 400
 GET http://localhost:8103/entry/4gustav
 
-
-### ----- GET ALL: localhost:8103/entry?verified={verified}&amount={amount}&page={page} -----
+### ----- GET BY UID: localhost:8103/entry/user -----
 
 ### using the token of a logged in User which has the Custom Claim role not set. Save it here.
 @Token = 
+
+### providing valid id of type number for entry that exists (check database)
+GET http://localhost:8103/entry/user
+Authorization: Bearer {{Token}}
+
+### ----- GET ALL: localhost:8103/entry?verified={verified}&amount={amount}&page={page} -----
 
 ### verified, amount and page set
 GET http://localhost:8103/entry/?verified=false&amount=1&page=0
