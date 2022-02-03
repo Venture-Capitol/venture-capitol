@@ -186,8 +186,7 @@ export async function createEntry(
 	callback: Function,
 	telefon?: string,
 	website?: string,
-	description?: string,
-	verified?: boolean
+	description?: string
 ) {
 	if (!company || !email || !job || !address || !latitude || !longitude) {
 		return callback(
