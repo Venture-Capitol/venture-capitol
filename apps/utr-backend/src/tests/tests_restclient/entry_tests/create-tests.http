@@ -18,7 +18,8 @@ content-type: application/json
     "email": "notare@deutschland.de",
     "telefon": "+49 (0)15204847706",
     "website": "notare-deutschland.de",
-    "description": "Die besten Notare in Deutschland mit allen wichtigen Services"
+    "description": "Die besten Notare in Deutschland mit allen wichtigen Services",
+    "verified": false
     
 }
 
@@ -82,6 +83,21 @@ content-type: application/json
     "latitude": 12832.12312,
     "longitude": 23923.2312839823,
     "email": "berlin@web.org"
+}
+
+### neuen Entry anlegen | Verified
+POST http://localhost:8103/entry/
+Authorization: Bearer {{Token}}
+content-type: application/json
+
+{
+    "job": "Webagentur",
+    "company": "WebBerlin",
+    "address": "Baumgartner Str. 20, 15193 Berlin, Deutschland",
+    "latitude": 52.12312,
+    "longitude": 19.2312839823,
+    "email": "berliner@web.org",
+    "verified": true
 }
 
 ### neuen Entry anlegen | required param company fehlt | SHOULD FAIL & RETURN 400

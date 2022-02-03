@@ -15,15 +15,12 @@
 
 .content {
 	h2 {
-		font-size: var(--size-36px);
-		margin: 0 0 var(--size-24px);
+		font-size: var(--size-28px);
+		margin: 0 0 var(--size-20px);
 	}
 
 	.description {
-		display: flex;
-		flex-direction: column;
-		gap: 15px;
-		margin-bottom: 15px;
+		margin-bottom: 20px;
 	}
 }
 
@@ -85,5 +82,20 @@
 	@media (max-width: 950px) {
 		flex-direction: column;
 		gap: 15px;
+
+		button {
+			width: 100%;
+		}
+	}
+
+	button:not(:first-of-type) {
+		background-color: rgb(255, 229, 229);
+		color: rgb(205, 43, 49);
+		transition: 0.3s ease-in-out;
+
+		&:hover {
+			background-color: #cd2b31;
+			color: #fff;
+		}
 	}
 }

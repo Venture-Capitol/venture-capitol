@@ -1,0 +1,98 @@
+.maindiv_headline_createEntry {
+	display: flex;
+	justify-content: center;
+	padding-top: 5%;
+	align-items: center;
+}
+
+.AlsDienstleisterEintragen {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-28px);
+}
+
+@media only screen and (max-width: 750px) {
+	.AlsDienstleisterEintragen {
+		font-size: var(--size-24px);
+	}
+}
+
+.createsuccess_div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: var(--color-green-700);
+}
+
+////////////////////////////////////////////
+
+.maindiv_createForm {
+	padding-top: 3.5%;
+	display: flex;
+	justify-content: center;
+}
+
+.createForm {
+	flex: 0 1 30em;
+	margin: 0px 5%;
+}
+
+.label_createForm {
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	font-size: var(--size-18px);
+	display: flex;
+	flex-flow: column nowrap;
+	padding: 25px 0px;
+}
+
+.textinput_createForm {
+	border-bottom: 0.5px solid var(--color-grey-500);
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	padding: 3px 4px 0px 1px;
+	margin: 8px 0px 4px 0px;
+	background-color: transparent;
+}
+
+select:focus {
+	outline: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+.joboption_createForm {
+	border-bottom: 0.5px solid var(--color-grey-700);
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	padding: 2px 4px 2px 0px;
+	margin: 12px 0px 4px 0px;
+	background-color: transparent;
+}
+
+.divforthat {
+	display: grid;
+	place-items: center;
+	grid-gap: 0;
+	margin-bottom: 12px;
+}
+
+textarea {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	width: 100%;
+	padding: 4px 6px 4px 6px;
+	margin: 8px 0px 4px 0px;
+	border: 0.5px solid var(--color-grey-700);
+	resize: none;
+	background-color: transparent;
+}
+
+textarea:focus {
+	outline: none;
+}

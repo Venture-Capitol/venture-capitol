@@ -1,0 +1,62 @@
+.maindiv {
+	display: flex;
+	justify-content: center;
+	padding-top: 3.5%;
+	flex-direction: column;
+	align-items: center;
+}
+
+.input_block {
+	font-size: var(--size-18px);
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	padding: 0px 25px;
+}
+
+select:focus {
+	outline: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+.joboption {
+	border-bottom: 0.5px solid var(--color-grey-700);
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	margin: 0;
+	padding: 0;
+	padding: 2px 4px 2px 0px;
+	margin: 12px 20px 4px 0px;
+}
+
+.joboption:focus {
+	border: none;
+	border-bottom: 0.5px solid var(--color-grey-700);
+}
+
+.form {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+
+.disabledOption {
+	color: var(--color-grey-600);
+}
+
+@media only screen and (max-width: 750px) {
+	.form {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+	}
+
+	.input_block {
+		margin: 6% 0%;
+		padding: 0;
+	}
+}

@@ -2,7 +2,7 @@ import React, { FC, useContext, useEffect, useState } from "react";
 
 import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
-import "firebaseui/dist/firebaseui.css";
+import "./firebaseui.css";
 import "./firebase.scss";
 import { useAuthContext } from "./AuthContext";
 import { app } from "./firebase";

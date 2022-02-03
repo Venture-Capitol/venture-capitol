@@ -1,0 +1,102 @@
+.maindiv_headlineAdminpanel {
+	display: flex;
+	justify-content: center;
+	padding-top: 10%;
+}
+
+.headlineAdminpanel {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-32px);
+}
+
+@media only screen and (max-width: 750px) {
+	.headlineAdminpanel {
+		font-size: var(--size-24px);
+	}
+
+	.maindiv_headlineAdminpanel {
+		padding-top: 15%;
+		margin-bottom: 4%;
+	}
+}
+
+//////////////////
+
+.SearchAllAndAdd {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 5%;
+	margin: 0% 4%;
+}
+
+.inputblock_adminpanel {
+	font-size: var(--size-18px);
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	padding: 0px 25px;
+	margin: 0% 8%;
+}
+
+select:focus {
+	outline: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+.verifiedoption {
+	border-bottom: 0.5px solid var(--color-grey-700);
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	margin: 0;
+	padding: 0;
+	padding: 2px 4px 2px 0px;
+	margin: 8px 20px 4px 0px;
+}
+
+.verifiedoption:focus {
+	border: none;
+	border-bottom: 0.5px solid var(--color-grey-700);
+}
+
+.searchAllForm {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	margin-right: 10%;
+}
+
+.addButtonDiv {
+	margin: 0% 4%;
+}
+
+@media only screen and (max-width: 750px) {
+	.addButtonDiv {
+		margin: 0% 4%;
+	}
+
+	.inputblock_adminpanel {
+		margin-bottom: 8%;
+	}
+
+	.SearchAllAndAdd {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		padding: 0%;
+	}
+
+	.searchAllForm {
+		display: flex;
+		flex-flow: column nowrap;
+		align-items: center;
+		padding: 0%;
+		margin-bottom: 4%;
+		margin-right: 0%;
+	}
+}

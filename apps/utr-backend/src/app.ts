@@ -40,4 +40,4 @@ app.use((err: any, req: any, res: any, next: any) => {
 });
 
 // Adding Routes
-app.use("/entry", entryRouter);
+app.use("/dlr/entry", entryRouter);
