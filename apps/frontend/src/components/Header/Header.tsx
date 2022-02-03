@@ -1,5 +1,5 @@
 import { AuthUI } from "@vc/auth";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Header.module.scss";
 import wordmarkIcon from "../../assets/wordmark.svg";
 import emblemIcon from "../../assets/emblem.svg";
@@ -15,8 +15,18 @@ const Header: FC = () => {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 	const { user: currentUser } = useAuthContext();
+	const [isAdmin, setisAdmin] = useState(false);
 	const isMobileWidth = useMediaQuery("(max-width: 950px)");
 	const menuRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (currentUser) {
+			currentUser.getIdTokenResult().then(t => {
+				setisAdmin(t.claims.role === "admin");
+			});
+		}
+		setisAdmin(false);
+	}, [currentUser]);
 
 	const userInfo = (
 		<div className={s.userInfo}>
@@ -83,7 +93,11 @@ const Header: FC = () => {
 			</div>
 			{isMenuOpen && (
 				<div ref={menuRef}>
-					<Menu isLoggedIn={currentUser != null} closeMenu={closeMenu} />
+					<Menu
+						isLoggedIn={currentUser != null}
+						isAdmin={isAdmin}
+						closeMenu={closeMenu}
+					/>
 				</div>
 			)}
 		</>
@@ -113,6 +127,7 @@ const Header: FC = () => {
 					<>
 						<MobileMenu
 							isLoggedIn={currentUser != undefined}
+              isAdmin={isAdmin}
 							closeMenu={closeMobileMenu}
 						/>
 						<style>

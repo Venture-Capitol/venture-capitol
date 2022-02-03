@@ -1,5 +1,5 @@
 import s from "./CreateFormAdmin.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import BackToAdminpanel from "../BackToAdminpanel/BackToAdminpanel";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
@@ -23,6 +23,10 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 	const [website, setWebsite] = useState("");
 	const [description, setDescription] = useState("");
 	const [verified, setVerified] = useState(false);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	function createDienstleister(event: any) {
 		event.preventDefault();
@@ -50,7 +54,7 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 				body: JSON.stringify(body),
 			};
 
-			return fetch("http://localhost:8103/entry/", requestOptions)
+			return fetch("/dlr/entry/", requestOptions)
 				.then(data => {
 					if (data.ok) {
 						setShowConfirmation(true);

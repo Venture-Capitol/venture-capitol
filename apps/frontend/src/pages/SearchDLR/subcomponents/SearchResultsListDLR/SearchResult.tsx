@@ -20,7 +20,7 @@ const SearchResult = ({ resultData }: Props) => {
 	const [description, setDescription] = useState("");
 
 	function openMoreInfo() {
-		const fetchURL = "http://localhost:8103/entry/" + resultData.id;
+		const fetchURL = "/dlr/entry/" + resultData.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {
@@ -72,28 +72,35 @@ const SearchResult = ({ resultData }: Props) => {
 					<span className={s.modalTitle}>
 						Dienstleistung: <span className={s.modalInfopoint}>{jobname}</span>
 					</span>
+					<br></br>
 					<span className={s.modalTitle}>
 						Adresse: <span className={s.modalInfopoint}>{address}</span>
 					</span>
+					<br></br>
 					<span className={s.modalTitle}>
 						Distanz:{" "}
 						<span className={s.modalInfopoint}>
 							{(resultData.distance / 1000).toFixed(1)}km entfernt
 						</span>
 					</span>
+					<br></br>
 					<span className={s.modalTitle}>
 						E-Mail: <span className={s.modalInfopoint}>{email}</span>
 					</span>
+					<br></br>
 					<span className={s.modalTitle}>
 						Telefon: <span className={s.modalInfopoint}>{telefon}</span>
 					</span>
+					<br></br>
 					<span className={s.modalTitle}>
 						Website: <span className={s.modalInfopoint}>{website}</span>
 					</span>
+					<br></br>
 					<span className={s.modalTitle}>
 						Beschreibung:{" "}
 						<span className={s.modalInfopoint}>{description}</span>
 					</span>
+					<br></br>
 				</Dialog>
 			);
 		} else {

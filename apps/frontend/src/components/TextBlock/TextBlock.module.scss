@@ -2,13 +2,40 @@
 	width: 100%;
 	position: relative;
 	height: 80vh;
-	line-break: break-all;
 
 	@media (max-width: 950px) {
-		padding: 20px 15px 0px;
+		padding: 100px 15px 0px;
+		height: 100vh;
+		overflow: hidden;
+	}
+
+	svg {
+		@media (max-width: 950px) {
+			top: 70px;
+			left: unset;
+		}
+		@media (min-width: 950px) and (max-width: 1000px) {
+			left: -30px;
+		}
+	}
+
+	@media (max-width: 950px) {
+		h1 {
+			font-size: var(--size-24px);
+		}
+		h2 {
+			font-size: var(--size-22px);
+		}
+		h3 {
+			font-size: var(--size-20px);
+		}
+		p {
+			font-size: var(--size-16px);
+		}
 	}
 
 	.page_content {
+		word-break: normal;
 		overflow-y: scroll;
 		overflow-x: hidden;
 		height: calc(100% - 72px);
@@ -37,7 +64,7 @@
 		bottom: -40px;
 		left: 0;
 		background: linear-gradient(transparent 0%, #f6f5f8 100%);
-		z-index: 10;
+		z-index: 4;
 
 		@media (max-width: 768px) {
 			height: 100px;

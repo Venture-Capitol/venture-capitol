@@ -33,12 +33,11 @@ export default function () {
 				{currentCompany && <Redirect to={"/gruendung/" + findNextNode().id} />}
 				<h1 className={s.title}>Welche Gesellschaftsform willst du Gründen?</h1>
 				<div className={s.container}>
-					<div className={`${s.disabledBtn} ${s.btnContainer}`}>
+					<div className={s.btnContainer}>
 						<Button
 							onClick={() => {
 								createCompany("GMBH");
 							}}
-							disabled={true}
 						>
 							GmbH
 						</Button>

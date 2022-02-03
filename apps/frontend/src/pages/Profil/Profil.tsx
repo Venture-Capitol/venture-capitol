@@ -3,6 +3,7 @@ import GPFProfileContent from "@vc/frontend/component/ProfileContent/GPFProfileC
 import { useState } from "react";
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
 import { Link, useParams } from "react-router-dom";
+import DienstleisterProfil from "./subcomponents/DienstleisterProfil";
 
 export interface ProfileParams {
 	platform: string;
@@ -15,13 +16,14 @@ export default function () {
 	return (
 		<div
 			style={{
-				height: "100%",
+				minHeight: "100%",
 				display: "flex",
-				alignItems: "center",
 				justifyContent: "center",
 				background:
 					"radial-gradient(95.33% 88.77% at 100% 25.99%, #F3EAE4 0%, #F5EBDF 11.12%, #F6F5F8 33.47%)",
+				overflowY: "scroll",
 			}}
+			className={s.profilContainer}
 		>
 			<div className={s.profileContainer}>
 				<div className={s.profileNav}>
@@ -29,7 +31,7 @@ export default function () {
 					<div className={s.navContainer}>
 						<Link
 							to={{
-								pathname: "/profil/gpf",
+								pathname: "/profil/gruender",
 							}}
 							onClick={() => switchProfile("gpf")}
 							className={`${GPF_DLR == "gpf" && s.active} ${s.navLink}`}
@@ -39,10 +41,12 @@ export default function () {
 						</Link>
 						<Link
 							to={{
-								pathname: "/profil/dlr",
+								pathname: "/profil/dienstleister",
 							}}
-							onClick={() => switchProfile("dlr")}
-							className={`${GPF_DLR == "dlr" && s.active} ${s.navLink}`}
+							onClick={() => switchProfile("dienstleister")}
+							className={`${GPF_DLR == "dienstleister" && s.active} ${
+								s.navLink
+							}`}
 							replace
 						>
 							Mein Dienstleisterprofil
@@ -50,7 +54,7 @@ export default function () {
 					</div>
 				</div>
 				{GPF_DLR == "gpf" && <GPFProfileContent />}
-				{GPF_DLR == "dlr" && <div>DLR coming soon...</div>}
+				{GPF_DLR == "dienstleister" && <DienstleisterProfil />}
 			</div>
 		</div>
 	);
