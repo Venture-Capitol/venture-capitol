@@ -2,14 +2,20 @@
 	width: 100%;
 	position: relative;
 	height: 80vh;
-	line-break: break-all;
 
 	@media (max-width: 950px) {
 		padding: 100px 15px 0px;
 		height: 100vh;
+		overflow: hidden;
+	}
 
-		svg {
+	svg {
+		@media (max-width: 950px) {
 			top: 70px;
+			left: unset;
+		}
+		@media (min-width: 950px) and (max-width: 1000px) {
+			left: -30px;
 		}
 	}
 
@@ -29,6 +35,7 @@
 	}
 
 	.page_content {
+		word-break: normal;
 		overflow-y: scroll;
 		overflow-x: hidden;
 		height: calc(100% - 72px);
