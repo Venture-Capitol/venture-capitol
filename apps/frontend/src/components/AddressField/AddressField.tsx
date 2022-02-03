@@ -5,11 +5,9 @@ import { Loader } from "@googlemaps/js-api-loader";
 let autocomplete: any;
 
 const loadScript = (
-	setValidAddress: (valid: boolean) => void,
 	setAddress: (address: string) => void,
 	setLat: (lat: string) => void,
-	setLong: (long: string) => void,
-	setShowInvalidAddress: (valid: boolean) => void
+	setLong: (long: string) => void
 ) => {
 	let apiKey =
 		typeof import.meta.env.VITE_FIREBASE_API_KEY == "string"
@@ -34,13 +32,7 @@ const loadScript = (
 				autocompleteOptions
 			);
 			autocomplete.addListener("place_changed", () =>
-				onPlaceChanged(
-					setValidAddress,
-					setAddress,
-					setLat,
-					setLong,
-					setShowInvalidAddress
-				)
+				onPlaceChanged(setAddress, setLat, setLong)
 			);
 		})
 		.catch(e => {
@@ -49,16 +41,12 @@ const loadScript = (
 };
 
 function onPlaceChanged(
-	setValidAddress: (valid: boolean) => void,
 	setAddress: (address: string) => void,
 	setLat: (lat: string) => void,
-	setLong: (long: string) => void,
-	setShowInvalidAddress: (valid: boolean) => void
+	setLong: (long: string) => void
 ) {
 	var place = autocomplete.getPlace();
 	if (place.geometry) {
-		setValidAddress(true);
-		setShowInvalidAddress(false);
 		setAddress(place.formatted_address);
 		setLat(place.geometry.location.lat());
 		setLong(place.geometry.location.lng());
@@ -66,32 +54,19 @@ function onPlaceChanged(
 }
 
 interface Props {
-	setValidAddress: (valid: boolean) => void;
 	setAddress: (address: string) => void;
 	setLat: (lat: string) => void;
 	setLong: (long: string) => void;
-	setShowInvalidAddress: (valid: boolean) => void;
 }
 
-const AddressField: FC<Props> = ({
-	setValidAddress,
-	setAddress,
-	setLat,
-	setLong,
-	setShowInvalidAddress,
-}) => {
+const AddressField: FC<Props> = ({ setAddress, setLat, setLong }) => {
 	useEffect(() => {
-		loadScript(
-			setValidAddress,
-			setAddress,
-			setLat,
-			setLong,
-			setShowInvalidAddress
-		);
+		loadScript(setAddress, setLat, setLong);
 	}, []);
 
 	function handleChange() {
-		setValidAddress(false);
+		setLat("");
+		setLong("");
 	}
 
 	return (

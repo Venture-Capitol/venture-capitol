@@ -1,16 +1,17 @@
 import AddressField from "../../../../components/AddressField/AddressField";
 import s from "./SearchForm.module.scss";
 import Button from "@vc/ui/src/components/Button/Button";
+import { useState } from "react";
+import AddressWarning from "../AddressWarning/AddressWarning";
 
 interface Props {
 	startSearchRequest: () => void;
 	chosenJob: string;
 	setChosenJob: (job: string) => void;
 	setChosenAddress: (address: string) => void;
-	setValidAddress: (valid: boolean) => void;
+	lat: string;
 	setLat: (lat: string) => void;
 	setLong: (long: string) => void;
-	setShowInvalidAddress: (valid: boolean) => void;
 }
 
 const SearchForm = ({
@@ -18,11 +19,11 @@ const SearchForm = ({
 	chosenJob,
 	setChosenJob,
 	setChosenAddress,
-	setValidAddress,
+	lat,
 	setLat,
 	setLong,
-	setShowInvalidAddress,
 }: Props) => {
+	const [showError, setShowError] = useState(false);
 	return (
 		<div className={s.maindiv}>
 			<form
@@ -32,7 +33,12 @@ const SearchForm = ({
 				}}
 				onSubmit={e => {
 					e.preventDefault();
-					startSearchRequest();
+					if (lat != "") {
+						startSearchRequest();
+						setShowError(false);
+					} else {
+						setShowError(true);
+					}
 				}}
 			>
 				<label className={s.input_block}>
@@ -56,15 +62,17 @@ const SearchForm = ({
 				<label className={s.input_block}>
 					Adresse
 					<AddressField
-						setValidAddress={setValidAddress}
-						setAddress={setChosenAddress}
+						setAddress={address => {
+							setShowError(false);
+							setChosenAddress(address);
+						}}
 						setLat={setLat}
 						setLong={setLong}
-						setShowInvalidAddress={setShowInvalidAddress}
 					/>
 				</label>
 				<Button>Suchen</Button>
 			</form>
+			{showError ? <AddressWarning /> : null}
 		</div>
 	);
 };

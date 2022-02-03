@@ -1,7 +1,6 @@
 import SearchForm from "./subcomponents/SearchFormDLR/SearchForm";
 import s from "./DLRSearch.module.scss";
 import Headline from "./subcomponents/HeadlineDLR/Headline";
-import AddressWarning from "./subcomponents/AddressWarning/AddressWarning";
 import SearchResultsList from "./subcomponents/SearchResultsListDLR/SearchResultsList";
 import Pagination from "@vc/frontend/page/SearchDLR/subcomponents/PaginationDLR/Pagination";
 import { useState } from "react";
@@ -13,26 +12,18 @@ export default function DLRSearch() {
 	const [displayJob, setDisplayJob] = useState("");
 	const [chosenAddress, setChosenAddress] = useState("");
 	const [displayAddress, setDisplayAddress] = useState("");
-	const [validAddress, setValidAddress] = useState(false);
-	const [showInvalidAddress, setShowInvalidAddress] = useState(false);
 	const [lat, setLat] = useState("");
 	const [long, setLong] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
 
 	async function startSearchRequest() {
-		if (validAddress) {
-			setDisplayJob(chosenJob);
-			setDisplayAddress(chosenAddress);
-			setShowInvalidAddress(false);
-			let pageOne = await getSearchResult(1);
-			let pageTwo = await getSearchResult(2);
+		setDisplayJob(chosenJob);
+		setDisplayAddress(chosenAddress);
+		let pageOne = await getSearchResult(1);
+		let pageTwo = await getSearchResult(2);
 
-			setLoadedPages([pageOne, pageTwo]);
-			setCurrentPage(1);
-		} else {
-			setShowInvalidAddress(true);
-			setLoadedPages([]);
-		}
+		setLoadedPages([pageOne, pageTwo]);
+		setCurrentPage(1);
 	}
 
 	async function weiter() {
@@ -66,10 +57,9 @@ export default function DLRSearch() {
 					chosenJob={chosenJob}
 					setChosenJob={setChosenJob}
 					setChosenAddress={setChosenAddress}
-					setValidAddress={setValidAddress}
+					lat={lat}
 					setLat={setLat}
 					setLong={setLong}
-					setShowInvalidAddress={setShowInvalidAddress}
 				/>
 				<div className={s.maindiv_resulttext}>
 					<p className={s.resulttext}>
@@ -95,12 +85,10 @@ export default function DLRSearch() {
 					chosenJob={chosenJob}
 					setChosenJob={setChosenJob}
 					setChosenAddress={setChosenAddress}
-					setValidAddress={setValidAddress}
+					lat={lat}
 					setLat={setLat}
 					setLong={setLong}
-					setShowInvalidAddress={setShowInvalidAddress}
 				/>
-				{showInvalidAddress ? <AddressWarning /> : null}
 			</>
 		);
 	}
