@@ -19,7 +19,7 @@ export const taskGraph: ConnectionsData = {
 	nodes: {
 		"300_Start": {
 			type: "task",
-			name: "UG gründen",
+			name: "Firma gründen",
 			shortName: "Start",
 			next: ["301_Namensfindung"],
 		},
@@ -31,31 +31,31 @@ export const taskGraph: ConnectionsData = {
 		},
 		"302_Entscheidung_Gesellschaftsvertrag": {
 			type: "decision",
-			name: "UG gründen mit Musterprotokoll oder lieber individueller Gesellschaftsvertrag?",
+			name: "Firma gründen mit Musterprotokoll oder lieber individueller Gesellschaftsvertrag?",
 			shortName: "Entscheidung Gesellschaftsvertrag",
 			next: ["303_Musterprotokoll", "304_erstellter_Vertrag"],
 		},
 		"303_Musterprotokoll": {
 			type: "task",
-			name: "UG gründen mit Musterprotokoll",
+			name: "Firma gründen mit Musterprotokoll",
 			shortName: "Musterprotokoll",
 			next: ["305_Notartermin"],
 		},
 		"304_erstellter_Vertrag": {
 			type: "task",
-			name: "Wie du einen individuellen Gesellschaftsvertrag für deine UG entwirfst",
+			name: "Wie du einen individuellen Gesellschaftsvertrag für deine Firma entwirfst",
 			shortName: "Vertrag mit Anwalt",
 			next: ["305_Notartermin"],
 		},
 		"305_Notartermin": {
 			type: "task",
-			name: "Notartermin UG Gründung",
+			name: "Notartermin Firma Gründung",
 			shortName: "Notartermin",
 			next: ["306_Kontoeröffnung"],
 		},
 		"306_Kontoeröffnung": {
 			type: "task",
-			name: "Geschäftskonto für deine UG",
+			name: "Geschäftskonto für deine Firma",
 			shortName: "Geschäftskonto eröffnen",
 			next: ["307_Einzahlung_Stammkapital"],
 		},
@@ -91,7 +91,7 @@ export const taskGraph: ConnectionsData = {
 		},
 		"312_Gewerbeanmeldung": {
 			type: "task",
-			name: "Die Gewerbeanmeldung für deine UG",
+			name: "Die Gewerbeanmeldung für deine Firma",
 			shortName: "Gewerbeanmeldung",
 			next: ["313A_Rechnungen"],
 		},
@@ -139,7 +139,7 @@ export const taskGraph: ConnectionsData = {
 		},
 		"319_ohne_Jahresabschluss_etc": {
 			type: "task",
-			name: "Jahresabschluss, GuV usw: Welche Pflichten hast du als UG?",
+			name: "Jahresabschluss, GuV usw: Welche Pflichten hast du als Firma?",
 			shortName: "Jahresabschluss und Ähnliches",
 			next: ["400_Ende"],
 		},
