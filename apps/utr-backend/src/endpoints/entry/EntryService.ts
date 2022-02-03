@@ -45,19 +45,17 @@ export async function searchEntries(
 					job: {
 						equals: jobname,
 					},
-					// TODO Change to equals: true when false is not needed anymore for testing
 					verified: {
-						equals: false,
+						equals: true,
 					},
 				},
 			});
 			if (searchResults) {
-				const offset = (page - 1) * 15;
-				// TODO Change to verified=true when false is not needed anymore for testing
+				const offset = (page - 1) * 10;
 				const query = await prisma.$queryRaw<
 					{ id: number; distance: number }[]
 				>(
-					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND NOT verified ORDER BY distance ASC LIMIT 15 OFFSET ${offset}`
+					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND verified ORDER BY distance ASC LIMIT 10 OFFSET ${offset}`
 				);
 				const map = query.map(result => {
 					let found = searchResults.find(x => {
@@ -74,7 +72,7 @@ export async function searchEntries(
 				return callback(
 					new ApplicationError(
 						"Es existieren keine Einträge die diesen Job ausführen",
-						400
+						404
 					),
 					null
 				);
@@ -82,8 +80,7 @@ export async function searchEntries(
 		} catch (exception) {
 			return callback(
 				new ApplicationError(
-					"Es sind unerwartete Probleme bei der Suche aufgetreten. " +
-						exception,
+					"Es sind unerwartete Probleme bei der Suche aufgetreten. ",
 					500
 				),
 				null
@@ -92,7 +89,6 @@ export async function searchEntries(
 	}
 }
 
-// TODO: Fails ATM if amount is not set - See amount is NaN
 export async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
@@ -144,7 +140,6 @@ export async function getAllEntries(
 	}
 }
 
-// TODO Add code which makes admin create a verified Entry
 export async function createEntry(
 	job: string,
 	company: string,
@@ -155,7 +150,8 @@ export async function createEntry(
 	callback: Function,
 	telefon?: string,
 	website?: string,
-	description?: string
+	description?: string,
+	verified?: boolean
 ) {
 	if (!company || !email || !job || !address || !latitude || !longitude) {
 		return callback(
@@ -178,6 +174,7 @@ export async function createEntry(
 					telefon: telefon,
 					website: website,
 					description: description,
+					verified: verified,
 				},
 			});
 			return callback(null, createdEntry);
@@ -259,6 +256,7 @@ export async function updateEntry(id: number, body: any, callback: Function) {
 					telefon: body.telefon,
 					website: body.website,
 					description: body.description,
+					verified: body.verified,
 				},
 			});
 			return callback(null, updatedEntry);

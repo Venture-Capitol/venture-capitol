@@ -1,0 +1,23 @@
+.greenSpan {
+	color: var(--color-green-700);
+}
+
+.maindiv_resulttext {
+	display: flex;
+	justify-content: center;
+	padding-top: 5%;
+	margin: 0px 40px;
+}
+
+.resulttext {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-24px);
+	text-align: center;
+}
+
+@media only screen and (max-width: 750px) {
+	.resulttext {
+		font-size: var(--size-18px);
+	}
+}

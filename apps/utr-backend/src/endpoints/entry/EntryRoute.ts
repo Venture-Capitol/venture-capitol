@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { query, Router } from "express";
 import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 
 import * as logger from "../../config/winston";
@@ -8,6 +8,7 @@ import { DistanceEntry } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
 import * as EntryService from "./EntryService";
+import * as EntryUtils from "../utils/EntryUtils";
 
 export const router = Router();
 
@@ -49,6 +50,7 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 		function (error: Error | ApplicationError, result: Entry[]) {
 			if (error) {
 				logger.error(error.message);
+
 				if (error instanceof ApplicationError) {
 					res.status(error.errorCode).end(error.message);
 				} else {
@@ -58,9 +60,9 @@ router.get("/", getUser, isAdmin, function (req, res, next) {
 				res.send(result);
 			}
 		},
-		Boolean(req.query.verified),
-		Number(req.query.amount),
-		Number(req.query.page)
+		EntryUtils.parseToBoolean(req.query.verified),
+		EntryUtils.parseToNumber(req.query.amount),
+		EntryUtils.parseToNumber(req.query.page)
 	);
 });
 
@@ -86,7 +88,8 @@ router.post("/", getUser, function (req, res, next) {
 		},
 		req.body.telefon,
 		req.body.website,
-		req.body.description
+		req.body.description,
+		req.body.verified
 	);
 });
 
@@ -145,20 +148,3 @@ router.delete("/:id", getUser, isAdmin, function (req, res, next) {
 		}
 	);
 });
-
-/* WILL BE DELETED AFTER ALL TESTS ARE COMPLETE
-router.post("/addMany", function (req, res, next) {
-	EntryUtils.addManyEntries(function (error: Error | ApplicationError) {
-		if (error) {
-			logger.error(error.message);
-			if (error instanceof ApplicationError) {
-				res.status(error.errorCode).end(error.message);
-			} else {
-				res.status(500).end(error.message);
-			}
-		} else {
-			res.status(200).end();
-		}
-	});
-});
- */
