@@ -89,7 +89,7 @@ jobs:
           --cache-from=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest \
           -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest \
           -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6} \
-          -f ./apps/backend/Dockerfile .
+          -f ./apps/utr-backend/Dockerfile .
 
       - name: Push the Docker Image to Google Artifact Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
