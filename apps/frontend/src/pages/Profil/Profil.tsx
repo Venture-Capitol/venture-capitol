@@ -29,7 +29,7 @@ export default function () {
 					<div className={s.navContainer}>
 						<Link
 							to={{
-								pathname: "/profil/gpf",
+								pathname: "/profil/gruender",
 							}}
 							onClick={() => switchProfile("gpf")}
 							className={`${GPF_DLR == "gpf" && s.active} ${s.navLink}`}
