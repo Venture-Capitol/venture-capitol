@@ -76,6 +76,7 @@ components:
               example: true
             ownedBy:
               type: string
+              nullable: true
               description: UID des Nutzers, der den Eintrag erstellt https://api.example.com
               example: s0hv5IdUULZsbr48BvrCEhCE4fC2
           required:
