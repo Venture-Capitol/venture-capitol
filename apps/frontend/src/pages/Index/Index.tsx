@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import s from "./Index.module.scss";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import Button from "@vc/ui/src/components/Button/Button";
@@ -10,10 +10,6 @@ import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 const Landing: React.FunctionComponent = () => {
 	const isMobile = useMediaQuery("(max-width: 900px)");
 	const history = useHistory();
-	const handleOnClickGesellschaftsform = useCallback(
-		() => history.push("/gesellschaftsform"),
-		[history]
-	);
 	const { nodes, initialNodeId, createCompany } = useGruendungContext();
 
 	function findNextNode() {
@@ -115,11 +111,13 @@ const Landing: React.FunctionComponent = () => {
 			<section className={s.center}>
 				<h1>Noch nicht? Kein Problem!</h1>
 				<div className={s.buttons}>
-					<Button variant='secondary' onClick={handleOnClickGesellschaftsform}>
-						<div className={s.searchButtonContent}>
-							<SearchIcon /> Gesellschaftsform finden
-						</div>
-					</Button>
+					<Link to={"/gesellschaftsform"}>
+						<Button variant='secondary'>
+							<div className={s.searchButtonContent}>
+								<SearchIcon /> Gesellschaftsform finden
+							</div>
+						</Button>
+					</Link>
 				</div>
 			</section>
 			<Footer />
