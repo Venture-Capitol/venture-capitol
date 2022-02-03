@@ -34,8 +34,6 @@ export function useGruendungContext() {
 	return useContext(GruendungContext);
 }
 
-export function clearGruendungContext() {}
-
 // 🔃 Task Graph
 
 export interface ProcessedTaskNode extends Node {
