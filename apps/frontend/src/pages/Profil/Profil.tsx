@@ -33,8 +33,8 @@ export default function () {
 							to={{
 								pathname: "/profil/gruender",
 							}}
-							onClick={() => switchProfile("gpf")}
-							className={`${GPF_DLR == "gpf" && s.active} ${s.navLink}`}
+							onClick={() => switchProfile("gruender")}
+							className={`${GPF_DLR == "gruender" && s.active} ${s.navLink}`}
 							replace
 						>
 							Mein Gründerprofil
@@ -53,7 +53,7 @@ export default function () {
 						</Link>
 					</div>
 				</div>
-				{GPF_DLR == "gpf" && <GPFProfileContent />}
+				{GPF_DLR == "gruender" && <GPFProfileContent />}
 				{GPF_DLR == "dienstleister" && <DienstleisterProfil />}
 			</div>
 		</div>
