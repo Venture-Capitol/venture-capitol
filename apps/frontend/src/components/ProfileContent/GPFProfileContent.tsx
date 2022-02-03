@@ -1,10 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import AlertDialog from "../Popup/AlertDialog";
 import Button from "@vc/ui/src/components/Button/Button";
-import {
-	clearGruendungContext,
-	useGruendungContext,
-} from "contexts/Gruendung/Gruendung";
+import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import { GPF } from "@vc/api";
 
 import s from "./GPFProfileContent.module.scss";
