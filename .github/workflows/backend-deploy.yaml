@@ -9,6 +9,7 @@ on:
 
 env:
   IMAGE_NAME: backend
+  DLR_IMAGE_NAME: dlr
   PROJECT_ID: venture-capitol
   REPO_ID: images
   GAR_HOSTNAME: europe-west1-docker.pkg.dev
@@ -55,6 +56,46 @@ jobs:
         run: |-
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
           docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
+
+  # ------------------------------------------ DLR BUILD ------------------------------------------
+  build-dlr:
+    name: "Docker: Build and Push DLR Container"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Files
+        uses: actions/checkout@v2
+
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.3.0
+
+      - name: Configure Docker to use Google Artifact Registry
+        run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
+
+      - name: Pull previous container file to use as cache
+        continue-on-error: true
+        run: docker pull $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest
+
+      - name: Build the Docker Image
+        run: |-
+          docker build \
+          --cache-from=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest \
+          -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest \
+          -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6} \
+          -f ./apps/backend/Dockerfile .
+
+      - name: Push the Docker Image to Google Artifact Registry
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |-
+          docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest
+          docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6}
 
   # ------------------------------------------ BUILD FE ------------------------------------------
 
@@ -167,7 +208,7 @@ jobs:
     environment:
       name: staging
       url: https://staging.venturecapitol.de
-    needs: [build-be, validate-tf, build-fe]
+    needs: [build-be, build-dlr, validate-tf, build-fe]
     outputs:
       currentRevision: ${{ steps.get-current-revision.outputs.json }}
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -201,10 +242,23 @@ jobs:
           # end of optional handling for multi line json
           echo "::set-output name=json::$content"
 
+      - name: Get the current dlr revision description
+        id: get-current-dlr-revision
+        run: |
+          content=`gcloud run services describe dlr-backend --region europe-west1 --project $PROJECT_ID --format=json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=json::$content"
+
       - name: Export image names as environment variables
         run: |
           echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_dlr_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
           echo "TF_VAR_image_name=${{fromJson(steps.get-current-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
+          echo "TF_VAR_dlr_image_name=${{fromJson(steps.get-current-dlr-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{steps.auth.outputs.credentials_file_path}}" >> $GITHUB_ENV
 
       - name: Terraform Init
@@ -258,6 +312,8 @@ jobs:
         run: |
           echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
           echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_dlr_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_dlr_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
 
       - name: Terraform Init
         id: init

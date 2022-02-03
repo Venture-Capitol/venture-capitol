@@ -108,8 +108,7 @@ router.post("/", getUser, function (req, res, next) {
 		},
 		req.body.telefon,
 		req.body.website,
-		req.body.description,
-		req.body.verified
+		req.body.description
 	);
 });
 
