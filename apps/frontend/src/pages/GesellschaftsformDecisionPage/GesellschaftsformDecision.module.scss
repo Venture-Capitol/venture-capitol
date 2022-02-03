@@ -1,0 +1,31 @@
+.buttons {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+	flex-wrap: wrap;
+
+	.buttonTitle {
+		margin-top: 1rem;
+		font-size: var(--size-24px);
+		font-weight: 600;
+
+		&[data-color="purple"] {
+			background: linear-gradient(97.08deg, #9685ff 3.66%, #d57bff 93.22%),
+				#c4c4c4;
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+		&[data-color="blue"] {
+			background: linear-gradient(120.92deg, #acd7ff -9.42%, #6d73fe 111.3%),
+				#c4c4c4;
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+	}
+
+	.buttonDescription {
+		margin: 0 2rem;
+		margin-bottom: 1rem;
+	}
+}

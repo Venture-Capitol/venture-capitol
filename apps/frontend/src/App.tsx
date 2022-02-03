@@ -12,8 +12,9 @@ import Gruendung from "./pages/Gruendung/Gruendung";
 import Search from "./pages/SearchDLR/DLRSearch";
 import DienstleisterProfil from "./pages/Profil/subcomponents/DienstleisterProfil";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
-import Impressum from "./pages/Impressum/Impressum";
+import Gesellschaftsform from "./pages/GesellschaftsformDecisionPage/GesellschaftsformDecision";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
+import Impressum from "./pages/Impressum/Impressum";
 import Adminpanel from "./pages/Adminpanel/Adminpanel";
 import Gruendung_TaskId from "./pages/Gruendung/$task";
 import Profil from "./pages/Profil/Profil";
@@ -48,6 +49,9 @@ function App() {
 						</Route>
 						<Route path='/datenschutz'>
 							<Datenschutzerklaerung />
+						</Route>
+						<Route path='/gesellschaftsform'>
+							<Gesellschaftsform />
 						</Route>
 						<Route path='/profil' exact>
 							<Redirect to='/profil/gruender'></Redirect>

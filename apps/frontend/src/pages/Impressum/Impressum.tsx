@@ -38,11 +38,11 @@ export default function Impressum() {
 						<br />
 						Amtsgericht Berlin-Charlottenburg HRB 195740 B<br />
 						Sitz der Gesellschaft: Berlin, Deutschland
+						<br />
+						USt-ID: DE317616086.
 					</TextParagraph>
 
 					<TextParagraph title='Geschäftsführer'>Luis Rieke</TextParagraph>
-
-					<TextParagraph title='USt-ID'>USt-ID: DE317616086.</TextParagraph>
 
 					<TextParagraph title='Inhaltlich Verantwortlicher'>
 						gemäß § 55 Abs. 2 RStV
