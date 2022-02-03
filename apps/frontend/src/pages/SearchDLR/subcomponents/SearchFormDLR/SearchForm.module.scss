@@ -2,6 +2,8 @@
 	display: flex;
 	justify-content: center;
 	padding-top: 3.5%;
+	flex-direction: column;
+	align-items: center;
 }
 
 .input_block {
@@ -10,17 +12,6 @@
 	flex-flow: column nowrap;
 	justify-content: flex-start;
 	padding: 0px 25px;
-}
-
-.textinput {
-	border-bottom: 0.5px solid var(--color-grey-500);
-	font-family: "Space Grotesk";
-	font-weight: bold;
-	font-size: var(--size-18px);
-	margin: 0;
-	padding: 0;
-	padding: 3px 4px 0px 1px;
-	margin: 8px 20px 4px 0px;
 }
 
 select:focus {

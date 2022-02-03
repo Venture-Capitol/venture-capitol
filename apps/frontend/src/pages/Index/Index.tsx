@@ -6,10 +6,13 @@ import Button from "@vc/ui/src/components/Button/Button";
 import { SearchIcon } from "@heroicons/react/solid/esm";
 import Footer from "@vc/frontend/component/Footer/Footer";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
+import DisclaimerPopup from "@vc/frontend/component/Popup/DisclaimerPopup";
+import { checkCookie } from "@vc/frontend/util/DPACK";
 
 const Landing: React.FunctionComponent = () => {
 	const isMobile = useMediaQuery("(max-width: 900px)");
 	const history = useHistory();
+	const DP_ACK = checkCookie();
 	const { nodes, initialNodeId, createCompany } = useGruendungContext();
 
 	function findNextNode() {
@@ -25,6 +28,7 @@ const Landing: React.FunctionComponent = () => {
 
 	return (
 		<div className={s.landingPage}>
+			{!DP_ACK && <DisclaimerPopup />}
 			<section className={s.header}>
 				<h1>In wenigen Schritten zu deinem eigenen Unternehmen</h1>
 				<img

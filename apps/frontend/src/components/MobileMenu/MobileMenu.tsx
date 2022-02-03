@@ -3,6 +3,7 @@ import {
 	LogoutIcon,
 	OfficeBuildingIcon,
 	PlusCircleIcon,
+	UserGroupIcon,
 	UserIcon,
 } from "@heroicons/react/outline/esm";
 import { AuthUI, signOut } from "@vc/auth";
@@ -13,10 +14,15 @@ import * as Tabs from "@radix-ui/react-tabs";
 
 interface MobileMenuProps {
 	isLoggedIn: boolean;
+	isAdmin: boolean;
 	closeMenu: () => void;
 }
 
-const MobileMenu: FC<MobileMenuProps> = ({ isLoggedIn, closeMenu }) => {
+const MobileMenu: FC<MobileMenuProps> = ({
+	isLoggedIn,
+	isAdmin,
+	closeMenu,
+}) => {
 	const defaultValue = "seiten";
 	const [navSelected, setNavSelected] = useState<string>(defaultValue);
 
@@ -56,7 +62,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isLoggedIn, closeMenu }) => {
 							{isLoggedIn && (
 								<div className={s.contentItemWrapper}>
 									<NavLink
-										to='/profil/'
+										to='/profil/gruender'
 										className={isActive =>
 											s.contentItem + (isActive ? " " + s.selected : "")
 										}
@@ -92,13 +98,29 @@ const MobileMenu: FC<MobileMenuProps> = ({ isLoggedIn, closeMenu }) => {
 								</NavLink>
 							</div>
 							<div className={s.contentItemWrapper}>
-								<Link to='#' className={s.contentItem} onClick={closeMenu}>
+								<Link
+									to='/profil/dienstleister'
+									className={s.contentItem}
+									onClick={closeMenu}
+								>
 									<PlusCircleIcon className={s.contentIcon} />
 									<div className={s.contentText}>
 										Als Dienstleister eintragen
 									</div>
 								</Link>
 							</div>
+							{isAdmin && (
+								<div className={s.contentItemWrapper}>
+									<Link
+										to='/dienstleister/admin'
+										className={s.contentItem}
+										onClick={closeMenu}
+									>
+										<UserGroupIcon className={s.contentIcon} />
+										<div className={s.contentText}>Adminpanel</div>
+									</Link>
+								</div>
+							)}
 							{isLoggedIn && (
 								<div className={s.contentItemWrapper}>
 									<Link to='#' className={s.contentItem} onClick={signOut}>

@@ -275,6 +275,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 		setCurrentCompany(undefined);
 		setCompletedTasks([]);
 		setMadeDecisions([]);
+		localStorage.clear();
 	}
 
 	return (

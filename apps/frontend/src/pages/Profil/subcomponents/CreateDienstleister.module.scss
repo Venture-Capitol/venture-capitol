@@ -1,30 +1,23 @@
-.maindiv_headline_editEntry {
+.maindiv_headline_createEntry {
 	display: flex;
 	justify-content: center;
-	padding-top: 10%;
+	padding-top: 5%;
 	align-items: center;
 }
 
-.verifyWarning {
-	display: flex;
-	justify-content: center;
-	padding-top: 1%;
-	align-items: center;
-}
-
-.DienstleistereintragungEditieren {
+.AlsDienstleisterEintragen {
 	font-family: "Space Grotesk";
 	font-weight: bold;
 	font-size: var(--size-28px);
 }
 
 @media only screen and (max-width: 750px) {
-	.DienstleistereintragungEditieren {
+	.AlsDienstleisterEintragen {
 		font-size: var(--size-24px);
 	}
 }
 
-.editsuccess_div {
+.createsuccess_div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -32,28 +25,20 @@
 	color: var(--color-green-700);
 }
 
-.deletesuccess_div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	color: #ff4f4f;
-}
-
 ////////////////////////////////////////////
 
-.maindiv_editForm {
-	padding-top: 3%;
+.maindiv_createForm {
+	padding-top: 3.5%;
 	display: flex;
 	justify-content: center;
 }
 
-.editForm {
+.createForm {
 	flex: 0 1 30em;
 	margin: 0px 5%;
 }
 
-.label_editForm {
+.label_createForm {
 	font-family: "Space Grotesk";
 	font-weight: 500;
 	font-size: var(--size-18px);
@@ -62,13 +47,14 @@
 	padding: 25px 0px;
 }
 
-.textinput_editForm {
+.textinput_createForm {
 	border-bottom: 0.5px solid var(--color-grey-500);
 	font-family: "Space Grotesk";
 	font-weight: bold;
 	font-size: var(--size-18px);
 	padding: 3px 4px 0px 1px;
 	margin: 8px 0px 4px 0px;
+	background-color: transparent;
 }
 
 select:focus {
@@ -79,20 +65,21 @@ input:focus {
 	outline: none;
 }
 
-.joboption_editForm {
+.joboption_createForm {
 	border-bottom: 0.5px solid var(--color-grey-700);
 	font-family: "Space Grotesk";
 	font-weight: bold;
 	font-size: var(--size-18px);
 	padding: 2px 4px 2px 0px;
-	margin: 12px 20px 4px 0px;
+	margin: 12px 0px 4px 0px;
+	background-color: transparent;
 }
 
 .divforthat {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: center;
-	margin-bottom: 16px;
+	display: grid;
+	place-items: center;
+	grid-gap: 0;
+	margin-bottom: 12px;
 }
 
 textarea {
@@ -103,28 +90,9 @@ textarea {
 	margin: 8px 0px 4px 0px;
 	border: 0.5px solid var(--color-grey-700);
 	resize: none;
+	background-color: transparent;
 }
 
 textarea:focus {
 	outline: none;
-}
-
-.deleteButton {
-	padding: 12px 40px;
-	font-family: "Space Grotesk";
-	font-weight: 500;
-	border-radius: 10px;
-	border-width: 1px;
-	border-color: #ff4f4f;
-	background-color: #fff;
-	cursor: pointer;
-	color: var(--color-grey-900);
-	transition: transform 0.1s ease-out;
-	will-change: transform;
-	margin: 0% 1.5%;
-
-	&:hover {
-		background: #ff8f8f;
-		border-color: #ff8f8f;
-	}
 }

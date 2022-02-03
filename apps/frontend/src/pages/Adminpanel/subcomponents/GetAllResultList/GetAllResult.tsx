@@ -2,7 +2,7 @@ import { useState } from "react";
 import s from "./GetAllResult.module.scss";
 import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
-import AlertDialogWithFunc from "@vc/frontend/component/Popup/AlertDialogWithFunc";
+import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
 
 interface Props {
 	resultData: any;
@@ -29,7 +29,7 @@ const GetAllResult = ({
 			},
 		};
 
-		const fetchURL = "http://localhost:8103/entry/" + resultData.id;
+		const fetchURL = "/dlr/entry/" + resultData.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {
@@ -77,7 +77,7 @@ const GetAllResult = ({
 	}
 
 	function deleteEntry() {
-		const fetchURL = "http://localhost:8103/entry/" + resultData.id;
+		const fetchURL = "/dlr/entry/" + resultData.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {
@@ -147,7 +147,7 @@ const GetAllResult = ({
 					>
 						Bearbeiten
 					</button>
-					<AlertDialogWithFunc
+					<AlertDialog
 						defaultOpen={false}
 						title={"Bist du sicher?"}
 						trigger={<div className={s.deleteDLButton}>Löschen</div>}
@@ -156,14 +156,17 @@ const GetAllResult = ({
 								<Button>Abbrechen</Button>
 							</div>
 						}
-						action={<span className={s.deleteModalButton}>Löschen</span>}
-						func={deleteEntry}
+						action={
+							<span className={s.deleteModalButton} onClick={deleteEntry}>
+								Löschen
+							</span>
+						}
 					>
 						<span className={s.deleteModalText}>
 							Möchtest du den Dienstleister <b>{resultData.company}</b> wirklich
 							löschen? Diese Änderung kann nicht rückgängig gemacht werden!
 						</span>
-					</AlertDialogWithFunc>
+					</AlertDialog>
 				</div>
 			</div>
 		</>

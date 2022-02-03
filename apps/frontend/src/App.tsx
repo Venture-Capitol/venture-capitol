@@ -10,7 +10,7 @@ import DemoAuth from "./pages/Demo/DemoAuth";
 import Header from "./components/Header/Header";
 import Gruendung from "./pages/Gruendung/Gruendung";
 import Search from "./pages/SearchDLR/DLRSearch";
-import DienstleisterProfil from "./pages/DienstleisterProfil/DienstleisterProfil";
+import DienstleisterProfil from "./pages/Profil/subcomponents/DienstleisterProfil";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Gesellschaftsform from "./pages/GesellschaftsformDecisionPage/GesellschaftsformDecision";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
@@ -42,9 +42,6 @@ function App() {
 						<Route path='/dienstleister'>
 							<Search />
 						</Route>
-						<Route path='/profil/dienstleister'>
-							<DienstleisterProfil />
-						</Route>
 						<Route path='/demoAuth'>
 							<DemoAuth />
 						</Route>
@@ -58,7 +55,7 @@ function App() {
 							<Gesellschaftsform />
 						</Route>
 						<Route path='/profil' exact>
-							<Redirect to='/profil/gpf'></Redirect>
+							<Redirect to='/profil/gruender'></Redirect>
 						</Route>
 						<Route path='/profil/:platform'>
 							<Profil />
