@@ -4,7 +4,7 @@ Im nächsten Schritt wird es offiziell! Du vereinbarst einen Notartermin zur Fir
 
 Damit du schnell und unkompliziert einen Experten an der Hand hast, haben wir ein kleines Tool gebaut mit dem du kompetente Notare in deiner Nähe findest:
 
-[Notar-Suche](/dienstleister/)
+[Notar-Suche](/dienstleister/?jobname=notar)
 
 Suche dir einfach einen Notar aus und schicke ihm deine Anfrage. Entweder per Email oder rufe einfach an und vereinbare einen Termin.
 
