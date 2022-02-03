@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import s from "./Index.module.scss";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
