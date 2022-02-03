@@ -33,6 +33,14 @@ components:
           type: string
           description: Formatierte Adresse mit Straße, Straßennummer, PLZ und Ort.
           example: Luxemburger Str. 10, 15193 Berlin, Deutschland
+        latitude:
+          type: number
+          description: Die Latitude-Koordinate der Addresse des Eintrags.
+          example: 52.543205
+        longitude:
+          type: number
+          description: Die Longitude-Koordinate der Addresse des Eintrags.
+          example: 13.350857
         email:
           type: string
           description: Die Email-Adresse unter der der Eintrag erreichbar ist.
@@ -66,6 +74,10 @@ components:
               type: boolean
               description: Der Status, ob der Eintrag verifiziert ist oder nicht.
               example: true
+            ownedBy:
+              type: string
+              description: UID des Nutzers, der den Eintrag erstellt https://api.example.com
+              example: s0hv5IdUULZsbr48BvrCEhCE4fC2
           required:
             - id
             - job
@@ -202,7 +214,6 @@ paths:
       summary: Erstellt einen Eintrag im Unternehmensregister.
       description: In der Datenbank wird ein Eintrag erstellt mit den Werten, die mitgeliefert werden im requestBody. Je nach Rechten des Nutzers wird der Eintrag direkt verifiziert oder nicht.
       security:
-        - {}
         - firebaseAuth: []
       requestBody:
         description: Werte des zu erstellenden Eintrags in json.
@@ -316,5 +327,24 @@ paths:
           description: Der anfragende Nutzer hat nicht genug Rechte um diese Anfrage auszuführen.
         404:
           description: Es existiert kein Eintrag mit dieser id.
+        default:
+          description: Es ist ein unerwarteter Fehler aufgetreten.
+  /entry/user:
+    get:
+      tags:
+        - Entries
+      summary: Gibt den Eintrag des Nutzers zurück.
+      description: Gibt genau den Eintrag zurück, der zum Nutzer gehört, welcher die Anfrage stellt.
+      security:
+        - firebaseAuth: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EntryResponse"
+        404:
+          description: Der angemeldete Nutzer hat noch keinen Eintrag.
         default:
           description: Es ist ein unerwarteter Fehler aufgetreten.

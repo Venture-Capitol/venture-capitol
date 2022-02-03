@@ -4,7 +4,7 @@ import { getUser, isAdmin } from "../utils/AuthenticationUtils";
 import * as logger from "../../config/winston";
 
 import { Entry } from "@prisma/client";
-import { DistanceEntry } from "./EntryService";
+import { DistanceEntry, BatchPayload } from "./EntryService";
 import ApplicationError from "../utils/ApplicationError";
 
 import * as EntryService from "./EntryService";
@@ -45,6 +45,24 @@ router.get("/search", function (req, res, next) {
 	);
 });
 
+router.get("/user", getUser, function (req, res, next) {
+	EntryService.getEntryByUID(
+		req.user,
+		function (error: Error | ApplicationError, result: Entry) {
+			if (error) {
+				logger.error(error.message);
+				if (error instanceof ApplicationError) {
+					res.status(error.errorCode).end(error.message);
+				} else {
+					res.status(500).end(error.message);
+				}
+			} else if (result) {
+				res.send(result);
+			}
+		}
+	);
+});
+
 router.get("/", getUser, isAdmin, function (req, res, next) {
 	EntryService.getAllEntries(
 		function (error: Error | ApplicationError, result: Entry[]) {
@@ -74,6 +92,8 @@ router.post("/", getUser, function (req, res, next) {
 		req.body.latitude,
 		req.body.longitude,
 		req.body.email,
+		req.user?.role == "admin" ? req.body.verified : false,
+		req.user?.role != "admin" ? req.user?.uid : null,
 		function (error: Error | ApplicationError, result: Entry) {
 			if (error) {
 				logger.error(error.message);
@@ -94,9 +114,8 @@ router.post("/", getUser, function (req, res, next) {
 });
 
 router.get("/:id", function (req, res, next) {
-	const idAsNumber = Number(req.params.id);
 	EntryService.getEntry(
-		idAsNumber,
+		Number(req.params.id),
 		function (error: Error | ApplicationError, result: Entry) {
 			if (error) {
 				logger.error(error.message);
@@ -112,11 +131,12 @@ router.get("/:id", function (req, res, next) {
 	);
 });
 
-router.put("/:id", getUser, isAdmin, function (req, res, next) {
+router.put("/:id", getUser, function (req, res, next) {
 	EntryService.updateEntry(
 		Number(req.params.id),
 		req.body.editedEntry,
-		function (error: Error | ApplicationError, result: Entry) {
+		req.user,
+		function (error: Error | ApplicationError, result: Entry | BatchPayload) {
 			if (error) {
 				logger.error(error.message);
 				if (error instanceof ApplicationError) {
@@ -131,9 +151,10 @@ router.put("/:id", getUser, isAdmin, function (req, res, next) {
 	);
 });
 
-router.delete("/:id", getUser, isAdmin, function (req, res, next) {
+router.delete("/:id", getUser, function (req, res, next) {
 	EntryService.deleteEntry(
 		Number(req.params.id),
+		req.user,
 		function (error: Error | ApplicationError) {
 			if (error) {
 				logger.error(error.message);

@@ -5,20 +5,21 @@
 @Token = 
 
 ### Update Adress & Lat Long on existing entry
-PUT http://localhost:8103/entry/1
+PUT http://localhost:8103/entry/2
 Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
     "editedEntry": {
         "address": "Amrumer Straße 17, 13353 Berlin, Deutschland",
-        "latitude": 129.2315,
-        "longitude": 19.3
+        "latitude": 52.2315,
+        "longitude": 13.3,
+        "verified": true
     }
 }
 
 ### Add contact information on existing entry (was undefined before)
-PUT http://localhost:8103/entry/5
+PUT http://localhost:8103/entry/8
 Authorization: Bearer {{Token}}
 content-type: application/json
 
@@ -26,7 +27,18 @@ content-type: application/json
     "editedEntry": {
         "telefon": "012839239",
         "website": "berlin-web.de",
-        "description": "Deine Webagentur in Berlin! Wir sind immer für dich da."
+        "description": "Deine krasse Webagentur in Berlin! Wir sind immer für dich da."
+    }
+}
+
+### Test only setting verified
+PUT http://localhost:8103/entry/8
+Authorization: Bearer {{Token}}
+content-type: application/json
+
+{
+    "editedEntry": {
+        "verified": true
     }
 }
 
@@ -43,7 +55,7 @@ content-type: application/json
     }
 }
 
-### Try to edit entry with unknown id | SHOULD FAIL & RETURN 404
+### Try to edit entry with unknown id | SHOULD FAIL & RETURN 404 -> returned 400 bei user / 404 bei admin, ändert nichts, sollte okay sein
 PUT http://localhost:8103/entry/9203
 Authorization: Bearer {{Token}}
 content-type: application/json
@@ -56,32 +68,29 @@ content-type: application/json
     }
 }
 
-### Try to edit without providing request body | SHOULD FAIL & RETURN 400
+### Try to edit without providing request body | SHOULD FAIL & RETURN 400 -> returned 415 Unsupported Media Type - Sollte fine sein mMn
 PUT http://localhost:8103/entry/1
 Authorization: Bearer {{Token}}
 
-### Try to edit unknown property | RETURNS 400
-PUT http://localhost:8103/entry/30
+### Try to edit unknown property | RETURNS 400 -> returned tatsächlich 200, ändert aber nichts, da es das Feld nicht gibt, ist das okay?
+PUT http://localhost:8103/entry/1
 Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
     "editedEntry": {
         "telefon": "287729830",
-        "shoesize": 38,
+        "shoesize": 38
     }
 }
 
-### Try to edit known property using inproper datatype | RETURNS 400
+### Try to edit known property using inproper datatype | RETURNS 400 -> returned 500, Prisma gibt den Fehler, ist das okay?
 PUT http://localhost:8103/entry/1
 Authorization: Bearer {{Token}}
 content-type: application/json
 
 {
     "editedEntry": {
-        "company": 13,
+        "company": 13
     }
 }
-
-
-
