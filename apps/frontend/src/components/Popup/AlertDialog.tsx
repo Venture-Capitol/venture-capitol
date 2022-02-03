@@ -35,7 +35,9 @@ const AlertDialog: React.FunctionComponent<AlertDialogProps> = ({
 				className={s.content}
 			>
 				<RadixAlertDialog.Title>{title}</RadixAlertDialog.Title>
-				<RadixAlertDialog.Description>{children}</RadixAlertDialog.Description>
+				<RadixAlertDialog.Description className={s.description}>
+					{children}
+				</RadixAlertDialog.Description>
 				<div className={s.actions}>
 					{cancel && (
 						<RadixAlertDialog.Cancel asChild={true}>

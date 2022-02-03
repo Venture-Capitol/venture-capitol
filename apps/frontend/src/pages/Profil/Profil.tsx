@@ -4,9 +4,13 @@ import { useState } from "react";
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
 import { Link, useParams } from "react-router-dom";
 
+export interface ProfileParams {
+	platform: string;
+}
+
 export default function () {
-	var params = useParams();
-	const [GPF_DLR, switchProfile] = useState(params.platform);
+	const { platform } = useParams<ProfileParams>();
+	const [GPF_DLR, switchProfile] = useState(platform);
 
 	return (
 		<div

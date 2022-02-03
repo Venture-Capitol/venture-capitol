@@ -31,6 +31,15 @@
 		transition: 0.3s ease-in-out;
 	}
 
+	.creationNotice {
+		margin: 0;
+		height: 0;
+		visibility: hidden;
+		opacity: 0;
+		transition: 0.3s ease-in-out;
+		max-width: 480px;
+	}
+
 	.trigger {
 		width: max-content;
 		&.disabled {
@@ -43,7 +52,7 @@
 	}
 
 	.visible {
-		margin-top: 10px;
+		margin-top: 20px;
 		visibility: visible;
 		opacity: 1;
 		height: 20px;
