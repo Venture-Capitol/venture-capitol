@@ -18,12 +18,15 @@
 	"dependencies": {
 		"@babel/plugin-syntax-dynamic-import": "^7.8.3",
 		"@babel/preset-react": "^7.16.5",
+		"@googlemaps/js-api-loader": "^1.13.4",
 		"@heroicons/react": "^1.0.5",
-		"@radix-ui/react-dialog": "^0.1.5",
 		"@radix-ui/react-alert-dialog": "^0.1.5",
 		"@radix-ui/react-avatar": "^0.1.1",
+		"@radix-ui/react-dialog": "^0.1.5",
 		"@radix-ui/react-dropdown-menu": "^0.1.1",
 		"@radix-ui/react-tabs": "^0.1.4",
+		"@sentry/react": "^6.16.1",
+		"@sentry/tracing": "^6.16.1",
 		"@svgdotjs/svg.js": "^3.1.1",
 		"@vc/api": "^0",
 		"@vc/auth": "^1.0.0",
@@ -34,9 +37,7 @@
 		"react-dom": "^17.0.0",
 		"react-router-dom": "^5.3.0",
 		"sass": "^1.42.1",
-		"vite-plugin-markdown": "^2.0.2",
-		"@sentry/react": "^6.16.1",
-		"@sentry/tracing": "^6.16.1"
+		"vite-plugin-markdown": "^2.0.2"
 	},
 	"devDependencies": {
 		"@cypress/react": "^5.10.1",
