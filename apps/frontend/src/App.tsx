@@ -56,6 +56,7 @@ function App() {
 						</Route>
 						<Route path='/gesellschaftsform'>
 							<Gesellschaftsform />
+						</Route>
 						<Route path='/profil' exact>
 							<Redirect to='/profil/gpf'></Redirect>
 						</Route>
