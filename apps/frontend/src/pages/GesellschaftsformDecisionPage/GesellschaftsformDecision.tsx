@@ -36,10 +36,7 @@ export default function Gesellschaftsform() {
 					width: "900px",
 				}}
 			>
-				<TextBlock
-					title='Finde die richtige Rechtsform für deine Gründung'
-					arrow={true}
-				>
+				<TextBlock title='Rechtsform finden' arrow={true}>
 					<TextParagraph title='Welche Gesellschaftsform eignet sich für dich?'>
 						Ganz am Anfang deiner Gründung ist es wichtig zu wissen, wie du
 						deine Firma rein rechtlich organisieren willst. Im Folgenden wollen
@@ -47,15 +44,17 @@ export default function Gesellschaftsform() {
 						<br />
 						<br />
 						Relevante Kriterien für die Wahl einer Rechtsform sind:
-						<ul>
-							<li>Anzahl der Gründer</li>
-							<li>Haftungsfragen</li>
-							<li>Stammkapital + Gründungskosten</li>
-							<li>Aufwand bei der Buchhaltung</li>
-							<li>Welche Steuern fallen an</li>
-							<li>Für Investoren geeignet</li>
-						</ul>
 					</TextParagraph>
+
+					<ul>
+						<li>Anzahl der Gründer</li>
+						<li>Haftungsfragen</li>
+						<li>Stammkapital + Gründungskosten</li>
+						<li>Aufwand bei der Buchhaltung</li>
+						<li>Welche Steuern fallen an</li>
+						<li>Für Investoren geeignet</li>
+					</ul>
+					<br />
 
 					<TextParagraph title='Gängige Rechtsformen'>
 						Wir beschränken uns auf dieser Plattform auf die gängigsten
@@ -87,55 +86,60 @@ export default function Gesellschaftsform() {
 						<br />
 						Vorteile einer haftungsbeschränkten Gesellschaft:
 						<br />
-						<ul>
-							<li>
-								Du als Gesellschafter haftest nicht mit deinem Privatvermögen
-							</li>
-							<li>
-								Gründung mit 1 Person möglich, denn der Gesellschafter der das
-								Unternehmen besitzt, kann gleichzeitig auch Geschäftsführer sein
-								und das Unternehmen führen
-							</li>
-							<li>
-								Es gibt hier große Vorteile bei Vererbung und Verkauf der Firma,
-								gegenüber allen anderen Rechtsformen
-							</li>
-							<li>
-								Komplexere Geschäfte können abgeschlossen werden, zum Beispiel
-								der Anteilerwerb an anderen Unternehmen
-							</li>
-							<li>
-								Bei der UG reicht für eine Unternehmensgründung bereits ein
-								Stammkapital von 1€ aus, ist ein Kapital von 25.000 Euro aus den
-								Gewinnen angespart, kann dieses in Stammkapital umgewandelt und
-								die UG zu einer GmbH geupgraded werden
-							</li>
-							<li>
-								Du als Gesellschafter haftest in der Regel nicht mit deinem
-								Privatvermögen
-							</li>
-						</ul>
-						<br />
+					</TextParagraph>
+
+					<ul>
+						<li>
+							Du als Gesellschafter haftest nicht mit deinem Privatvermögen
+						</li>
+						<li>
+							Gründung mit 1 Person möglich, denn der Gesellschafter der das
+							Unternehmen besitzt, kann gleichzeitig auch Geschäftsführer sein
+							und das Unternehmen führen
+						</li>
+						<li>
+							Es gibt hier große Vorteile bei Vererbung und Verkauf der Firma,
+							gegenüber allen anderen Rechtsformen
+						</li>
+						<li>
+							Komplexere Geschäfte können abgeschlossen werden, zum Beispiel der
+							Anteilerwerb an anderen Unternehmen
+						</li>
+						<li>
+							Bei der UG reicht für eine Unternehmensgründung bereits ein
+							Stammkapital von 1€ aus, ist ein Kapital von 25.000 Euro aus den
+							Gewinnen angespart, kann dieses in Stammkapital umgewandelt und
+							die UG zu einer GmbH geupgraded werden
+						</li>
+						<li>
+							Du als Gesellschafter haftest in der Regel nicht mit deinem
+							Privatvermögen
+						</li>
+					</ul>
+
+					<TextParagraph>
 						Nachteile einer haftungsbeschränkten Gesellschaft:
-						<br />
-						<ul>
-							<li>
-								Vor allem ein Punkt: Bei der GmbH muss ein Stammkapital von
-								25.000€ bzw. 12.500€ vor der Unternehmensgründung hinterlegt
-								werden
-							</li>
-							<li>
-								Volle Bilanzierungspflicht, Buchhaltung und Jahresabschluss sind
-								etwas aufwändiger
-							</li>
-							<li>
-								Bei der UG dürfen Gewinne nicht sofort ausgeschüttet werden, es
-								müssen mindestens 25% Prozent des Jahresüberschusses als
-								Eigenkapitalrücklage in der Firma verbleiben, die Gesellschafter
-								müssen also eine gesetzliche Rücklage bilden
-							</li>
-						</ul>
-						<br />
+					</TextParagraph>
+
+					<ul>
+						<li>
+							Vor allem ein Punkt: Bei der GmbH muss ein Stammkapital von
+							25.000€ bzw. 12.500€ vor der Unternehmensgründung hinterlegt
+							werden
+						</li>
+						<li>
+							Volle Bilanzierungspflicht, Buchhaltung und Jahresabschluss sind
+							etwas aufwändiger
+						</li>
+						<li>
+							Bei der UG dürfen Gewinne nicht sofort ausgeschüttet werden, es
+							müssen mindestens 25% Prozent des Jahresüberschusses als
+							Eigenkapitalrücklage in der Firma verbleiben, die Gesellschafter
+							müssen also eine gesetzliche Rücklage bilden
+						</li>
+					</ul>
+
+					<TextParagraph>
 						Aber passt jetzt die UG oder die GmbH besser für dich? Naja,
 						letztendlich ist es quasi die selbe Rechtsform, nur dass du bei der
 						UG noch darauf hinarbeitest sie zu einer GmbH umzuwandeln sobald
@@ -149,35 +153,36 @@ export default function Gesellschaftsform() {
 						damit es wachsen kann.
 						<br />
 						<br />
-						<div className={s.buttons}>
-							<Button
-								variant='secondary'
-								onClick={() => {
-									createCompany("UG");
-									history.push("/gruendung/" + findNextNode().id);
-								}}
-							>
-								<div className={s.buttonTitle} data-color='blue'>
-									UG
-								</div>
-								<div className={s.buttonDescription}>Gründung</div>
-							</Button>
-							<Button
-								variant='secondary'
-								onClick={() => {
-									createCompany("GMBH");
-									history.push("/gruendung/" + findNextNode().id);
-								}}
-							>
-								<div className={s.buttonTitle} data-color='purple'>
-									GmbH
-								</div>
-								<div className={s.buttonDescription}>Gründung</div>
-							</Button>
-						</div>
-						<br />
-						<br />
 					</TextParagraph>
+
+					<div className={s.buttons}>
+						<Button
+							variant='secondary'
+							onClick={() => {
+								createCompany("UG");
+								history.push("/gruendung/" + findNextNode().id);
+							}}
+						>
+							<div className={s.buttonTitle} data-color='blue'>
+								UG
+							</div>
+							<div className={s.buttonDescription}>Gründung</div>
+						</Button>
+						<Button
+							variant='secondary'
+							onClick={() => {
+								createCompany("GMBH");
+								history.push("/gruendung/" + findNextNode().id);
+							}}
+						>
+							<div className={s.buttonTitle} data-color='purple'>
+								GmbH
+							</div>
+							<div className={s.buttonDescription}>Gründung</div>
+						</Button>
+					</div>
+					<br />
+					<br />
 
 					<TextParagraph title='Freiberufler und PartG'>
 						Wenn irgendwie möglich versucht man hier rein zu kommen. Denn
@@ -208,20 +213,24 @@ export default function Gesellschaftsform() {
 						<br />
 						Vorteile der Katalogberufe nach § 18 EStG:
 						<br />
-						<ul>
-							<li>Keine Gewerbeanmeldung notwendig</li>
-							<li>Keine Gewerbesteuer</li>
-							<li>
-								Keine doppelte Buchführung. Eine einfache
-								Einnahmen-Überschuss-Rechnung (EÜR) zum Jahresende reicht aus.
-							</li>
-							<li>
-								Keine Zwangsmitgliedschaft bei der Industrie- und Handelskammer
-								(IHK) oder Handwerkskammer – dementsprechend keine Zahlung des
-								Mitgliedsbeitrags
-							</li>
-							<li>Unternehmensgründung ohne Startkapital möglich</li>
-						</ul>
+					</TextParagraph>
+
+					<ul>
+						<li>Keine Gewerbeanmeldung notwendig</li>
+						<li>Keine Gewerbesteuer</li>
+						<li>
+							Keine doppelte Buchführung. Eine einfache
+							Einnahmen-Überschuss-Rechnung (EÜR) zum Jahresende reicht aus.
+						</li>
+						<li>
+							Keine Zwangsmitgliedschaft bei der Industrie- und Handelskammer
+							(IHK) oder Handwerkskammer – dementsprechend keine Zahlung des
+							Mitgliedsbeitrags
+						</li>
+						<li>Unternehmensgründung ohne Startkapital möglich</li>
+					</ul>
+
+					<TextParagraph>
 						<br />
 						Da sich unsere Gründungsplattform noch im Aufbau befindet, sind
 						leider noch nicht alle Entscheidungsrouten für die Gründung als
@@ -230,23 +239,24 @@ export default function Gesellschaftsform() {
 						Capitol abwickeln.
 						<br />
 						<br />
-						<div className={s.buttons}>
-							<Button variant='secondary'>
-								<div className={s.buttonTitle} data-color='blue'>
-									Freiberufler
-								</div>
-								<div className={s.buttonDescription}>Gründung (folgt)</div>
-							</Button>
-							<Button variant='secondary'>
-								<div className={s.buttonTitle} data-color='purple'>
-									PartG
-								</div>
-								<div className={s.buttonDescription}>Gründung (folgt)</div>
-							</Button>
-						</div>
-						<br />
-						<br />
 					</TextParagraph>
+
+					<div className={s.buttons}>
+						<Button variant='secondary'>
+							<div className={s.buttonTitle} data-color='blue'>
+								Freiberufler
+							</div>
+							<div className={s.buttonDescription}>Gründung (folgt)</div>
+						</Button>
+						<Button variant='secondary'>
+							<div className={s.buttonTitle} data-color='purple'>
+								PartG
+							</div>
+							<div className={s.buttonDescription}>Gründung (folgt)</div>
+						</Button>
+					</div>
+					<br />
+					<br />
 
 					<TextParagraph title='Einzelunternehmer und GbR'>
 						Ein Einzelunternehmen wird immer von einer einzelnen Person
@@ -263,64 +273,69 @@ export default function Gesellschaftsform() {
 						<br />
 						Vorteile von Einzelunternehmung und GbR:
 						<br />
-						<ul>
-							<li>
-								Prozess der Unternehmensgründung sehr einfach und kostengünstig
-							</li>
-							<li>Kein Stammkapital notwendig</li>
-							<li>Kein Gesellschaftsvertrag erforderlich</li>
-							<li>Gewinne gehören komplett dem Unternehmer</li>
-							<li>
-								Keine Publizitätspflichten z. B. Offenlegung der
-								Jahresabschlüsse
-							</li>
-							<li>
-								Sehr einfache Vorgehensweise, kein Erfordernis besonderer
-								Formalitäten
-							</li>
-						</ul>
-						<br />
+					</TextParagraph>
+
+					<ul>
+						<li>
+							Prozess der Unternehmensgründung sehr einfach und kostengünstig
+						</li>
+						<li>Kein Stammkapital notwendig</li>
+						<li>Kein Gesellschaftsvertrag erforderlich</li>
+						<li>Gewinne gehören komplett dem Unternehmer</li>
+						<li>
+							Keine Publizitätspflichten z. B. Offenlegung der Jahresabschlüsse
+						</li>
+						<li>
+							Sehr einfache Vorgehensweise, kein Erfordernis besonderer
+							Formalitäten
+						</li>
+					</ul>
+
+					<TextParagraph>
 						Nachteile von Einzelunternehmung und GbR:
-						<br />
-						<ul>
-							<li>Der Unternehmer haftet komplett mit seinem Privatvermögen</li>
-							<li>
-								Die Erweiterung des Eigenkapitals muss der Inhaber aus eigener
-								Kraft stemmen (keine Investoren etc.)
-							</li>
-							<li>
-								Die Aufnahme weiterer Gesellschafter ist nicht möglich (nur nach
-								Änderung der Rechtsform)
-							</li>
-							<li>
-								Der Name des Inhabers muss in der Unternehmensbezeichnung
-								vorkommen, ein Firmenname ist also nicht frei von dir wählbar
-							</li>
-						</ul>
-						<br />
+					</TextParagraph>
+
+					<ul>
+						<li>Der Unternehmer haftet komplett mit seinem Privatvermögen</li>
+						<li>
+							Die Erweiterung des Eigenkapitals muss der Inhaber aus eigener
+							Kraft stemmen (keine Investoren etc.)
+						</li>
+						<li>
+							Die Aufnahme weiterer Gesellschafter ist nicht möglich (nur nach
+							Änderung der Rechtsform)
+						</li>
+						<li>
+							Der Name des Inhabers muss in der Unternehmensbezeichnung
+							vorkommen, ein Firmenname ist also nicht frei von dir wählbar
+						</li>
+					</ul>
+
+					<TextParagraph>
 						Auch hier stehen noch nicht alle Entscheidungsrouten für die
 						Gründung final zur Verfügung. Willst du als Einzelunnternehmer oder
 						als GbR gründen musst du dich also noch ein bisschen gedulden. Wir
 						arbeiten aber mit Vollgas an deiner Gründungsroute, versprochen.
 						<br />
 						<br />
-						<div className={s.buttons}>
-							<Button variant='secondary'>
-								<div className={s.buttonTitle} data-color='blue'>
-									Einzelunternehmen
-								</div>
-								<div className={s.buttonDescription}>Gründung (folgt)</div>
-							</Button>
-							<Button variant='secondary'>
-								<div className={s.buttonTitle} data-color='purple'>
-									GbR
-								</div>
-								<div className={s.buttonDescription}>Gründung (folgt)</div>
-							</Button>
-						</div>
-						<br />
-						<br />
 					</TextParagraph>
+
+					<div className={s.buttons}>
+						<Button variant='secondary'>
+							<div className={s.buttonTitle} data-color='blue'>
+								Einzelunternehmen
+							</div>
+							<div className={s.buttonDescription}>Gründung (folgt)</div>
+						</Button>
+						<Button variant='secondary'>
+							<div className={s.buttonTitle} data-color='purple'>
+								GbR
+							</div>
+							<div className={s.buttonDescription}>Gründung (folgt)</div>
+						</Button>
+					</div>
+					<br />
+					<br />
 				</TextBlock>
 			</div>
 		</div>

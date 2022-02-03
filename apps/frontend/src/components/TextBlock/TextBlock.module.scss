@@ -54,6 +54,9 @@
 
 	li {
 		font-size: 18px;
+		@media (max-width: 950px) {
+			font-size: var(--size-16px);
+		}
 	}
 
 	.bot_gradient {
