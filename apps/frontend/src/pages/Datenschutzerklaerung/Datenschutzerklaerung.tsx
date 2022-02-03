@@ -19,16 +19,16 @@ export default function Datenschutz() {
 				}}
 			>
 				<TextBlock title='Datenschutz&shy;erklärung' arrow={true}>
-					<TextParagraph title='1. Einleitung'>
+					<TextParagraph title='Einleitung'>
 						Datenschutz ist ein wichtiges Thema in Zeiten des Internets. Viel zu
 						oft wissen wir nicht wirklich, was im Hintergrund geschieht.
 						Deswegen legt diese Seite die Karten auf den Tisch und zeigt, was
-						Sache ist. Wir versuchen dir hier transparent zu erklären, wie eine
+						Sache ist. Wir versuchen dir hier transparent zu erklären, wie diese
 						Website arbeitet und wenn Fragen offen bleiben, komm gerne auf uns
 						zurück.
 					</TextParagraph>
 
-					<TextParagraph title='2. Verantwortlich für diese Website'>
+					<TextParagraph title='Verantwortlich für diese Website'>
 						Verantwortlicher im Sinne der DSVGO ist:
 						<br />
 						<br />
@@ -52,7 +52,7 @@ export default function Datenschutz() {
 						Kommt gerne jederzeit mit offenen Fragen und Anliegen auf mich zu.
 					</TextParagraph>
 
-					<TextParagraph title='3. Wozu diese Texte?'>
+					<TextParagraph title='Wozu diese Texte?'>
 						Die folgenden Texte dienen dazu, dir als „betroffener Person“ zu
 						zeigen, wie personenbezogenen Daten durch uns verarbeitet werden und
 						natürlich ist es für uns auch wichtig, dir deine Rechte aus dem
@@ -60,17 +60,10 @@ export default function Datenschutz() {
 						<br />
 						<br />
 						Wichtig ist für dich zunächst einmal zu wissen, dass unsere
-						Internetseiten grundsätzlich ohne Eingabe personenbezogener Daten
-						genutzt werden können. Du wirst also nicht verpflichtet Angaben über
-						dich als Person offen zu legen. Wenn du uns kontaktierst werden aber
-						natürlich personenbezogene Daten wie beispielsweise in der Regel
-						Name und Email Adresse erfasst. Natürlich können wir aber auch diese
-						auf deinen Wunsch rückwirkend wieder löschen.
-						<br />
-						<br />
-						Natürlich verarbeiten wir personenbezogene Daten vertraulich und
-						wenn du uns über das Kontaktformular oder per Email kontaktierst,
-						geben wir deine Email Adresse auch natürlich nicht weiter.
+						Internetseite grundsätzlich ohne Eingabe personenbezogener Daten
+						genutzt werden kann. Du wirst also nicht verpflichtet dich auf
+						dieser Seite anzumelden. Deine IP ist natürlich notwendig zur
+						Verwendung des Internets und ist von den den Servern lesbar.
 						<br />
 						<br />
 						Alle Daten werden immer im Einklang mit der Datenschutz
@@ -79,16 +72,16 @@ export default function Datenschutz() {
 						Datenschutzbestimmungen verarbeitet.
 						<br />
 						<br />
-						Diese einzelnen Datenschutzerklärungen zeigen dir immer genau, wie
-						viele und welche Daten wir erheben und wieso.
+						Diese einzelnen Datenschutzerklärungen zeigen dir im folgenden
+						genau, wie viele und welche Daten wir erheben und wieso.
 					</TextParagraph>
 
-					<TextParagraph title='4. Ganz wichtig für Sie!'>
+					<TextParagraph title='Ganz wichtig für dich'>
 						Von Anfang an haben wir darauf geachtet, dass deine Daten sicher
-						sind und wir diese schützen, wie unsere eigenen. Wir arbeiten mit
-						zahlreichen Maßnahmen, um einen möglichst lückenlosen Schutz der
-						über diese Internetseite verarbeiteten personenbezogenen Daten
-						sicherzustellen.
+						sind und wir diese schützen. Wir arbeiten mit zahlreichen Maßnahmen,
+						um einen möglichst lückenlosen Schutz der über diese Internetseite
+						verarbeiteten personenbezogenen Daten sicherzustellen. Wir
+						verzichten beispielsweise auf die Verwendung externer Cookies.
 						<br />
 						<br />
 						Wir weisen jedoch darauf hin, dass die Datenübertragung im Internet
@@ -100,44 +93,26 @@ export default function Datenschutz() {
 						<br />
 						<br />
 						Dies kann zum Beispiel durch Lücken beim WLAN Router der Fall sein.
-						Ein gutes Anti Viren Programm hilft eventuell. Auch eine anständige
-						Firewall und ein geschützter Browser sind hierbei von Vorteil. Am
-						sichersten unterwegs ist man vermutlich mit Linux Distributionen und
-						alternativen Browsern. Ein lückenloser Schutz der Daten vor dem
-						Zugriff durch Dritte ist allerdings nicht möglich.
-						<br />
-						<br />
-						Aus diesem Grund wollen wir natürlich jedem die Option offenlassen,
-						personenbezogene Daten auch auf alternativem Wege, beispielsweise
-						telefonisch oder per Post, an uns zu übermitteln.
+						Eine anständige Firewall und ein geschützter Browser sind hierbei
+						von Vorteil. Am sichersten unterwegs ist man vermutlich mit Linux
+						Distributionen und alternativen Browsern.
 					</TextParagraph>
 
-					<TextParagraph title='5. Welche Rechte du an deinen Daten hast'>
-						Wenn du ein Konto auf dieser Website besitzt oder Kommentare
-						geschrieben hast, kannst du einen Export deiner personenbezogenen
-						Daten bei uns anfordern, inklusive aller Daten, die du uns
-						mitgeteilt hast.
+					<TextParagraph title='Welche Rechte du an deinen Daten hast'>
+						Wenn du ein Konto auf dieser Website besitzt, kannst du einen Export
+						deiner personenbezogenen Daten bei uns anfordern, inklusive aller
+						Daten, die du uns mitgeteilt hast. Da wir selbst die Daten nicht
+						speichern, sondern firebase, gilt für diese natürlich selbiges. Zu
+						diesem Anbieter später mehr.
 						<br />
 						<br />
 						Darüber hinaus kannst du die Löschung aller personenbezogenen Daten,
-						die wir von dir gespeichert haben, anfordern. Dies umfasst nicht die
-						Daten, die wir aufgrund administrativer, rechtlicher oder
+						die gespeichert wurden, anfordern. Dies umfasst nicht die Daten, die
+						wir oder firebase aufgrund administrativer, rechtlicher oder
 						sicherheitsrelevanter Notwendigkeiten aufbewahren müssen.
 					</TextParagraph>
 
-					<TextParagraph title='6. Wir betreiben viele Websites'>
-						Nur ein Teil der hier aufgeführten Anwendungen, Tools und Programme
-						treffen auf diese Website zu. Nicht alle werden verwendet.
-						<br />
-						<br />
-						Da wir viele Websites verwalten, wollen wir auf Nummer Sicher gehen
-						und sicher sein, dass du auf jeden Fall weißt, welche Vorgänge im
-						Hintergrund ablaufen können. Meistens benutzt die Website auf der du
-						gerade bist aber oft nur einen kleinen Teil dieser Programme,
-						Methoden und Tools.
-					</TextParagraph>
-
-					<TextParagraph title='7. Begriffserklärungen'>
+					<TextParagraph title='Begriffserklärungen'>
 						Wir wollen natürlich, dass du die Texte hier auch alle verstehst,
 						deswegen ein paar erläuternde Erklärungen dazu. Solltest du Fragen
 						haben melde dich gerne bei unserem Datenschutzbeauftragten.
@@ -219,7 +194,7 @@ export default function Datenschutz() {
 						</li>
 					</ol>
 
-					<TextParagraph title='8. Rechtsgrundlage der Verarbeitung'>
+					<TextParagraph title='Rechtsgrundlage der Verarbeitung'>
 						Wir beziehen uns auf Art. 6 Abs. 1 lit. b DSGVO.
 						<br />
 						<br />
@@ -267,22 +242,68 @@ export default function Datenschutz() {
 						beziehen wir uns explizit auf Erwägungsgrund 47 Satz 2 der DSGVO.
 					</TextParagraph>
 
-					<TextParagraph title='9. Unser Hosting'>
-						Diese Website wird von Domainfactory gehostet.
+					<TextParagraph title='Unser Hosting'>
+						Diese Website läuft über Google Cloud run.
 						<br />
 						<br />
-						Genauer domainfactory GmbH, Oskar-Messter-Str. 33, 85737 Ismaning.
+						Mehr zum Thema Datenschutz bei der Google Cloud findest du unter:
+						<br />
+						<a
+							href='https://support.google.com/googlecloud/answer/6056650'
+							target='_blank'
+						>
+							https://support.google.com/googlecloud/answer/6056650
+						</a>
 						<br />
 						<br />
-						Unsere Server stehen in Köln (Deutschland) und unterliegen somit den
-						strengen Datenschutz Auflagen des Deutschen Staates.
+						In den Datenverarbeitungsbedingungen sind unsere
+						Datenschutzverpflichtungen unseren Kunden gegenüber dargelegt. Wir
+						haben diese Nutzungsbedingungen im Lauf der Jahre auf der Grundlage
+						des Feedbacks von Kunden und Aufsichtsbehörden angepasst und unter
+						<br />
+						<a
+							href='https://workspace.google.com/terms/dpa_terms.html'
+							target='_blank'
+						>
+							https://workspace.google.com/terms/dpa_terms.html
+						</a>
 						<br />
 						<br />
-						Auf den Systemen von Domainfactory werden automatisiert Protokolle
+						Weitere Informationen hierzu finden Sie auf unserer Website zur
+						DSGVO:
+						<br />
+						<a href='https://cloud.google.com/privacy/gdpr' target='_blank'>
+							https://cloud.google.com/privacy/gdpr
+						</a>
+						<br />
+						<br />
+						Um die Sicherheit dieser Seite zu erhöhen arbeiten wir mit einem
+						sogenannten CDN, einem Content Delivery Network. Dieses bearbeitet
+						Ihre Anfrage in der Regel in einem Land, in dem Sie mit Ihrem
+						Endgerät suchen. Kritische Länder, Bots oder Crawls können so
+						automatisiert geblockt werden um Angriffe auf die Seite und einen
+						Upload von bösartigen Inhalten zu verhindern.
+						<br />
+						<br />
+						Spacifik arbeitet hier mit Cloudflare.
+						<br />
+						<br />
+						Was diese Firma möglich macht, ist ein Schutz Ihrer Daten. Mehr dazu
+						finden Sie unter:
+						<br />
+						<a
+							href='https://www.cloudflare.com/de-de/gdpr/introduction/'
+							target='_blank'
+						>
+							https://www.cloudflare.com/de-de/gdpr/introduction/
+						</a>
+						<br />
+						<br />
+						Auf den Systemen von Cloudflare werden automatisiert Protokolle
 						(sog. Logfiles) für bestimmte Dienste auf dem Server erfasst.
 					</TextParagraph>
 
-					<TextParagraph title='10. Technik'>
+					<TextParagraph title='Technik'>
 						Wenn du nur auf dieser Website bist, um dich zu informieren, also
 						dich nirgends registrierst und auch keinen Kommentar schreibst und
 						auch kein Formular benutzt oder uns anders Informationen
@@ -346,7 +367,7 @@ export default function Datenschutz() {
 						betreiben können die unsere Geschäftsgrundlage darstellen.
 					</TextParagraph>
 
-					<TextParagraph title='11. Weitergabe von Daten an Dritte'>
+					<TextParagraph title='Weitergabe von Daten an Dritte'>
 						Wir geben deine persönlichen Daten an Dritte zu anderen als den im
 						Folgenden aufgeführten Gründen nicht weiter.
 						<br />
@@ -378,7 +399,7 @@ export default function Datenschutz() {
 						</li>
 					</ol>
 
-					<TextParagraph title='12. Cookies'>
+					<TextParagraph title='Cookies'>
 						Wenn du einen Kommentar auf unserer Website schreibst, kann das eine
 						Einwilligung sein, deinen Namen, E-Mail-Adresse und Website in
 						Cookies zu speichern. Dies ist eine Komfortfunktion, damit du nicht,
@@ -463,35 +484,138 @@ export default function Datenschutz() {
 						funktionieren.
 					</TextParagraph>
 
-					<TextParagraph title='13. Content Delivery Network'>
-						Um die Sicherheit dieser Seite zu erhöhen arbeiten wir mit einem
-						sogenannten CDN, einem Content Delivery Network. Dieses bearbeitet
-						Ihre Anfrage in der Regel in einem Land, in dem Sie mit Ihrem
-						Endgerät suchen. Kritische Länder, Bots oder Crawls können so
-						automatisiert geblockt werden um Angriffe auf die Seite und einen
-						Upload von bösartigen Inhalten zu verhindern.
+					<TextParagraph title='Google Login'>
+						Google Login
 						<br />
 						<br />
-						Spacifik arbeitet hier mit Cloudflare.
+						firebase
 						<br />
 						<br />
-						Was diese Firma möglich macht, ist ein Schutz Ihrer Daten. Mehr dazu
-						finden Sie unter:{" "}
+						Google fonts, logo
+						<br />
+						<br />
+						Wir verwenden auf unserer Website Firebase, ein Analyse- und
+						Monitoring-Tool. Dienstanbieter ist das amerikanische Unternehmen
+						Google Inc. Für den europäischen Raum ist das Unternehmen Google
+						Ireland Limited (Gordon House, Barrow Street Dublin 4, Irland) für
+						alle Google-Dienste verantwortlich.
+						<br />
+						<br />
+						Google verarbeitet Daten von Ihnen u.a. auch in den USA. Wir weisen
+						darauf hin, dass nach Meinung des Europäischen Gerichtshofs derzeit
+						kein angemessenes Schutzniveau für den Datentransfer in die USA
+						besteht. Dies kann mit verschiedenen Risiken für die Rechtmäßigkeit
+						und Sicherheit der Datenverarbeitung einhergehen.
+						<br />
+						<br />
+						Als Grundlage der Datenverarbeitung bei Empfängern mit Sitz in
+						Drittstaaten (außerhalb der Europäischen Union, Island,
+						Liechtenstein, Norwegen, also insbesondere in den USA) oder einer
+						Datenweitergabe dorthin verwendet Google sogenannte
+						Standardvertragsklauseln (= Art. 46. Abs. 2 und 3 DSGVO).
+						Standardvertragsklauseln (Standard Contractual Clauses – SCC) sind
+						von der EU-Kommission bereitgestellte Mustervorlagen und sollen
+						sicherstellen, dass Ihre Daten auch dann den europäischen
+						Datenschutzstandards entsprechen, wenn diese in Drittländer (wie
+						beispielsweise in die USA) überliefert und dort gespeichert werden.
+						Durch diese Klauseln verpflichtet sich Google, bei der Verarbeitung
+						Ihrer relevanten Daten, das europäische Datenschutzniveau
+						einzuhalten, selbst wenn die Daten in den USA gespeichert,
+						verarbeitet und verwaltet werden. Diese Klauseln basieren auf einem
+						Durchführungsbeschluss der EU-Kommission. Sie finden den Beschluss
+						und die entsprechenden Standardvertragsklauseln u.a. hier:
+						<br />
 						<a
-							href='https://www.cloudflare.com/de-de/gdpr/introduction/'
+							href='https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj?locale=de'
 							target='_blank'
 						>
-							https://www.cloudflare.com/de-de/gdpr/introduction/
+							https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj?locale=de
 						</a>
+						<br />
+						<br />
+						Die Google Ads Datenverarbeitungsbedingungen (Google Ads Data
+						Processing Terms), welche den Standardvertragsklauseln entsprechen
+						und auch für Firebase geltend sind, finden Sie unter
+						<br />
+						<a
+							href='https://business.safety.google/adsprocessorterms/'
+							target='_blank'
+						>
+							https://business.safety.google/adsprocessorterms/
+						</a>
+						<br />
+						<br />
+						Mehr über die Daten, die durch die Verwendung von Firebase
+						verarbeitet werden, erfahren Sie in der Privacy Policy auf
+						<br />
+						<a
+							href='https://policies.google.com/privacy?hl=de-DE'
+							target='_blank'
+						>
+							https://policies.google.com/privacy?hl=de-DE
+						</a>
+						<br />
+						<br />
 					</TextParagraph>
 
-					<TextParagraph title='14. Kontaktformular'>
-						Mit Benutzung des Kontaktformulars stimmst du der Verarbeitung
-						deiner Daten zu im Sinne einer Kontaktaufnahme. Um uns gegen Spam
-						aus dem Internet zu schützen nutzen wir für unser Kontaktformular
-						den Service von Akismet. Über Lamda von Amazon leiten wir dann deine
-						Nachricht weiter an unseren Slack Kanal in dem dann einer unser
-						Vertriebsmitarbeiter deine Nachricht bearbeitet.
+					<TextParagraph title='Sentry'>
+						Wir nutzen für unsere Website Sentry, ein Fehlermanagement-Tool.
+						Dienstanbieter ist das amerikanische Unternehmen Sentry Inc., San
+						Francisco, 132 Hawthorne St, San Francisco, USA.
+						<br />
+						<br />
+						Sentry verarbeitet Daten von Ihnen u.a. auch in den USA. Wir weisen
+						darauf hin, dass nach Meinung des Europäischen Gerichtshofs derzeit
+						kein angemessenes Schutzniveau für den Datentransfer in die USA
+						besteht. Dies kann mit verschiedenen Risiken für die Rechtmäßigkeit
+						und Sicherheit der Datenverarbeitung einhergehen.
+						<br />
+						<br />
+						Als Grundlage der Datenverarbeitung bei Empfängern mit Sitz in
+						Drittstaaten (außerhalb der Europäischen Union, Island,
+						Liechtenstein, Norwegen, also insbesondere in den USA) oder einer
+						Datenweitergabe dorthin verwendet Sentry sogenannte
+						Standardvertragsklauseln (= Art. 46. Abs. 2 und 3 DSGVO).
+						Standardvertragsklauseln (Standard Contractual Clauses – SCC) sind
+						von der EU-Kommission bereitgestellte Mustervorlagen und sollen
+						sicherstellen, dass Ihre Daten auch dann den europäischen
+						Datenschutzstandards entsprechen, wenn diese in Drittländer (wie
+						beispielsweise in die USA) überliefert und dort gespeichert werden.
+						Durch diese Klauseln verpflichtet sich Sentry, bei der Verarbeitung
+						Ihrer relevanten Daten, das europäische Datenschutzniveau
+						einzuhalten, selbst wenn die Daten in den USA gespeichert,
+						verarbeitet und verwaltet werden. Diese Klauseln basieren auf einem
+						Durchführungsbeschluss der EU-Kommission. Sie finden den Beschluss
+						und die entsprechenden Standardvertragsklauseln u.a. hier:
+						<br />
+						<a
+							href='https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj?locale=de'
+							target='_blank'
+						>
+							https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj?locale=de
+						</a>
+						<br />
+						<br />
+						Die Datenverarbeitungsbedingungen (Data Processing Addendum), welche
+						den Standardvertragsklauseln entsprechen, finden Sie unter
+						<br />
+						<a href='https://sentry.io/legal/dpa/' target='_blank'>
+							https://sentry.io/legal/dpa/
+						</a>
+						<br />
+						<br />
+						Mehr über die Daten, die durch die Verwendung von Sentry verarbeitet
+						werden, erfahren Sie in der Datenschutzerklärung auf
+						<br />
+						<a href='https://sentry.io/privacy/' target='_blank'>
+							https://sentry.io/privacy/
+						</a>
+						<br />
+						<br />
+						la
+						<br />
+						<br />
+						la
 					</TextParagraph>
 				</TextBlock>
 			</div>
