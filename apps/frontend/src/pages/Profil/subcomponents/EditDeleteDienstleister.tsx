@@ -50,7 +50,7 @@ const EditDeleteDienstleister = ({
 			},
 		};
 
-		const fetchURL = "http://localhost:8103/entry/" + dienstleisterOfUser.id;
+		const fetchURL = "/dlr/entry/" + dienstleisterOfUser.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {
@@ -75,7 +75,7 @@ const EditDeleteDienstleister = ({
 	}
 
 	function deleteDienstleister() {
-		const fetchURL = "http://localhost:8103/entry/" + dienstleisterOfUser.id;
+		const fetchURL = "/dlr/entry/" + dienstleisterOfUser.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {

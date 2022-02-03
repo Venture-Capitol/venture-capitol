@@ -47,7 +47,7 @@ const CreateDienstleister = ({ getDienstleisterOfUser }: Props) => {
 				body: JSON.stringify(body),
 			};
 
-			return fetch("http://localhost:8103/entry/", requestOptions)
+			return fetch("/dlr/entry/", requestOptions)
 				.then(data => {
 					if (data.ok) {
 						setShowConfirmation(true);

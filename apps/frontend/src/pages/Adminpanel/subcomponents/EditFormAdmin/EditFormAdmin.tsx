@@ -51,7 +51,7 @@ const EditFormAdmin = ({
 			},
 		};
 
-		const fetchURL = "http://localhost:8103/entry/" + editData.id;
+		const fetchURL = "/dlr/entry/" + editData.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {

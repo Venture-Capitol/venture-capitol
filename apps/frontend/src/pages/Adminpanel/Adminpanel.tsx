@@ -35,11 +35,11 @@ export default function Adminpanel() {
 
 		let fetchURL;
 		if (chosenVerified == "Ja") {
-			fetchURL = "http://localhost:8103/entry?verified=true&amount=10&page=";
+			fetchURL = "/dlr/entry?verified=true&amount=10&page=";
 		} else if (chosenVerified == "Nein") {
-			fetchURL = "http://localhost:8103/entry?verified=false&amount=10&page=";
+			fetchURL = "/dlr/entry?verified=false&amount=10&page=";
 		} else {
-			fetchURL = "http://localhost:8103/entry?amount=10&page=";
+			fetchURL = "/dlr/entry?amount=10&page=";
 		}
 
 		const requestOptions = {
