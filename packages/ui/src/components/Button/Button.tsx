@@ -3,7 +3,7 @@ import s from "./Button.module.scss";
 
 type ButtonProps = {
 	variant?: "primary" | "secondary" | "tertiary";
-	width?: "auto" | "fullwidth";
+	width?: "auto" | "fullwidth" | "max-content";
 	children: React.ReactNode;
 	disabled?: boolean;
 	onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;

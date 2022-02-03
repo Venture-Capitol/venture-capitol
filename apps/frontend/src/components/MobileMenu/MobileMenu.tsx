@@ -11,6 +11,9 @@ import React, { FC, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import s from "./MobileMenu.module.scss";
 import * as Tabs from "@radix-ui/react-tabs";
+import TaskList from "../TaskList/TaskList";
+import { useGruendungContext } from "contexts/Gruendung/Gruendung";
+import Button from "@vc/ui/src/components/Button/Button";
 
 interface MobileMenuProps {
 	isLoggedIn: boolean;
@@ -23,6 +26,7 @@ const MobileMenu: FC<MobileMenuProps> = ({
 	isAdmin,
 	closeMenu,
 }) => {
+	const { currentCompany } = useGruendungContext();
 	const defaultValue = "seiten";
 	const [navSelected, setNavSelected] = useState<string>(defaultValue);
 
@@ -152,17 +156,27 @@ const MobileMenu: FC<MobileMenuProps> = ({
 						</div>
 					</div>
 				</Tabs.Content>
-				<Tabs.Content value='navigation'>
-					<div
-						style={{
-							display: "grid",
-							placeContent: "center",
-							height: "calc(100vh - 100px)",
-							fontSize: "30px",
-							fontWeight: "700",
-						}}
-					>
-						Navigation
+				<Tabs.Content value='navigation' asChild>
+					<div className={s.navigationContainer}>
+						{currentCompany ? (
+							<div className={s.taskListContainer}>
+								<TaskList />
+							</div>
+						) : (
+							<>
+								<div className={s.placeholder}>
+									<div className={s.placeholderText}>
+										Willst du jetzt deine Gesellschaftsform wählen?
+									</div>
+
+									<Button variant='secondary' width='max-content'>
+										<Link to='/gruendung' onClick={closeMenu}>
+											Gründungsprozess starten
+										</Link>
+									</Button>
+								</div>
+							</>
+						)}
 					</div>
 				</Tabs.Content>
 			</div>
