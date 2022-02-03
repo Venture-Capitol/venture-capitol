@@ -4,6 +4,7 @@ import Button from "@vc/ui/src/components/Button/Button";
 import BackToAdminpanel from "../BackToAdminpanel/BackToAdminpanel";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
+import AddressField from "@vc/frontend/component/AddressField/AddressField";
 
 interface Props {
 	returnToAdminpanel: any;
@@ -28,6 +29,9 @@ const EditFormAdmin = ({
 	const [website, setWebsite] = useState(editData.website);
 	const [description, setDescription] = useState(editData.description);
 	const [verified, setVerified] = useState(editData.verified);
+
+	const [lat, setLat] = useState("");
+	const [long, setLong] = useState("");
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -144,12 +148,11 @@ const EditFormAdmin = ({
 					</label>
 					<label className={s.label_editFormAdmin}>
 						Adresse / PLZ / Ort*
-						<input
-							type='text'
-							className={s.textinput_editFormAdmin}
-							onChange={e => setAddress(e.target.value)}
+						<AddressField
+							setAddress={setAddress}
+							setLat={setLat}
+							setLong={setLong}
 							defaultValue={address}
-							required
 						/>
 					</label>
 					<label className={s.label_editFormAdmin}>

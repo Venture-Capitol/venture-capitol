@@ -4,6 +4,7 @@ import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
 import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
+import AddressField from "@vc/frontend/component/AddressField/AddressField";
 
 interface Props {
 	dienstleisterOfUser: any;
@@ -28,13 +29,16 @@ const EditDeleteDienstleister = ({
 		dienstleisterOfUser.description
 	);
 
+	const [lat, setLat] = useState("");
+	const [long, setLong] = useState("");
+
+	const [showError, setShowError] = useState(false);
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	function editDienstleister(event: any) {
-		event.preventDefault();
-
+	function editDienstleister() {
 		const body = {
 			editedEntry: {
 				job: jobname,
@@ -133,7 +137,18 @@ const EditDeleteDienstleister = ({
 				</p>
 			</div>
 			<div className={s.maindiv_editForm}>
-				<form className={s.editForm}>
+				<form
+					className={s.editForm}
+					onSubmit={e => {
+						e.preventDefault();
+						if (lat != "") {
+							editDienstleister();
+							setShowError(false);
+						} else {
+							setShowError(true);
+						}
+					}}
+				>
 					<label className={s.label_editForm}>
 						Firmenname*
 						<input
@@ -161,12 +176,14 @@ const EditDeleteDienstleister = ({
 					</label>
 					<label className={s.label_editForm}>
 						Adresse / PLZ / Ort*
-						<input
-							type='text'
-							className={s.textinput_editForm}
+						<AddressField
+							setAddress={address => {
+								setShowError(false);
+								setAddress(address);
+							}}
+							setLat={setLat}
+							setLong={setLong}
 							defaultValue={address}
-							onChange={e => setAddress(e.target.value)}
-							required
 						/>
 					</label>
 					<label className={s.label_editForm}>
@@ -202,7 +219,7 @@ const EditDeleteDienstleister = ({
 						<textarea onChange={e => setDescription(e.target.value)}></textarea>
 					</label>
 					<div className={s.divforthat}>
-						<div onClick={e => editDienstleister(e)}>
+						<div>
 							<Button>Änderungen speichern</Button>
 						</div>
 						<AlertDialog
@@ -230,6 +247,11 @@ const EditDeleteDienstleister = ({
 							</span>
 						</AlertDialog>
 					</div>
+					{showError ? (
+						<p className={s.addressWarning}>
+							Bitte wähle eine vollständige Adresse aus!
+						</p>
+					) : null}
 				</form>
 			</div>
 			{checkEditConfirmation()}

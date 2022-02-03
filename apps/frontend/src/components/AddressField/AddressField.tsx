@@ -57,9 +57,15 @@ interface Props {
 	setAddress: (address: string) => void;
 	setLat: (lat: string) => void;
 	setLong: (long: string) => void;
+	defaultValue?: string;
 }
 
-const AddressField: FC<Props> = ({ setAddress, setLat, setLong }) => {
+const AddressField: FC<Props> = ({
+	setAddress,
+	setLat,
+	setLong,
+	defaultValue,
+}) => {
 	useEffect(() => {
 		loadScript(setAddress, setLat, setLong);
 	}, []);
@@ -78,6 +84,7 @@ const AddressField: FC<Props> = ({ setAddress, setLat, setLong }) => {
 				placeholder=''
 				className={s.textInput}
 				onChange={handleChange}
+				defaultValue={defaultValue}
 				required
 			/>
 		</>

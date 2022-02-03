@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
+import AddressField from "@vc/frontend/component/AddressField/AddressField";
 
 interface Props {
 	getDienstleisterOfUser: any;
@@ -21,9 +22,12 @@ const CreateDienstleister = ({ getDienstleisterOfUser }: Props) => {
 	const [website, setWebsite] = useState("");
 	const [description, setDescription] = useState("");
 
-	async function createDienstleister(event: any) {
-		event.preventDefault();
+	const [lat, setLat] = useState("");
+	const [long, setLong] = useState("");
 
+	const [showError, setShowError] = useState(false);
+
+	async function createDienstleister() {
 		const body = {
 			job: jobname,
 			company: company,
@@ -93,7 +97,18 @@ const CreateDienstleister = ({ getDienstleisterOfUser }: Props) => {
 				</p>
 			</div>
 			<div className={s.maindiv_createForm}>
-				<form className={s.createForm} onSubmit={createDienstleister}>
+				<form
+					className={s.createForm}
+					onSubmit={e => {
+						e.preventDefault();
+						if (lat != "") {
+							createDienstleister();
+							setShowError(false);
+						} else {
+							setShowError(true);
+						}
+					}}
+				>
 					<label className={s.label_createForm}>
 						Firmenname*
 						<input
@@ -123,11 +138,13 @@ const CreateDienstleister = ({ getDienstleisterOfUser }: Props) => {
 					</label>
 					<label className={s.label_createForm}>
 						Adresse / PLZ / Ort*
-						<input
-							type='text'
-							className={s.textinput_createForm}
-							onChange={e => setAddress(e.target.value)}
-							required
+						<AddressField
+							setAddress={address => {
+								setShowError(false);
+								setAddress(address);
+							}}
+							setLat={setLat}
+							setLong={setLong}
 						/>
 					</label>
 					<label className={s.label_createForm}>
@@ -162,6 +179,11 @@ const CreateDienstleister = ({ getDienstleisterOfUser }: Props) => {
 					<div className={s.divforthat}>
 						<Button>+ Mich als Dienstleister eintragen</Button>
 					</div>
+					{showError ? (
+						<p className={s.addressWarning}>
+							Bitte wähle eine vollständige Adresse aus!
+						</p>
+					) : null}
 				</form>
 			</div>
 			{checkConfirmation()}
