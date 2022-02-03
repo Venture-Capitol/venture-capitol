@@ -10,7 +10,7 @@ import DemoAuth from "./pages/Demo/DemoAuth";
 import Header from "./components/Header/Header";
 import Gruendung from "./pages/Gruendung/Gruendung";
 import Search from "./pages/SearchDLR/DLRSearch";
-import DienstleisterProfil from "./pages/DienstleisterProfil/DienstleisterProfil";
+import DienstleisterProfil from "./pages/Profil/subcomponents/DienstleisterProfil";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Impressum from "./pages/Impressum/Impressum";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
@@ -39,9 +39,6 @@ function App() {
 						</Route>
 						<Route path='/dienstleister'>
 							<Search />
-						</Route>
-						<Route path='/profil/dienstleister'>
-							<DienstleisterProfil />
 						</Route>
 						<Route path='/demoAuth'>
 							<DemoAuth />

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
-import CreateDienstleister from "./subcomponents/CreateDienstleister";
-import EditDeleteDienstleister from "./subcomponents/EditDeleteDienstleister";
+import CreateDienstleister from "./CreateDienstleister";
+import EditDeleteDienstleister from "./EditDeleteDienstleister";
 
 export default function DienstleisterProfil() {
 	const { user } = useAuthContext();
