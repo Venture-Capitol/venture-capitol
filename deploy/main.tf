@@ -85,7 +85,7 @@ resource "google_project_iam_binding" "service_permissions" {
   ])
 
   role    = "roles/${each.key}"
-  members = [local.backend_serviceaccount, local.dlr_backend_serviceaccount]
+  members = [local.backend_serviceaccount, local.dlr_backend_serviceaccount, local.dlr_staging_backend_serviceaccount]
 }
 
 #---------------------------------------------------------#

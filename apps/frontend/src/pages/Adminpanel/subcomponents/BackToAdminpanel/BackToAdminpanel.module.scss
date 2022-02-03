@@ -1,0 +1,18 @@
+.back {
+	width: 27px;
+	height: 24px;
+	cursor: pointer;
+	margin-right: 8px;
+
+	@media (max-width: 750px) {
+		height: 18px;
+	}
+}
+
+.back > svg {
+	height: 24px;
+
+	@media (max-width: 750px) {
+		height: 18px;
+	}
+}

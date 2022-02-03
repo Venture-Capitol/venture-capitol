@@ -1,0 +1,17 @@
+.maindiv_headline {
+	display: flex;
+	justify-content: center;
+	padding-top: 10%;
+}
+
+.headline {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-32px);
+}
+
+@media only screen and (max-width: 750px) {
+	.headline {
+		font-size: var(--size-24px);
+	}
+}

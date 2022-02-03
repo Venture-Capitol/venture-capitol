@@ -1,0 +1,172 @@
+.allResultframe {
+	padding: 16px 22px;
+	margin: 8px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #fff;
+
+	flex: 1 0 20em;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+}
+
+.resultContent {
+	flex: 1 0 20em;
+}
+
+.row {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.columnOfInfofield {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.pairOfTitleInput {
+	display: flex;
+	flex-flow: column nowrap;
+	margin: 4px 12px;
+}
+
+.allResult_title {
+	font-family: "Space Grotesk";
+	font-weight: normal;
+	font-size: var(--size-16px);
+}
+
+.allResult_input {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-16px);
+}
+
+.buttonControls {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+
+	flex: 0.25 1 10em;
+}
+
+.verifyDLButton {
+	padding: 12px 40px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	border-color: #abe4b7;
+	background-color: #abe4b7;
+	cursor: pointer;
+	color: var(--color-grey-900);
+	transition: transform 0.1s ease-out;
+	will-change: transform;
+
+	&:hover {
+		background: #89eb9e;
+		border-color: var(--color-grey-900);
+	}
+}
+
+.isVerifiedButton {
+	padding: 12px 40px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #e7e5e4;
+	color: var(--color-grey-500);
+	transition: transform 0.1s ease-out;
+	will-change: transform;
+}
+
+.editDLButton {
+	padding: 12px 40px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	background-color: #fff;
+	cursor: pointer;
+	color: var(--color-grey-900);
+	transition: transform 0.1s ease-out;
+	will-change: transform;
+	margin: 10% 0%;
+
+	&:hover {
+		background: #fafafa;
+	}
+}
+
+.deleteDLButton {
+	padding: 12px 40px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	border-color: #ff8f8f;
+	background-color: #ff8f8f;
+	cursor: pointer;
+	color: var(--color-grey-900);
+	transition: transform 0.1s ease-out;
+	will-change: transform;
+	width: 100%;
+
+	&:hover {
+		background: #f87b7b;
+		border-color: var(--color-grey-900);
+	}
+}
+
+.deleteModalButton {
+	padding: 12px 40px;
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	border-radius: 10px;
+	border-width: 1px;
+	border-color: #ff8f8f;
+	background-color: #ff8f8f;
+	cursor: pointer;
+	color: var(--color-grey-900);
+	transition: transform 0.1s ease-out;
+	will-change: transform;
+	margin-top: 5%;
+
+	&:hover {
+		background: #f87b7b;
+		border-color: var(--color-grey-900);
+	}
+}
+
+.modalCancelButton {
+	margin-top: 5%;
+}
+
+.deleteModalText {
+	margin-bottom: 5%;
+}
+
+@media only screen and (max-width: 750px) {
+	.allResultframe {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: space-between;
+	}
+
+	.row {
+		flex-flow: column nowrap;
+	}
+
+	.editDLButton {
+		margin: 2% 0%;
+	}
+
+	.deleteModalButton {
+		margin: 2% 0%;
+	}
+}

@@ -9,10 +9,10 @@ type AlertDialogProps = {
 	cancel?: React.ReactNode;
 	preventEscape?: boolean;
 	defaultOpen: boolean;
-	onOpenChange: (open: boolean) => void;
+	func: Function;
 };
 
-const AlertDialog: React.FunctionComponent<AlertDialogProps> = ({
+const AlertDialogWithFunc: React.FunctionComponent<AlertDialogProps> = ({
 	title,
 	children,
 	trigger,
@@ -20,9 +20,9 @@ const AlertDialog: React.FunctionComponent<AlertDialogProps> = ({
 	cancel,
 	preventEscape = false,
 	defaultOpen: open,
-	onOpenChange,
+	func,
 }: AlertDialogProps) => (
-	<RadixAlertDialog.Root defaultOpen={open} onOpenChange={onOpenChange}>
+	<RadixAlertDialog.Root defaultOpen={open}>
 		{trigger && <RadixAlertDialog.Trigger>{trigger}</RadixAlertDialog.Trigger>}
 		<RadixAlertDialog.Portal>
 			<RadixAlertDialog.Overlay className={s.overlay} />
@@ -41,7 +41,7 @@ const AlertDialog: React.FunctionComponent<AlertDialogProps> = ({
 						</RadixAlertDialog.Cancel>
 					)}
 					{action && (
-						<RadixAlertDialog.Action asChild={true}>
+						<RadixAlertDialog.Action asChild={true} onClick={e => func()}>
 							{action}
 						</RadixAlertDialog.Action>
 					)}
@@ -51,4 +51,4 @@ const AlertDialog: React.FunctionComponent<AlertDialogProps> = ({
 	</RadixAlertDialog.Root>
 );
 
-export default AlertDialog;
+export default AlertDialogWithFunc;

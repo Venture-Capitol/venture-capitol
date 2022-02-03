@@ -4,13 +4,14 @@ import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
 import Header from "./components/Header/Header";
 import Gruendung from "./pages/Gruendung/Gruendung";
-import Search from "./pages/Search/DLRSearch";
-import CreateEntryPage from "./pages/CreateDienstleisterPage/CreateDienstleisterPage";
-import GetEntryPage from "./pages/GetDienstleisterPage/GetDienstleisterPage";
+import Search from "./pages/SearchDLR/DLRSearch";
+import DienstleisterProfil from "./pages/DienstleisterProfil/DienstleisterProfil";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Gesellschaftsform from "./pages/GesellschaftsformDecisionPage/GesellschaftsformDecision";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
 import Impressum from "./pages/Impressum/Impressum";
+import Adminpanel from "./pages/Adminpanel/Adminpanel";
+
 import Gruendung_TaskId from "./pages/Gruendung/$task";
 
 function App() {
@@ -29,17 +30,14 @@ function App() {
 						<Route path='/gruendung/:task'>
 							<Gruendung_TaskId />
 						</Route>
-						<Route path='/dienstleister'>
-							<Index />
+						<Route path='/dienstleister/admin' exact>
+							<Adminpanel />
 						</Route>
-						<Route path='/dienstleister/search'>
+						<Route path='/dienstleister'>
 							<Search />
 						</Route>
-						<Route path='/dienstleister/create'>
-							<CreateEntryPage />
-						</Route>
-						<Route path='/dienstleister/get'>
-							<GetEntryPage />
+						<Route path='/profil/dienstleister'>
+							<DienstleisterProfil />
 						</Route>
 						<Route path='/demoAuth'>
 							<DemoAuth />

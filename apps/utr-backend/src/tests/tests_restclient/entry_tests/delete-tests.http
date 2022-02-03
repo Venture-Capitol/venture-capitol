@@ -2,13 +2,13 @@
 @Token = 
 
 ### delete using valid id for entry that exists
-DELETE http://localhost:8103/entry/5
+DELETE http://localhost:8103/entry/10
 Authorization: Bearer {{Token}}
 
 ### delete using invalid datatype for id | SHOULD FAIL & RETURN 400
 DELETE http://localhost:8103/entry/stkra
 Authorization: Bearer {{Token}}
 
-### delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404
+### delete using valid id for entry that doesnt exist | SHOULD FAIL & RETURN 404 -> returned 400 bei user / 404 bei admin, löscht nichts, sollte okay sein
 DELETE http://localhost:8103/entry/476
 Authorization: Bearer {{Token}}
