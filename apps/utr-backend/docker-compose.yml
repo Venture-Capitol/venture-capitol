@@ -14,6 +14,6 @@ services:
     environment:
       HOST: 0.0.0.0
       PORT: 8103
-      DATABASE_URL: postgresql://DB_USER:$DB_PWD@db:5432/$DB_NAME
+      DATABASE_URL: postgresql://$DB_USER:$DB_PWD@db:5432/$DB_NAME
     ports:
       - "127.0.0.1:8103:8103"

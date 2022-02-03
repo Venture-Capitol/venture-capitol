@@ -1,0 +1,65 @@
+.GPFprofileContainer {
+	padding-top: 100px;
+
+	.alertContainer {
+		width: max-content;
+
+		&.disabled {
+			cursor: not-allowed;
+
+			Button[data-disabled="true"] {
+				pointer-events: none;
+			}
+		}
+	}
+
+	.deletionConfirmation {
+		color: var(--color-green-500);
+		margin: 0;
+		height: 0;
+		visibility: hidden;
+		opacity: 0;
+		transition: 0.3s ease-in-out;
+	}
+
+	.deletionError {
+		color: #cd2b31;
+		margin: 0;
+		height: 0;
+		visibility: hidden;
+		opacity: 0;
+		transition: 0.3s ease-in-out;
+	}
+
+	.creationNotice {
+		margin: 0;
+		height: 0;
+		visibility: hidden;
+		opacity: 0;
+		transition: 0.3s ease-in-out;
+		max-width: 480px;
+	}
+
+	.trigger {
+		width: max-content;
+		&.disabled {
+			cursor: not-allowed;
+
+			Button {
+				pointer-events: none;
+			}
+		}
+	}
+
+	.visible {
+		margin-top: 20px;
+		visibility: visible;
+		opacity: 1;
+		height: 20px;
+	}
+
+	.notice {
+		max-width: 480px;
+		margin-top: 100px;
+	}
+}
