@@ -86,7 +86,7 @@ const Landing: React.FunctionComponent = () => {
 				<div className={s.buttons}>
 					<Button variant='secondary'>
 						<div className={s.searchButtonContent}>
-							<SearchIcon /> Gesellschaftsform finden
+							<SearchIcon /> <span>Gesellschaftsform finden</span>
 						</div>
 					</Button>
 				</div>

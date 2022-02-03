@@ -109,9 +109,9 @@ const Header: FC = () => {
 				data-mobile-open={isMobileMenuOpen}
 				data-mobile-active={isMobileWidth}
 			>
-				{isMobileMenuOpen && (
+				{isMobileMenuOpen && isMobileWidth && (
 					<MobileMenu
-						isLoggedIn={currentUser != null}
+						isLoggedIn={currentUser != undefined}
 						closeMenu={closeMobileMenu}
 					/>
 				)}

@@ -1,4 +1,5 @@
 import { PrismaClient, Prisma, Entry } from "@prisma/client";
+import { DecodedIdToken } from "firebase-admin/auth";
 
 import ApplicationError from "../utils/ApplicationError";
 
@@ -6,6 +7,10 @@ const prisma = new PrismaClient();
 
 export interface DistanceEntry extends Entry {
 	distance: number;
+}
+
+export interface BatchPayload {
+	count: number;
 }
 
 export async function searchEntries(
@@ -45,19 +50,17 @@ export async function searchEntries(
 					job: {
 						equals: jobname,
 					},
-					// TODO Change to equals: true when false is not needed anymore for testing
 					verified: {
-						equals: false,
+						equals: true,
 					},
 				},
 			});
 			if (searchResults) {
-				const offset = (page - 1) * 15;
-				// TODO Change to verified=true when false is not needed anymore for testing
+				const offset = (page - 1) * 10;
 				const query = await prisma.$queryRaw<
 					{ id: number; distance: number }[]
 				>(
-					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND NOT verified ORDER BY distance ASC LIMIT 15 OFFSET ${offset}`
+					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND verified ORDER BY distance ASC LIMIT 10 OFFSET ${offset}`
 				);
 				const map = query.map(result => {
 					let found = searchResults.find(x => {
@@ -74,7 +77,7 @@ export async function searchEntries(
 				return callback(
 					new ApplicationError(
 						"Es existieren keine Einträge die diesen Job ausführen",
-						400
+						404
 					),
 					null
 				);
@@ -82,8 +85,7 @@ export async function searchEntries(
 		} catch (exception) {
 			return callback(
 				new ApplicationError(
-					"Es sind unerwartete Probleme bei der Suche aufgetreten. " +
-						exception,
+					"Es sind unerwartete Probleme bei der Suche aufgetreten. ",
 					500
 				),
 				null
@@ -92,7 +94,35 @@ export async function searchEntries(
 	}
 }
 
-// TODO: Fails ATM if amount is not set - See amount is NaN
+export async function getEntryByUID(user: DecodedIdToken, callback: Function) {
+	try {
+		const foundEntry = await prisma.entry.findUnique({
+			where: {
+				ownedBy: user.uid,
+			},
+		});
+		if (foundEntry == null) {
+			return callback(
+				new ApplicationError(
+					"Der Nutzer hat noch keinen Eintrag angelegt.",
+					404
+				),
+				null
+			);
+		} else {
+			return callback(null, foundEntry);
+		}
+	} catch (exception) {
+		return callback(
+			new ApplicationError(
+				"Es ist ein unerwarteter Fehler bei der Suche nach genau einem Eintrag aufgetreten.",
+				500
+			),
+			null
+		);
+	}
+}
+
 export async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
@@ -144,7 +174,6 @@ export async function getAllEntries(
 	}
 }
 
-// TODO Add code which makes admin create a verified Entry
 export async function createEntry(
 	job: string,
 	company: string,
@@ -152,6 +181,8 @@ export async function createEntry(
 	latitude: number,
 	longitude: number,
 	email: string,
+	verified: boolean,
+	uid: string,
 	callback: Function,
 	telefon?: string,
 	website?: string,
@@ -165,31 +196,32 @@ export async function createEntry(
 			),
 			null
 		);
-	} else {
-		try {
-			const createdEntry = await prisma.entry.create({
-				data: {
-					job: job,
-					company: company,
-					address: address,
-					latitude: latitude,
-					longitude: longitude,
-					email: email,
-					telefon: telefon,
-					website: website,
-					description: description,
-				},
-			});
-			return callback(null, createdEntry);
-		} catch (exception) {
-			return callback(
-				new ApplicationError(
-					"Es sind unerwartete Probleme bei der Erstellung eines Eintrags aufgetreten.",
-					500
-				),
-				null
-			);
-		}
+	}
+	try {
+		const createdEntry = await prisma.entry.create({
+			data: {
+				job: job,
+				company: company,
+				address: address,
+				latitude: latitude,
+				longitude: longitude,
+				email: email,
+				verified: verified,
+				ownedBy: uid,
+				telefon: telefon,
+				website: website,
+				description: description,
+			},
+		});
+		return callback(null, createdEntry);
+	} catch (exception) {
+		return callback(
+			new ApplicationError(
+				"Es sind unerwartete Probleme bei der Erstellung eines Eintrags aufgetreten.",
+				500
+			),
+			null
+		);
 	}
 }
 
@@ -234,7 +266,12 @@ export async function getEntry(entryID: number, callback: Function) {
 	}
 }
 
-export async function updateEntry(id: number, body: any, callback: Function) {
+export async function updateEntry(
+	id: number,
+	body: any,
+	user: DecodedIdToken,
+	callback: Function
+) {
 	if (isNaN(id) || !body) {
 		return callback(
 			new ApplicationError(
@@ -243,8 +280,9 @@ export async function updateEntry(id: number, body: any, callback: Function) {
 			),
 			null
 		);
-	} else {
-		try {
+	}
+	try {
+		if (user.role == "admin") {
 			const updatedEntry = await prisma.entry.update({
 				where: {
 					id: id,
@@ -259,58 +297,110 @@ export async function updateEntry(id: number, body: any, callback: Function) {
 					telefon: body.telefon,
 					website: body.website,
 					description: body.description,
+					verified: body.verified,
 				},
 			});
 			return callback(null, updatedEntry);
-		} catch (exception) {
-			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
-				if (exception.code == "P2025") {
-					return callback(
-						new ApplicationError("Es exisiert kein Eintrag für diese ID.", 404),
-						null
-					);
-				}
+		} else {
+			const updatedEntries = await prisma.entry.updateMany({
+				where: {
+					id: id,
+					ownedBy: user.uid,
+				},
+				data: {
+					job: body.job,
+					company: body.company,
+					address: body.address,
+					latitude: body.latitude,
+					longitude: body.longitude,
+					email: body.email,
+					telefon: body.telefon,
+					website: body.website,
+					description: body.description,
+				},
+			});
+			if (updatedEntries.count == 1) {
+				return callback(null, updatedEntries);
 			} else {
 				return callback(
 					new ApplicationError(
-						"Es ist ein unerwarteter Fehler beim Aktualisieren eines Eintrags aufgetretren.",
-						500
+						"Es exisiert kein Eintrag mit dieser ID von diesem Nutzer.",
+						400
 					),
 					null
 				);
 			}
 		}
+	} catch (exception) {
+		if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+			if (exception.code == "P2025") {
+				return callback(
+					new ApplicationError("Es exisiert kein Eintrag für diese ID.", 404),
+					null
+				);
+			}
+		} else {
+			return callback(
+				new ApplicationError(
+					"Es ist ein unerwarteter Fehler beim Aktualisieren eines Eintrags aufgetretren.",
+					500
+				),
+				null
+			);
+		}
 	}
 }
 
-export async function deleteEntry(id: number, callback: Function) {
+export async function deleteEntry(
+	id: number,
+	user: DecodedIdToken,
+	callback: Function
+) {
 	if (isNaN(id)) {
 		return callback(
 			new ApplicationError("Fehlerhafte Anfrage. ID muss number sein.", 400)
 		);
-	} else {
-		try {
+	}
+	try {
+		if (user.role == "admin") {
 			const deleteUser = await prisma.entry.delete({
 				where: {
 					id: id,
 				},
 			});
 			return callback(null);
-		} catch (exception) {
-			if (exception instanceof Prisma.PrismaClientKnownRequestError) {
-				if (exception.code == "P2025") {
-					return callback(
-						new ApplicationError("Es exisiert kein Eintrag für diese ID", 404)
-					);
-				}
+		} else {
+			const deletedUsers = await prisma.entry.deleteMany({
+				where: {
+					id: id,
+					ownedBy: user.uid,
+				},
+			});
+			if (deletedUsers.count == 1) {
+				return callback(null);
 			} else {
 				return callback(
 					new ApplicationError(
-						"Es ist ein unerwarteter Fehler beim Loeschen eines Eintrags aufgetreten",
-						500
+						"Es exisiert kein Eintrag mit dieser ID von diesem Nutzer.",
+						400
 					)
 				);
 			}
+		}
+	} catch (exception) {
+		if (exception instanceof Prisma.PrismaClientKnownRequestError) {
+			if (exception.code == "P2025") {
+				return callback(
+					new ApplicationError("Es exisiert kein Eintrag für diese ID", 404)
+				);
+			}
+		} else {
+			return callback(
+				new ApplicationError(
+					"Es ist ein unerwarteter Fehler beim Loeschen eines Eintrags aufgetreten",
+					500
+				)
+			);
 		}
 	}
 }

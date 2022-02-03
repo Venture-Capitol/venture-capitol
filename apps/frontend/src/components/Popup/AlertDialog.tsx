@@ -9,6 +9,7 @@ type AlertDialogProps = {
 	cancel?: React.ReactNode;
 	preventEscape?: boolean;
 	defaultOpen: boolean;
+	onOpenChange: (open: boolean) => void;
 };
 
 const AlertDialog: React.FunctionComponent<AlertDialogProps> = ({
@@ -19,6 +20,7 @@ const AlertDialog: React.FunctionComponent<AlertDialogProps> = ({
 	cancel,
 	preventEscape = false,
 	defaultOpen: open,
+	onOpenChange,
 }: AlertDialogProps) => (
 	<RadixAlertDialog.Root defaultOpen={open}>
 		{trigger && (
