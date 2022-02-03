@@ -49,7 +49,7 @@ const SearchResult = ({ resultData }: Props) => {
 	}
 
 	function checkDescription() {
-		if (resultData.description?.length > 20) {
+		if (resultData.description?.split(" ").length > 20) {
 			return (
 				<p className={s.result_description}>
 					{resultData.description.split(" ").slice(0, 20).join(" ") + "[...]"}
@@ -69,31 +69,31 @@ const SearchResult = ({ resultData }: Props) => {
 					open={showInfoModal}
 					onOpenChange={open => setShowInfoModal(open)}
 				>
-					<p className={s.modalTitle}>
+					<span className={s.modalTitle}>
 						Dienstleistung: <span className={s.modalInfopoint}>{jobname}</span>
-					</p>
-					<p className={s.modalTitle}>
+					</span>
+					<span className={s.modalTitle}>
 						Adresse: <span className={s.modalInfopoint}>{address}</span>
-					</p>
-					<p className={s.modalTitle}>
+					</span>
+					<span className={s.modalTitle}>
 						Distanz:{" "}
 						<span className={s.modalInfopoint}>
 							{(resultData.distance / 1000).toFixed(1)}km entfernt
 						</span>
-					</p>
-					<p className={s.modalTitle}>
+					</span>
+					<span className={s.modalTitle}>
 						E-Mail: <span className={s.modalInfopoint}>{email}</span>
-					</p>
-					<p className={s.modalTitle}>
+					</span>
+					<span className={s.modalTitle}>
 						Telefon: <span className={s.modalInfopoint}>{telefon}</span>
-					</p>
-					<p className={s.modalTitle}>
+					</span>
+					<span className={s.modalTitle}>
 						Website: <span className={s.modalInfopoint}>{website}</span>
-					</p>
-					<p className={s.modalTitle}>
+					</span>
+					<span className={s.modalTitle}>
 						Beschreibung:{" "}
 						<span className={s.modalInfopoint}>{description}</span>
-					</p>
+					</span>
 				</Dialog>
 			);
 		} else {

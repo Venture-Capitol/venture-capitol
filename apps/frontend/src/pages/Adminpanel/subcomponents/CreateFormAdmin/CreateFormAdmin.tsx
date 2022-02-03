@@ -71,9 +71,9 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 					open={showConfirmation}
 					onOpenChange={open => setShowConfirmation(open)}
 				>
-					<p>
+					<span>
 						Der Dienstleister <b>{company}</b> wurde erfolgreich hinzugefügt!
-					</p>
+					</span>
 				</Dialog>
 			);
 		} else {

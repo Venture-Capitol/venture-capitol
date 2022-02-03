@@ -150,15 +150,19 @@ const GetAllResult = ({
 					<AlertDialogWithFunc
 						defaultOpen={false}
 						title={"Bist du sicher?"}
-						trigger={<button className={s.deleteDLButton}>Löschen</button>}
-						cancel={<Button>Abbrechen</Button>}
+						trigger={<div className={s.deleteDLButton}>Löschen</div>}
+						cancel={
+							<div className={s.modalCancelButton}>
+								<Button>Abbrechen</Button>
+							</div>
+						}
 						action={<span className={s.deleteModalButton}>Löschen</span>}
 						func={deleteEntry}
 					>
-						<p className={s.deleteModalText}>
+						<span className={s.deleteModalText}>
 							Möchtest du den Dienstleister <b>{resultData.company}</b> wirklich
 							löschen? Diese Änderung kann nicht rückgängig gemacht werden!
-						</p>
+						</span>
 					</AlertDialogWithFunc>
 				</div>
 			</div>

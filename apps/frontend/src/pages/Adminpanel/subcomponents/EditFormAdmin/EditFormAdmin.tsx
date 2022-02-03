@@ -92,9 +92,9 @@ const EditFormAdmin = ({
 						}
 					}}
 				>
-					<p>
+					<span>
 						Die Änderungen an <b>{company}</b> wurden erfolgreich übernommen!
-					</p>
+					</span>
 				</Dialog>
 			);
 		} else {
@@ -133,7 +133,6 @@ const EditFormAdmin = ({
 							name='Dienstleistungen'
 							className={s.joboption_editFormAdmin}
 							onChange={e => setJobname(e.target.value)}
-							defaultValue={jobname}
 							value={jobname}
 							required
 						>

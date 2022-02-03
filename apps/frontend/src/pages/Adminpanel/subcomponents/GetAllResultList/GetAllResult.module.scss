@@ -135,11 +135,16 @@
 	color: var(--color-grey-900);
 	transition: transform 0.1s ease-out;
 	will-change: transform;
+	margin-top: 5%;
 
 	&:hover {
 		background: #f87b7b;
 		border-color: var(--color-grey-900);
 	}
+}
+
+.modalCancelButton {
+	margin-top: 5%;
 }
 
 .deleteModalText {
@@ -155,10 +160,6 @@
 
 	.row {
 		flex-flow: column nowrap;
-	}
-
-	.isVerifiedButton {
-		margin: 2% 0%;
 	}
 
 	.editDLButton {

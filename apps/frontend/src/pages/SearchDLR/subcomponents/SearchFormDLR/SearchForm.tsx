@@ -18,12 +18,6 @@ const SearchForm = ({
 	chosenAddress,
 	setChosenAddress,
 }: Props) => {
-	// useEffect(() => {
-	// 	setChosenJob(
-	// 		new URLSearchParams(useLocation().search).get("jobname") || ""
-	// 	);
-	// }, []);
-
 	return (
 		<div className={s.maindiv}>
 			<form
