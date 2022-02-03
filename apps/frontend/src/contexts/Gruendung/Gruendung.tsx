@@ -17,6 +17,7 @@ type GruendungContext = {
 	setTaskStatus(taskId: string, status: boolean): void;
 	setDecisionStatus(decisionId: string, path?: number): void;
 	createCompany(legalForm: string): void;
+	clearCompany(): void;
 };
 
 const GruendungContext = React.createContext<GruendungContext>({
@@ -26,6 +27,7 @@ const GruendungContext = React.createContext<GruendungContext>({
 	setTaskStatus: () => {},
 	setDecisionStatus: () => {},
 	createCompany: () => {},
+	clearCompany: () => {},
 });
 
 export function useGruendungContext() {
@@ -264,6 +266,17 @@ const GruendungContextProvider: FC = ({ children }) => {
 		window.localStorage.setItem("decisions", JSON.stringify(changedDecisions));
 	}
 
+	/**
+	 * Clear current company and reset states
+	 */
+	function clearCompany() {
+		setNodes({});
+		setInitialNodeId("");
+		setCurrentCompany(undefined);
+		setCompletedTasks([]);
+		setMadeDecisions([]);
+	}
+
 	return (
 		<GruendungContext.Provider
 			value={{
@@ -274,6 +287,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 				setDecisionStatus,
 				currentCompany,
 				createCompany,
+				clearCompany,
 			}}
 		>
 			{children}
