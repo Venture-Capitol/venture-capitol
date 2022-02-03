@@ -37,7 +37,7 @@ export default function () {
 							className={`${GPF_DLR == "gpf" && s.active} ${s.navLink}`}
 							replace
 						>
-							Mein Gründerprofil
+							Gründer&shy;profil
 						</Link>
 						<Link
 							to={{
@@ -49,7 +49,7 @@ export default function () {
 							}`}
 							replace
 						>
-							Mein Dienstleisterprofil
+							Dienstleister&shy;profil
 						</Link>
 					</div>
 				</div>
