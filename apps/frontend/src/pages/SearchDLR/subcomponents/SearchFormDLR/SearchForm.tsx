@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import AddressField from "../../../../components/AddressField/AddressField";
 import s from "./SearchForm.module.scss";
 import Button from "@vc/ui/src/components/Button/Button";
 
@@ -7,21 +6,30 @@ interface Props {
 	startSearchRequest: () => void;
 	chosenJob: string;
 	setChosenJob: (job: string) => void;
-	chosenAddress: string;
 	setChosenAddress: (address: string) => void;
+	setValidAddress: (valid: boolean) => void;
+	setLat: (lat: string) => void;
+	setLong: (long: string) => void;
+	setShowInvalidAddress: (valid: boolean) => void;
 }
 
 const SearchForm = ({
 	startSearchRequest,
 	chosenJob,
 	setChosenJob,
-	chosenAddress,
 	setChosenAddress,
+	setValidAddress,
+	setLat,
+	setLong,
+	setShowInvalidAddress,
 }: Props) => {
 	return (
 		<div className={s.maindiv}>
 			<form
 				className={s.form}
+				onKeyPress={e => {
+					e.key === "Enter" && e.preventDefault();
+				}}
 				onSubmit={e => {
 					e.preventDefault();
 					startSearchRequest();
@@ -47,11 +55,12 @@ const SearchForm = ({
 				</label>
 				<label className={s.input_block}>
 					Adresse
-					<input
-						type='text'
-						value={chosenAddress}
-						className={s.textinput}
-						onChange={event => setChosenAddress(event.target.value)}
+					<AddressField
+						setValidAddress={setValidAddress}
+						setAddress={setChosenAddress}
+						setLat={setLat}
+						setLong={setLong}
+						setShowInvalidAddress={setShowInvalidAddress}
 					/>
 				</label>
 				<Button>Suchen</Button>
