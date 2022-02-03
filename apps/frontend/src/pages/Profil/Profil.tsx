@@ -18,11 +18,12 @@ export default function () {
 			style={{
 				minHeight: "100%",
 				display: "flex",
-				alignItems: "center",
 				justifyContent: "center",
 				background:
 					"radial-gradient(95.33% 88.77% at 100% 25.99%, #F3EAE4 0%, #F5EBDF 11.12%, #F6F5F8 33.47%)",
+				overflowY: "scroll",
 			}}
+			className={s.profilContainer}
 		>
 			<div className={s.profileContainer}>
 				<div className={s.profileNav}>
@@ -30,10 +31,10 @@ export default function () {
 					<div className={s.navContainer}>
 						<Link
 							to={{
-								pathname: "/profil/gpf",
+								pathname: "/profil/gruender",
 							}}
-							onClick={() => switchProfile("gpf")}
-							className={`${GPF_DLR == "gpf" && s.active} ${s.navLink}`}
+							onClick={() => switchProfile("gruender")}
+							className={`${GPF_DLR == "gruender" && s.active} ${s.navLink}`}
 							replace
 						>
 							Mein Gründerprofil
@@ -52,7 +53,7 @@ export default function () {
 						</Link>
 					</div>
 				</div>
-				{GPF_DLR == "gpf" && <GPFProfileContent />}
+				{GPF_DLR == "gruender" && <GPFProfileContent />}
 				{GPF_DLR == "dienstleister" && <DienstleisterProfil />}
 			</div>
 		</div>

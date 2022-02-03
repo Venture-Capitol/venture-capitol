@@ -25,10 +25,7 @@ export default function DienstleisterProfil() {
 					Authorization: "Bearer " + idTokenResult?.token,
 				},
 			};
-			let fetchData = await fetch(
-				"http://localhost:8103/entry/user",
-				requestOptions
-			);
+			let fetchData = await fetch("/dlr/entry/user", requestOptions);
 			if (fetchData.ok) {
 				let parsedData = await fetchData.json();
 				setDienstleisterOfUser(parsedData);

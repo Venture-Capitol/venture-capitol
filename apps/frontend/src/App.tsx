@@ -50,7 +50,7 @@ function App() {
 							<Datenschutzerklaerung />
 						</Route>
 						<Route path='/profil' exact>
-							<Redirect to='/profil/gpf'></Redirect>
+							<Redirect to='/profil/gruender'></Redirect>
 						</Route>
 						<Route path='/profil/:platform'>
 							<Profil />
