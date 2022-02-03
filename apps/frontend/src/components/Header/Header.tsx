@@ -110,10 +110,19 @@ const Header: FC = () => {
 				data-mobile-active={isMobileWidth}
 			>
 				{isMobileMenuOpen && isMobileWidth && (
-					<MobileMenu
-						isLoggedIn={currentUser != undefined}
-						closeMenu={closeMobileMenu}
-					/>
+					<>
+						<MobileMenu
+							isLoggedIn={currentUser != undefined}
+							closeMenu={closeMobileMenu}
+						/>
+						<style>
+							{"\
+        body{\
+          overflow:hidden;\
+        }\
+      "}
+						</style>
+					</>
 				)}
 			</div>
 		</div>

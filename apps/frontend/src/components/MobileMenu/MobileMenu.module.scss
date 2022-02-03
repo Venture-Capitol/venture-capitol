@@ -196,3 +196,34 @@
 	font-size: var(--size-12px);
 	margin: 20px 0;
 }
+
+.taskListContainer {
+	margin: 10px;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.navigationContainer {
+	height: calc(100% - 50px);
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+	mix-blend-mode: hard-light;
+	padding: 10px;
+}
+
+.placeholder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 50px;
+	height: 100%;
+}
+
+.placeholderText {
+	font-size: var(--size-20px);
+	text-align: center;
+	margin: 0px 2rem;
+}
