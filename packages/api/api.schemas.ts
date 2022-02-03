@@ -43,7 +43,7 @@ export interface CompletedTask {
 
 export interface Company {
 	id: string;
-	name?: string;
+	name?: string | null;
 	users?: string[];
 	legalForm: CompanyLegalForm;
 	completedTasks: CompletedTask[];

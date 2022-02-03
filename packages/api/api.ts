@@ -5,7 +5,6 @@
  * Open API specification for the Venture Capitol API
  * OpenAPI spec version: 1.0.0
  */
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import type {
 	User,
 	Company,
@@ -14,129 +13,128 @@ import type {
 	MadeDecision,
 	MakeDecisionBody,
 } from "./api.schemas";
+import { makeAxiosFn } from "./axios";
 
 /**
  * Returns a user with given id
  * @summary Get a user by id
  */
-export const getUserById = <TData = AxiosResponse<User>>(
-	userId: string,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.get(`/api/user/${userId}`, options);
+export const getUserById = <TData = User>(userId: string) => {
+	return makeAxiosFn<TData>({ url: `/api/user/${userId}`, method: "get" });
 };
 
 /**
  * Posts a company with given data
  * @summary Adds a new company to Venture Capitol
  */
-export const createCompany = <TData = AxiosResponse<Company>>(
-	createCompanyBody: CreateCompanyBody,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.post(`/api/company`, createCompanyBody, options);
+export const createCompany = <TData = Company>(
+	createCompanyBody: CreateCompanyBody
+) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company`,
+		method: "post",
+		data: createCompanyBody,
+	});
 };
 
 /**
  * Returns a company with given id
  * @summary Get a company by id
  */
-export const getApiCompanyCompanyId = <TData = AxiosResponse<Company>>(
-	companyId: string,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.get(`/api/company/${companyId}`, options);
+export const getApiCompanyCompanyId = <TData = Company>(companyId: string) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company/${companyId}`,
+		method: "get",
+	});
 };
 
 /**
  * Deletes a company with given id
  * @summary Delete a company by id
  */
-export const deleteCompany = <TData = AxiosResponse<void>>(
-	companyId: string,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.delete(`/api/company/${companyId}`, options);
+export const deleteCompany = <TData = void>(companyId: string) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company/${companyId}`,
+		method: "delete",
+	});
 };
 
 /**
  * Returns which tasks of a company are done
  * @summary Get all tasks of a company
  */
-export const getDoneTasks = <TData = AxiosResponse<CompletedTask[]>>(
-	companyId: string,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.get(`/api/company/${companyId}/tasks`, options);
+export const getDoneTasks = <TData = CompletedTask[]>(companyId: string) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company/${companyId}/tasks`,
+		method: "get",
+	});
 };
 
 /**
  * Adds a new finished task to a company
  * @summary Add a checked task to a company
  */
-export const markTaskDone = <TData = AxiosResponse<void>>(
+export const markTaskDone = <TData = void>(
 	companyId: string,
-	taskId: string,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.post(
-		`/api/company/${companyId}/tasks/${taskId}`,
-		undefined,
-		options
-	);
+	taskId: string
+) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company/${companyId}/tasks/${taskId}`,
+		method: "post",
+	});
 };
 
 /**
  * Deletes a task from a company
  * @summary Delete a task from a company
  */
-export const undoTaskCompletion = <TData = AxiosResponse<void>>(
+export const undoTaskCompletion = <TData = void>(
 	companyId: string,
-	taskId: string,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.delete(`/api/company/${companyId}/tasks/${taskId}`, options);
+	taskId: string
+) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company/${companyId}/tasks/${taskId}`,
+		method: "delete",
+	});
 };
 
 /**
  * Returns all decisions of a company
  * @summary Get all decisions of a company
  */
-export const getMadeDecisions = <TData = AxiosResponse<MadeDecision[]>>(
-	companyId: string,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.get(`/api/company/${companyId}/decisions`, options);
+export const getMadeDecisions = <TData = MadeDecision[]>(companyId: string) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company/${companyId}/decisions`,
+		method: "get",
+	});
 };
 
 /**
  * Adds a new decision to a company
  * @summary Add a decision to a company
  */
-export const makeDecision = <TData = AxiosResponse<void>>(
+export const makeDecision = <TData = void>(
 	companyId: string,
 	decisionId: string,
-	makeDecisionBody: MakeDecisionBody,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.post(
-		`/api/company/${companyId}/decisions/${decisionId}`,
-		makeDecisionBody,
-		options
-	);
+	makeDecisionBody: MakeDecisionBody
+) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company/${companyId}/decisions/${decisionId}`,
+		method: "post",
+		data: makeDecisionBody,
+	});
 };
 
 /**
  * Deletes a decision from a company
  * @summary Delete a decision from a company
  */
-export const undoDecision = <TData = AxiosResponse<void>>(
+export const undoDecision = <TData = void>(
 	companyId: string,
-	decisionId: string,
-	options?: AxiosRequestConfig
-): Promise<TData> => {
-	return axios.delete(
-		`/api/company/${companyId}/decisions/${decisionId}`,
-		options
-	);
+	decisionId: string
+) => {
+	return makeAxiosFn<TData>({
+		url: `/api/company/${companyId}/decisions/${decisionId}`,
+		method: "delete",
+	});
 };

@@ -56,11 +56,11 @@ export async function searchEntries(
 				},
 			});
 			if (searchResults) {
-				const offset = (page - 1) * 15;
+				const offset = (page - 1) * 10;
 				const query = await prisma.$queryRaw<
 					{ id: number; distance: number }[]
 				>(
-					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND verified ORDER BY distance ASC LIMIT 15 OFFSET ${offset}`
+					Prisma.sql`SELECT id, ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(${long}, ${lat})) as distance FROM "Entry" WHERE job=${jobname} AND verified ORDER BY distance ASC LIMIT 10 OFFSET ${offset}`
 				);
 				const map = query.map(result => {
 					let found = searchResults.find(x => {
@@ -77,7 +77,7 @@ export async function searchEntries(
 				return callback(
 					new ApplicationError(
 						"Es existieren keine Einträge die diesen Job ausführen",
-						400
+						404
 					),
 					null
 				);
@@ -85,8 +85,7 @@ export async function searchEntries(
 		} catch (exception) {
 			return callback(
 				new ApplicationError(
-					"Es sind unerwartete Probleme bei der Suche aufgetreten. " +
-						exception,
+					"Es sind unerwartete Probleme bei der Suche aufgetreten. ",
 					500
 				),
 				null
@@ -124,7 +123,6 @@ export async function getEntryByUID(user: DecodedIdToken, callback: Function) {
 	}
 }
 
-// TODO: Fails ATM if amount is not set - See amount is NaN
 export async function getAllEntries(
 	callback: Function,
 	verified?: boolean,
@@ -188,7 +186,8 @@ export async function createEntry(
 	callback: Function,
 	telefon?: string,
 	website?: string,
-	description?: string
+	description?: string,
+	verified?: boolean
 ) {
 	if (!company || !email || !job || !address || !latitude || !longitude) {
 		return callback(

@@ -18,7 +18,8 @@ content-type: application/json
     "email": "notare@deutschland.de",
     "telefon": "+49 (0)15204847706",
     "website": "notare-deutschland.de",
-    "description": "Die besten Notare in Deutschland mit allen wichtigen Services"
+    "description": "Die besten Notare in Deutschland mit allen wichtigen Services",
+    "verified": false
     
 }
 

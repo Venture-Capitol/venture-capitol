@@ -1,17 +1,14 @@
-/* SEEMS TO BE UNNECESSARY DUE TO OPENAPI VALIDATOR
-// REMOVE AFTER FURTHER TESTING
-export function parseToBoolean(value: string) {
-	if (value === undefined) {
+export function parseToBoolean(value: any) {
+	if (value === undefined || value === true || value === false) {
 		return value;
-	} else if (value === "true" || value === "false") {
-		return value === "true";
+	} else if (value == "true" || value == "false") {
+		return value == "true";
 	} else {
 		return null;
 	}
 }
-*/
 
-export function parseToNumber(value: string) {
+export function parseToNumber(value: any) {
 	if (value === undefined) {
 		return value;
 	} else {
