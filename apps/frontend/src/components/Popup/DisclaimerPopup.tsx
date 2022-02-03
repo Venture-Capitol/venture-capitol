@@ -1,30 +1,51 @@
-import Dialog from "./Dialog";
+import AlertDialog from "./AlertDialog";
 import Button from "@vc/ui/src/components/Button/Button";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import s from "./DisclaimerPopup.module.scss";
+import { setCookie } from "../../utils/DPACK";
 
 const DisclaimerPopup: React.FunctionComponent = () => (
-	<Dialog
+	<AlertDialog
 		title={"Hey du!"}
-		close={
-			<div style={{ width: "100%" }}>
-				<Button width='fullwidth'>Alles klar!</Button>
+		action={
+			<div className={s.action} style={{ width: "100%" }}>
+				<Button
+					width='fullwidth'
+					onClick={() => {
+						setCookie();
+					}}
+				>
+					Alles klar!
+				</Button>
+			</div>
+		}
+		cancel={
+			<div className={s.cancel} style={{ width: "100%" }}>
+				<Link to='/datenschutz'>
+					<Button
+						width='fullwidth'
+						onClick={() => {
+							setCookie();
+						}}
+					>
+						Datenschutz
+					</Button>
+				</Link>
 			</div>
 		}
 		defaultOpen={true}
-		preventEscape={false}
+		preventEscape={true}
 	>
 		Diese Seite ersetzt keine Rechtsberatung, notarielle Beratung,
 		Steuerberatung im Bedarfsfall ist immer ein Rechtsanwalt, Notar oder
 		Steuerberater zu bemühen!
 		<br />
-		<span className={s.legals}>
-			<BrowserRouter>
-				<Link to='/legalpages/impressum'>Impressum</Link> |{" "}
-				<Link to='/legalpages/datenschutz'>Datenschutz</Link>
-			</BrowserRouter>
-		</span>
-	</Dialog>
+		<br />
+		Wir benutzen keine externen Cookies und versuchen datensparsam zu arbeiten.
+		Mehr dazu findest du in unserer Datenschutzerklärung.
+		<br />
+		<br />
+	</AlertDialog>
 );
 
 export default DisclaimerPopup;
