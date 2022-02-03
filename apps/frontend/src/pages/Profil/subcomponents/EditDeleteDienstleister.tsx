@@ -1,26 +1,36 @@
 import s from "./EditDeleteDienstleister.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
+import Dialog from "@vc/frontend/component/Popup/Dialog";
+import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
 
-export default function EditDeleteDienstleister() {
+interface Props {
+	dienstleisterOfUser: any;
+	getDienstleisterOfUser: any;
+}
+
+const EditDeleteDienstleister = ({
+	dienstleisterOfUser,
+	getDienstleisterOfUser,
+}: Props) => {
 	const { user } = useAuthContext();
 
-	// NEEDS LOGIC TO GET USER WHO THIS DIENSTLEISTER BELONGS TO
-	// USE GET TO GET ALL INFOS, ADD INTO FORM, PERFORM EDIT & DELETE WITH ID
-
-	// ALSO: ADD MODAL FOR DELETE BUTTON BEFORE DELETING
-
 	const [showEditConfirmation, setShowEditConfirmation] = useState(false);
-	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
-	const [company, setCompany] = useState("");
-	const [jobname, setJobname] = useState("");
-	const [address, setAddress] = useState("");
-	const [email, setEmail] = useState("");
-	const [telefon, setTelefon] = useState("");
-	const [website, setWebsite] = useState("");
-	const [description, setDescription] = useState("");
+	const [company, setCompany] = useState(dienstleisterOfUser.company);
+	const [jobname, setJobname] = useState(dienstleisterOfUser.job);
+	const [address, setAddress] = useState(dienstleisterOfUser.address);
+	const [email, setEmail] = useState(dienstleisterOfUser.email);
+	const [telefon, setTelefon] = useState(dienstleisterOfUser.telefon);
+	const [website, setWebsite] = useState(dienstleisterOfUser.website);
+	const [description, setDescription] = useState(
+		dienstleisterOfUser.description
+	);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	function editDienstleister(event: any) {
 		event.preventDefault();
@@ -36,11 +46,11 @@ export default function EditDeleteDienstleister() {
 				telefon: telefon,
 				website: website,
 				description: description,
+				verified: false,
 			},
 		};
 
-		var userID = "";
-		const fetchURL = "http://localhost:8103/entry/" + userID;
+		const fetchURL = "http://localhost:8103/entry/" + dienstleisterOfUser.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {
@@ -53,24 +63,19 @@ export default function EditDeleteDienstleister() {
 			};
 
 			return fetch(fetchURL, requestOptions)
-				.then(data => checkEditResponse(data))
+				.then(data => {
+					if (data.ok) {
+						setShowEditConfirmation(true);
+					} else {
+						setShowEditConfirmation(false);
+					}
+				})
 				.catch(error => console.log(error));
 		});
 	}
 
-	function checkEditResponse(data: any) {
-		if (data.ok) {
-			setShowEditConfirmation(true);
-		} else {
-			setShowEditConfirmation(false);
-		}
-	}
-
-	function deleteDienstleister(event: any) {
-		event.preventDefault();
-
-		var userID = "";
-		const fetchURL = "http://localhost:8103/entry/" + userID;
+	function deleteDienstleister() {
+		const fetchURL = "http://localhost:8103/entry/" + dienstleisterOfUser.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {
@@ -81,40 +86,31 @@ export default function EditDeleteDienstleister() {
 			};
 
 			return fetch(fetchURL, requestOptions)
-				.then(data => checkDeleteResponse(data))
+				.then(data => {
+					if (data.ok) getDienstleisterOfUser();
+				})
 				.catch(error => console.log(error));
 		});
-	}
-
-	function checkDeleteResponse(data: any) {
-		if (data.ok) {
-			setShowDeleteConfirmation(true);
-		} else {
-			setShowDeleteConfirmation(false);
-		}
 	}
 
 	function checkEditConfirmation() {
 		if (showEditConfirmation) {
 			return (
-				<div className={s.editsuccess_div}>
-					<p>
-						Bearbeitung erfolgreich!<br></br> Sobald ein Admin deine Änderungen
-						verifiziert hat wirst du wieder in der Suche gelistet!
-					</p>
-				</div>
-			);
-		} else {
-			return <div></div>;
-		}
-	}
-
-	function checkDeleteConfirmation() {
-		if (showDeleteConfirmation) {
-			return (
-				<div className={s.deletesuccess_div}>
-					<p>Deine Eintragung wurde erfolgreich gelöscht!</p>
-				</div>
+				<Dialog
+					title={"Bearbeitung erfolgreich!"}
+					defaultOpen={false}
+					open={showEditConfirmation}
+					onOpenChange={open => {
+						setShowEditConfirmation(open);
+						if (open === false) {
+							getDienstleisterOfUser();
+						}
+					}}
+				>
+					<span>
+						Die Änderungen an <b>{company}</b> wurden erfolgreich übernommen!
+					</span>
+				</Dialog>
 			);
 		} else {
 			return <div></div>;
@@ -137,12 +133,13 @@ export default function EditDeleteDienstleister() {
 				</p>
 			</div>
 			<div className={s.maindiv_editForm}>
-				<form className={s.editForm} onSubmit={editDienstleister}>
+				<form className={s.editForm}>
 					<label className={s.label_editForm}>
 						Firmenname*
 						<input
 							type='text'
 							className={s.textinput_editForm}
+							defaultValue={company}
 							onChange={e => setCompany(e.target.value)}
 							required
 						/>
@@ -152,6 +149,7 @@ export default function EditDeleteDienstleister() {
 						<select
 							name='Dienstleistungen'
 							className={s.joboption_editForm}
+							defaultValue={jobname}
 							onChange={e => setJobname(e.target.value)}
 							required
 						>
@@ -166,6 +164,7 @@ export default function EditDeleteDienstleister() {
 						<input
 							type='text'
 							className={s.textinput_editForm}
+							defaultValue={address}
 							onChange={e => setAddress(e.target.value)}
 							required
 						/>
@@ -175,6 +174,7 @@ export default function EditDeleteDienstleister() {
 						<input
 							type='text'
 							className={s.textinput_editForm}
+							defaultValue={email}
 							onChange={e => setEmail(e.target.value)}
 							required
 						/>
@@ -184,6 +184,7 @@ export default function EditDeleteDienstleister() {
 						<input
 							type='text'
 							className={s.textinput_editForm}
+							defaultValue={telefon}
 							onChange={e => setTelefon(e.target.value)}
 						/>
 					</label>
@@ -192,6 +193,7 @@ export default function EditDeleteDienstleister() {
 						<input
 							type='text'
 							className={s.textinput_editForm}
+							defaultValue={website}
 							onChange={e => setWebsite(e.target.value)}
 						/>
 					</label>
@@ -200,18 +202,39 @@ export default function EditDeleteDienstleister() {
 						<textarea onChange={e => setDescription(e.target.value)}></textarea>
 					</label>
 					<div className={s.divforthat}>
-						<Button>Änderungen speichern</Button>
-						<button
-							className={s.deleteButton}
-							onClick={e => deleteDienstleister(e)}
+						<div onClick={e => editDienstleister(e)}>
+							<Button>Änderungen speichern</Button>
+						</div>
+						<AlertDialog
+							defaultOpen={false}
+							title={"Bist du sicher?"}
+							trigger={<div className={s.deleteDLButton}>Löschen</div>}
+							cancel={
+								<div className={s.modalCancelButton}>
+									<Button>Abbrechen</Button>
+								</div>
+							}
+							action={
+								<span
+									className={s.deleteModalButton}
+									onClick={deleteDienstleister}
+								>
+									Löschen
+								</span>
+							}
 						>
-							Löschen
-						</button>
+							<span className={s.deleteModalText}>
+								Möchtest du deine Dienstleistereintragung <b>{company}</b>{" "}
+								wirklich löschen? Diese Änderung kann nicht rückgängig gemacht
+								werden!
+							</span>
+						</AlertDialog>
 					</div>
 				</form>
 			</div>
 			{checkEditConfirmation()}
-			{checkDeleteConfirmation()}
 		</>
 	);
-}
+};
+
+export default EditDeleteDienstleister;

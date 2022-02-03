@@ -3,6 +3,7 @@ import GPFProfileContent from "@vc/frontend/component/ProfileContent/GPFProfileC
 import { useState } from "react";
 import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
 import { Link, useParams } from "react-router-dom";
+import DienstleisterProfil from "./subcomponents/DienstleisterProfil";
 
 export interface ProfileParams {
 	platform: string;
@@ -39,10 +40,12 @@ export default function () {
 						</Link>
 						<Link
 							to={{
-								pathname: "/profil/dlr",
+								pathname: "/profil/dienstleister",
 							}}
-							onClick={() => switchProfile("dlr")}
-							className={`${GPF_DLR == "dlr" && s.active} ${s.navLink}`}
+							onClick={() => switchProfile("dienstleister")}
+							className={`${GPF_DLR == "dienstleister" && s.active} ${
+								s.navLink
+							}`}
 							replace
 						>
 							Mein Dienstleisterprofil
@@ -50,7 +53,7 @@ export default function () {
 					</div>
 				</div>
 				{GPF_DLR == "gpf" && <GPFProfileContent />}
-				{GPF_DLR == "dlr" && <div>DLR coming soon...</div>}
+				{GPF_DLR == "dienstleister" && <DienstleisterProfil />}
 			</div>
 		</div>
 	);
