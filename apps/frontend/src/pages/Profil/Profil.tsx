@@ -16,7 +16,7 @@ export default function () {
 	return (
 		<div
 			style={{
-				height: "100%",
+				minHeight: "100%",
 				display: "flex",
 				alignItems: "center",
 				justifyContent: "center",
