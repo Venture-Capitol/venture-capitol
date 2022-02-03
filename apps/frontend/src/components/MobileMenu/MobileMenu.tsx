@@ -56,7 +56,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isLoggedIn, closeMenu }) => {
 							{isLoggedIn && (
 								<div className={s.contentItemWrapper}>
 									<NavLink
-										to='/profil'
+										to='/profil/'
 										className={isActive =>
 											s.contentItem + (isActive ? " " + s.selected : "")
 										}
