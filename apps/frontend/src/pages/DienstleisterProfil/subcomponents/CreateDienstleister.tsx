@@ -1,9 +1,14 @@
 import s from "./CreateDienstleister.module.scss";
 import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
+import Dialog from "@vc/frontend/component/Popup/Dialog";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 
-export default function CreateDienstleister() {
+interface Props {
+	getDienstleisterOfUser: any;
+}
+
+const CreateDienstleister = ({ getDienstleisterOfUser }: Props) => {
 	const { user } = useAuthContext();
 
 	const [showConfirmation, setShowConfirmation] = useState(false);
@@ -16,8 +21,9 @@ export default function CreateDienstleister() {
 	const [website, setWebsite] = useState("");
 	const [description, setDescription] = useState("");
 
-	function createDienstleister(event: any) {
+	async function createDienstleister(event: any) {
 		event.preventDefault();
+
 		const body = {
 			job: jobname,
 			company: company,
@@ -28,6 +34,7 @@ export default function CreateDienstleister() {
 			telefon: telefon,
 			website: website,
 			description: description,
+			verified: false,
 		};
 
 		user?.getIdToken().then(token => {
@@ -41,28 +48,37 @@ export default function CreateDienstleister() {
 			};
 
 			return fetch("http://localhost:8103/entry/", requestOptions)
-				.then(data => checkResponse(data))
+				.then(data => {
+					if (data.ok) {
+						setShowConfirmation(true);
+					} else {
+						setShowConfirmation(false);
+					}
+				})
 				.catch(error => console.log(error));
 		});
-	}
-
-	function checkResponse(data: any) {
-		if (data.ok) {
-			setShowConfirmation(true);
-		} else {
-			setShowConfirmation(false);
-		}
 	}
 
 	function checkConfirmation() {
 		if (showConfirmation) {
 			return (
-				<div className={s.createsuccess_div}>
-					<p>
-						Hinzufügen erfolgreich!<br></br> Sobald ein Admin deine Eintragung
-						verifiziert hat wirst du in der Suche gelistet!
-					</p>
-				</div>
+				<Dialog
+					title={"Hinzufügen erfolgreich!"}
+					defaultOpen={true}
+					open={showConfirmation}
+					onOpenChange={open => {
+						setShowConfirmation(open);
+						if (open === false) {
+							getDienstleisterOfUser();
+						}
+					}}
+				>
+					<span>
+						Ein Administrator wird deine Eintragung als <b>{company}</b>{" "}
+						verifizieren. Wenn alles passt, dann wirst du als Dienstleister in
+						der Suche gelistet. Vielen Dank!
+					</span>
+				</Dialog>
 			);
 		} else {
 			return <div></div>;
@@ -73,7 +89,7 @@ export default function CreateDienstleister() {
 		<>
 			<div className={s.maindiv_headline_createEntry}>
 				<p className={s.AlsDienstleisterEintragen}>
-					Als Dienstleister hinzufügen
+					Als Dienstleister eintragen
 				</p>
 			</div>
 			<div className={s.maindiv_createForm}>
@@ -93,9 +109,10 @@ export default function CreateDienstleister() {
 							name='Dienstleistungen'
 							className={s.joboption_createForm}
 							onChange={e => setJobname(e.target.value)}
+							defaultValue={""}
 							required
 						>
-							<option value='' selected disabled hidden>
+							<option value='' disabled hidden>
 								Bitte auswählen
 							</option>
 							<option value='Notar'>Notar</option>
@@ -150,4 +167,6 @@ export default function CreateDienstleister() {
 			{checkConfirmation()}
 		</>
 	);
-}
+};
+
+export default CreateDienstleister;
