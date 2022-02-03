@@ -136,7 +136,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isLoggedIn, closeMenu }) => {
 				</Tabs.Content>
 				<Tabs.Content value='navigation' asChild>
 					<div className={s.navigationContainer}>
-						{!currentCompany ? (
+						{currentCompany ? (
 							<div className={s.taskListContainer}>
 								<TaskList />
 							</div>
@@ -144,8 +144,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isLoggedIn, closeMenu }) => {
 							<>
 								<div className={s.placeholder}>
 									<div className={s.placeholderText}>
-										Starte jetzt deinen Gründungsprozess, um einen großen Cock
-										zu bekommen.
+										Willst du jetzt deine Gesellschaftsform wählen?
 									</div>
 
 									<Button variant='secondary' width='max-content'>
