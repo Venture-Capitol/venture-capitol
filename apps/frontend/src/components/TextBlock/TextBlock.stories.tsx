@@ -10,7 +10,7 @@ export default {
 } as Meta;
 
 export const Primary: React.VFC<{}> = () => (
-	<TextBlock title='Storybook' arrow={true}>
+	<TextBlock title='Storybook' arrow={false}>
 		Storybook
 	</TextBlock>
 );

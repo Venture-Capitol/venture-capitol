@@ -2,13 +2,13 @@ import React, { FC, useContext, useEffect, useState } from "react";
 
 import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
-import "firebaseui/dist/firebaseui.css";
+import "./firebaseui.css";
 import "./firebase.scss";
 import { useAuthContext } from "./AuthContext";
 import { app } from "./firebase";
 
 export const AuthUI: FC = () => {
-	const { user } = useAuthContext();
+	const { user, instances, setInstances } = useAuthContext();
 	const [isLoading, setIsLoading] = useState(true);
 
 	const loader = <div id='loader' style={{ height: "72px" }}></div>;
@@ -30,12 +30,19 @@ export const AuthUI: FC = () => {
 	};
 
 	useEffect(() => {
-		const ui = new firebaseui.auth.AuthUI(app.auth());
-		ui.start("#firebaseui-auth-container", uiConfig);
+		const ui =
+			firebaseui.auth.AuthUI.getInstance() ||
+			new firebaseui.auth.AuthUI(app.auth());
+		if (user !== undefined) {
+			ui.start("#firebaseui-auth-container", uiConfig);
+			setInstances(instances + 1);
+		}
+
 		return () => {
-			ui.delete();
+			if (instances == 1) ui.delete();
+			setInstances(instances - 1);
 		};
-	}, []);
+	}, [user]);
 
 	return (
 		<React.Fragment>
