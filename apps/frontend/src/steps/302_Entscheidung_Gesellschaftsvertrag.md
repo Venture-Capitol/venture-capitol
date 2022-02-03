@@ -1,4 +1,4 @@
-Für die Gründung deines Unternehmens ist in jedem Fall ein _UG/GmbH_-Gesellschaftsvertrag nötig. Diesen Vertrag nennt man auch gerne Satzung. In diesem Vertrag sind alle wichtigen Eckdaten für deine Firma festgeschrieben.
+Für die Gründung deines Unternehmens ist in jedem Fall ein $ug{UG}$gmbh{GmbH}-Gesellschaftsvertrag nötig. Diesen Vertrag nennt man auch gerne Satzung. In diesem Vertrag sind alle wichtigen Eckdaten für deine Firma festgeschrieben.
 
 Klassischerweise enthält dieser Vertrag:
 
@@ -33,26 +33,27 @@ Diese kannst du in einem ersten Entwurf mit einem Anwalt ausarbeiten und dann sp
 
 ## Jeweilige Kosten beim Notar (in etwa)
 
-_UG_
-
+$ug{
 1 Gesellschafter:
 
 - Notarkosten bei Musterprotokoll 180 Euro
-- Notarkosten wenn eigene Satzung 815 Euro
+- Notarkosten wenn eigene Satzung 815 Euro}
 
+$ug{
 2-3 Gesellschafter:
 
 - Notarkosten bei Musterprotokoll 250 Euro
-- Notarkosten wenn eigene Satzung 825 Euro
+- Notarkosten wenn eigene Satzung 825 Euro}
 
-_GmbH_
-
+$gmbh{
 1 Gesellschafter:
 
 - Notarkosten bei Musterprotokoll 350 Euro
-- Notarkosten wenn eigene Satzung 815 Euro
+- Notarkosten wenn eigene Satzung 815 Euro}
 
+$gmbh{
 2-3 Gesellschafter:
 
 - Notarkosten bei Musterprotokoll 490 Euro
 - Notarkosten wenn eigene Satzung 825 Euro
+  }

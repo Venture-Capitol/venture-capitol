@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import s from "./TextBlock.module.scss";
-import BackArrow from "@vc/frontend/component/BackArrow/BackArrow";
+import BackArrow from "../BackArrow/BackArrow";
 
 type TextProps = {
 	title?: string;
@@ -14,7 +14,7 @@ const TextBlock: FunctionComponent<TextProps> = ({
 	arrow,
 }: TextProps) => {
 	return (
-		<div className={`${s.text_block}`}>
+		<div className={`${s.text_block} content`}>
 			{arrow && <BackArrow />}
 			<h1>{title}</h1>
 			<div className={s.page_content}>{children}</div>

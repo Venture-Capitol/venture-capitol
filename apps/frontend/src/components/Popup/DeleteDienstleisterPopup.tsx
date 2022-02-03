@@ -1,4 +1,4 @@
-import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
+import AlertDialog from "./AlertDialog";
 import Button from "@vc/ui/src/components/Button/Button";
 
 const DeleteDienstleisterPopup: React.FunctionComponent = () => (

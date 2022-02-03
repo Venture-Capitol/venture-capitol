@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-import app = require("./app");
+import { app } from "./app";
 declare global {
 	namespace Express {
 		export interface Request {
@@ -12,8 +12,8 @@ declare global {
 		}
 	}
 }
-import http = require("http");
-import logger = require("./config/winston");
+import http from "http";
+import * as logger from "./config/winston";
 import { DecodedIdToken } from "firebase-admin/auth";
 
 /**

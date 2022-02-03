@@ -1,6 +1,11 @@
+import { AuthContext, User } from "@vc/auth";
+import axios from "axios";
 import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
 import { taskGraph, Node, Nodes } from "../../steps/connections";
+import * as CompanyService from "./company";
+import { GPF } from "@vc/api";
+import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 // 🌍 Context
 
@@ -8,8 +13,10 @@ type GruendungContext = {
 	nodes: ProcessedTaskNodes;
 	initialNodeId: string;
 	unprocessedNodes: Nodes;
+	currentCompany?: Company;
 	setTaskStatus(taskId: string, status: boolean): void;
 	setDecisionStatus(decisionId: string, path?: number): void;
+	createCompany(legalForm: string): void;
 };
 
 const GruendungContext = React.createContext<GruendungContext>({
@@ -18,6 +25,7 @@ const GruendungContext = React.createContext<GruendungContext>({
 	unprocessedNodes: taskGraph.nodes,
 	setTaskStatus: () => {},
 	setDecisionStatus: () => {},
+	createCompany: () => {},
 });
 
 export function useGruendungContext() {
@@ -46,43 +54,124 @@ interface ProcessedTaskGraph {
 	nodes: ProcessedTaskNodes;
 }
 
+export interface Decision {
+	id: string;
+	path: number;
+}
+
+export interface Company {
+	id?: string;
+	legalForm: string;
+}
+
 // 💾 Provider
 
 const GruendungContextProvider: FC = ({ children }) => {
 	const [nodes, setNodes] = useState<ProcessedTaskNodes>({});
 	const [initialNodeId, setInitialNodeId] = useState("");
 
-	const [completedTasks, setCompletedTasks] = useState<string[]>([]);
-	const [madeDecisions, setMadeDecisions] = useState<
-		{
-			id: string;
-			path: number;
-		}[]
-	>([]);
+	const [currentCompany, setCurrentCompany] = useState<Company>();
+	const [completedTasks, setCompletedTasks] =
+		useState<string[]>(loadCompletedTasks);
+	const [madeDecisions, setMadeDecisions] = useState<Decision[]>(
+		loadCompletedDecisions
+	);
+	const { user } = useAuthContext();
 
-	function setTaskStatus(taskId: string, status: boolean) {
-		if (status) {
-			if (!completedTasks.find(task => task == taskId)) {
-				setCompletedTasks([...completedTasks, taskId]);
+	useEffect(() => {
+		const interceptor = GPF.axiosInstance.interceptors.request.use(
+			async request => {
+				if (!user) console.log("no user :(");
+
+				user?.getIdToken().then(idToken => {
+					if (request.headers) {
+						request.headers.Authorization = `Bearer ${idToken}`;
+					}
+				});
+				return request;
+			},
+			function (error) {
+				return Promise.reject(error);
 			}
+		);
+
+		return () => GPF.axiosInstance.interceptors.request.eject(interceptor);
+	}, [user]);
+
+	// Load current company
+	useEffect(() => {
+		// If user is not logged in, try loading company from local storage
+		if (user == undefined) {
+			const loadedCompany = localStorage.getItem("company");
+			if (loadedCompany) {
+				setCurrentCompany(JSON.parse(loadedCompany));
+			}
+			return;
+		}
+
+		// Otherwise, get company from API
+		CompanyService.getCurrentCompany(user).then(company => {
+			// if a company exists on the server, use it
+			if (company != undefined) {
+				setCurrentCompany({
+					legalForm: company.legalForm,
+					id: company.id,
+				});
+				setCompletedTasks(company.completedTasks.map(task => task.taskId));
+				setMadeDecisions(
+					company.madeDecisions.map(decision => ({
+						id: decision.decisionId,
+						path: decision.selectedPath,
+					}))
+				);
+				return;
+			}
+
+			// If there is no remote company, but user has created one when logged out, save it
+			if (currentCompany?.legalForm) {
+				CompanyService.createCompany(currentCompany?.legalForm, {
+					completedTasks,
+					madeDecisions,
+				});
+			}
+		});
+	}, [user]);
+
+	function loadCompletedTasks() {
+		let tasks = localStorage.getItem("tasks");
+		if (tasks) {
+			return JSON.parse(tasks);
+		}
+		return [];
+	}
+
+	function loadCompletedDecisions() {
+		let decisions = localStorage.getItem("decisions");
+		if (decisions) {
+			return JSON.parse(decisions);
+		}
+		return [];
+	}
+
+	async function createCompany(legalForm: string) {
+		if (user) {
+			const company = await CompanyService.createCompany(legalForm);
+			if (!company) return;
+
+			setCurrentCompany({
+				legalForm: company.legalForm,
+				id: company.id,
+			});
 		} else {
-			setCompletedTasks(completedTasks.filter(task => task !== taskId));
+			let tempCompany = {
+				legalForm,
+			};
+			setCurrentCompany(tempCompany);
+			localStorage.setItem("company", JSON.stringify(tempCompany));
 		}
 	}
 
-	function setDecisionStatus(decisionId: string, path?: number) {
-		if (path != undefined) {
-			setMadeDecisions([
-				...madeDecisions.filter(decision => decision.id !== decisionId),
-				{ id: decisionId, path },
-			]);
-		} else {
-			setMadeDecisions([
-				...madeDecisions.filter(decision => decision.id !== decisionId),
-			]);
-		}
-	}
-
+	// Process task graph
 	useEffect(() => {
 		let processedTaskGraph: ProcessedTaskGraph = {
 			initialNode: taskGraph.initialNode,
@@ -116,6 +205,65 @@ const GruendungContextProvider: FC = ({ children }) => {
 		setInitialNodeId(processedTaskGraph.initialNode);
 	}, [taskGraph, completedTasks, madeDecisions]);
 
+	/**
+	 * Set wheter a task is done or not
+	 * @param taskId id of the task to mark as either done or not
+	 * @param status true if done, false if not
+	 */
+	function setTaskStatus(taskId: string, status: boolean) {
+		let updatedTasks;
+		if (status) {
+			if (!completedTasks.find(task => task == taskId)) {
+				updatedTasks = [...completedTasks, taskId];
+				setCompletedTasks(updatedTasks);
+			}
+
+			if (currentCompany?.id) {
+				GPF.markTaskDone(currentCompany.id, taskId);
+			}
+		} else {
+			updatedTasks = completedTasks.filter(task => task !== taskId);
+			setCompletedTasks(updatedTasks);
+			if (currentCompany?.id) {
+				GPF.undoTaskCompletion(currentCompany.id, taskId);
+			}
+		}
+
+		window.localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+	}
+
+	/**
+	 * Make a decision by selecting a path, or revoke it by setting path to undefined
+	 * @param decisionId id of the decision
+	 * @param path 0 or two, depending on the left or right branch, undefined if decision should be revoked
+	 */
+	function setDecisionStatus(decisionId: string, path?: number) {
+		let changedDecisions;
+
+		if (path != undefined) {
+			changedDecisions = [
+				...madeDecisions.filter(decision => decision.id !== decisionId),
+				{ id: decisionId, path },
+			];
+			setMadeDecisions(changedDecisions);
+
+			if (currentCompany?.id) {
+				GPF.makeDecision(currentCompany?.id, decisionId, {
+					selectedPath: path,
+				});
+			}
+		} else {
+			changedDecisions = [
+				...madeDecisions.filter(decision => decision.id !== decisionId),
+			];
+			setMadeDecisions(changedDecisions);
+			if (currentCompany?.id) {
+				GPF.undoDecision(currentCompany?.id, decisionId);
+			}
+		}
+		window.localStorage.setItem("decisions", JSON.stringify(changedDecisions));
+	}
+
 	return (
 		<GruendungContext.Provider
 			value={{
@@ -124,6 +272,8 @@ const GruendungContextProvider: FC = ({ children }) => {
 				unprocessedNodes: taskGraph.nodes,
 				setTaskStatus,
 				setDecisionStatus,
+				currentCompany,
+				createCompany,
 			}}
 		>
 			{children}
@@ -154,10 +304,8 @@ function calculatePreviousNodes(nodes: ProcessedTaskNodes) {
 	});
 }
 
-// recursive add path to nodes and next in decision
-
 /**
- *
+ * recursive add path to nodes and next in decision
  * @param path
  * @param nodeId
  * @param count

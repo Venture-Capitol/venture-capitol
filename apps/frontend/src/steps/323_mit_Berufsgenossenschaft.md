@@ -1,5 +1,13 @@
-Obwohl die Berufsgenossenschaft im Regelfall automatisch durch die Gewerbeanmeldung Kenntnis vom Beginn des Unternehmens erhält, entbindet Sie dies nicht von der gesetzlichen Meldepflicht gemäß § 192 SGB VII. Danach sind Unternehmer verpflichtet, sich binnen einer Woche bei der zuständigen Berufsgenossenschaft zu melden und Angaben zu machen über Art und Gegenstand des Unternehmens, Zahl der Versicherten sowie Beginn des Unternehmens.
-Die Mitgliedschaft in der zuständigen Berufsgenossenschaft ist für alle Arbeitgeber Pflicht, die Mitarbeiter beschäftigen. Bei einigen Berufsgenossenschaften sind Sie als Unternehmer ebenfalls kraft Gesetz oder Satzung pflichtversichert. In den anderen Fällen können Sie sich freiwillig gegen die Folgen eines Arbeitsunfalls oder einer Berufskrankheit in der gesetzlichen Unfallversicherung versichern. Aufgrund der niedrigen Beiträge und günstigen Leistungen sollten Sie diese Möglichkeit nutzen.
-Auskünfte über Aufgaben und Zuständigkeiten erhalten Sie bei der kostenlosen Infoline der Deutschen Gesetzlichen Unfallversicherung e. V., Tel.: 0800 60 50 40 4 oder im Internet unter www.dguv.de.
+Auch hier wieder Formalitäten bei denen dich dein Steuerberater unterstützen kann.
+Die Anmeldung deines Unternehmens bei der Berufsgenossenschaft. Diese leistet als Träger der gesetzlichen Unfallsversicherung einen wichtigen Beitrag zum Gesundheitsschutz.
 
-Die Berufsgenossenschaften sind Träger der gesetzlichen Unfallversicherung, in der Arbeitgeber ihre Mitarbeiter gegen Arbeitsunfälle und Berufskrankheiten versichern müssen. In manchen Branchen besteht diese gesetzliche Pflichtversicherung auch für den Unternehmer selbst, ansonsten ist es sinnvoll, sich dort freiwillig zu versichern. Nähere Informationen über diese Vorschriften erhalten Sie bei der zuständigen Kammer. Welche Berufsgenossenschaft jeweils zuständig ist, kann beim Verband der Deutschen Gesetzlichen Unfallversicherung erfragt werden (Landesverband Nordwest, Tel.: 0511-987 2277).
+## Anmeldung vornehmen lassen
+
+Obwohl die Berufsgenossenschaft meistens automatisch durch die Gewerbeanmeldung Kenntnis von der Gründung deines Unternehmens erhält, entbindet dich das nicht von der gesetzlichen Meldepflicht. Auch diese Anmeldung kann der Steuerberater für dich durchführen.
+
+## Pflichtversicherung für Unternehmen
+
+Du bist dazu verpflichtet, dich bei einem Unfallversicherungsträger registrieren zu lassen. Das geht aus dem § 192 des Sozialgesetzbuches VII hervor.
+Wichtig: Du musst dich bei der Berufsgenossenschaft auch anmelden, wenn du noch keine Arbeitnehmer beschäftigst. Dann fallen allerdings keine Kosten für dich an.
+
+Die Mitgliedschaft in der zuständigen Berufsgenossenschaft ist für alle Arbeitgeber Pflicht, die Mitarbeiter beschäftigen. Bei einigen Berufsgenossenschaften sind Sie als Unternehmer ebenfalls kraft Gesetz oder Satzung pflichtversichert. In den anderen Fällen können Sie sich freiwillig gegen die Folgen eines Arbeitsunfalls oder einer Berufskrankheit in der gesetzlichen Unfallversicherung versichern. Aufgrund der niedrigen Beiträge und günstigen Leistungen sollten Sie diese Möglichkeit nutzen.

@@ -1,15 +1,28 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useContext } from "react";
 import { app } from "./firebase";
 import firebase from "firebase/compat/app";
 
-export const AuthContext = React.createContext<firebase.User | null>(null);
-
-interface AuthProviderProps {
-	children: any;
+interface AuthContext {
+	user: firebase.User | null | undefined;
+	instances: number;
+	setInstances: (instances: number) => void;
 }
 
-export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-	const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
+export const AuthContext = React.createContext<AuthContext>({
+	user: undefined,
+	instances: 0,
+	setInstances: () => {},
+});
+export function useAuthContext() {
+	return useContext(AuthContext);
+}
+
+export const AuthProvider: FC = ({ children }) => {
+	const [currentUser, setCurrentUser] = useState<
+		firebase.User | null | undefined
+	>(undefined);
+
+	const [uiInstances, setUiInstances] = useState<number>(0);
 
 	useEffect(() => {
 		const authObserver = app.auth().onAuthStateChanged(firebaseUser => {
@@ -19,6 +32,14 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	}, []);
 
 	return (
-		<AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>
+		<AuthContext.Provider
+			value={{
+				user: currentUser,
+				instances: uiInstances,
+				setInstances: setUiInstances,
+			}}
+		>
+			{children}
+		</AuthContext.Provider>
 	);
 };

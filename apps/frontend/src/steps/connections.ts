@@ -61,7 +61,7 @@ export const taskGraph: ConnectionsData = {
 		},
 		"307_Einzahlung_Stammkapital": {
 			type: "task",
-			name: "Einzahlung des Stammkapitals bei der UG",
+			name: "Einzahlung des Stammkapitals deiner Gesellschaft",
 			shortName: "Einzahlung Stammkapital",
 			next: ["308_Notarielle_Bestätigung"],
 		},
@@ -93,12 +93,18 @@ export const taskGraph: ConnectionsData = {
 			type: "task",
 			name: "Die Gewerbeanmeldung für deine UG",
 			shortName: "Gewerbeanmeldung",
-			next: ["313_Rechnungen_und_Buchhaltung"],
+			next: ["313A_Rechnungen"],
 		},
-		"313_Rechnungen_und_Buchhaltung": {
+		"313A_Rechnungen": {
 			type: "task",
-			name: "Wie du deine Rechnungen und Buchhaltung organisierst",
-			shortName: "Rechnungen und Buchhaltung",
+			name: "Schnelle und unkomplizierte Rechnungsstellung",
+			shortName: "Rechnungen",
+			next: ["313B_Buchhaltung"],
+		},
+		"313B_Buchhaltung": {
+			type: "task",
+			name: "Eine gut organisierte Buchhaltung von Anfang an",
+			shortName: "Buchhaltung",
 			next: ["314_Entscheidung_Steuerberater"],
 		},
 		"314_Entscheidung_Steuerberater": {

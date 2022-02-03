@@ -2,15 +2,15 @@ Mit dem Nachweis deiner Bank (dass das Stammkapital eingezahlt wurde) gehst du j
 
 ## Wie geht es ab jetzt weiter?
 
-Die Handelsregistereintragung bei deiner _UG/GmbH_-Gründung ist damit angestoßen.
+Die Handelsregistereintragung bei deiner $ug{UG}$gmbh{GmbH}-Gründung ist damit angestoßen.
 
-Die Prüfung und Eintragung deiner _UG/GmbH_ in das Handelsregister kann allerdiings einige Zeit in Anspruch nehmen. Je nach zuständigem Amtsgericht variiert die Bearbeitungsdauer zwischen einigen Werktagen und mehreren Wochen – wenn die eingereichten Unterlagen vollständig sind.
+Die Prüfung und Eintragung deiner $ug{UG}$gmbh{GmbH} in das Handelsregister kann allerdiings einige Zeit in Anspruch nehmen. Je nach zuständigem Amtsgericht variiert die Bearbeitungsdauer zwischen einigen Werktagen und mehreren Wochen – wenn die eingereichten Unterlagen vollständig sind.
 
 Nicht wundern, in den nächsten Tagen flattert jetzt die Rechnung von der Landesjustizkasse ein, in Höhe von 150 Euro per Post an die angegebene Geschäftsadresse. Jetzt am besten schnell sein und den Rechnungsbetrag begleichen und wenn das Geld bei deinem zuständigen Amtsgericht eingegangen ist, wird der neue Eintrag veröffentlicht. In manchen Fällen findet auch schon eine vorläufige Veröffentlichung statt.
 
-Deine _UG/GmbH_ ist nun offiziell im Handelsregister eingetragen. Die Handelsregisternummer und das Registergericht müssen ab sofort in die Fußzeile deiner geschäftlichen Briefe eingefügt werden. Außerdem musst du sie auch auf deiner Webseite und in der Signatur deiner E-Mails angeben. Wie du schnell eine eigene Webseite erstellst bzw. gute Webdesigner findest und dir eine eigene Email Adresse erstellst, zeigen wir die später im Prozess. (Wenn du möchtest kannst du natürlich schon zu diesem Punkt springen und einfach die Häkchen davor noch nicht abhaken.)
+Deine $ug{UG}$gmbh{GmbH} ist nun offiziell im Handelsregister eingetragen. Die Handelsregisternummer und das Registergericht müssen ab sofort in die Fußzeile deiner geschäftlichen Briefe eingefügt werden. Außerdem musst du sie auch auf deiner Webseite und in der Signatur deiner E-Mails angeben. Wie du schnell eine eigene Webseite erstellst bzw. gute Webdesigner findest und dir eine eigene Email Adresse erstellst, zeigen wir die später im Prozess. (Wenn du möchtest kannst du natürlich schon zu diesem Punkt springen und einfach die Häkchen davor noch nicht abhaken.)
 
-## Lifehack: Tipps zur schnelleren Handelsregistereintragung einer _UG/GmbH_
+## Lifehack: Tipps zur schnelleren Handelsregistereintragung einer $ug{UG}$gmbh{GmbH}
 
 Die Eintragung ins Handelsregister hat bei uns damals ehrlichweise ziemlich lange gedauert. War eher schleppend alles. Deswegen hier ein paar Tipps was du bessser machen kannst. Die häufigsten Schnatzer solltest du allerdings bereits vermieden haben, da wir bereits vorher im Prozess die Namensfindung und Unternehmensgegenstand thematisiert haben.
 
