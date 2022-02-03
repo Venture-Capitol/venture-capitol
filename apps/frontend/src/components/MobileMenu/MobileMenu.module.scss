@@ -208,7 +208,7 @@
 	height: calc(100% - 50px);
 	display: flex;
 	flex-direction: column;
-	overflow-y: scroll;
+	overflow-y: auto;
 	mix-blend-mode: hard-light;
 	padding: 10px;
 }
