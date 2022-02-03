@@ -1,6 +1,18 @@
 .GPFprofileContainer {
 	padding-top: 100px;
 
+	.alertContainer {
+		width: max-content;
+
+		&.disabled {
+			cursor: not-allowed;
+
+			Button[data-disabled="true"] {
+				pointer-events: none;
+			}
+		}
+	}
+
 	.deletionConfirmation {
 		color: var(--color-green-500);
 		margin: 0;

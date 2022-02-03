@@ -11,6 +11,7 @@ const GPFProfileContent: FunctionComponent = ({}) => {
 	const [companyDeletedError, showErrorNotice] = useState(false);
 
 	const { currentCompany } = useGruendungContext();
+	console.log(currentCompany);
 
 	async function deleteCompany(): Promise<boolean | undefined> {
 		if (currentCompany == undefined) {
@@ -29,23 +30,27 @@ const GPFProfileContent: FunctionComponent = ({}) => {
 
 	return (
 		<div className={s.GPFprofileContainer}>
-			<AlertDialog
-				title={"Bist du dir sicher?"}
-				defaultOpen={false}
-				action={
-					<Button
-						onClick={() => {
-							deleteCompany();
-						}}
-					>
-						Firma löschen
-					</Button>
-				}
-				cancel={<Button>Abbrechen</Button>}
-				trigger={<Button>Firma löschen</Button>}
-			>
-				Das Löschen deiner Daten ist nicht rückgängig machbar.
-			</AlertDialog>
+			<div className={`${s.alertContainer} ${!currentCompany && s.disabled}`}>
+				<AlertDialog
+					title={"Bist du dir sicher?"}
+					defaultOpen={false}
+					action={
+						<Button
+							onClick={() => {
+								deleteCompany();
+							}}
+						>
+							Firma löschen
+						</Button>
+					}
+					cancel={<Button>Abbrechen</Button>}
+					trigger={
+						<Button disabled={!currentCompany && true}>Firma löschen</Button>
+					}
+				>
+					Das Löschen deiner Daten ist nicht rückgängig machbar.
+				</AlertDialog>
+			</div>
 			<p className={`${s.deletionConfirmation} ${companyDeleted && s.visible}`}>
 				Firma erfolgreich gelöscht.
 			</p>
