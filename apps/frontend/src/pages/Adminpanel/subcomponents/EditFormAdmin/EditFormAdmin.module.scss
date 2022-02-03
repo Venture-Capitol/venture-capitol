@@ -1,0 +1,107 @@
+.maindiv_headline_admin_editEntry {
+	display: flex;
+	justify-content: center;
+	padding-top: 10%;
+	align-items: center;
+}
+
+.DienstleisterBearbeiten {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-28px);
+}
+
+@media only screen and (max-width: 750px) {
+	.DienstleisterBearbeiten {
+		font-size: var(--size-20px);
+	}
+
+	.maindiv_headline_admin_editEntry {
+		padding-top: 15%;
+	}
+}
+
+////////////////////////////////////////////
+
+.maindiv_admin_editForm {
+	padding-top: 3.5%;
+	display: flex;
+	justify-content: center;
+}
+
+.editFormAdmin {
+	flex: 0 1 30em;
+	margin: 0px 5%;
+}
+
+.label_editFormAdmin {
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	font-size: var(--size-18px);
+	display: flex;
+	flex-flow: column nowrap;
+	padding: 25px 0px;
+}
+
+.textinput_editFormAdmin {
+	border-bottom: 0.5px solid var(--color-grey-500);
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	padding: 3px 4px 0px 1px;
+	margin: 8px 0px 4px 0px;
+}
+
+select:focus {
+	outline: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+.joboption_editFormAdmin {
+	border-bottom: 0.5px solid var(--color-grey-700);
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	font-size: var(--size-18px);
+	padding: 2px 4px 2px 0px;
+	margin: 12px 20px 4px 0px;
+}
+
+.divforthatEditAdmin {
+	display: grid;
+	place-items: center;
+	grid-gap: 0;
+	margin-bottom: 12px;
+	margin-top: 20px;
+}
+
+textarea {
+	font-family: "Space Grotesk";
+	font-weight: bold;
+	width: 100%;
+	padding: 4px 6px 4px 6px;
+	margin: 8px 0px 4px 0px;
+	border: 0.5px solid var(--color-grey-700);
+	resize: none;
+}
+
+textarea:focus {
+	outline: none;
+}
+
+.label_verifiedEdit {
+	font-family: "Space Grotesk";
+	font-weight: 500;
+	font-size: var(--size-18px);
+	display: flex;
+	flex-flow: column nowrap;
+	margin-left: 8px;
+}
+
+.verifiedCheckboxEdit {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
