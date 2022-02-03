@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
-import AlertDialogWithFunc from "@vc/frontend/component/Popup/AlertDialogWithFunc";
 
 interface Props {
 	dienstleisterOfUser: any;
@@ -205,7 +204,7 @@ const EditDeleteDienstleister = ({
 						<div onClick={e => editDienstleister(e)}>
 							<Button>Änderungen speichern</Button>
 						</div>
-						<AlertDialogWithFunc
+						<AlertDialog
 							defaultOpen={false}
 							title={"Bist du sicher?"}
 							trigger={<div className={s.deleteDLButton}>Löschen</div>}
@@ -214,15 +213,21 @@ const EditDeleteDienstleister = ({
 									<Button>Abbrechen</Button>
 								</div>
 							}
-							action={<span className={s.deleteModalButton}>Löschen</span>}
-							func={deleteDienstleister}
+							action={
+								<span
+									className={s.deleteModalButton}
+									onClick={deleteDienstleister}
+								>
+									Löschen
+								</span>
+							}
 						>
 							<span className={s.deleteModalText}>
 								Möchtest du deine Dienstleistereintragung <b>{company}</b>{" "}
 								wirklich löschen? Diese Änderung kann nicht rückgängig gemacht
 								werden!
 							</span>
-						</AlertDialogWithFunc>
+						</AlertDialog>
 					</div>
 				</form>
 			</div>
