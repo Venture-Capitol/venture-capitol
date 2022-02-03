@@ -9,14 +9,12 @@ interface Props {
 	returnToAdminpanel: any;
 	searchAgain: any;
 	editData: any;
-	page: any;
 }
 
 const EditFormAdmin = ({
 	returnToAdminpanel,
 	searchAgain,
 	editData,
-	page,
 }: Props) => {
 	const { user } = useAuthContext();
 
@@ -73,6 +71,7 @@ const EditFormAdmin = ({
 
 	function checkResponse(data: any) {
 		if (data.ok) {
+			searchAgain();
 			setShowConfirmation(true);
 		} else {
 			setShowConfirmation(false);
@@ -89,7 +88,7 @@ const EditFormAdmin = ({
 					onOpenChange={open => {
 						setShowConfirmation(open);
 						if (open === false) {
-							backToAdminpanel();
+							returnToAdminpanel();
 						}
 					}}
 				>
@@ -103,15 +102,15 @@ const EditFormAdmin = ({
 		}
 	}
 
-	function backToAdminpanel() {
-		searchAgain(page);
-		returnToAdminpanel();
-	}
-
 	return (
 		<>
 			<div className={s.maindiv_headline_admin_editEntry}>
-				<div onClick={backToAdminpanel}>
+				<div
+					onClick={e => {
+						searchAgain();
+						returnToAdminpanel();
+					}}
+				>
 					<BackToAdminpanel />
 				</div>
 				<p className={s.DienstleisterBearbeiten}>Dienstleister bearbeiten</p>

@@ -7,15 +7,15 @@ import AlertDialogWithFunc from "@vc/frontend/component/Popup/AlertDialogWithFun
 interface Props {
 	resultData: any;
 	searchAgain: any;
-	setDataForEdit: any;
-	page: any;
+	setEditData: any;
+	setCurrentlyEditing: any;
 }
 
 const GetAllResult = ({
 	resultData,
 	searchAgain,
-	setDataForEdit,
-	page,
+	setEditData,
+	setCurrentlyEditing,
 }: Props) => {
 	const { user } = useAuthContext();
 	const [isVerified, setIsVerified] = useState(resultData.verified);
@@ -50,6 +50,7 @@ const GetAllResult = ({
 	function updateVerifiedStatus(data: any) {
 		if (data.ok) {
 			setIsVerified(!isVerified);
+			searchAgain();
 		}
 	}
 
@@ -87,19 +88,11 @@ const GetAllResult = ({
 			};
 
 			return fetch(fetchURL, requestOptions)
-				.then(data => checkDeleteResponse(data))
+				.then(data => {
+					if (data.ok) searchAgain();
+				})
 				.catch(error => console.log(error));
 		});
-	}
-
-	function checkDeleteResponse(data: any) {
-		if (data.ok) {
-			searchAgain(page);
-		}
-	}
-
-	function passEditData() {
-		setDataForEdit(resultData);
 	}
 
 	return (
@@ -145,7 +138,13 @@ const GetAllResult = ({
 				</div>
 				<div className={s.buttonControls}>
 					{checkVerfiyButtonVariant()}
-					<button className={s.editDLButton} onClick={e => passEditData()}>
+					<button
+						className={s.editDLButton}
+						onClick={e => {
+							setEditData(resultData);
+							setCurrentlyEditing(true);
+						}}
+					>
 						Bearbeiten
 					</button>
 					<AlertDialogWithFunc

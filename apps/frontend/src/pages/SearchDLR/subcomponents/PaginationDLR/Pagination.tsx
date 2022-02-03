@@ -1,7 +1,5 @@
 import s from "./Pagination.module.scss";
-import { useState } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
-import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 interface Props {
 	page: number;

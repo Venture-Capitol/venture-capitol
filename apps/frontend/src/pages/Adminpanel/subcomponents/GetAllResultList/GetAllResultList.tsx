@@ -4,15 +4,15 @@ import GetAllResult from "./GetAllResult";
 interface Props {
 	getAllResponse: any;
 	searchAgain: any;
-	setDataForEdit: any;
-	page: any;
+	setEditData: any;
+	setCurrentlyEditing: any;
 }
 
 const GetAllResultList = ({
 	getAllResponse,
 	searchAgain,
-	setDataForEdit,
-	page,
+	setEditData,
+	setCurrentlyEditing,
 }: Props) => {
 	const postListComponents: JSX.Element = getAllResponse.map(
 		(currentResult: any, index: any) => {
@@ -21,8 +21,8 @@ const GetAllResultList = ({
 					resultData={currentResult}
 					key={currentResult.id}
 					searchAgain={searchAgain}
-					setDataForEdit={setDataForEdit}
-					page={page}
+					setEditData={setEditData}
+					setCurrentlyEditing={setCurrentlyEditing}
 				/>
 			);
 		}

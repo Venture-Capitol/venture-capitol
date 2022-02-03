@@ -8,50 +8,65 @@ import EditFormAdmin from "./subcomponents/EditFormAdmin/EditFormAdmin";
 import PaginationAdminpanel from "./subcomponents/PaginationAdminpanel/PaginationAdminpanel";
 
 export default function Adminpanel() {
+	const [loadedPages, setLoadedPages] = useState<any>([]);
+
 	const { user } = useAuthContext();
 	// Filter Companies by verified status
 	const [chosenVerified, setChosenVerified] = useState("Alle");
-	const [response, setResponse] = useState("");
-	const [currentlyCreating, setCurrentlyCreating] = useState(false);
-	const [currentlyEditing, setCurrentlyEditing] = useState(false);
-	const [editData, setEditData] = useState();
-
-	const [requestURL, setRequestURL] = useState("");
 	const [currentPage, setCurrentPage] = useState(0);
 
-	function handleSubmit(page: any, event?: any) {
-		if (event) {
-			event.preventDefault();
+	const [currentlyCreating, setCurrentlyCreating] = useState(false);
+	const [currentlyEditing, setCurrentlyEditing] = useState(false);
+
+	// needed to get data of one concrete search result to the editform located here
+	const [editData, setEditData] = useState();
+
+	async function startGetAllRequest(event: any) {
+		event.preventDefault();
+		let pageOne = await fetchGetAllResult(0);
+		let pageTwo = await fetchGetAllResult(1);
+
+		setLoadedPages([pageOne, pageTwo]);
+		setCurrentPage(0);
+	}
+
+	async function fetchGetAllResult(page: any) {
+		let token = await user?.getIdToken();
+
+		let fetchURL;
+		if (chosenVerified == "Ja") {
+			fetchURL = "http://localhost:8103/entry?verified=true&amount=10&page=";
+		} else if (chosenVerified == "Nein") {
+			fetchURL = "http://localhost:8103/entry?verified=false&amount=10&page=";
+		} else {
+			fetchURL = "http://localhost:8103/entry?amount=10&page=";
 		}
 
-		user?.getIdToken().then(token => {
-			var fetchURL;
+		const requestOptions = {
+			method: "GET",
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		};
 
-			if (chosenVerified == "Ja") {
-				fetchURL = "http://localhost:8103/entry?verified=true&amount=10&page=";
-			} else if (chosenVerified == "Nein") {
-				fetchURL = "http://localhost:8103/entry?verified=false&amount=10&page=";
-			} else {
-				fetchURL = "http://localhost:8103/entry?amount=10&page=";
-			}
+		let fetchData = await fetch(fetchURL + page, requestOptions);
+		return fetchData.json();
+	}
 
-			setRequestURL(fetchURL);
-			setCurrentPage(page);
+	async function searchAgainToUpdate() {
+		let loadedPagesCopy = [...loadedPages];
+		let pageReloaded = await fetchGetAllResult(currentPage);
 
-			const requestOptions = {
-				method: "GET",
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			};
+		loadedPagesCopy[currentPage] = pageReloaded;
+		setLoadedPages(loadedPagesCopy);
+	}
 
-			return fetch(fetchURL + page, requestOptions)
-				.then(data => data.json())
-				.then(parseddata => {
-					setResponse(parseddata);
-				})
-				.catch(error => console.log(error));
-		});
+	async function weiter() {
+		setCurrentPage(currentPage + 1);
+		if (loadedPages[currentPage + 1] == undefined) {
+			let newSearchResult = await fetchGetAllResult(currentPage + 2);
+			setLoadedPages([...loadedPages, newSearchResult]);
+		}
 	}
 
 	function backToAdminpanel() {
@@ -60,50 +75,43 @@ export default function Adminpanel() {
 	}
 
 	function checkResponseListRendering() {
-		if (response == "") {
+		if (loadedPages.length <= 0) {
 			return <></>;
 		} else {
 			return (
 				<div>
 					<div className={s.searchResultsDiv}>
 						<GetAllResultList
-							getAllResponse={response}
-							searchAgain={handleSubmit}
-							setDataForEdit={setDataForEdit}
-							page={currentPage}
+							getAllResponse={loadedPages[currentPage]}
+							searchAgain={searchAgainToUpdate}
+							setEditData={setEditData}
+							setCurrentlyEditing={setCurrentlyEditing}
 						/>
 					</div>
 					<PaginationAdminpanel
 						page={currentPage}
-						startGetallRequest={handleSubmit}
-						setCurrentPage={setCurrentPage}
-						requestURL={requestURL}
+						loadedPages={loadedPages}
+						weiter={weiter}
+						zurueck={() => setCurrentPage(currentPage - 1)}
 					/>
 				</div>
 			);
 		}
 	}
 
-	function setDataForEdit(data: any) {
-		setEditData(data);
-		setCurrentlyEditing(true);
-	}
-
 	if (currentlyCreating === true) {
 		return (
 			<CreateFormAdmin
 				returnToAdminpanel={backToAdminpanel}
-				searchAgain={handleSubmit}
-				page={currentPage}
+				searchAgain={searchAgainToUpdate}
 			/>
 		);
 	} else if (currentlyEditing === true) {
 		return (
 			<EditFormAdmin
 				returnToAdminpanel={backToAdminpanel}
-				searchAgain={handleSubmit}
+				searchAgain={searchAgainToUpdate}
 				editData={editData}
-				page={currentPage}
 			/>
 		);
 	} else {
@@ -115,7 +123,7 @@ export default function Adminpanel() {
 				<div className={s.SearchAllAndAdd}>
 					<form
 						className={s.searchAllForm}
-						onSubmit={event => handleSubmit(0, event)}
+						onSubmit={event => startGetAllRequest(event)}
 					>
 						<label className={s.inputblock_adminpanel}>
 							Verifiziert

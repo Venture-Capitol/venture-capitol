@@ -8,10 +8,9 @@ import { useAuthContext } from "@vc/auth/src/AuthContext";
 interface Props {
 	returnToAdminpanel: any;
 	searchAgain: any;
-	page: any;
 }
 
-const CreateFormAdmin = ({ returnToAdminpanel, searchAgain, page }: Props) => {
+const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 	const { user } = useAuthContext();
 
 	const [showConfirmation, setShowConfirmation] = useState(false);
@@ -52,17 +51,15 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain, page }: Props) => {
 			};
 
 			return fetch("http://localhost:8103/entry/", requestOptions)
-				.then(data => checkResponse(data))
+				.then(data => {
+					if (data.ok) {
+						setShowConfirmation(true);
+					} else {
+						setShowConfirmation(false);
+					}
+				})
 				.catch(error => console.log(error));
 		});
-	}
-
-	function checkResponse(data: any) {
-		if (data.ok) {
-			setShowConfirmation(true);
-		} else {
-			setShowConfirmation(false);
-		}
 	}
 
 	function checkConfirmation() {
@@ -84,15 +81,15 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain, page }: Props) => {
 		}
 	}
 
-	function backToAdminpanel() {
-		searchAgain(page);
+	async function backToAdminpannel() {
+		await searchAgain();
 		returnToAdminpanel();
 	}
 
 	return (
 		<>
 			<div className={s.maindiv_headline_admin_createEntry}>
-				<div onClick={backToAdminpanel}>
+				<div onClick={e => backToAdminpannel()}>
 					<BackToAdminpanel />
 				</div>
 				<p className={s.DienstleisterEintragen}>
@@ -100,7 +97,10 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain, page }: Props) => {
 				</p>
 			</div>
 			<div className={s.maindiv_admin_createForm}>
-				<form className={s.createFormAdmin} onSubmit={createDienstleister}>
+				<form
+					className={s.createFormAdmin}
+					onSubmit={e => createDienstleister(e)}
+				>
 					<label className={s.label_createFormAdmin}>
 						Firmenname*
 						<input
@@ -116,9 +116,10 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain, page }: Props) => {
 							name='Dienstleistungen'
 							className={s.joboption_createFormAdmin}
 							onChange={e => setJobname(e.target.value)}
+							defaultValue=''
 							required
 						>
-							<option value='' selected disabled hidden>
+							<option value='' disabled hidden>
 								Bitte auswählen
 							</option>
 							<option value='Notar'>Notar</option>
