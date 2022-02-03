@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 import { AuthProvider } from "@vc/auth";
 import Index from "./pages/Index/Index";
 import DemoAuth from "./pages/Demo/DemoAuth";
@@ -11,6 +16,7 @@ import Impressum from "./pages/Impressum/Impressum";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
 import Adminpanel from "./pages/Adminpanel/Adminpanel";
 import Gruendung_TaskId from "./pages/Gruendung/$task";
+import Profil from "./pages/Profil/Profil";
 
 function App() {
 	return (
@@ -45,6 +51,12 @@ function App() {
 						</Route>
 						<Route path='/datenschutz'>
 							<Datenschutzerklaerung />
+						</Route>
+						<Route path='/profil' exact>
+							<Redirect to='/profil/gpf'></Redirect>
+						</Route>
+						<Route path='/profil/:platform'>
+							<Profil />
 						</Route>
 					</Switch>
 				</Router>
