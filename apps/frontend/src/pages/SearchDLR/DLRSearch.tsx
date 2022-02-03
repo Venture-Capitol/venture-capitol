@@ -31,7 +31,7 @@ export default function DLRSearch() {
 
 	async function getSearchResult(page: number) {
 		const fetchURL =
-			"http://localhost:8103/entry/search?jobname=" +
+			"/dlr/entry/search?jobname=" +
 			chosenJob +
 			"&latitude=52.516217&longitude=13.377004&page=";
 

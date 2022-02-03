@@ -29,7 +29,7 @@ const GetAllResult = ({
 			},
 		};
 
-		const fetchURL = "http://localhost:8103/entry/" + resultData.id;
+		const fetchURL = "/dlr/entry/" + resultData.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {
@@ -77,7 +77,7 @@ const GetAllResult = ({
 	}
 
 	function deleteEntry() {
-		const fetchURL = "http://localhost:8103/entry/" + resultData.id;
+		const fetchURL = "/dlr/entry/" + resultData.id;
 
 		user?.getIdToken().then(token => {
 			const requestOptions = {

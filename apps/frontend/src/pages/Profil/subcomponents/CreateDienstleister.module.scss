@@ -1,7 +1,7 @@
 .maindiv_headline_createEntry {
 	display: flex;
 	justify-content: center;
-	padding-top: 10%;
+	padding-top: 5%;
 	align-items: center;
 }
 
@@ -54,6 +54,7 @@
 	font-size: var(--size-18px);
 	padding: 3px 4px 0px 1px;
 	margin: 8px 0px 4px 0px;
+	background-color: transparent;
 }
 
 select:focus {
@@ -70,7 +71,8 @@ input:focus {
 	font-weight: bold;
 	font-size: var(--size-18px);
 	padding: 2px 4px 2px 0px;
-	margin: 12px 20px 4px 0px;
+	margin: 12px 0px 4px 0px;
+	background-color: transparent;
 }
 
 .divforthat {
@@ -88,6 +90,7 @@ textarea {
 	margin: 8px 0px 4px 0px;
 	border: 0.5px solid var(--color-grey-700);
 	resize: none;
+	background-color: transparent;
 }
 
 textarea:focus {

@@ -88,7 +88,7 @@ components:
             - verified
         - $ref: "#/components/schemas/Entry"
 paths:
-  /entry/search:
+  /dlr/entry/search:
     get:
       tags:
         - Suche
@@ -165,7 +165,7 @@ paths:
           description: Es wurden keine Einträge gefunden die diesen Job machen
         default:
           description: Es sind unerwartete Probleme bei der Suche aufgetreten.
-  /entry:
+  /dlr/entry:
     get:
       tags:
         - Entries
@@ -237,7 +237,7 @@ paths:
           description: Die Anfrage war Fehlerhaft. Die Parameter company, email, adress & job im requestBody müssen Werte enthalten.
         default:
           description: Es ist ein unerwarteter Fehler aufgetreten.
-  /entry/{id}:
+  /dlr/entry/{id}:
     get:
       tags:
         - Entries
@@ -330,7 +330,7 @@ paths:
           description: Es existiert kein Eintrag mit dieser id.
         default:
           description: Es ist ein unerwarteter Fehler aufgetreten.
-  /entry/user:
+  /dlr/entry/user:
     get:
       tags:
         - Entries
