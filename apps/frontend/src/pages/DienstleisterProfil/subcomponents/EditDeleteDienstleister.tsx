@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
+import AlertDialog from "@vc/frontend/component/Popup/AlertDialog";
 
 interface Props {
 	dienstleisterOfUser: any;
