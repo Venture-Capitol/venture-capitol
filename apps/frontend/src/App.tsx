@@ -16,7 +16,6 @@ import Gesellschaftsform from "./pages/GesellschaftsformDecisionPage/Gesellschaf
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
 import Impressum from "./pages/Impressum/Impressum";
 import Adminpanel from "./pages/Adminpanel/Adminpanel";
-
 import Gruendung_TaskId from "./pages/Gruendung/$task";
 import Profil from "./pages/Profil/Profil";
 
