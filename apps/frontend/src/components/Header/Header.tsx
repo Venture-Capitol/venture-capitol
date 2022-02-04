@@ -127,7 +127,7 @@ const Header: FC = () => {
 					<>
 						<MobileMenu
 							isLoggedIn={currentUser != undefined}
-              isAdmin={isAdmin}
+							isAdmin={isAdmin}
 							closeMenu={closeMobileMenu}
 						/>
 						<style>
