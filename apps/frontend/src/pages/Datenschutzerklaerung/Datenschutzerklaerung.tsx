@@ -156,7 +156,7 @@ export default function Datenschutz() {
 							<b>Einwilligung</b> ist eine unmissverständlich abgegebene
 							Willensbekundung in Form einer schriftlichen Erklärung oder einer
 							anderen bestätigenden eindeutigen Handlung, mit der die betroffene
-							Person zu verstehen gibt, dass sie mit der Verarbeitung de r
+							Person zu verstehen gibt, dass sie mit der Verarbeitung der
 							betreffenden personenbezogenen Daten über sie einverstanden ist.
 						</li>
 						<li>
@@ -227,26 +227,14 @@ export default function Datenschutz() {
 						seltenen Fällen kann also die Verarbeitung von personenbezogenen
 						Daten erforderlich sein um lebenswichtige Interessen der betroffenen
 						Person zu schützen.
-						<br />
-						<br />
-						Letztlich könnten Verarbeitungsvorgänge auf Art. 6 Abs. 1 lit. f
-						DSGVO beruhen. Auf dieser Rechtsgrundlage basieren
-						Verarbeitungsvorgänge, die von keiner der vorgenannten
-						Rechtsgrundlagen erfasst werden konnten. Vor allem auch genau dann,
-						wenn die Verarbeitung zur Wahrung eines berechtigten Interesses
-						unseres Unternehmens oder eines Dritten erforderlich ist. Diese
-						Verarbeitungsvorgänge sind uns vor allem deswegen gestattet, weil
-						der Europäischen Gesetzgeber sie besonders erwähnt hat. Dieser
-						vertrat die Auffassung, dass ein berechtigtes Interesse anzunehmen
-						sein könnte, wenn Sie ein Kunde unseres Unternehmens sind. Hierbei
-						beziehen wir uns explizit auf Erwägungsgrund 47 Satz 2 der DSGVO.
 					</TextParagraph>
 
 					<TextParagraph title='Unser Hosting'>
 						Diese Website läuft über Google Cloud run.
 						<br />
 						<br />
-						Mehr zum Thema Datenschutz bei der Google Cloud findest du unter:
+						Allgemeine Informationen zum Thema Datenschutz bei der Google Cloud
+						findest du unter:
 						<br />
 						<a
 							href='https://support.google.com/googlecloud/answer/6056650'
@@ -256,10 +244,9 @@ export default function Datenschutz() {
 						</a>
 						<br />
 						<br />
-						In den Datenverarbeitungsbedingungen sind unsere
-						Datenschutzverpflichtungen unseren Kunden gegenüber dargelegt. Wir
-						haben diese Nutzungsbedingungen im Lauf der Jahre auf der Grundlage
-						des Feedbacks von Kunden und Aufsichtsbehörden angepasst und unter
+						Außerdem hat Google ihre Nutzungsbedingungen im Lauf der Jahre auf
+						der Grundlage des Feedbacks von Kunden und Aufsichtsbehörden
+						angepasst und veröffentlicht unter:
 						<br />
 						<a
 							href='https://workspace.google.com/terms/dpa_terms.html'
@@ -269,8 +256,7 @@ export default function Datenschutz() {
 						</a>
 						<br />
 						<br />
-						Weitere Informationen hierzu finden Sie auf unserer Website zur
-						DSGVO:
+						Außerdem hat Google eine eigene Website zum Thema DSGVO:
 						<br />
 						<a href='https://cloud.google.com/privacy/gdpr' target='_blank'>
 							https://cloud.google.com/privacy/gdpr
@@ -279,8 +265,8 @@ export default function Datenschutz() {
 						<br />
 						Um die Sicherheit dieser Seite zu erhöhen arbeiten wir mit einem
 						sogenannten CDN, einem Content Delivery Network. Dieses bearbeitet
-						Ihre Anfrage in der Regel in einem Land, in dem Sie mit Ihrem
-						Endgerät suchen. Kritische Länder, Bots oder Crawls können so
+						Ihre Anfrage in der Regel in einem Land, in dem du mit deinem
+						Endgerät suchst. Kritische Länder, Bots oder Crawls können so
 						automatisiert geblockt werden um Angriffe auf die Seite und einen
 						Upload von bösartigen Inhalten zu verhindern.
 						<br />
@@ -289,7 +275,7 @@ export default function Datenschutz() {
 						<br />
 						<br />
 						Was diese Firma möglich macht, ist ein Schutz Ihrer Daten. Mehr dazu
-						finden Sie unter:
+						findest du unter:
 						<br />
 						<a
 							href='https://www.cloudflare.com/de-de/gdpr/introduction/'
@@ -303,7 +289,7 @@ export default function Datenschutz() {
 						(sog. Logfiles) für bestimmte Dienste auf dem Server erfasst.
 					</TextParagraph>
 
-					<TextParagraph title='Technik'>
+					<TextParagraph title='Logfiles'>
 						Wenn du nur auf dieser Website bist, um dich zu informieren, also
 						dich nirgends registrierst und auch keinen Kommentar schreibst und
 						auch kein Formular benutzt oder uns anders Informationen
@@ -400,75 +386,21 @@ export default function Datenschutz() {
 					</ol>
 
 					<TextParagraph title='Cookies'>
-						Wenn du einen Kommentar auf unserer Website schreibst, kann das eine
-						Einwilligung sein, deinen Namen, E-Mail-Adresse und Website in
-						Cookies zu speichern. Dies ist eine Komfortfunktion, damit du nicht,
-						wenn du einen weiteren Kommentar schreibst, all diese Daten erneut
-						eingeben musst. Diese Cookies werden ein Jahr lang gespeichert.
+						Wir vermeiden die Verwendung externer Cookies um datensparsam zu
+						arbeiten.
 						<br />
 						<br />
-						Für unsere Content Teams: Falls du ein Konto hast und dich auf
-						dieser Website anmeldest, werden wir ein temporäres Cookie setzen,
-						um festzustellen, ob dein Browser Cookies akzeptiert. Dieses Cookie
-						enthält keine personenbezogenen Daten und wird verworfen, wenn du
-						deinen Browser schließt. Wenn du dich anmeldest, werden wir einige
-						Cookies einrichten, um deine Anmeldeinformationen und
-						Anzeigeoptionen zu speichern. Anmelde-Cookies verfallen nach zwei
-						Tagen und Cookies für die Anzeigeoptionen nach einem Jahr. Falls du
-						bei der Anmeldung „Angemeldet bleiben“ auswählst, wird deine
-						Anmeldung zwei Wochen lang aufrechterhalten. Mit der Abmeldung aus
-						deinem Konto werden die Anmelde-Cookies gelöscht. Wenn du einen
-						Artikel bearbeitest oder veröffentlichst, wird ein zusätzlicher
-						Cookie in deinem Browser gespeichert. Dieser Cookie enthält keine
-						personenbezogenen Daten und verweist nur auf die Beitrags-ID des
-						Artikels, den du gerade bearbeitet hast. Der Cookie verfällt nach
-						einem Tag.
-						<br />
-						<br />
-						Beiträge auf dieser Website können eingebettete Inhalte beinhalten
-						(z. B. Videos, Bilder, Beiträge etc.). Eingebettete Inhalte von
-						anderen Websites verhalten sich exakt so, als ob der Besucher die
-						andere Website besucht hätte. Diese Websites können Daten über dich
-						sammeln, Cookies benutzen, zusätzliche Tracking-Dienste von Dritten
-						einbetten und deine Interaktion mit diesem eingebetteten Inhalt
-						aufzeichnen, inklusive deiner Interaktion mit dem eingebetteten
-						Inhalt, falls du ein Konto hast und auf dieser Website angemeldet
-						bist.
-						<br />
-						<br />
-						Ganz allgemein lässt sich also noch einmal festhalten, wir setzen
-						auf unserer Internetseite Cookies ein. Hierbei handelt es sich um
-						kleine Dateien, die dein Browser automatisch erstellt und die auf
-						deinem Device gespeichert werden. Dein Device kann zum Beispiel ein
-						Laptop oder ein Smartphone sein. Cookies richten auf deinem Gerät
-						keinen Schaden an. Sie enthalten keine Viren oder Trojaner. Sie
-						helfen deinem Browser bei der Arbeit.
+						Wenn du das erste Mal diese Seite besuchst, bekommst du jedoch
+						diesen kleinen Text mit dem Verweis auf die Datenschutzerklärung und
+						die Rechtsbelehrung. Damit wir uns merken können dass du diesen
+						Hinweis gelesen hast haben wir hier selbst ein kleines Cookie dass
+						die Information speichert dass du hier einmal den Button geklickt
+						hast.
 						<br />
 						<br />
 						In einem Cookie werden Daten gespeichert, die von deinem Gerät
 						abhängen, was allerdings nicht bedeutet, dass wir dadurch
 						unmittelbar Kenntnis von deiner Identität erlangen.
-						<br />
-						<br />
-						Unser Einsatz von Cookies dient dazu, die Nutzung unseres Angebots
-						für dich angenehmer zu gestalten. Wir setzen sogenannte
-						Session-Cookies ein, um zu erkennen, dass du einzelne Seiten unserer
-						Website bereits besucht hast. Diese werden nach Verlassen unserer
-						Seite automatisch entfernt.
-						<br />
-						<br />
-						Außerdem optimieren wir mit temporären Cookies die
-						Benutzerfreundlichkeit. Für ein bestimmtes festgesetztes Zeitfenster
-						ist auf deinem Endgerät das Cookie dann gespeichert. Kommst du
-						wieder auf unsere Seite, wird automatisch erkannt, dass du bereits
-						bei uns warst und welche Eingaben und Einstellungen du gemacht hast,
-						um diese nicht noch einmal eingeben zu müssen.
-						<br />
-						<br />
-						Die durch Cookies verarbeiteten Informationen sind für genannte
-						Zwecke zur Wahrung unserer berechtigten Interessen als Unternehmen
-						sowie der Dritter nach Art. 6 Abs. 1 S. 1 lit. f DS-GVO
-						erforderlich.
 						<br />
 						<br />
 						Was noch wichtig ist für dich zu wissen, die meisten Browser
@@ -477,53 +409,41 @@ export default function Datenschutz() {
 						gespeichert werden sollen oder dass immer ein Hinweis angezeigt
 						wird, bevor ein neuer Cookie angelegt wird. Einfache Anleitungen wie
 						du das machst findest du überall im Internet.
-						<br />
-						<br />
-						Die vollständige Deaktivierung von Cookies kann jedoch dazu führen,
-						dass manche Funktionen auf unserer Website nicht einwandfrei
-						funktionieren.
 					</TextParagraph>
 
 					<TextParagraph title='Google Login'>
-						Google Login
+						Wenn du dich bei uns anmeldest läuft das über ein Google Login. Das
+						heißt, damit wir keine Passwörter speichern müssen und auf unserer
+						Seite keine Sicherheitsrisiken entstehen, verifizierst du dich über
+						deinen Google Account.
 						<br />
 						<br />
-						firebase
+						Der Service von Google den wir hier nutzen ist firebase. Das kleine
+						Logo rechts oben ist die Einbindung dieses Services. Da hiermit
+						Google fonts und das Google Logo eingebettet sind und wir diese
+						Assets vom Google Server abrufen, kennt Google deine IP.
 						<br />
 						<br />
-						Google fonts, logo
+						Genauer Dienstanbieter für firebase ist das Unternehmen Google
+						Ireland Limited (Gordon House, Barrow Street Dublin 4, Irland).
 						<br />
 						<br />
-						Wir verwenden auf unserer Website Firebase, ein Analyse- und
-						Monitoring-Tool. Dienstanbieter ist das amerikanische Unternehmen
-						Google Inc. Für den europäischen Raum ist das Unternehmen Google
-						Ireland Limited (Gordon House, Barrow Street Dublin 4, Irland) für
-						alle Google-Dienste verantwortlich.
+						Google verarbeitet Daten von dir ggf auch in den USA. Wir weisen
+						darauf hin, dass damit Risiken der Datenverarbeitung einhergehen.
 						<br />
 						<br />
-						Google verarbeitet Daten von Ihnen u.a. auch in den USA. Wir weisen
-						darauf hin, dass nach Meinung des Europäischen Gerichtshofs derzeit
-						kein angemessenes Schutzniveau für den Datentransfer in die USA
-						besteht. Dies kann mit verschiedenen Risiken für die Rechtmäßigkeit
-						und Sicherheit der Datenverarbeitung einhergehen.
+						Als Grundlage der Datenverarbeitung verwendet Google sogenannte
+						Standardvertragsklauseln. Standardvertragsklauseln sind von der
+						EU-Kommission bereitgestellte Mustervorlagen und sollen
+						sicherstellen, dass deine Daten auch den europäischen
+						Datenschutzstandards entsprechen, wenn sie in Drittländer
+						überliefert und dort gespeichert werden.
 						<br />
 						<br />
-						Als Grundlage der Datenverarbeitung bei Empfängern mit Sitz in
-						Drittstaaten (außerhalb der Europäischen Union, Island,
-						Liechtenstein, Norwegen, also insbesondere in den USA) oder einer
-						Datenweitergabe dorthin verwendet Google sogenannte
-						Standardvertragsklauseln (= Art. 46. Abs. 2 und 3 DSGVO).
-						Standardvertragsklauseln (Standard Contractual Clauses – SCC) sind
-						von der EU-Kommission bereitgestellte Mustervorlagen und sollen
-						sicherstellen, dass Ihre Daten auch dann den europäischen
-						Datenschutzstandards entsprechen, wenn diese in Drittländer (wie
-						beispielsweise in die USA) überliefert und dort gespeichert werden.
 						Durch diese Klauseln verpflichtet sich Google, bei der Verarbeitung
-						Ihrer relevanten Daten, das europäische Datenschutzniveau
-						einzuhalten, selbst wenn die Daten in den USA gespeichert,
-						verarbeitet und verwaltet werden. Diese Klauseln basieren auf einem
-						Durchführungsbeschluss der EU-Kommission. Sie finden den Beschluss
-						und die entsprechenden Standardvertragsklauseln u.a. hier:
+						deiner relevanten Daten, das europäische Datenschutz Niveau
+						einzuhalten, selbst wenn die Daten in den USA gespeichert
+						verarbeitet und verwaltet werden. Siehe Beschluss:
 						<br />
 						<a
 							href='https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj?locale=de'
@@ -534,8 +454,7 @@ export default function Datenschutz() {
 						<br />
 						<br />
 						Die Google Ads Datenverarbeitungsbedingungen (Google Ads Data
-						Processing Terms), welche den Standardvertragsklauseln entsprechen
-						und auch für Firebase geltend sind, finden Sie unter
+						Processing Terms) gelten auch für firebase:
 						<br />
 						<a
 							href='https://business.safety.google/adsprocessorterms/'
@@ -546,7 +465,7 @@ export default function Datenschutz() {
 						<br />
 						<br />
 						Mehr über die Daten, die durch die Verwendung von Firebase
-						verarbeitet werden, erfahren Sie in der Privacy Policy auf
+						verarbeitet werden, findest du in der Privacy Policy auf
 						<br />
 						<a
 							href='https://policies.google.com/privacy?hl=de-DE'
@@ -559,34 +478,25 @@ export default function Datenschutz() {
 					</TextParagraph>
 
 					<TextParagraph title='Sentry'>
-						Wir nutzen für unsere Website Sentry, ein Fehlermanagement-Tool.
-						Dienstanbieter ist das amerikanische Unternehmen Sentry Inc., San
-						Francisco, 132 Hawthorne St, San Francisco, USA.
+						Wir nutzen bei Venture Capitol Sentry, um technische Fehler richtig
+						zu managen. Anbieter dafür ist das amerikanische Unternehmen Sentry
+						Inc., San Francisco, 132 Hawthorne St, San Francisco, USA.
 						<br />
 						<br />
-						Sentry verarbeitet Daten von Ihnen u.a. auch in den USA. Wir weisen
-						darauf hin, dass nach Meinung des Europäischen Gerichtshofs derzeit
-						kein angemessenes Schutzniveau für den Datentransfer in die USA
-						besteht. Dies kann mit verschiedenen Risiken für die Rechtmäßigkeit
-						und Sicherheit der Datenverarbeitung einhergehen.
+						Sentry verarbeitet Daten von dir ggf. auch in den USA. Auch hier
+						weißen wir darauf hin, dass verschiedenen Risiken bei der
+						Datenverarbeitung einhergehen.
 						<br />
 						<br />
-						Als Grundlage der Datenverarbeitung bei Empfängern mit Sitz in
-						Drittstaaten (außerhalb der Europäischen Union, Island,
-						Liechtenstein, Norwegen, also insbesondere in den USA) oder einer
-						Datenweitergabe dorthin verwendet Sentry sogenannte
-						Standardvertragsklauseln (= Art. 46. Abs. 2 und 3 DSGVO).
-						Standardvertragsklauseln (Standard Contractual Clauses – SCC) sind
-						von der EU-Kommission bereitgestellte Mustervorlagen und sollen
-						sicherstellen, dass Ihre Daten auch dann den europäischen
-						Datenschutzstandards entsprechen, wenn diese in Drittländer (wie
-						beispielsweise in die USA) überliefert und dort gespeichert werden.
+						Auch hier gibt es wie auch schon bei Google die
+						Standardvertragsklauseln, die von der EU-Kommission bereitgestellten
+						Mustervorlagen.
+						<br />
+						<br />
 						Durch diese Klauseln verpflichtet sich Sentry, bei der Verarbeitung
-						Ihrer relevanten Daten, das europäische Datenschutzniveau
-						einzuhalten, selbst wenn die Daten in den USA gespeichert,
-						verarbeitet und verwaltet werden. Diese Klauseln basieren auf einem
-						Durchführungsbeschluss der EU-Kommission. Sie finden den Beschluss
-						und die entsprechenden Standardvertragsklauseln u.a. hier:
+						deiner relevanten Daten, das europäische Datenschutz Niveau
+						einzuhalten, selbst wenn die Daten in den USA gespeichert
+						verarbeitet und verwaltet werden. Siehe Beschluss:
 						<br />
 						<a
 							href='https://eur-lex.europa.eu/eli/dec_impl/2021/914/oj?locale=de'
@@ -596,8 +506,9 @@ export default function Datenschutz() {
 						</a>
 						<br />
 						<br />
-						Die Datenverarbeitungsbedingungen (Data Processing Addendum), welche
-						den Standardvertragsklauseln entsprechen, finden Sie unter
+						Die genauen Datenverarbeitungsbedingungen für Sentry (Data
+						Processing Addendum), welche den Standardvertragsklauseln
+						entsprechen, findest du unter:
 						<br />
 						<a href='https://sentry.io/legal/dpa/' target='_blank'>
 							https://sentry.io/legal/dpa/
@@ -605,17 +516,11 @@ export default function Datenschutz() {
 						<br />
 						<br />
 						Mehr über die Daten, die durch die Verwendung von Sentry verarbeitet
-						werden, erfahren Sie in der Datenschutzerklärung auf
+						werden, erfährst du in der Datenschutzerklärung von Sentry auf:
 						<br />
 						<a href='https://sentry.io/privacy/' target='_blank'>
 							https://sentry.io/privacy/
 						</a>
-						<br />
-						<br />
-						la
-						<br />
-						<br />
-						la
 					</TextParagraph>
 				</TextBlock>
 			</div>
