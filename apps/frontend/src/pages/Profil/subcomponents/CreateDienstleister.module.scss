@@ -96,3 +96,9 @@ textarea {
 textarea:focus {
 	outline: none;
 }
+
+.addressWarning {
+	font-size: var(--size-14px);
+	color: #ff8f8f;
+	text-align: center;
+}

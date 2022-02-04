@@ -4,6 +4,7 @@ import Button from "@vc/ui/src/components/Button/Button";
 import BackToAdminpanel from "../BackToAdminpanel/BackToAdminpanel";
 import Dialog from "@vc/frontend/component/Popup/Dialog";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
+import AddressField from "@vc/frontend/component/AddressField/AddressField";
 
 interface Props {
 	returnToAdminpanel: any;
@@ -24,6 +25,9 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 	const [description, setDescription] = useState("");
 	const [verified, setVerified] = useState(false);
 
+	const [lat, setLat] = useState("");
+	const [long, setLong] = useState("");
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
@@ -35,8 +39,8 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 			job: jobname,
 			company: company,
 			address: address,
-			latitude: 10,
-			longitude: 11,
+			latitude: lat,
+			longitude: long,
 			email: email,
 			telefon: telefon,
 			website: website,
@@ -134,11 +138,10 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 					</label>
 					<label className={s.label_createFormAdmin}>
 						Adresse / PLZ / Ort*
-						<input
-							type='text'
-							className={s.textinput_createFormAdmin}
-							onChange={e => setAddress(e.target.value)}
-							required
+						<AddressField
+							setAddress={setAddress}
+							setLat={setLat}
+							setLong={setLong}
 						/>
 					</label>
 					<label className={s.label_createFormAdmin}>

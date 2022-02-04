@@ -5,7 +5,7 @@ const AddressWarning: React.FunctionComponent = () => {
 	return (
 		<div className={s.maindiv_address_Warning}>
 			<p className={s.address_Warning}>
-				Bitte wähle eine vollständige Adresse aus
+				Bitte wähle eine vollständige Adresse aus!
 			</p>
 		</div>
 	);
