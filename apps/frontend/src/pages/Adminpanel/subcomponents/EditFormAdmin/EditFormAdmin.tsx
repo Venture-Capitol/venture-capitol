@@ -30,8 +30,8 @@ const EditFormAdmin = ({
 	const [description, setDescription] = useState(editData.description);
 	const [verified, setVerified] = useState(editData.verified);
 
-	const [lat, setLat] = useState("");
-	const [long, setLong] = useState("");
+	const [lat, setLat] = useState(editData.lat);
+	const [long, setLong] = useState(editData.long);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
