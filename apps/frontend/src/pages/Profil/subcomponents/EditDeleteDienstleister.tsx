@@ -29,8 +29,8 @@ const EditDeleteDienstleister = ({
 		dienstleisterOfUser.description
 	);
 
-	const [lat, setLat] = useState("");
-	const [long, setLong] = useState("");
+	const [lat, setLat] = useState(dienstleisterOfUser.lat);
+	const [long, setLong] = useState(dienstleisterOfUser.long);
 
 	const [showError, setShowError] = useState(false);
 
@@ -44,8 +44,8 @@ const EditDeleteDienstleister = ({
 				job: jobname,
 				company: company,
 				address: address,
-				latitude: 10,
-				longitude: 11,
+				latitude: lat,
+				longitude: long,
 				email: email,
 				telefon: telefon,
 				website: website,
@@ -216,7 +216,10 @@ const EditDeleteDienstleister = ({
 					</label>
 					<label className={s.label_editForm}>
 						Beschreibung
-						<textarea onChange={e => setDescription(e.target.value)}></textarea>
+						<textarea
+							onChange={e => setDescription(e.target.value)}
+							defaultValue={description}
+						></textarea>
 					</label>
 					<div className={s.divforthat}>
 						<div>
