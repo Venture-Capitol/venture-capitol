@@ -210,7 +210,7 @@ export async function createEntry(
 				ownedBy: uid,
 				telefon: telefon,
 				website: website,
-				description: description,
+				description: description != "" ? description : null,
 			},
 		});
 		return callback(null, createdEntry);
@@ -296,7 +296,7 @@ export async function updateEntry(
 					email: body.email,
 					telefon: body.telefon,
 					website: body.website,
-					description: body.description,
+					description: body.description != "" ? body.description : null,
 					verified: body.verified,
 				},
 			});
