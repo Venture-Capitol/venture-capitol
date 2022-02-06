@@ -123,9 +123,12 @@
 			margin-bottom: 15rem;
 			gap: 10rem;
 
+			.details {
+				flex: 1;
+			}
+
 			img {
 				width: 40%;
-				flex: 0.3;
 			}
 		}
 
