@@ -13,9 +13,9 @@ model User {
 }
 
 model UserInCompany {
-  user      User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  company   Company @relation(fields: [companyId], references: [id])
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId String
 
   @@id([userId, companyId])
@@ -31,7 +31,7 @@ model Company {
 }
 
 model CompletedTask {
-  company   Company @relation(fields: [companyId], references: [id])
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId String
   taskId    String
 
@@ -40,7 +40,7 @@ model CompletedTask {
 
 model MadeDecision {
   decisionId   String
-  company      Company @relation(fields: [companyId], references: [id])
+  company      Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId    String
   selectedPath Int
 
