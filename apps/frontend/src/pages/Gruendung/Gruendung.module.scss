@@ -1,4 +1,3 @@
-// auswahl
 h1.title {
 	text-align: center;
 	margin-bottom: 50px;
@@ -76,7 +75,7 @@ h1.title {
 	display: flex;
 	height: 100%;
 	background: var(--color-background-gradient);
-	padding-top: 100px;
+	padding-top: var(--header-height);
 	gap: 3rem;
 
 	.nav {
@@ -99,6 +98,10 @@ h1.title {
 
 		div {
 			max-width: 800px;
+		}
+
+		@media (max-width: 900px) {
+			padding: 1rem 1.5rem 1.5rem 1.5rem;
 		}
 	}
 
@@ -150,12 +153,14 @@ h1.title {
 	display: flex;
 	justify-content: space-between;
 	gap: 1.5rem;
+	margin-top: 3rem;
+	word-break: break-word;
 
 	a {
 		display: flex;
 		align-items: center;
 		gap: 1rem;
-		text-decoration: none;
+		font-weight: 600;
 		color: var(--color-grey-900);
 
 		&:last-child {

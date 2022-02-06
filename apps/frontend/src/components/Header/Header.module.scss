@@ -1,5 +1,5 @@
 .header {
-	height: 100px;
+	height: var(--header-height);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -270,14 +270,17 @@
 	}
 }
 
+:root {
+	--header-height: 100px;
+}
+
 @media only screen and (max-width: 950px) {
-	.menu {
-		display: none;
+	:root {
+		--header-height: 50px;
 	}
 
-	.header {
-		height: 50px;
-		transition: height ease-in-out 0.1s;
+	.menu {
+		display: none;
 	}
 
 	.blurBg {

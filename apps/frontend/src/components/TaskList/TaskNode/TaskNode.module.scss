@@ -44,6 +44,10 @@
 		}
 	}
 
+	&[data-type="radio"] label {
+		border-radius: 100rem;
+	}
+
 	span {
 		user-select: none;
 		text-align: center;

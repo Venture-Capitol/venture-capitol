@@ -14,13 +14,13 @@ html,
 
 .content {
 	h1 {
-		font-size: var(--size-48px);
+		font-size: var(--size-36px);
 		margin: 0 0 var(--size-28px);
 	}
 
 	h2 {
-		font-size: var(--size-36px);
-		margin: 0 0 var(--size-20px);
+		font-size: var(--size-28px);
+		margin: var(--size-36px) 0 var(--size-18px);
 	}
 
 	h3,
@@ -49,8 +49,40 @@ html,
 	li {
 		list-style: circle;
 		list-style-position: inside;
+		margin-bottom: var(--size-04px);
+
 		&::marker {
 			content: "➔ ";
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		h1 {
+			font-size: var(--size-24px);
+			margin: 0 0 var(--size-16px);
+
+			font-weight: 700;
+		}
+
+		h2 {
+			font-size: var(--size-20px);
+			margin: var(--size-32px) 0 var(--size-14px);
+		}
+
+		h3 {
+			font-size: var(--size-18px);
+			margin: var(--size-20px) 0 var(--size-14px);
+		}
+
+		h4 {
+			font-size: var(--size-18px);
+			margin: var(--size-20px) 0 var(--size-14px);
+		}
+
+		p,
+		ul {
+			font-size: var(--size-16px);
+			margin-bottom: var(--size-12px);
 		}
 	}
 }

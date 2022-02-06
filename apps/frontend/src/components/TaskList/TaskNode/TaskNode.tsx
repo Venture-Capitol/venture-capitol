@@ -64,6 +64,7 @@ interface TaskNodeContainerProps {
 	id?: string;
 	text: string;
 	clickEverywhere?: boolean;
+	type?: "checkbox" | "radio";
 }
 export function TaskNodeContainer({
 	onChange,
@@ -71,6 +72,7 @@ export function TaskNodeContainer({
 	checked,
 	id,
 	text,
+	type = "checkbox",
 }: TaskNodeContainerProps) {
 	const [inputId] = useMemo(() => [Math.random().toString()], []);
 
@@ -80,6 +82,7 @@ export function TaskNodeContainer({
 			data-checked={checked}
 			data-id={id}
 			onClick={onClick}
+			data-type={type}
 		>
 			<input
 				checked={checked}

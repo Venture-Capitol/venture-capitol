@@ -1,5 +1,6 @@
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from "@heroicons/react/solid/esm";
 import { TaskNodeContainer } from "@vc/frontend/component/TaskList/TaskNode/TaskNode";
+import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import Button from "@vc/ui/src/components/Button/Button";
 import {
 	ProcessedTaskNode,
@@ -20,6 +21,7 @@ const Gruendung_TaskId = () => {
 		undefined | "loading" | "error"
 	>();
 	let { task } = useParams<{ task: string }>();
+	const isMobile = useMediaQuery("(max-width: 900px)");
 
 	async function setMarkDownComponent() {
 		setLoadingState("loading");
@@ -70,9 +72,11 @@ const Gruendung_TaskId = () => {
 
 	return (
 		<div className={s.splitView}>
-			<div className={s.nav}>
-				<TaskList />
-			</div>
+			{!isMobile && (
+				<div className={s.nav}>
+					<TaskList />
+				</div>
+			)}
 
 			<main className='content'>
 				<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
@@ -108,6 +112,7 @@ const Gruendung_TaskId = () => {
 					unprocessedNodes[task].type == "decision" && (
 						<div className={s.aside}>
 							<TaskNodeContainer
+								type='radio'
 								checked={nodes[task]?.selectedPath == 0}
 								onChange={active =>
 									setDecisionStatus(
@@ -130,6 +135,7 @@ const Gruendung_TaskId = () => {
 								}
 							/>
 							<TaskNodeContainer
+								type='radio'
 								checked={nodes[task]?.selectedPath == 1}
 								onChange={active => {
 									console.log(active);
