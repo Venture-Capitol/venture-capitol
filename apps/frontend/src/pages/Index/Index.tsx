@@ -40,7 +40,7 @@ const Landing: React.FunctionComponent = () => {
 
 			<section className={`${s.video} ${s.split}`}>
 				{isMobile && <h1>Durchblick im Bürokratiedschungel</h1>}
-				<video autoPlay={true} loop={true} muted={true}>
+				<video autoPlay={true} loop={true} muted={true} playsInline={true}>
 					<source
 						src='https://cdn.ananaspizza.de/tasks_click.mp4'
 						type='video/mp4'
