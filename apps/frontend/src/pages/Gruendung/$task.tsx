@@ -30,27 +30,19 @@ const Gruendung_TaskId = () => {
 			const module = await import("../../steps/" + task + ".md");
 
 			let html: string = module.html;
-
 			if (currentCompany) {
-				const regexNotLegalForm = new RegExp(
-					"\\$[^\\${}]*(?<!" +
-						currentCompany.legalForm.toLowerCase() +
-						"){.*?}",
-					"gsm"
+				const removeCurrLFBrackets = html.replaceAll(
+					new RegExp(
+						"\\$" + currentCompany.legalForm.toLowerCase() + "\\{(.*?)\\}",
+						"g"
+					),
+					"$1"
 				);
-				const regexLegalForm = new RegExp(
-					"\\$[^\\${}]*(?<=" +
-						currentCompany.legalForm.toLowerCase() +
-						"){(.*?)}",
-					"gsm"
+				const removeOtherLFBrackets = removeCurrLFBrackets.replaceAll(
+					/\$.*?\{(.*?)\}/g,
+					""
 				);
-
-				// remove text that is marked with another legal form than selected, remove markers from text with selected legal form
-				html = html
-					.replaceAll(regexNotLegalForm, "")
-					.replaceAll(regexLegalForm, (match, g1) => g1);
-
-				setHtmlContent(html);
+				setHtmlContent(removeOtherLFBrackets);
 				setLoadingState(undefined);
 			}
 		} catch (error) {
