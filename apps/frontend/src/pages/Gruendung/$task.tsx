@@ -64,10 +64,7 @@ const Gruendung_TaskId = () => {
 	useEffect(() => {
 		setMarkDownComponent();
 
-		document
-			.querySelector(`[data-id="${task}"]`)
-			// @ts-ignoreest 5
-			?.scrollIntoViewIfNeeded(false);
+		document.querySelector(`[data-id="${task}"]`)?.scrollIntoView(false);
 	}, [task, currentCompany]);
 
 	return (
