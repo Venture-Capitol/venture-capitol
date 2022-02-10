@@ -22,19 +22,10 @@ const SearchResult = ({ resultData }: Props) => {
 	function openMoreInfo() {
 		const fetchURL = "/dlr/entry/" + resultData.id;
 
-		user?.getIdToken().then(token => {
-			const requestOptions = {
-				method: "GET",
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			};
-
-			return fetch(fetchURL, requestOptions)
-				.then(data => data.json())
-				.then(parsedData => checkGetResponse(parsedData))
-				.catch(error => console.log(error));
-		});
+		return fetch(fetchURL)
+			.then(data => data.json())
+			.then(parsedData => checkGetResponse(parsedData))
+			.catch(error => console.log(error));
 	}
 
 	function checkGetResponse(data: any) {
