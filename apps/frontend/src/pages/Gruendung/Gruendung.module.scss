@@ -124,6 +124,11 @@ h1.title {
 			border: 3px solid var(--scrollbarBG);
 		}
 	}
+
+	@media (max-width: 900px) {
+		height: auto;
+		min-height: 100%;
+	}
 }
 
 .loadingIndicator {

@@ -3,7 +3,7 @@ import s from "./DLRSearch.module.scss";
 import Headline from "./subcomponents/HeadlineDLR/Headline";
 import SearchResultsList from "./subcomponents/SearchResultsListDLR/SearchResultsList";
 import Pagination from "@vc/frontend/page/SearchDLR/subcomponents/PaginationDLR/Pagination";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function DLRSearch() {
 	const [loadedPages, setLoadedPages] = useState<any>([]);
@@ -78,7 +78,7 @@ export default function DLRSearch() {
 		);
 	} else {
 		return (
-			<>
+			<div className={s.wrapper}>
 				<Headline />
 				<SearchForm
 					startSearchRequest={startSearchRequest}
@@ -89,7 +89,7 @@ export default function DLRSearch() {
 					setLat={setLat}
 					setLong={setLong}
 				/>
-			</>
+			</div>
 		);
 	}
 }

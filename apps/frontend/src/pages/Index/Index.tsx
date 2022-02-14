@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useHistory } from "react-router-dom";
 import s from "./Index.module.scss";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
@@ -8,12 +8,14 @@ import Footer from "@vc/frontend/component/Footer/Footer";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import DisclaimerPopup from "@vc/frontend/component/Popup/DisclaimerPopup";
 import { checkCookie } from "@vc/frontend/util/DPACK";
+import * as basicScroll from "basicscroll";
 
 const Landing: React.FunctionComponent = () => {
 	const isMobile = useMediaQuery("(max-width: 900px)");
 	const history = useHistory();
 	const DP_ACK = checkCookie();
 	const { nodes, initialNodeId, createCompany } = useGruendungContext();
+	const headerImageRef = useRef<HTMLImageElement>(null);
 
 	function findNextNode() {
 		let node = nodes[initialNodeId];
@@ -26,13 +28,48 @@ const Landing: React.FunctionComponent = () => {
 		return node;
 	}
 
+	useEffect(() => {
+		if (!headerImageRef.current) return;
+		console.log("creating basic scroll");
+		const instance = basicScroll.create({
+			elem: headerImageRef.current,
+			from: "0px",
+			to: "bottom-top",
+			direct: true,
+			props: {
+				"--shift": {
+					from: "0px",
+					to: "-80px",
+				},
+				"--rot": {
+					from: "0deg",
+					to: "15deg",
+				},
+			},
+		});
+		instance.start();
+		console.log(instance);
+		return () => instance.destroy();
+	}, [headerImageRef]);
+
 	return (
 		<div className={s.landingPage}>
 			{!DP_ACK && <DisclaimerPopup />}
 			<section className={s.header}>
 				<h1>In wenigen Schritten zu deinem eigenen Unternehmen</h1>
+				<div className={s.buttons}>
+					<Link to={"/gesellschaftsform"}>
+						<Button variant='secondary'>
+							<div className={s.searchButtonContent}>
+								<span>Jetzt Gründung Starten</span>
+							</div>
+						</Button>
+					</Link>
+				</div>
+
 				<img
 					className={s.skewed}
+					ref={headerImageRef}
 					src='https://cdn.ananaspizza.de/Entscheidung.jpg'
 					alt=''
 				/>
@@ -118,7 +155,7 @@ const Landing: React.FunctionComponent = () => {
 					<Link to={"/gesellschaftsform"}>
 						<Button variant='secondary'>
 							<div className={s.searchButtonContent}>
-								<SearchIcon /> Gesellschaftsform finden
+								<SearchIcon /> <span>Gesellschaftsform finden</span>
 							</div>
 						</Button>
 					</Link>
