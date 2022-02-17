@@ -64,6 +64,7 @@
 		padding: var(--header-height) 2rem 2rem 2rem;
 		gap: 6vh;
 		justify-content: center;
+		max-width: 1200px;
 
 		&::before {
 			content: "";
