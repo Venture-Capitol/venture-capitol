@@ -6,6 +6,7 @@ import { taskGraph, Node, Nodes } from "../../steps/connections";
 import * as CompanyService from "./company";
 import { GPF } from "@vc/api";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
+import { useHistory } from "react-router-dom";
 
 // 🌍 Context
 
@@ -79,6 +80,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 		loadCompletedDecisions
 	);
 	const { user } = useAuthContext();
+	const history = useHistory();
 
 	useEffect(() => {
 		const interceptor = GPF.axiosInstance.interceptors.request.use(
@@ -156,6 +158,10 @@ const GruendungContextProvider: FC = ({ children }) => {
 	}
 
 	async function createCompany(legalForm: string) {
+		if (currentCompany) {
+			history.push("/gruendung");
+			return;
+		}
 		if (user) {
 			const company = await CompanyService.createCompany(legalForm);
 			if (!company) return;

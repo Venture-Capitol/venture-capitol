@@ -3,6 +3,7 @@ import { useAuthContext } from "@vc/auth/src/AuthContext";
 
 import CreateDienstleister from "./CreateDienstleister";
 import EditDeleteDienstleister from "./EditDeleteDienstleister";
+import { Link } from "react-router-dom";
 
 export default function DienstleisterProfil() {
 	const { user } = useAuthContext();
@@ -51,6 +52,11 @@ export default function DienstleisterProfil() {
 			);
 		}
 	} else {
-		return <></>;
+		return (
+			<p>
+				Hey, du bist Admin, wenn du eine Firma anlegen willst, musst du das über
+				das <Link to='/dienstleister/admin'>Admin Panel</Link> machen.
+			</p>
+		);
 	}
 }

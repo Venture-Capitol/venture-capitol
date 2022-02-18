@@ -34,12 +34,12 @@ const Gruendung_TaskId = () => {
 				const removeCurrLFBrackets = html.replaceAll(
 					new RegExp(
 						"\\$" + currentCompany.legalForm.toLowerCase() + "\\{(.*?)\\}",
-						"g"
+						"gsm"
 					),
 					"$1"
 				);
 				const removeOtherLFBrackets = removeCurrLFBrackets.replaceAll(
-					/\$.*?\{(.*?)\}/g,
+					/\$.*?\{(.*?)\}/gms,
 					""
 				);
 				setHtmlContent(removeOtherLFBrackets);

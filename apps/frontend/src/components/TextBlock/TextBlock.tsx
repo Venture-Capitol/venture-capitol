@@ -1,6 +1,7 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import s from "./TextBlock.module.scss";
 import BackArrow from "../BackArrow/BackArrow";
+import Footer from "../Footer/Footer";
 
 type TextProps = {
 	title?: string;
@@ -13,12 +14,20 @@ const TextBlock: FunctionComponent<TextProps> = ({
 	children,
 	arrow,
 }: TextProps) => {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
 		<div className={`${s.text_block} content`}>
-			{arrow && <BackArrow />}
-			<h1>{title}</h1>
-			<div className={s.page_content}>{children}</div>
-			<div className={s.bot_gradient}></div>
+			<div className={s.wrapper}>
+				<h1 className={s.title}>
+					{arrow && <BackArrow />} {title}
+				</h1>
+				<div className={s.page_content}>{children}</div>
+				<div className={s.bot_gradient}></div>
+			</div>
+			<Footer />
 		</div>
 	);
 };

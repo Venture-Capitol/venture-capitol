@@ -183,6 +183,7 @@
 	backdrop-filter: blur(20px);
 	z-index: -10;
 	transition: clip-path 0.2s 0.1s ease-in-out;
+	pointer-events: none;
 
 	&[data-mobile-open="true"][data-mobile-active="true"] {
 		background-color: rgba(223, 223, 223, 0.5);
