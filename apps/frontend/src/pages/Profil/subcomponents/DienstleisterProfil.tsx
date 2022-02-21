@@ -18,7 +18,9 @@ export default function DienstleisterProfil() {
 	async function getDienstleisterOfUser() {
 		let idTokenResult = await user?.getIdTokenResult();
 
-		if (idTokenResult?.claims.role == "user") {
+		if (idTokenResult?.claims.role == "admin") {
+			setIsAdmin(true);
+		} else {
 			setIsAdmin(false);
 			const requestOptions = {
 				method: "GET",
@@ -33,30 +35,28 @@ export default function DienstleisterProfil() {
 			} else {
 				setDienstleisterOfUser("");
 			}
-		} else {
-			setIsAdmin(true);
 		}
 	}
 
-	if (isAdmin === false) {
-		if (dienstleisterOfUser == "") {
-			return (
-				<CreateDienstleister getDienstleisterOfUser={getDienstleisterOfUser} />
-			);
-		} else {
-			return (
-				<EditDeleteDienstleister
-					dienstleisterOfUser={dienstleisterOfUser}
-					getDienstleisterOfUser={getDienstleisterOfUser}
-				/>
-			);
-		}
-	} else {
+	if (isAdmin) {
 		return (
 			<p>
 				Hey, du bist Admin, wenn du eine Firma anlegen willst, musst du das über
 				das <Link to='/dienstleister/admin'>Admin Panel</Link> machen.
 			</p>
+		);
+	}
+
+	if (dienstleisterOfUser == "") {
+		return (
+			<CreateDienstleister getDienstleisterOfUser={getDienstleisterOfUser} />
+		);
+	} else {
+		return (
+			<EditDeleteDienstleister
+				dienstleisterOfUser={dienstleisterOfUser}
+				getDienstleisterOfUser={getDienstleisterOfUser}
+			/>
 		);
 	}
 }
