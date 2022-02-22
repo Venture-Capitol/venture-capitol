@@ -208,25 +208,32 @@ const GruendungContextProvider: FC = ({ children }) => {
 				addEmptyNodes(node, nodes);
 			}
 		});
-		calcDisabledNodes(nodes);
+		calcDisabledNodes(nodes, processedTaskGraph.initialNode);
 		setNodes(nodes);
 		setInitialNodeId(processedTaskGraph.initialNode);
 	}, [taskGraph, completedTasks, madeDecisions]);
 
 	/**
 	 * set nodes disabled except when node:
+	 * - is initial node
 	 * - is checked
 	 * - prev is checked
 	 * @param nodes
 	 */
-	function calcDisabledNodes(nodes: ProcessedTaskNodes) {
+	function calcDisabledNodes(nodes: ProcessedTaskNodes, initialNode: string) {
 		iterateNodes: for (const [id, node] of Object.entries(nodes)) {
 			if (nodes[node.next[0]]?.type == "empty") {
 				nodes[node.next[0]].checked = node.checked;
 			}
+
+			if (node.id == initialNode) {
+				continue;
+			}
+
 			if (node.checked) {
 				continue;
 			}
+
 			for (let prevId of node.prev) {
 				if (nodes[prevId].checked) {
 					continue iterateNodes;
