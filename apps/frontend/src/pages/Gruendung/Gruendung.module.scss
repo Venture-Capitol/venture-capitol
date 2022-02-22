@@ -78,6 +78,10 @@ h1.title {
 	padding-top: var(--header-height);
 	gap: 3rem;
 
+	@media (max-width: 1200px) {
+		gap: 1rem;
+	}
+
 	.nav {
 		flex: 714;
 		padding: 2rem 0rem 2rem 2rem;
@@ -100,7 +104,7 @@ h1.title {
 			max-width: 800px;
 		}
 
-		@media (max-width: 900px) {
+		@media (max-width: 950px) {
 			padding: 1rem 1.5rem 1.5rem 1.5rem;
 		}
 	}
@@ -125,7 +129,7 @@ h1.title {
 		}
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 950px) {
 		height: auto;
 		min-height: 100%;
 	}

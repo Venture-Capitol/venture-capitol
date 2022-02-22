@@ -21,12 +21,8 @@ const Task: FunctionComponent<TaskProps> = ({
 	checked,
 	disabled,
 }) => {
-	const [inputId] = useState(Math.random().toString());
-	const { setTaskStatus } = useGruendungContext();
 	const match = useRouteMatch("/gruendung/" + id);
-
 	const history = useHistory();
-
 	function handleClick(e: MouseEvent<HTMLDivElement>) {
 		history.push(url);
 	}
@@ -42,17 +38,6 @@ const Task: FunctionComponent<TaskProps> = ({
 			data-disabled={disabled}
 			onClick={handleClick}
 		>
-			<input
-				checked={checked}
-				onChange={e => setTaskStatus(id, !checked)}
-				type='checkbox'
-				name='task_checked'
-				onClick={e => e.stopPropagation()}
-				id={inputId}
-			/>
-			<label htmlFor={inputId} onClick={e => e.stopPropagation()}>
-				<CheckIcon />
-			</label>
 			<span>{shortName}</span>
 		</div>
 	);

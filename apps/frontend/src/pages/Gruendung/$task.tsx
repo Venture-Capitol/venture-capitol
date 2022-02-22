@@ -21,7 +21,7 @@ const Gruendung_TaskId = () => {
 		undefined | "loading" | "error"
 	>();
 	let { task } = useParams<{ task: string }>();
-	const isMobile = useMediaQuery("(max-width: 900px)");
+	const isMobile = useMediaQuery("(max-width: 950px)");
 
 	async function setMarkDownComponent() {
 		setLoadingState("loading");
