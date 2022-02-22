@@ -1,5 +1,6 @@
 import { SVG, Svg } from "@svgdotjs/svg.js";
 import { useResizeObserver } from "@vc/frontend/util/useResizeObserver";
+import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import React, { FC, useEffect, useRef, useState } from "react";
 import Nodes from "./Nodes/Nodes";
 import styles from "./TaskList.module.scss";
@@ -10,6 +11,7 @@ const TaskList: FC = () => {
 	const { ref: taskListRef, domRect: svgContainerRect } =
 		useResizeObserver<HTMLDivElement>();
 	const [draw, setDaw] = useState<Svg>();
+	const { nodes } = useGruendungContext();
 
 	// If the refs to the HTML elements get updated, redraw and store SVG.js Object in state
 	useEffect(() => {
@@ -30,7 +32,14 @@ const TaskList: FC = () => {
 	// Render arrows when containers change
 	useEffect(() => {
 		renderArrows();
-	}, [svgContainerRef, taskListRef, containerRef, draw, svgContainerRect]);
+	}, [
+		svgContainerRef,
+		taskListRef,
+		containerRef,
+		draw,
+		svgContainerRect,
+		nodes,
+	]);
 
 	function clamp(min: number, max: number, val: number): number {
 		return Math.max(min, Math.min(max, val));
