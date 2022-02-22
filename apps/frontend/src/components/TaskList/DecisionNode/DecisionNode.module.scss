@@ -79,7 +79,7 @@
 
 		&[data-selected="true"] {
 			color: var(--color-green-900);
-			border-width: 1px;
+			border-width: 2px;
 
 			span {
 				font-weight: 700;
@@ -121,6 +121,17 @@
 		}
 		&::after {
 			right: -9px;
+		}
+
+		&[data-checked="true"][data-selected="true"] {
+			&::before {
+				left: -11px;
+				top: 2px;
+			}
+			&::after {
+				right: -11px;
+				top: 2px;
+			}
 		}
 	}
 }
