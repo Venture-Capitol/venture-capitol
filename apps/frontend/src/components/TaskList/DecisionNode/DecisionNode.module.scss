@@ -8,8 +8,7 @@
 	height: 50px;
 	border-radius: 13px;
 	transition-property: background-color, color, border-color;
-	transition: background-color 0.15s ease-out;
-	transition: transform 0.2s ease;
+	transition: background-color 0.15s ease-out, transform 0.2s ease;
 	width: fit-content;
 	margin: 50px 30px;
 	position: relative;
@@ -32,7 +31,7 @@
 		position: absolute;
 		top: 4px;
 		z-index: -1;
-		transition: background-color 0.15s ease-out;
+		transition: background-color 0.15s ease-out, transform 0.2s ease;
 		clip-path: polygon(
 			100% 100%,
 			100% 0%,
@@ -117,13 +116,24 @@
 		border-color: #ddd6ec;
 		opacity: 0.5;
 		box-shadow: 0px 4px 10px rgba(109, 112, 193, 0.05);
+
+		&::before,
+		&::after {
+			border-color: #ddd6ec;
+		}
+
 		&[data-selected="true"] {
 			color: #505050;
-			border-color: #716b7b;
-			background-color: #f7f7fc;
+			border-color: #7b716b;
+			background-color: #fcf9f7;
 			opacity: 1;
 			span {
 				font-weight: var(--font-weight-semi-bold);
+			}
+			&::before,
+			&::after {
+				border-color: #7b716b;
+				background-color: #fcf9f7;
 			}
 		}
 	}

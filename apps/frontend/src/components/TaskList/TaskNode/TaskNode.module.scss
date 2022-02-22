@@ -11,8 +11,7 @@
 	padding: 30px;
 	border-radius: 13px;
 	transition-property: background-color, color, border-color;
-	transition: background-color 0.15s ease-out;
-	transition: transform 0.2s ease;
+	transition: background-color 0.15s ease-out, transform 0.2s ease;
 	cursor: pointer;
 	scroll-margin: calc(50vh - var(--header-height) / 2) 0;
 
