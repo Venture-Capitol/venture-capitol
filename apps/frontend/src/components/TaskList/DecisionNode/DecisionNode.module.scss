@@ -167,5 +167,16 @@
 		&::after {
 			right: -10px;
 		}
+
+		&[data-checked="true"][data-selected="true"] {
+			&::before {
+				left: -11px;
+				top: 2px;
+			}
+			&::after {
+				right: -11px;
+				top: 2px;
+			}
+		}
 	}
 }
