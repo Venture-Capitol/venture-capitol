@@ -10,6 +10,7 @@ interface DecisionProps {
 	url: string;
 	children: Array<ReactElement<DecisionPathProps>>;
 	selectedPath?: number;
+	disabled: boolean;
 }
 
 const Decision: FC<DecisionProps> = ({
@@ -19,6 +20,7 @@ const Decision: FC<DecisionProps> = ({
 	url,
 	children,
 	selectedPath,
+	disabled,
 }) => {
 	return (
 		<div className={styles.decision}>
@@ -28,6 +30,7 @@ const Decision: FC<DecisionProps> = ({
 				next={next}
 				url={url}
 				selectedPath={selectedPath}
+				disabled={disabled}
 			/>
 			<div className={styles.decision_path_container}>{children}</div>
 		</div>

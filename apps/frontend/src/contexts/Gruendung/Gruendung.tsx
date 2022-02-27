@@ -1,5 +1,3 @@
-import { AuthContext, User } from "@vc/auth";
-import axios from "axios";
 import { nanoid } from "nanoid";
 import React, { FC, useState, useContext, useEffect } from "react";
 import { taskGraph, Node, Nodes } from "../../steps/connections";
@@ -46,6 +44,7 @@ export interface ProcessedTaskNode extends Node {
 	prev: string[];
 	checked: boolean;
 	selectedPath?: number;
+	disabled: boolean;
 }
 
 export interface ProcessedTaskNodes {
@@ -195,6 +194,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 				prev: [],
 				checked: completedTasks.find(task => task == key) != undefined,
 				selectedPath: madeDecisions.find(decision => decision.id == key)?.path,
+				disabled: false,
 			};
 		}
 
@@ -208,10 +208,39 @@ const GruendungContextProvider: FC = ({ children }) => {
 				addEmptyNodes(node, nodes);
 			}
 		});
-
+		calcDisabledNodes(nodes);
 		setNodes(nodes);
 		setInitialNodeId(processedTaskGraph.initialNode);
 	}, [taskGraph, completedTasks, madeDecisions]);
+
+	/**
+	 * set nodes disabled except when node:
+	 * - is checked
+	 * - prev is checked
+	 * @param nodes
+	 */
+	function calcDisabledNodes(nodes: ProcessedTaskNodes) {
+		iterateNodes: for (const [id, node] of Object.entries(nodes)) {
+			if (nodes[node.next[0]]?.type == "empty") {
+				nodes[node.next[0]].checked = node.checked;
+			}
+			if (node.checked) {
+				continue;
+			}
+			for (let prevId of node.prev) {
+				if (nodes[prevId].checked) {
+					continue iterateNodes;
+				}
+				if (
+					nodes[prevId].type == "decision" &&
+					nodes[prevId].selectedPath == node.path
+				) {
+					continue iterateNodes;
+				}
+			}
+			node.disabled = true;
+		}
+	}
 
 	/**
 	 * Set wheter a task is done or not
@@ -453,6 +482,7 @@ function addEmptyNodes(node: ProcessedTaskNode, nodes: ProcessedTaskNodes) {
 					next: [nextId],
 					prev: [],
 					checked: false,
+					disabled: false,
 				};
 
 				lastNextId = nextId;

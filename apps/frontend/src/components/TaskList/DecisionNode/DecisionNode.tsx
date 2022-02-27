@@ -7,6 +7,7 @@ export interface DecisionNodeProps {
 	next: string[];
 	url: string;
 	selectedPath?: number;
+	disabled: boolean;
 }
 const DecisionNode: FC<DecisionNodeProps> = ({
 	id,
@@ -14,6 +15,7 @@ const DecisionNode: FC<DecisionNodeProps> = ({
 	next,
 	url,
 	selectedPath,
+	disabled,
 }) => {
 	const history = useHistory();
 	const match = useRouteMatch("/gruendung/" + id);
@@ -30,6 +32,7 @@ const DecisionNode: FC<DecisionNodeProps> = ({
 			data-next={next}
 			data-selected={match !== null}
 			data-checked={selectedPath !== undefined}
+			data-disabled={disabled}
 			onClick={handleClick}
 		>
 			<span>{shortName}</span>
