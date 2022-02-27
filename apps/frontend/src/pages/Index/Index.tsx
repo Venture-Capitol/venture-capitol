@@ -16,6 +16,7 @@ const Landing: React.FunctionComponent = () => {
 	const DP_ACK = checkCookie();
 	const { nodes, initialNodeId, createCompany } = useGruendungContext();
 	const headerImageRef = useRef<HTMLImageElement>(null);
+	const secondImageRef = useRef<HTMLImageElement>(null);
 
 	function findNextNode() {
 		let node = nodes[initialNodeId];
@@ -30,7 +31,6 @@ const Landing: React.FunctionComponent = () => {
 
 	useEffect(() => {
 		if (!headerImageRef.current) return;
-		console.log("creating basic scroll");
 		const instance = basicScroll.create({
 			elem: headerImageRef.current,
 			from: "0px",
@@ -48,9 +48,30 @@ const Landing: React.FunctionComponent = () => {
 			},
 		});
 		instance.start();
-		console.log(instance);
 		return () => instance.destroy();
 	}, [headerImageRef]);
+
+	useEffect(() => {
+		if (!secondImageRef.current) return;
+		const instance = basicScroll.create({
+			elem: secondImageRef.current,
+			from: "0px",
+			to: "bottom-top",
+			direct: true,
+			props: {
+				"--shift": {
+					from: "80px",
+					to: "-80px",
+				},
+				"--rot": {
+					from: "0deg",
+					to: "25deg",
+				},
+			},
+		});
+		instance.start();
+		return () => instance.destroy();
+	}, [secondImageRef]);
 
 	return (
 		<div className={s.landingPage}>
@@ -111,6 +132,7 @@ const Landing: React.FunctionComponent = () => {
 				</div>
 				<img
 					className={s.skewed}
+					ref={secondImageRef}
 					src='https://cdn.ananaspizza.de/Trefferseite.jpg'
 					alt=''
 				/>
