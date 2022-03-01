@@ -1,5 +1,5 @@
 import s from "./Adminpanel.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@vc/ui/src/components/Button/Button";
 import GetAllResultList from "./subcomponents/GetAllResultList/GetAllResultList";
 import CreateFormAdmin from "./subcomponents/CreateFormAdmin/CreateFormAdmin";
@@ -11,6 +11,7 @@ export default function Adminpanel() {
 	const [loadedPages, setLoadedPages] = useState<any>([]);
 
 	const { user } = useAuthContext();
+	const [isAdmin, setIsAdmin] = useState(false);
 	// Filter Companies by verified status
 	const [chosenVerified, setChosenVerified] = useState("Alle");
 	const [currentPage, setCurrentPage] = useState(0);
@@ -20,6 +21,20 @@ export default function Adminpanel() {
 
 	// needed to get data of one concrete search result to the editform located here
 	const [editData, setEditData] = useState();
+
+	useEffect(() => {
+		checkAdmin();
+	}, [user]);
+
+	async function checkAdmin() {
+		let idTokenResult = await user?.getIdTokenResult();
+
+		if (idTokenResult?.claims.role == "admin") {
+			setIsAdmin(true);
+		} else {
+			setIsAdmin(false);
+		}
+	}
 
 	async function startGetAllRequest(event: any) {
 		event.preventDefault();
@@ -99,6 +114,9 @@ export default function Adminpanel() {
 		}
 	}
 
+	if (isAdmin === false) {
+		return <></>;
+	}
 	if (currentlyCreating === true) {
 		return (
 			<CreateFormAdmin

@@ -100,7 +100,7 @@ const SearchResult = ({ resultData }: Props) => {
 	}
 
 	return (
-		<div className={s.resultframe}>
+		<div className={s.resultframe} onClick={e => openMoreInfo()}>
 			<p className={s.result_company}>{resultData.company}</p>
 			<p className={s.result_job}>{resultData.job}</p>
 			<br></br>
@@ -111,9 +111,7 @@ const SearchResult = ({ resultData }: Props) => {
 			<br></br>
 			{checkDescription()}
 			<br></br>
-			<p className={s.result_moreinfo} onClick={e => openMoreInfo()}>
-				Mehr Informationen
-			</p>
+			<p className={s.result_moreinfo}>Mehr Informationen</p>
 			{checkDialog()}
 		</div>
 	);
