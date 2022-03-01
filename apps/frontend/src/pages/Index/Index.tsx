@@ -92,7 +92,11 @@ const Landing: React.FunctionComponent = () => {
 					className={s.skewed}
 					ref={headerImageRef}
 					src='https://cdn.ananaspizza.de/Entscheidung.jpg'
-					alt=''
+					alt='Screenshot der Venture Capitol Anwendung'
+					style={{
+						['--shift' as any]: "0px",
+						['--rot' as any]: "0deg",
+					}}
 				/>
 			</section>
 
