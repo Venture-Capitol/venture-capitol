@@ -43,6 +43,7 @@ resource "google_cloud_run_service" "dlr_backend" {
   location                   = "europe-west1"
   autogenerate_revision_name = true
 
+
   template {
     spec {
       service_account_name = google_service_account.dlr_backend_sa.email
@@ -65,6 +66,7 @@ resource "google_cloud_run_service" "dlr_backend" {
 
     metadata {
       annotations = {
+        "autoscaling.knative.dev/minScale"      = "1"
         "autoscaling.knative.dev/maxScale"      = "10"
         "run.googleapis.com/cloudsql-instances" = google_sql_database_instance.vc_db.connection_name
         "run.googleapis.com/client-name"        = "terraform"
