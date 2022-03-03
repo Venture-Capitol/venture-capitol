@@ -7,7 +7,7 @@
 		"build": "lerna run build",
 		"test": "lerna run test",
 		"bootstrap": "lerna bootstrap",
-		"start": "lerna run start --stream",
+		"start": "lerna run start --scope @vc/frontend --scope @vc/backend --scope @vc/utr-backend --stream",
 		"start:fe": "lerna run start --scope @vc/frontend --stream",
 		"start:be": "lerna run start --scope @vc/backend --stream",
 		"start:be-utr": "lerna run start --scope @vc/utr-backend --stream",

@@ -1,0 +1,57 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String          @id @unique
+  companies UserInCompany[]
+}
+
+model UserInCompany {
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+
+  @@id([userId, companyId])
+}
+
+model Company {
+  id            String          @id @default(uuid())
+  name          String?
+  users         UserInCompany[]
+  legalForm     LegalForm
+  completedTask CompletedTask[]
+  madeDecision  MadeDecision[]
+}
+
+model CompletedTask {
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+  taskId    String
+
+  @@id([companyId, taskId])
+}
+
+model MadeDecision {
+  decisionId   String
+  company      Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId    String
+  selectedPath Int
+
+  @@id([companyId, decisionId])
+}
+
+enum LegalForm {
+  EINZELUNTERNEHMER  
+  GBR
+  FREIBERUFLER
+  PARTG
+  UG
+  GMBH
+}
