@@ -125,8 +125,36 @@ h1.title {
 	}
 
 	@media (max-width: 950px) {
-		height: auto;
 		min-height: 100%;
+		width: 100vw;
+		overflow: hidden;
+
+		.nav,
+		main {
+			position: absolute;
+			left: 0;
+			top: 0;
+			transition: transform 0.4s ease-out;
+			height: 100%;
+			overflow-y: scroll;
+			padding-top: var(--header-height);
+		}
+
+		main {
+			transform: translateX(-100vw);
+		}
+		.nav {
+			transform: translateX(0);
+		}
+
+		&[data-details="true"] {
+			main {
+				transform: translateX(0);
+			}
+			.nav {
+				transform: translateX(100vw);
+			}
+		}
 	}
 }
 
@@ -194,6 +222,8 @@ h1.title {
 		opacity: 1;
 	}
 }
+
+// loading spinner
 
 .loadingIndicator div {
 	position: absolute;

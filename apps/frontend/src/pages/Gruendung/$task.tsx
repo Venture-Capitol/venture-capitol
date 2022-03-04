@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import TaskList from "../../components/TaskList/TaskList";
 import s from "./Gruendung.module.scss";
+import BottomNav from "./subcomponents/BottomNav/BottomNav";
 import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle";
 
 const Gruendung_TaskId = () => {
@@ -59,13 +60,15 @@ const Gruendung_TaskId = () => {
 		document.querySelector(`[data-id="${task}"]`)?.scrollIntoView(false);
 	}, [task, currentCompany]);
 
+	const [currentPage, setCurrentPage] = useState<"details" | "overview">(
+		"details"
+	);
+
 	return (
-		<div className={s.splitView}>
-			{!isMobile && (
-				<div className={s.nav}>
-					<TaskList />
-				</div>
-			)}
+		<div className={s.splitView} data-details={currentPage == "details"}>
+			<div className={s.nav}>
+				<TaskList />
+			</div>
 
 			<main className='content'>
 				<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
@@ -193,6 +196,7 @@ const Gruendung_TaskId = () => {
 					) : null}
 				</div>
 			</main>
+			<BottomNav currentPage={currentPage} setCurrentPage={setCurrentPage} />
 		</div>
 	);
 };
