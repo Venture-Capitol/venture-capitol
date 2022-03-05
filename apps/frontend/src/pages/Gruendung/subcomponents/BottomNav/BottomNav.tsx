@@ -12,12 +12,16 @@ export default function BottomNav({
 }: BottomNavProps) {
 	return (
 		<nav className={s.nav}>
-			<button onClick={() => setCurrentPage("details")}>
-				<ClipboardListIcon height={24} /> Details
-			</button>
-			<button onClick={() => setCurrentPage("overview")}>
-				<MapIcon height={24} /> Übersicht
-			</button>
+			<a href='#details'>
+				<button onClick={() => setCurrentPage("details")}>
+					<ClipboardListIcon height={24} /> Details
+				</button>
+			</a>
+			<a href='#nav'>
+				<button onClick={() => setCurrentPage("overview")}>
+					<MapIcon height={24} /> Übersicht
+				</button>
+			</a>
 		</nav>
 	);
 }

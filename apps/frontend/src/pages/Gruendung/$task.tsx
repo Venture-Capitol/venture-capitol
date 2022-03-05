@@ -66,11 +66,11 @@ const Gruendung_TaskId = () => {
 
 	return (
 		<div className={s.splitView} data-details={currentPage == "details"}>
-			<div className={s.nav}>
+			<div className={s.nav} id='nav'>
 				<TaskList />
 			</div>
 
-			<main className='content'>
+			<main className='content' id='details'>
 				<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
 				{unprocessedNodes[task].type == "task" && (
 					<CompletedToggle taskId={task} />
