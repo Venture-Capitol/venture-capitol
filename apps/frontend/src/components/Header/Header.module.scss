@@ -7,7 +7,6 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	transition: height ease-in-out 0.1s;
 	z-index: 10;
 }
 
@@ -180,8 +179,11 @@
 	height: 100vh;
 	clip-path: polygon(0 0, 100% 0, 100% 100px, 0 100px);
 	width: 100%;
-	backdrop-filter: blur(20px);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+
 	z-index: -10;
+
 	transition: clip-path 0.2s 0.1s ease-in-out;
 	pointer-events: none;
 
@@ -191,7 +193,8 @@
 		transition: clip-path 0.2s ease-in-out;
 	}
 
-	@supports not (backdrop-filter: blur(20px)) {
+	@supports (not (backdrop-filter: blur(20px))) and
+		(not (-webkit-backdrop-filter: blur(20px))) {
 		background: radial-gradient(
 			95.33% 88.77% at 100% 25.99%,
 			#f3eae4e7 0%,

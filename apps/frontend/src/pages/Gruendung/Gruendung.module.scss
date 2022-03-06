@@ -69,17 +69,20 @@ h1.title {
 	}
 }
 
-// split view
+.wrapper {
+	overflow: hidden;
+	background: var(--color-background-gradient);
+	height: 100%;
+}
 
 .splitView {
 	display: flex;
 	height: 100%;
-	background: var(--color-background-gradient);
 	padding-top: var(--header-height);
 
 	.nav {
 		flex: 714;
-		padding: 2rem 20px 2rem 2rem;
+		padding: 0rem 20px 2rem 2rem;
 		overflow-y: auto;
 		direction: rtl;
 		scroll-behavior: smooth;
@@ -92,7 +95,7 @@ h1.title {
 
 	main {
 		flex: 835;
-		padding: 3rem 3rem 3rem 20px;
+		padding: 1rem 3rem 0 20px;
 		overflow-y: auto;
 
 		div {
@@ -127,39 +130,33 @@ h1.title {
 	}
 
 	@media (max-width: 950px) {
+		padding-top: 0;
 		min-height: 100%;
-		width: 80vw;
-		overflow: hidden;
-		overflow-x: scroll;
 		display: flex;
 		flex-direction: row-reverse;
-		scroll-behavior: smooth;
+		transition: transform 0.4s ease-out;
 
 		.nav,
 		main {
 			flex: 0 0 100vw;
-			transition: transform 0.4s ease-out;
 			height: 100%;
-			width: 100%;
-			overflow-y: scroll;
-			padding: var(--header-height) 0;
+			width: 100vw;
+			overflow-y: auto;
 		}
 
 		main {
-			// transform: translateX(-100vw);
 			padding: var(--header-height) 1rem;
 		}
 		.nav {
-			// transform: translateX(0);
+			padding: var(--header-height) 0;
+
+			nav {
+				margin: 0 auto;
+			}
 		}
 
 		&[data-details="true"] {
-			main {
-				// transform: translateX(0);
-			}
-			.nav {
-				// transform: translateX(100vw);
-			}
+			transform: translateX(100vw);
 		}
 	}
 }
@@ -187,24 +184,19 @@ h1.title {
 	}
 }
 
-.bottomNav {
+.bottomNav,
+.topNav {
 	display: flex;
-	justify-content: space-between;
-	gap: 1.5rem;
-	margin-top: 3rem;
+	justify-content: center;
+	padding: 1rem 0;
 	word-break: break-word;
 
 	a {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
-		font-weight: 600;
+		font-weight: 500;
 		color: var(--color-grey-900);
-
-		&:last-child {
-			margin-left: auto;
-			text-align: right;
-		}
+		text-decoration: none;
 
 		&.disabled {
 			cursor: not-allowed;
@@ -216,6 +208,22 @@ h1.title {
 		height: 15px;
 		width: 15px;
 	}
+
+	b {
+		font-weight: 600;
+	}
+}
+
+.topNav {
+	justify-content: flex-start;
+
+	a {
+		color: var(--color-grey-500);
+	}
+}
+
+.bottomNav {
+	padding: 2rem 0;
 }
 
 @keyframes scaleUp {

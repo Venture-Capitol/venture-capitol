@@ -11,17 +11,13 @@ export default function BottomNav({
 	setCurrentPage,
 }: BottomNavProps) {
 	return (
-		<nav className={s.nav}>
-			<a href='#details'>
-				<button onClick={() => setCurrentPage("details")}>
-					<ClipboardListIcon height={24} /> Details
-				</button>
-			</a>
-			<a href='#nav'>
-				<button onClick={() => setCurrentPage("overview")}>
-					<MapIcon height={24} /> Übersicht
-				</button>
-			</a>
+		<nav className={s.nav} data-currentpage={currentPage}>
+			<button onClick={() => setCurrentPage("details")}>
+				<ClipboardListIcon height={24} /> Details
+			</button>
+			<button onClick={() => setCurrentPage("overview")}>
+				<MapIcon height={24} /> Übersicht
+			</button>
 		</nav>
 	);
 }

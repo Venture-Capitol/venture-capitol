@@ -167,7 +167,7 @@ const Header: FC = () => {
 	);
 
 	return (
-		<div className={s.header}>
+		<div className={s.header} id='header'>
 			<Link to='/'>
 				<div className={s.logo}>
 					<img className={s.emblem} src={emblemIcon} alt='emblem' />
