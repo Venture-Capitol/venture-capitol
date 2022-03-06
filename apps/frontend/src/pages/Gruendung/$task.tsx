@@ -21,7 +21,7 @@ const Gruendung_TaskId = () => {
 		undefined | "loading" | "error"
 	>();
 	let { task } = useParams<{ task: string }>();
-	const isMobile = useMediaQuery("(max-width: 900px)");
+	const isMobile = useMediaQuery("(max-width: 950px)");
 
 	async function setMarkDownComponent() {
 		setLoadingState("loading");
@@ -57,6 +57,7 @@ const Gruendung_TaskId = () => {
 		setMarkDownComponent();
 
 		document.querySelector(`[data-id="${task}"]`)?.scrollIntoView(false);
+		document.querySelector('[data-role="main"]')?.scrollTo(0, 0);
 	}, [task, currentCompany]);
 
 	return (
@@ -67,7 +68,7 @@ const Gruendung_TaskId = () => {
 				</div>
 			)}
 
-			<main className='content'>
+			<main className='content' data-role='main'>
 				<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
 				{unprocessedNodes[task].type == "task" && (
 					<CompletedToggle taskId={task} />

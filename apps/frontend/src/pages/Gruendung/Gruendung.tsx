@@ -13,7 +13,9 @@ export default function () {
 			if (node.selectedPath != undefined) {
 				node = nodes[node.next[node.selectedPath]];
 			}
-			node = nodes[node.next[0]];
+			do {
+				node = nodes[node.next[0]];
+			} while (node.type == "empty");
 		}
 		return node;
 	}

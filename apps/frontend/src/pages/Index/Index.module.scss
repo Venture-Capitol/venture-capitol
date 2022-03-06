@@ -100,9 +100,9 @@
 			.skewed {
 				grid-column: 2 / 3;
 				grid-row: 1 / span 2;
-				transform: translateY(var(--shift))
-					rotateX(calc(-1 * var(--rot) + 50deg)) rotateY(0deg)
-					rotateZ(calc(var(--rot) + -40deg)) scale(1);
+				// transform: translateY(var(--shift))
+				// 	rotateX(calc(-1 * var(--rot) + 50deg)) rotateY(0deg)
+				// 	rotateZ(calc(var(--rot) + -40deg)) scale(1);
 			}
 
 			.buttons {
@@ -132,7 +132,7 @@
 		@media (min-width: 900px) {
 			flex-direction: row;
 			margin-bottom: 15rem;
-			gap: 10rem;
+			gap: 8rem;
 
 			.details {
 				flex: 1;
@@ -205,10 +205,15 @@
 .skewed {
 	margin: 1rem 0;
 	transform-origin: 50% 50%;
-	transform: rotateX(50deg) rotateY(0deg) rotateZ(-40deg) scale(1);
-	transform-style: preserve-3d;
 	filter: drop-shadow(0px 14px 40px rgba(68, 40, 183, 0.09));
 	will-change: transform;
+	transform: translateY(var(--shift)) rotateX(calc(-1 * var(--rot) + 50deg))
+		rotateY(0deg) rotateZ(calc(var(--rot) + -40deg)) scale(1);
+
+	@media screen and (max-width: 900px) {
+		transform: rotateX(calc(-1 * var(--rot) + 50deg)) rotateY(0deg)
+			rotateZ(calc(var(--rot) + -40deg)) scale(1);
+	}
 }
 
 .details {

@@ -47,6 +47,7 @@ const Nodes = () => {
 							shortName={nextNode.shortName}
 							url={nextNode.id}
 							checked={nextNode.checked}
+							disabled={nextNode.disabled}
 						/>
 					);
 				} else if (nextNode.type == "empty") {
@@ -55,6 +56,7 @@ const Nodes = () => {
 							key={nextNode.id}
 							id={nextNode.id}
 							next={nextNode.next}
+							disabled={nextNode.disabled}
 						/>
 					);
 				}
@@ -82,6 +84,7 @@ const Nodes = () => {
 						shortName={node.shortName}
 						url={node.id}
 						checked={node.checked}
+						disabled={node.disabled}
 					/>
 					{node.next.map(nextNodeId => {
 						const nextNode = nodes[nextNodeId];
@@ -100,6 +103,7 @@ const Nodes = () => {
 						shortName={node.shortName}
 						url={node.id}
 						selectedPath={node.selectedPath}
+						disabled={node.disabled}
 					>
 						{node.next.map((nodeNextId, index) => {
 							return (
