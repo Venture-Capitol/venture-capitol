@@ -8,7 +8,7 @@ import React, { useState } from "react";
 export default function DLRSearch() {
 	const [loadedPages, setLoadedPages] = useState<any>([]);
 	const [loadingState, setLoadingState] = useState<
-		undefined | "loading" | "error"
+		undefined | "loading" | "finished" | "error"
 	>();
 	const [chosenJob, setChosenJob] = useState("");
 	const [displayJob, setDisplayJob] = useState("");
@@ -27,7 +27,7 @@ export default function DLRSearch() {
 
 		setLoadedPages([pageOne, pageTwo]);
 		setCurrentPage(1);
-		setLoadingState(undefined);
+		setLoadingState("finished");
 	}
 
 	async function weiter() {
@@ -52,7 +52,22 @@ export default function DLRSearch() {
 		return fetchData.json();
 	}
 
-	if (loadedPages.length > 0) {
+	if (loadingState == undefined) {
+		return (
+			<div className={s.wrapper}>
+				<Headline />
+				<SearchForm
+					startSearchRequest={startSearchRequest}
+					chosenJob={chosenJob}
+					setChosenJob={setChosenJob}
+					setChosenAddress={setChosenAddress}
+					lat={lat}
+					setLat={setLat}
+					setLong={setLong}
+				/>
+			</div>
+		);
+	} else {
 		return (
 			<div className={s.wrapper}>
 				<Headline />
@@ -71,28 +86,6 @@ export default function DLRSearch() {
 						<span className={s.greenSpan}>{displayAddress}</span>
 					</p>
 				</div>
-				<SearchResultsList searchResponse={loadedPages[currentPage - 1]} />
-				<Pagination
-					page={currentPage}
-					loadedPages={loadedPages}
-					weiter={weiter}
-					zurueck={() => setCurrentPage(currentPage - 1)}
-				/>
-			</div>
-		);
-	} else {
-		return (
-			<div className={s.wrapper}>
-				<Headline />
-				<SearchForm
-					startSearchRequest={startSearchRequest}
-					chosenJob={chosenJob}
-					setChosenJob={setChosenJob}
-					setChosenAddress={setChosenAddress}
-					lat={lat}
-					setLat={setLat}
-					setLong={setLong}
-				/>
 				{loadingState == "loading" && (
 					<div className={s.loadingIndicator}>
 						<div></div>
@@ -100,6 +93,17 @@ export default function DLRSearch() {
 						<div></div>
 						<div></div>
 					</div>
+				)}
+				{loadingState == "finished" && (
+					<>
+						<SearchResultsList searchResponse={loadedPages[currentPage - 1]} />
+						<Pagination
+							page={currentPage}
+							loadedPages={loadedPages}
+							weiter={weiter}
+							zurueck={() => setCurrentPage(currentPage - 1)}
+						/>
+					</>
 				)}
 			</div>
 		);
