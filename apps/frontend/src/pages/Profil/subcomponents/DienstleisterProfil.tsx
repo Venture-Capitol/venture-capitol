@@ -44,31 +44,7 @@ export default function DienstleisterProfil() {
 		setLoadingState("finished");
 	}
 
-	if (isAdmin === false) {
-		return (
-			<>
-				{loadingState == "loading" && (
-					<div className={s.loadingIndicator}>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				)}
-				{loadingState == "finished" && dienstleisterOfUser == "" && (
-					<CreateDienstleister
-						getDienstleisterOfUser={getDienstleisterOfUser}
-					/>
-				)}
-				{loadingState == "finished" && dienstleisterOfUser != "" && (
-					<EditDeleteDienstleister
-						dienstleisterOfUser={dienstleisterOfUser}
-						getDienstleisterOfUser={getDienstleisterOfUser}
-					/>
-				)}
-			</>
-		);
-	} else {
+	if (isAdmin) {
 		return (
 			<p>
 				Hey, du bist Admin, wenn du eine Firma anlegen willst, musst du das über
@@ -76,4 +52,26 @@ export default function DienstleisterProfil() {
 			</p>
 		);
 	}
+
+	return (
+		<>
+			{loadingState == "loading" && (
+				<div className={s.loadingIndicator}>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			)}
+			{loadingState == "finished" && dienstleisterOfUser == "" && (
+				<CreateDienstleister getDienstleisterOfUser={getDienstleisterOfUser} />
+			)}
+			{loadingState == "finished" && dienstleisterOfUser != "" && (
+				<EditDeleteDienstleister
+					dienstleisterOfUser={dienstleisterOfUser}
+					getDienstleisterOfUser={getDienstleisterOfUser}
+				/>
+			)}
+		</>
+	);
 }
