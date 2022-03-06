@@ -186,14 +186,13 @@ h1.title {
 
 .bottomNav,
 .topNav {
-	display: flex;
 	justify-content: center;
-	padding: 1rem 0;
 	word-break: break-word;
 
 	a {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		font-weight: 500;
 		color: var(--color-grey-900);
 		text-decoration: none;
@@ -201,6 +200,10 @@ h1.title {
 		&.disabled {
 			cursor: not-allowed;
 			color: var(--color-grey-500);
+		}
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.164);
 		}
 	}
 
@@ -215,15 +218,18 @@ h1.title {
 }
 
 .topNav {
-	justify-content: flex-start;
-
 	a {
+		padding: 1rem 0;
+		justify-content: flex-start;
 		color: var(--color-grey-500);
 	}
 }
 
 .bottomNav {
-	padding: 2rem 0;
+	margin-bottom: 1rem;
+	a {
+		padding: 2rem 0;
+	}
 }
 
 @keyframes scaleUp {
