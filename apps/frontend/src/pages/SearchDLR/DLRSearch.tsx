@@ -7,7 +7,9 @@ import React, { useState } from "react";
 
 export default function DLRSearch() {
 	const [loadedPages, setLoadedPages] = useState<any>([]);
-
+	const [loadingState, setLoadingState] = useState<
+		undefined | "loading" | "error"
+	>();
 	const [chosenJob, setChosenJob] = useState("");
 	const [displayJob, setDisplayJob] = useState("");
 	const [chosenAddress, setChosenAddress] = useState("");
@@ -19,11 +21,13 @@ export default function DLRSearch() {
 	async function startSearchRequest() {
 		setDisplayJob(chosenJob);
 		setDisplayAddress(chosenAddress);
+		setLoadingState("loading");
 		let pageOne = await getSearchResult(1);
 		let pageTwo = await getSearchResult(2);
 
 		setLoadedPages([pageOne, pageTwo]);
 		setCurrentPage(1);
+		setLoadingState(undefined);
 	}
 
 	async function weiter() {
@@ -50,7 +54,7 @@ export default function DLRSearch() {
 
 	if (loadedPages.length > 0) {
 		return (
-			<>
+			<div className={s.wrapper}>
 				<Headline />
 				<SearchForm
 					startSearchRequest={startSearchRequest}
@@ -74,7 +78,7 @@ export default function DLRSearch() {
 					weiter={weiter}
 					zurueck={() => setCurrentPage(currentPage - 1)}
 				/>
-			</>
+			</div>
 		);
 	} else {
 		return (
@@ -89,6 +93,14 @@ export default function DLRSearch() {
 					setLat={setLat}
 					setLong={setLong}
 				/>
+				{loadingState == "loading" && (
+					<div className={s.loadingIndicator}>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				)}
 			</div>
 		);
 	}
