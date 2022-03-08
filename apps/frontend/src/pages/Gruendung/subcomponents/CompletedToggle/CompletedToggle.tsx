@@ -23,7 +23,7 @@ export function CompletedToggle(props: Props) {
 				onChange={() => setTaskStatus(props.taskId, !completed)}
 			/>
 
-			<label htmlFor={id} className={s.wrapper}>
+			<label htmlFor={id}>
 				<span className={s.checkbox}>
 					<CheckIcon />
 				</span>

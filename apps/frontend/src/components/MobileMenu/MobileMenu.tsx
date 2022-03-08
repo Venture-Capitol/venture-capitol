@@ -7,13 +7,9 @@ import {
 	UserIcon,
 } from "@heroicons/react/outline/esm";
 import { AuthUI, signOut } from "@vc/auth";
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Link, NavLink } from "react-router-dom";
 import s from "./MobileMenu.module.scss";
-import * as Tabs from "@radix-ui/react-tabs";
-import TaskList from "../TaskList/TaskList";
-import { useGruendungContext } from "contexts/Gruendung/Gruendung";
-import Button from "@vc/ui/src/components/Button/Button";
 
 interface MobileMenuProps {
 	isLoggedIn: boolean;
@@ -26,161 +22,98 @@ const MobileMenu: FC<MobileMenuProps> = ({
 	isAdmin,
 	closeMenu,
 }) => {
-	const { currentCompany } = useGruendungContext();
-	const defaultValue = "seiten";
-	const [navSelected, setNavSelected] = useState<string>(defaultValue);
-
-	function onValueChange(value: string) {
-		setNavSelected(value);
-	}
-
 	return (
-		<Tabs.Root defaultValue={defaultValue} onValueChange={onValueChange}>
-			<div className={s.menu}>
-				<Tabs.List asChild>
-					<div className={s.nav}>
-						<div className={s.navSelector} data-selected={navSelected}>
-							<div className={s.navHighlight}></div>
-							<div className={s.contentHighlight}></div>
-							<svg>
-								<defs>
-									<clipPath id='cp' clipPathUnits='objectBoundingBox'>
-										<path d='M0,0 V1 H1 V1 V1 C0.448,1,0,0.776,0,0.5 V0'></path>
-									</clipPath>
-								</defs>
-							</svg>
+		<div className={s.menu}>
+			<div className={s.contentContainer}>
+				<div className={s.content}>
+					{!isLoggedIn && <AuthUI />}
+					{isLoggedIn && (
+						<div className={s.contentItemWrapper}>
+							<NavLink
+								to='/profil/gruender'
+								className={isActive =>
+									s.contentItem + (isActive ? " " + s.selected : "")
+								}
+								onClick={closeMenu}
+							>
+								<UserIcon className={s.contentIcon} />
+								<div className={s.contentText}>Mein Profil</div>
+							</NavLink>
 						</div>
-
-						<Tabs.Trigger value='seiten' asChild>
-							<div className={s.navItem}>Seiten</div>
-						</Tabs.Trigger>
-						<Tabs.Trigger value='navigation' asChild>
-							<div className={s.navItem}>Navigation</div>
-						</Tabs.Trigger>
+					)}
+					<div className={s.contentItemWrapper}>
+						<NavLink
+							to='/gruendung'
+							className={isActive =>
+								s.contentItem + (isActive ? " " + s.selected : "")
+							}
+							onClick={closeMenu}
+						>
+							<ClipboardCheckIcon className={s.contentIcon} />
+							<div className={s.contentText}>Meine Gründung</div>
+						</NavLink>
 					</div>
-				</Tabs.List>
-				<Tabs.Content value='seiten' asChild>
-					<div className={s.contentContainer}>
-						<div className={s.content}>
-							{!isLoggedIn && <AuthUI />}
-							{isLoggedIn && (
-								<div className={s.contentItemWrapper}>
-									<NavLink
-										to='/profil/gruender'
-										className={isActive =>
-											s.contentItem + (isActive ? " " + s.selected : "")
-										}
-										onClick={closeMenu}
-									>
-										<UserIcon className={s.contentIcon} />
-										<div className={s.contentText}>Mein Profil</div>
-									</NavLink>
-								</div>
-							)}
-							<div className={s.contentItemWrapper}>
-								<NavLink
-									to='/gruendung'
-									className={isActive =>
-										s.contentItem + (isActive ? " " + s.selected : "")
-									}
-									onClick={closeMenu}
-								>
-									<ClipboardCheckIcon className={s.contentIcon} />
-									<div className={s.contentText}>Meine Gründung</div>
-								</NavLink>
-							</div>
-							<div className={s.contentItemWrapper}>
-								<NavLink
-									to='/dienstleister'
-									className={isActive =>
-										s.contentItem + (isActive ? " " + s.selected : "")
-									}
-									onClick={closeMenu}
-								>
-									<OfficeBuildingIcon className={s.contentIcon} />
-									<div className={s.contentText}>Dienstleisterregister</div>
-								</NavLink>
-							</div>
-							<div className={s.contentItemWrapper}>
-								<Link
-									to='/profil/dienstleister'
-									className={s.contentItem}
-									onClick={closeMenu}
-								>
-									<PlusCircleIcon className={s.contentIcon} />
-									<div className={s.contentText}>
-										Als Dienstleister eintragen
-									</div>
-								</Link>
-							</div>
-							{isAdmin && (
-								<div className={s.contentItemWrapper}>
-									<Link
-										to='/dienstleister/admin'
-										className={s.contentItem}
-										onClick={closeMenu}
-									>
-										<UserGroupIcon className={s.contentIcon} />
-										<div className={s.contentText}>Adminpanel</div>
-									</Link>
-								</div>
-							)}
-							{isLoggedIn && (
-								<div className={s.contentItemWrapper}>
-									<Link to='#' className={s.contentItem} onClick={signOut}>
-										<LogoutIcon className={s.contentIcon} />
-										<div className={s.contentText}>Abmelden</div>
-									</Link>
-								</div>
-							)}
+					<div className={s.contentItemWrapper}>
+						<NavLink
+							to='/dienstleister'
+							className={isActive =>
+								s.contentItem + (isActive ? " " + s.selected : "")
+							}
+							onClick={closeMenu}
+						>
+							<OfficeBuildingIcon className={s.contentIcon} />
+							<div className={s.contentText}>Dienstleisterregister</div>
+						</NavLink>
+					</div>
+					<div className={s.contentItemWrapper}>
+						<Link
+							to='/profil/dienstleister'
+							className={s.contentItem}
+							onClick={closeMenu}
+						>
+							<PlusCircleIcon className={s.contentIcon} />
+							<div className={s.contentText}>Als Dienstleister eintragen</div>
+						</Link>
+					</div>
+					{isAdmin && (
+						<div className={s.contentItemWrapper}>
+							<Link
+								to='/dienstleister/admin'
+								className={s.contentItem}
+								onClick={closeMenu}
+							>
+								<UserGroupIcon className={s.contentIcon} />
+								<div className={s.contentText}>Adminpanel</div>
+							</Link>
 						</div>
-						<div className={s.footer}>
-							<div className={s.a}>
-								<Link
-									to='/impressum'
-									className={s.contentItem}
-									onClick={closeMenu}
-								>
-									Impressum
-								</Link>
-							</div>
-							<div className={s.a}>
-								<Link
-									to='/datenschutz'
-									className={s.contentItem}
-									onClick={closeMenu}
-								>
-									Datenschutz
-								</Link>
-							</div>
+					)}
+					{isLoggedIn && (
+						<div className={s.contentItemWrapper}>
+							<Link to='#' className={s.contentItem} onClick={signOut}>
+								<LogoutIcon className={s.contentIcon} />
+								<div className={s.contentText}>Abmelden</div>
+							</Link>
 						</div>
+					)}
+				</div>
+				<div className={s.footer}>
+					<div className={s.a}>
+						<Link to='/impressum' className={s.contentItem} onClick={closeMenu}>
+							Impressum
+						</Link>
 					</div>
-				</Tabs.Content>
-				<Tabs.Content value='navigation' asChild>
-					<div className={s.navigationContainer}>
-						{currentCompany ? (
-							<div className={s.taskListContainer}>
-								<TaskList />
-							</div>
-						) : (
-							<>
-								<div className={s.placeholder}>
-									<div className={s.placeholderText}>
-										Willst du jetzt deine Gesellschaftsform wählen?
-									</div>
-
-									<Button variant='secondary' width='max-content'>
-										<Link to='/gruendung' onClick={closeMenu}>
-											Gründungsprozess starten
-										</Link>
-									</Button>
-								</div>
-							</>
-						)}
+					<div className={s.a}>
+						<Link
+							to='/datenschutz'
+							className={s.contentItem}
+							onClick={closeMenu}
+						>
+							Datenschutz
+						</Link>
 					</div>
-				</Tabs.Content>
+				</div>
 			</div>
-		</Tabs.Root>
+		</div>
 	);
 };
 

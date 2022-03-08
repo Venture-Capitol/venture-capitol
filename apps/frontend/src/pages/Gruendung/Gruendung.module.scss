@@ -69,17 +69,20 @@ h1.title {
 	}
 }
 
-// split view
+.wrapper {
+	overflow: hidden;
+	background: var(--color-background-gradient);
+	height: 100%;
+}
 
 .splitView {
 	display: flex;
 	height: 100%;
-	background: var(--color-background-gradient);
 	padding-top: var(--header-height);
 
 	.nav {
 		flex: 714;
-		padding: 2rem 20px 2rem 2rem;
+		padding: 0rem 20px 2rem 2rem;
 		overflow-y: auto;
 		direction: rtl;
 		scroll-behavior: smooth;
@@ -92,7 +95,7 @@ h1.title {
 
 	main {
 		flex: 835;
-		padding: 3rem 3rem 3rem 20px;
+		padding: 1rem 3rem 0 20px;
 		overflow-y: auto;
 
 		div {
@@ -104,29 +107,57 @@ h1.title {
 		}
 	}
 
-	> * {
-		--scrollbarBG: transparent;
-		--thumbBG: var(--color-grey-800);
+	@media (min-width: 950px) {
+		> * {
+			--scrollbarBG: transparent;
+			--thumbBG: var(--color-grey-800);
 
-		scrollbar-width: thin;
-		scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-		&::-webkit-scrollbar {
-			width: 8px;
-		}
+			scrollbar-width: thin;
+			scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+			&::-webkit-scrollbar {
+				width: 8px;
+			}
 
-		&::-webkit-scrollbar-track {
-			background: var(--scrollbarBG);
-		}
-		&::-webkit-scrollbar-thumb {
-			background-color: var(--thumbBG);
-			border-radius: 6px;
-			border: 3px solid var(--scrollbarBG);
+			&::-webkit-scrollbar-track {
+				background: var(--scrollbarBG);
+			}
+			&::-webkit-scrollbar-thumb {
+				background-color: var(--thumbBG);
+				border-radius: 6px;
+				border: 3px solid var(--scrollbarBG);
+			}
 		}
 	}
 
 	@media (max-width: 950px) {
-		height: auto;
+		padding-top: 0;
 		min-height: 100%;
+		display: flex;
+		flex-direction: row-reverse;
+		transition: transform 0.4s ease-out;
+
+		.nav,
+		main {
+			flex: 0 0 100vw;
+			height: 100%;
+			width: 100vw;
+			overflow-y: auto;
+		}
+
+		main {
+			padding: var(--header-height) 1rem;
+		}
+		.nav {
+			padding: var(--header-height) 0;
+
+			nav {
+				margin: 0 auto;
+			}
+		}
+
+		&[data-details="true"] {
+			transform: translateX(100vw);
+		}
 	}
 }
 
@@ -153,34 +184,51 @@ h1.title {
 	}
 }
 
-.bottomNav {
-	display: flex;
-	justify-content: space-between;
-	gap: 1.5rem;
-	margin-top: 3rem;
+.bottomNav,
+.topNav {
+	justify-content: center;
 	word-break: break-word;
 
 	a {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
-		font-weight: 600;
+		justify-content: center;
+		font-weight: 500;
 		color: var(--color-grey-900);
-
-		&:last-child {
-			margin-left: auto;
-			text-align: right;
-		}
+		text-decoration: none;
 
 		&.disabled {
 			cursor: not-allowed;
 			color: var(--color-grey-500);
+		}
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.164);
 		}
 	}
 
 	svg {
 		height: 15px;
 		width: 15px;
+	}
+
+	b {
+		font-weight: 600;
+	}
+}
+
+.topNav {
+	a {
+		padding: 1rem 0;
+		justify-content: flex-start;
+		color: var(--color-grey-500);
+	}
+}
+
+.bottomNav {
+	margin-bottom: 1rem;
+	a {
+		padding: 2rem 0;
 	}
 }
 
@@ -194,6 +242,8 @@ h1.title {
 		opacity: 1;
 	}
 }
+
+// loading spinner
 
 .loadingIndicator div {
 	position: absolute;

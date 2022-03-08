@@ -94,8 +94,8 @@ const Landing: React.FunctionComponent = () => {
 					src='https://cdn.ananaspizza.de/Entscheidung.jpg'
 					alt='Screenshot der Venture Capitol Anwendung'
 					style={{
-						['--shift' as any]: "0px",
-						['--rot' as any]: "0deg",
+						["--shift" as any]: "0px",
+						["--rot" as any]: "0deg",
 					}}
 				/>
 			</section>
