@@ -145,7 +145,7 @@ data "google_iam_policy" "noauth" {
 resource "google_storage_bucket" "media_storage" {
   name                        = "vc-media"
   location                    = "europe-west1"
-  uniform_bucket_level_access = true
+  uniform_bucket_level_access = false
 
   cors {
     origin          = ["https://venturecapitol.de", "https://staging.venturecapitol.de"]
