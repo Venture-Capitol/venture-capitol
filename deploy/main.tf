@@ -136,3 +136,21 @@ data "google_iam_policy" "noauth" {
     ]
   }
 }
+
+
+#---------------------------------------------------------#
+# --------------------- MEDIA STORAGE --------------------#
+#---------------------------------------------------------#
+
+resource "google_storage_bucket" "media_storage" {
+  name                        = "vc-media"
+  location                    = "europe-west1"
+  uniform_bucket_level_access = true
+
+  cors {
+    origin          = ["https://venturecapitol.de", "https://staging.venturecapitol.de"]
+    method          = ["GET", "HEAD", "PUT", "OPTIONS"]
+    response_header = ["*"]
+    max_age_seconds = 86400
+  }
+}
