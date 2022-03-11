@@ -154,3 +154,9 @@ resource "google_storage_bucket" "media_storage" {
     max_age_seconds = 86400
   }
 }
+
+resource "google_storage_default_object_access_control" "media_storage_access" {
+  bucket = google_storage_bucket.media_storage.name
+  role   = "READER"
+  entity = "allUsers"
+}
