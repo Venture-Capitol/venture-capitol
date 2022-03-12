@@ -1,4 +1,5 @@
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from "@heroicons/react/solid/esm";
+import LoadingComponent from "@vc/frontend/component/LoadingComponent/LoadingComponent";
 import { TaskNodeContainer } from "@vc/frontend/component/TaskList/TaskNode/TaskNode";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import Button from "@vc/ui/src/components/Button/Button";
@@ -73,14 +74,7 @@ const Gruendung_TaskId = () => {
 					<CompletedToggle taskId={task} />
 				)}
 
-				{loadingState == "loading" && (
-					<div className={s.loadingIndicator}>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				)}
+				{loadingState == "loading" && <LoadingComponent />}
 
 				{loadingState == "error" && (
 					<div>

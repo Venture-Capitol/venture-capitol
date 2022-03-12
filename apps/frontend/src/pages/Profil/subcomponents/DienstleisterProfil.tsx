@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
-import s from "./DienstleisterProfil.module.scss";
 
 import CreateDienstleister from "./CreateDienstleister";
 import EditDeleteDienstleister from "./EditDeleteDienstleister";
 import { Link } from "react-router-dom";
+import LoadingComponent from "@vc/frontend/component/LoadingComponent/LoadingComponent";
 
 export default function DienstleisterProfil() {
 	const { user } = useAuthContext();
@@ -55,14 +55,7 @@ export default function DienstleisterProfil() {
 
 	return (
 		<>
-			{loadingState == "loading" && (
-				<div className={s.loadingIndicator}>
-					<div></div>
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
-			)}
+			{loadingState == "loading" && <LoadingComponent />}
 			{loadingState == "finished" && dienstleisterOfUser == "" && (
 				<CreateDienstleister getDienstleisterOfUser={getDienstleisterOfUser} />
 			)}

@@ -4,6 +4,7 @@ import Headline from "./subcomponents/HeadlineDLR/Headline";
 import SearchResultsList from "./subcomponents/SearchResultsListDLR/SearchResultsList";
 import Pagination from "@vc/frontend/page/SearchDLR/subcomponents/PaginationDLR/Pagination";
 import React, { useState } from "react";
+import LoadingComponent from "@vc/frontend/component/LoadingComponent/LoadingComponent";
 
 export default function DLRSearch() {
 	const [loadedPages, setLoadedPages] = useState<any>([]);
@@ -86,14 +87,7 @@ export default function DLRSearch() {
 						<span className={s.greenSpan}>{displayAddress}</span>
 					</p>
 				</div>
-				{loadingState == "loading" && (
-					<div className={s.loadingIndicator}>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				)}
+				{loadingState == "loading" && <LoadingComponent animationDelay={0} />}
 				{loadingState == "finished" && (
 					<>
 						<SearchResultsList searchResponse={loadedPages[currentPage - 1]} />
