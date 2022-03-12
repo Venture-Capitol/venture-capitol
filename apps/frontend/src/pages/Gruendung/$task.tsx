@@ -26,6 +26,8 @@ const Gruendung_TaskId = () => {
 	const [currentPage, setCurrentPage] = useState<"details" | "overview">(
 		"details"
 	);
+	const mainRef = useRef<HTMLDivElement>(null);
+	const navRef = useRef<HTMLDivElement>(null);
 
 	async function setMarkDownComponent() {
 		setLoadingState("loading");
@@ -57,20 +59,20 @@ const Gruendung_TaskId = () => {
 		}
 	}
 
+	// scroll viewports to correct positions after navigation
 	useEffect(() => {
 		setMarkDownComponent();
 		setCurrentPage("details");
 
+		// scroll details view to top
 		document.querySelector('[data-role="main"]')?.scrollTo(0, 0);
-		if (!isMobile) {
-			document.querySelector(`[data-id="${task}"]`)?.scrollIntoView(false);
-			console.log("scrolling to task");
-		}
-		// @TODO: replace with scroll that doesn't scroll horizontally
-	}, [task, currentCompany]);
 
-	const mainRef = useRef<HTMLDivElement>(null);
-	const navRef = useRef<HTMLDivElement>(null);
+		// scroll current task into view
+		const taskEl = document.querySelector(`[data-id="${task}"]`) as HTMLElement;
+		if (!taskEl) return;
+		const topDist = taskEl.offsetTop - window.innerHeight / 3;
+		navRef.current?.scrollTo(0, topDist);
+	}, [task, currentCompany]);
 
 	function applyHeaderOffset() {
 		let offset: number;
