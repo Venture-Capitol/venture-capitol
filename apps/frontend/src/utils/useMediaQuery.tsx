@@ -11,8 +11,24 @@ export default function useMediaQuery(query: string) {
 		const listener = () => {
 			setMatches(mediaQuery.matches);
 		};
-		mediaQuery.addEventListener("change", listener);
-		return () => mediaQuery.removeEventListener("change", listener);
+		try {
+			mediaQuery.addEventListener("change", listener);
+		} catch (e) {
+			// Safari doesn't support addEvent listener in older versions, so we
+			// have to use the deprecated addListener as a workaround, which might
+			// be unsupported in future versions
+			try {
+				mediaQuery.addListener(listener);
+			} catch {}
+		}
+		return () => {
+			try {
+				mediaQuery.removeEventListener("change", listener);
+			} catch {}
+			try {
+				mediaQuery.removeListener(listener);
+			} catch {}
+		};
 	}, [matches, query]);
 
 	return matches;
