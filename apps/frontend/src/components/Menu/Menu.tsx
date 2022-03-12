@@ -33,7 +33,7 @@ const Menu: FC<MenuProps> = ({ isLoggedIn, isAdmin, closeMenu }) => {
 			)}
 			<div className={styles.dropdownItemWrapper}>
 				<Link
-					to='/profil/diensleister'
+					to='/profil/dienstleister'
 					className={styles.dropdownItem}
 					onClick={closeMenu}
 				>

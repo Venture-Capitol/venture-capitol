@@ -76,11 +76,10 @@ h1.title {
 	height: 100%;
 	background: var(--color-background-gradient);
 	padding-top: var(--header-height);
-	gap: 3rem;
 
 	.nav {
 		flex: 714;
-		padding: 2rem 0rem 2rem 2rem;
+		padding: 2rem 20px 2rem 2rem;
 		overflow-y: auto;
 		direction: rtl;
 		scroll-behavior: smooth;
@@ -93,14 +92,14 @@ h1.title {
 
 	main {
 		flex: 835;
-		padding: 3rem 3rem 3rem 0;
+		padding: 3rem 3rem 3rem 20px;
 		overflow-y: auto;
 
 		div {
 			max-width: 800px;
 		}
 
-		@media (max-width: 900px) {
+		@media (max-width: 950px) {
 			padding: 1rem 1.5rem 1.5rem 1.5rem;
 		}
 	}
@@ -125,7 +124,7 @@ h1.title {
 		}
 	}
 
-	@media (max-width: 900px) {
+	@media (max-width: 950px) {
 		height: auto;
 		min-height: 100%;
 	}

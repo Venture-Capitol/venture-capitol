@@ -23,7 +23,9 @@ export default function DienstleisterProfil() {
 	async function getDienstleisterOfUser() {
 		let idTokenResult = await user?.getIdTokenResult();
 
-		if (idTokenResult?.claims.role == "user") {
+		if (idTokenResult?.claims.role == "admin") {
+			setIsAdmin(true);
+		} else {
 			setIsAdmin(false);
 			const requestOptions = {
 				method: "GET",
@@ -38,8 +40,6 @@ export default function DienstleisterProfil() {
 			} else {
 				setDienstleisterOfUser("");
 			}
-		} else {
-			setIsAdmin(true);
 		}
 		setLoadingState("finished");
 	}
