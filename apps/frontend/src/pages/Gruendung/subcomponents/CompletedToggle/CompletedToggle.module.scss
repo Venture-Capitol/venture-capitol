@@ -1,5 +1,5 @@
 .wrapper {
-	margin-bottom: 15px;
+	margin: 3rem 0 1rem;
 
 	input {
 		width: 0;
@@ -10,6 +10,8 @@
 
 		&:checked + label {
 			color: var(--color-green-800);
+			background-color: var(--color-green-100);
+			border-color: var(--color-green-300);
 
 			.checkbox {
 				background: var(--color-green-100);
@@ -26,8 +28,14 @@
 		cursor: pointer;
 		display: flex;
 		align-items: center;
+		justify-content: center;
+		padding: 1.2rem;
+		background: #fff;
+		border-radius: 6px;
 		gap: var(--size-14px);
+		border: 1px solid #ddd6ec;
 		user-select: none;
+		transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
 
 		.checkbox {
 			content: "";

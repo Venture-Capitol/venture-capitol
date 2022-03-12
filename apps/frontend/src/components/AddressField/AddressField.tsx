@@ -19,7 +19,7 @@ const loadScript = (
 	});
 
 	const autocompleteOptions = {
-		types: ["address"],
+		types: ["geocode"],
 		componentRestrictions: { country: ["DE"] },
 		fields: ["formatted_address", "geometry", "name"],
 	};

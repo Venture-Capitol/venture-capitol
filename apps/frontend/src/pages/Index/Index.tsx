@@ -88,23 +88,30 @@ const Landing: React.FunctionComponent = () => {
 					</Link>
 				</div>
 
-				<img
+				<picture
 					className={s.skewed}
 					ref={headerImageRef}
-					src='https://cdn.ananaspizza.de/Entscheidung.jpg'
-					alt='Screenshot der Venture Capitol Anwendung'
 					style={{
-						['--shift' as any]: "0px",
-						['--rot' as any]: "0deg",
+						["--shift" as any]: "0px",
+						["--rot" as any]: "0deg",
 					}}
-				/>
+				>
+					<source
+						srcSet='https://venturecapitol.de/media/64fcc9b1-91a6-41ea-9356-264ce119dc6b.avif'
+						type='image/avif'
+					/>
+					<img
+						src='https://venturecapitol.de/media/64fcc9b1-91a6-41ea-9356-264ce119dc6b.jpg'
+						alt='Screenshot der Venture Capitol Anwendung'
+					/>
+				</picture>
 			</section>
 
 			<section className={`${s.video} ${s.split}`}>
 				{isMobile && <h1>Durchblick im Bürokratiedschungel</h1>}
 				<video autoPlay={true} loop={true} muted={true} playsInline={true}>
 					<source
-						src='https://cdn.ananaspizza.de/tasks_click.mp4'
+						src='https://venturecapitol.de/media/eae4870d-9864-4a15-840d-99060aff2278.mp4'
 						type='video/mp4'
 					/>
 				</video>
@@ -134,12 +141,23 @@ const Landing: React.FunctionComponent = () => {
 						</li>
 					</ul>
 				</div>
-				<img
+				<picture
 					className={s.skewed}
 					ref={secondImageRef}
-					src='https://cdn.ananaspizza.de/Trefferseite.jpg'
-					alt=''
-				/>
+					style={{
+						["--shift" as any]: "0px",
+						["--rot" as any]: "0deg",
+					}}
+				>
+					<source
+						srcSet='https://venturecapitol.de/media/6d9557c6-7ff8-4c9c-b02c-6142f7208e56.avif'
+						type='image/avif'
+					/>
+					<img
+						src='https://venturecapitol.de/media/6d9557c6-7ff8-4c9c-b02c-6142f7208e56.jpg'
+						alt='Screenshot des Dienstleisterregisters'
+					/>
+				</picture>
 				{isMobile && (
 					<h1>Einfach bewährte Dienstleister für deine Gründung finden</h1>
 				)}
