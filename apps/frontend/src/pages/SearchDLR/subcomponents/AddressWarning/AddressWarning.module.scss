@@ -1,14 +1,13 @@
 .maindiv_address_Warning {
 	display: flex;
 	justify-content: center;
-	padding-top: 3%;
+	padding-top: 10px;
 	margin: 0px 40px;
 }
 
 .address_Warning {
 	font-family: "Space Grotesk";
-	font-weight: bold;
-	font-size: var(--size-24px);
+	font-size: var(--size-18px);
 	color: #ff8f8f;
 	text-align: center;
 }
