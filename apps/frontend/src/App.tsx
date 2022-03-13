@@ -18,6 +18,7 @@ import Impressum from "./pages/Impressum/Impressum";
 import Adminpanel from "./pages/Adminpanel/Adminpanel";
 import Gruendung_TaskId from "./pages/Gruendung/$task";
 import Profil from "./pages/Profil/Profil";
+import MdxPage from "./pages/MDX/Mdx";
 
 function App() {
 	return (
@@ -58,6 +59,9 @@ function App() {
 						</Route>
 						<Route path='/profil/:platform'>
 							<Profil />
+						</Route>
+						<Route path='/mdx'>
+							<MdxPage />
 						</Route>
 					</Switch>
 				</Router>
