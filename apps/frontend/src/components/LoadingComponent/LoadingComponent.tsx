@@ -6,12 +6,11 @@ interface Props {
 }
 
 const LoadingComponent: FC<Props> = ({ animationDelay }) => {
-	if (animationDelay != undefined) {
-		document.documentElement.style.setProperty(
-			"--animation-delay",
-			animationDelay + "s"
-		);
-	}
+	if (animationDelay == undefined) animationDelay = 0.4;
+	document.documentElement.style.setProperty(
+		"--animation-delay",
+		animationDelay + "s"
+	);
 	return (
 		<div className={s.loadingIndicator}>
 			<div></div>
