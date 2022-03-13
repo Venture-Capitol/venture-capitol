@@ -29,25 +29,6 @@ input:focus {
 	outline: none;
 }
 
-/*
-.joboption {
-	border-bottom: 0.5px solid var(--color-grey-700);
-	font-family: "Space Grotesk";
-	font-weight: bold;
-	font-size: var(--size-18px);
-	margin: 0;
-	padding: 0;
-	padding: 2px 4px 2px 0px;
-	margin: 12px 20px 4px 0px;
-	background-color: transparent;
-}
-
-.joboption:focus {
-	border: none;
-	border-bottom: 0.5px solid var(--color-grey-700);
-}
-*/
-
 .form {
 	display: flex;
 	flex-flow: column nowrap;
