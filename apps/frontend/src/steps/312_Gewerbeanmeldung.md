@@ -17,7 +17,7 @@ Ganz oldschool oder bei Spezialfällen kannst du dein Gewerbe natürlich auch be
 
 Hier lohnt es sich gut vorbereitet zu erscheinen. Für die Durchführung einer Gewerbeanmeldung beim Amt werden folgende Dokumente benötigt:
 
-- [ausgefüllte Gewerberbeanmeldung](../../public/pdf/Gewerbeanmeldung.pdf)
+- [ausgefüllte Gewerberbeanmeldung](https://venturecapitol.de/media/pdf/Gewerbeanmeldung.pdf)
 - gültige Personaldokumente aller Gründer (jeweils Personalausweis oder Reisepass und Meldebescheinigung)
 - bei Kaufleuten den Handelsregisterauszug und den notariell beglaubigten Gesellschaftsvertrag
 - ausländische Staatsangehörige bringen ihre Aufenthaltsgenehmigung der zuständigen Ausländerbehörde mit, welche die Erlaubnis beinhalten muss, eine selbstständige Erwerbstätigkeit aufnehmen zu dürfen.

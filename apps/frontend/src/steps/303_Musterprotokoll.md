@@ -24,6 +24,6 @@ Kleiner Tipp: wenn du dir noch unsicher bist schau dir vielleicht einfach Gegens
 
 Damit du nicht lange suchen musst haben wir dir hier einmal eine standardisierte Satzung vorbereitet, wie sie bei deiner Gründung vorliegen könnte:
 
-[Musterprotokoll herunterladen](../../public/pdf/Musterprotokoll_UG_Gmbh.pdf)
+[Musterprotokoll herunterladen](https://venturecapitol.de/media/pdf/Musterprotokoll_UG_Gmbh.pdf)
 
 Hat alles geklappt? Dann vereinbare am besten gleich einen Termin mit einem Notar in deiner Nähe!
