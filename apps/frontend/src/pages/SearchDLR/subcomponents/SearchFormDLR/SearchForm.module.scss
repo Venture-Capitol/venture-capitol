@@ -29,6 +29,7 @@ input:focus {
 	outline: none;
 }
 
+/*
 .joboption {
 	border-bottom: 0.5px solid var(--color-grey-700);
 	font-family: "Space Grotesk";
@@ -45,6 +46,7 @@ input:focus {
 	border: none;
 	border-bottom: 0.5px solid var(--color-grey-700);
 }
+*/
 
 .form {
 	display: flex;
@@ -56,46 +58,19 @@ input:focus {
 	color: var(--color-grey-600);
 }
 
-.dienstleistung_input {
-	font-size: var(--size-18px);
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: flex-start;
-	padding: 0px 25px;
-	margin-bottom: 10px;
-}
-
-.radio_container {
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	border-radius: 15px;
-	justify-content: center;
-	padding: 35px 35px;
-	width: 10em;
-	margin: 0px 10px;
-	position: relative;
-	background-color: white;
-}
-
-.radiobutton {
-	opacity: 0;
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	margin: 0;
-	cursor: pointer;
-}
-
-.jobIcon {
-	margin: 2px auto 10px auto;
-}
-
 .selectError {
 	color: #ff8f8f;
 	font-size: var(--size-18px);
+}
+
+.searchIcon {
+	margin-right: 5px;
+}
+
+.IconAndText {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
 }
 
 @media only screen and (max-width: 750px) {
@@ -108,5 +83,15 @@ input:focus {
 	.input_block {
 		margin: 6% 0%;
 		padding: 0;
+	}
+
+	.addressAndSearch {
+		flex-flow: column nowrap;
+		margin-bottom: 12px;
+	}
+
+	.input_block input {
+		padding: 3px 4px 0px 1px;
+		margin: 0px 0px 6px 0px;
 	}
 }
