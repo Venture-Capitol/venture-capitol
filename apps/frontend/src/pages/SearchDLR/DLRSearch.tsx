@@ -4,10 +4,13 @@ import Headline from "./subcomponents/HeadlineDLR/Headline";
 import SearchResultsList from "./subcomponents/SearchResultsListDLR/SearchResultsList";
 import Pagination from "@vc/frontend/page/SearchDLR/subcomponents/PaginationDLR/Pagination";
 import React, { useState } from "react";
+import LoadingComponent from "@vc/frontend/component/LoadingComponent/LoadingComponent";
 
 export default function DLRSearch() {
 	const [loadedPages, setLoadedPages] = useState<any>([]);
-
+	const [loadingState, setLoadingState] = useState<
+		undefined | "loading" | "finished" | "error"
+	>();
 	const [chosenJob, setChosenJob] = useState("");
 	const [displayJob, setDisplayJob] = useState("");
 	const [chosenAddress, setChosenAddress] = useState("");
@@ -19,11 +22,13 @@ export default function DLRSearch() {
 	async function startSearchRequest() {
 		setDisplayJob(chosenJob);
 		setDisplayAddress(chosenAddress);
+		setLoadingState("loading");
 		let pageOne = await getSearchResult(1);
 		let pageTwo = await getSearchResult(2);
 
 		setLoadedPages([pageOne, pageTwo]);
 		setCurrentPage(1);
+		setLoadingState("finished");
 	}
 
 	async function weiter() {
@@ -48,9 +53,24 @@ export default function DLRSearch() {
 		return fetchData.json();
 	}
 
-	if (loadedPages.length > 0) {
+	if (loadingState == undefined) {
 		return (
-			<>
+			<div className={s.wrapper}>
+				<Headline />
+				<SearchForm
+					startSearchRequest={startSearchRequest}
+					chosenJob={chosenJob}
+					setChosenJob={setChosenJob}
+					setChosenAddress={setChosenAddress}
+					lat={lat}
+					setLat={setLat}
+					setLong={setLong}
+				/>
+			</div>
+		);
+	} else {
+		return (
+			<div className={s.wrapper}>
 				<Headline />
 				<SearchForm
 					startSearchRequest={startSearchRequest}
@@ -67,28 +87,18 @@ export default function DLRSearch() {
 						<span className={s.greenSpan}>{displayAddress}</span>
 					</p>
 				</div>
-				<SearchResultsList searchResponse={loadedPages[currentPage - 1]} />
-				<Pagination
-					page={currentPage}
-					loadedPages={loadedPages}
-					weiter={weiter}
-					zurueck={() => setCurrentPage(currentPage - 1)}
-				/>
-			</>
-		);
-	} else {
-		return (
-			<div className={s.wrapper}>
-				<Headline />
-				<SearchForm
-					startSearchRequest={startSearchRequest}
-					chosenJob={chosenJob}
-					setChosenJob={setChosenJob}
-					setChosenAddress={setChosenAddress}
-					lat={lat}
-					setLat={setLat}
-					setLong={setLong}
-				/>
+				{loadingState == "loading" && <LoadingComponent animationDelay={0} />}
+				{loadingState == "finished" && (
+					<>
+						<SearchResultsList searchResponse={loadedPages[currentPage - 1]} />
+						<Pagination
+							page={currentPage}
+							loadedPages={loadedPages}
+							weiter={weiter}
+							zurueck={() => setCurrentPage(currentPage - 1)}
+						/>
+					</>
+				)}
 			</div>
 		);
 	}

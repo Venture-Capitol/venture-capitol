@@ -4,14 +4,19 @@ import { useAuthContext } from "@vc/auth/src/AuthContext";
 import CreateDienstleister from "./CreateDienstleister";
 import EditDeleteDienstleister from "./EditDeleteDienstleister";
 import { Link } from "react-router-dom";
+import LoadingComponent from "@vc/frontend/component/LoadingComponent/LoadingComponent";
 
 export default function DienstleisterProfil() {
 	const { user } = useAuthContext();
 
+	const [loadingState, setLoadingState] = useState<
+		undefined | "loading" | "finished" | "error"
+	>();
 	const [dienstleisterOfUser, setDienstleisterOfUser] = useState("");
 	const [isAdmin, setIsAdmin] = useState(false);
 
 	useEffect(() => {
+		setLoadingState("loading");
 		getDienstleisterOfUser();
 	}, [user || dienstleisterOfUser === ""]);
 
@@ -36,6 +41,7 @@ export default function DienstleisterProfil() {
 				setDienstleisterOfUser("");
 			}
 		}
+		setLoadingState("finished");
 	}
 
 	if (isAdmin) {
@@ -47,16 +53,18 @@ export default function DienstleisterProfil() {
 		);
 	}
 
-	if (dienstleisterOfUser == "") {
-		return (
-			<CreateDienstleister getDienstleisterOfUser={getDienstleisterOfUser} />
-		);
-	} else {
-		return (
-			<EditDeleteDienstleister
-				dienstleisterOfUser={dienstleisterOfUser}
-				getDienstleisterOfUser={getDienstleisterOfUser}
-			/>
-		);
-	}
+	return (
+		<>
+			{loadingState == "loading" && <LoadingComponent />}
+			{loadingState == "finished" && dienstleisterOfUser == "" && (
+				<CreateDienstleister getDienstleisterOfUser={getDienstleisterOfUser} />
+			)}
+			{loadingState == "finished" && dienstleisterOfUser != "" && (
+				<EditDeleteDienstleister
+					dienstleisterOfUser={dienstleisterOfUser}
+					getDienstleisterOfUser={getDienstleisterOfUser}
+				/>
+			)}
+		</>
+	);
 }

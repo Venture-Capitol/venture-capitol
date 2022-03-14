@@ -1,4 +1,5 @@
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from "@heroicons/react/solid/esm";
+import LoadingComponent from "@vc/frontend/component/LoadingComponent/LoadingComponent";
 import { TaskNodeContainer } from "@vc/frontend/component/TaskList/TaskNode/TaskNode";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import Button from "@vc/ui/src/components/Button/Button";
@@ -142,14 +143,7 @@ const Gruendung_TaskId = () => {
 							)}
 						</div>
 						<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
-						{loadingState == "loading" && (
-							<div className={s.loadingIndicator}>
-								<div></div>
-								<div></div>
-								<div></div>
-								<div></div>
-							</div>
-						)}
+						{loadingState == "loading" && <LoadingComponent />}
 						{loadingState == "error" && (
 							<div>
 								<p>Fehler beim Laden der Seite...</p>
