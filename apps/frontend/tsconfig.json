@@ -23,5 +23,9 @@
 			"@vc/frontend/util/*": ["utils/*"]
 		}
 	},
-	"include": ["./src", "../../packages/ui/src/components/Button"]
+	"include": [
+		"./src",
+		"../../packages/ui/src/components/Button",
+		"cypress/integration/1-getting-started/main.spec.ts"
+	]
 }

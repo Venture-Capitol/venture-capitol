@@ -1,16 +1,10 @@
 import Button from "@vc/ui/src/components/Button/Button";
-import React, {
-	Suspense,
-	useCallback,
-	useEffect,
-	useMemo,
-	useState,
-} from "react";
+import React, { Suspense, useCallback, useState } from "react";
 
 export default function MdxPage() {
 	const [i, setI] = useState(0);
 
-	const Template = useCallback(
+	const Content = useCallback(
 		React.lazy(() => import("./example.mdx")),
 		[]
 	);
@@ -21,10 +15,10 @@ export default function MdxPage() {
 				paddingTop: "var(--header-height)",
 			}}
 		>
-			<Button onClick={() => setI(i + 1)}>{i}</Button>
+			<Button onClick={() => setI(i + 1)}>re-render parent component</Button>
 
 			<Suspense fallback={<div>loading...</div>}>
-				<Template />
+				<Content unternehmen='ug' />
 			</Suspense>
 		</div>
 	);
