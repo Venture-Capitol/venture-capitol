@@ -1,7 +1,14 @@
 import fs from "fs"
 
-var files = fs.readdirSync('./');
+/**
+ * This file is used to convert our special .md format to MDX.
+ * It replaces all uses of $ug{...} and $gmbh{...} with the <Hide/> component:
+ * <Hide showIf={props.legalForm == "ug"}>...</Hide>
+ * 🚨 Warning 🚨 There are some issues when multiple linebreaks are inside the <Hide/>
+ * component, which have to be fixed manually. Check every conversion before commiting!
+ */
 
+var files = fs.readdirSync('./');
 files.filter(filename => filename.endsWith(".md")).forEach(filename => {
   let file = fs.readFileSync(filename).toString();
   
@@ -11,5 +18,3 @@ files.filter(filename => filename.endsWith(".md")).forEach(filename => {
   fs.writeFileSync(
     filename.split(".")[0] + ".mdx",  "import Hide from \"./Hide\"\n\n" + file)
 })
-
-// fs.writeFile()
