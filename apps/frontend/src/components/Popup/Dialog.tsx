@@ -36,7 +36,7 @@ const Dialog: React.FunctionComponent<DialogProps> = ({
 				}}
 				className={s.content}
 			>
-				<RadixDialog.Title>{title}</RadixDialog.Title>
+				<RadixDialog.Title className={s.title}>{title}</RadixDialog.Title>
 				<RadixDialog.Description className={s.description}>
 					{children}
 				</RadixDialog.Description>

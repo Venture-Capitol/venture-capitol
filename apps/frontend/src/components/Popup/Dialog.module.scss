@@ -13,6 +13,16 @@
 	}
 }
 
+.title {
+	overflow-wrap: break-all;
+	word-wrap: break-all;
+	word-break: break-all;
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}
+
 .content {
 	h2 {
 		font-size: var(--size-28px);
