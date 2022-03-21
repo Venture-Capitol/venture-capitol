@@ -150,7 +150,7 @@ const CreateDienstleister = ({ getDienstleisterOfUser }: Props) => {
 					<label className={s.label_createForm}>
 						E-Mail Adresse*
 						<input
-							type='text'
+							type='email'
 							className={s.textinput_createForm}
 							onChange={e => setEmail(e.target.value)}
 							required
@@ -159,7 +159,7 @@ const CreateDienstleister = ({ getDienstleisterOfUser }: Props) => {
 					<label className={s.label_createForm}>
 						Telefon
 						<input
-							type='text'
+							type='tel'
 							className={s.textinput_createForm}
 							onChange={e => setTelefon(e.target.value)}
 						/>
