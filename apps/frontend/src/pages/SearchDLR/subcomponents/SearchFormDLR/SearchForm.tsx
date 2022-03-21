@@ -51,8 +51,10 @@ const SearchForm = ({
 			>
 				<DienstleisterRadioTiles
 					chosenJob={chosenJob}
-					setChosenJob={setChosenJob}
-					setShowSelectError={setShowSelectError}
+					setJobAndError={(job: string) => {
+						setChosenJob(job);
+						setShowSelectError(false);
+					}}
 				/>
 				{showSelectError ? (
 					<p className={s.selectError}>

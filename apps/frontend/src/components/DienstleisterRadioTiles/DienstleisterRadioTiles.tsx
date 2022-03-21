@@ -2,15 +2,10 @@ import s from "./DienstleisterRadioTiles.module.scss";
 
 interface Props {
 	chosenJob: string;
-	setChosenJob: (job: string) => void;
-	setShowSelectError: (showOrNot: boolean) => void;
+	setJobAndError: (job: string) => void;
 }
 
-const DienstleisterRadioTiles = ({
-	chosenJob,
-	setChosenJob,
-	setShowSelectError,
-}: Props) => {
+const DienstleisterRadioTiles = ({ chosenJob, setJobAndError }: Props) => {
 	return (
 		<div className={s.dienstleistung_input}>
 			<div
@@ -38,8 +33,7 @@ const DienstleisterRadioTiles = ({
 						name='fav_language'
 						value='Notar'
 						onChange={e => {
-							setChosenJob(e.target.value);
-							setShowSelectError(false);
+							setJobAndError(e.target.value);
 							console.log(chosenJob);
 						}}
 						checked={chosenJob === "Notar"}
@@ -101,8 +95,7 @@ const DienstleisterRadioTiles = ({
 						name='fav_language'
 						value='Rechtsanwalt'
 						onChange={e => {
-							setChosenJob(e.target.value);
-							setShowSelectError(false);
+							setJobAndError(e.target.value);
 							console.log(chosenJob);
 						}}
 						checked={chosenJob === "Rechtsanwalt"}
@@ -161,8 +154,7 @@ const DienstleisterRadioTiles = ({
 						name='fav_language'
 						value='Steuerberater'
 						onChange={e => {
-							setChosenJob(e.target.value);
-							setShowSelectError(false);
+							setJobAndError(e.target.value);
 							console.log(chosenJob);
 						}}
 						checked={chosenJob === "Steuerberater"}
@@ -214,8 +206,7 @@ const DienstleisterRadioTiles = ({
 						name='fav_language'
 						value='Webagentur'
 						onChange={e => {
-							setChosenJob(e.target.value);
-							setShowSelectError(false);
+							setJobAndError(e.target.value);
 							console.log(chosenJob);
 						}}
 						checked={chosenJob === "Webagentur"}
