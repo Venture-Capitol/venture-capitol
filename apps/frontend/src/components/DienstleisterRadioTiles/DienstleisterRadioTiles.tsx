@@ -8,25 +8,8 @@ interface Props {
 const DienstleisterRadioTiles = ({ chosenJob, setJobAndError }: Props) => {
 	return (
 		<div className={s.dienstleistung_input}>
-			<div
-				className={s.radio_container}
-				style={{
-					border:
-						chosenJob == "Notar"
-							? "0px solid var(--color-grey-300)"
-							: "1px solid var(--color-grey-200)",
-					backgroundColor: chosenJob == "Notar" ? "#abe4b7" : "white",
-				}}
-			>
-				<label
-					style={{
-						color:
-							chosenJob == "Notar"
-								? "var(--color-grey-800)"
-								: "var(--color-grey-400)",
-					}}
-					className={s.selectLabel}
-				>
+			<div className={s.radio_container} data-selected={chosenJob == "Notar"}>
+				<label className={s.selectLabel}>
 					<input
 						className={s.radiobutton}
 						type='radio'
@@ -72,23 +55,9 @@ const DienstleisterRadioTiles = ({ chosenJob, setJobAndError }: Props) => {
 			</div>
 			<div
 				className={s.radio_container}
-				style={{
-					border:
-						chosenJob == "Rechtsanwalt"
-							? "0px solid var(--color-grey-300)"
-							: "1px solid var(--color-grey-200)",
-					backgroundColor: chosenJob == "Rechtsanwalt" ? "#abe4b7" : "white",
-				}}
+				data-selected={chosenJob == "Rechtsanwalt"}
 			>
-				<label
-					style={{
-						color:
-							chosenJob == "Rechtsanwalt"
-								? "var(--color-grey-800)"
-								: "var(--color-grey-400)",
-					}}
-					className={s.selectLabel}
-				>
+				<label className={s.selectLabel}>
 					<input
 						className={s.radiobutton}
 						type='radio'
@@ -131,23 +100,9 @@ const DienstleisterRadioTiles = ({ chosenJob, setJobAndError }: Props) => {
 			</div>
 			<div
 				className={s.radio_container}
-				style={{
-					border:
-						chosenJob == "Steuerberater"
-							? "0px solid var(--color-grey-300)"
-							: "1px solid var(--color-grey-200)",
-					backgroundColor: chosenJob == "Steuerberater" ? "#abe4b7" : "white",
-				}}
+				data-selected={chosenJob == "Steuerberater"}
 			>
-				<label
-					style={{
-						color:
-							chosenJob == "Steuerberater"
-								? "var(--color-grey-800)"
-								: "var(--color-grey-400)",
-					}}
-					className={s.selectLabel}
-				>
+				<label className={s.selectLabel}>
 					<input
 						className={s.radiobutton}
 						type='radio'
@@ -183,23 +138,9 @@ const DienstleisterRadioTiles = ({ chosenJob, setJobAndError }: Props) => {
 			</div>
 			<div
 				className={s.radio_container}
-				style={{
-					border:
-						chosenJob == "Webagentur"
-							? "0px solid var(--color-grey-300)"
-							: "1px solid var(--color-grey-200)",
-					backgroundColor: chosenJob == "Webagentur" ? "#abe4b7" : "white",
-				}}
+				data-selected={chosenJob == "Webagentur"}
 			>
-				<label
-					style={{
-						color:
-							chosenJob == "Webagentur"
-								? "var(--color-grey-800)"
-								: "var(--color-grey-400)",
-					}}
-					className={s.selectLabel}
-				>
+				<label className={s.selectLabel}>
 					<input
 						className={s.radiobutton}
 						type='radio'

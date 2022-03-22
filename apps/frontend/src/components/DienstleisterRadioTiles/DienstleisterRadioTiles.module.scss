@@ -17,6 +17,20 @@
 	position: relative;
 	background-color: white;
 	width: 10em;
+	border: 1px solid var(--color-grey-200);
+
+	&[data-selected="true"] {
+		border: 0px solid var(--color-grey-300);
+		background-color: #abe4b7;
+
+		.selectLabel {
+			color: var(--color-grey-800);
+		}
+	}
+}
+
+.selectLabel {
+	color: var(--color-grey-400);
 }
 
 .radiobutton {
@@ -34,7 +48,7 @@
 	margin: 2px auto 10px auto;
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 900px) {
 	.dienstleistung_input {
 		flex-flow: column nowrap;
 	}
@@ -52,6 +66,7 @@
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
+		color: var(--color-grey-400);
 	}
 
 	.jobIcon {
