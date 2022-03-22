@@ -158,7 +158,7 @@ const EditFormAdmin = ({
 					<label className={s.label_editFormAdmin}>
 						E-Mail Adresse*
 						<input
-							type='text'
+							type='email'
 							className={s.textinput_editFormAdmin}
 							onChange={e => setEmail(e.target.value)}
 							defaultValue={email}
@@ -168,7 +168,7 @@ const EditFormAdmin = ({
 					<label className={s.label_editFormAdmin}>
 						Telefon
 						<input
-							type='text'
+							type='tel'
 							className={s.textinput_editFormAdmin}
 							onChange={e => setTelefon(e.target.value)}
 							defaultValue={editData.telefon}
