@@ -8,7 +8,7 @@ import React, { useState } from "react";
 export default function DLRSearch() {
 	const [loadedPages, setLoadedPages] = useState<any>([]);
 
-	const [chosenJob, setChosenJob] = useState("");
+	const [chosenJob, setChosenJob] = useState("Notar");
 	const [displayJob, setDisplayJob] = useState("");
 	const [chosenAddress, setChosenAddress] = useState("");
 	const [displayAddress, setDisplayAddress] = useState("");
