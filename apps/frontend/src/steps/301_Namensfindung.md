@@ -1,6 +1,6 @@
 Gleich als Erstes eine wichtige Frage: Wie wird deine $ug{UG}$gmbh{GmbH} heißen?
 
-Die Namensvergabe ist oft spannend aber auch schnell kräftezehrend. Immerhin wird dich der Unternehmensname lange Zeit begleiten. Denn eine $ug{UG}$gmbh{GmbH} lässt sich nur umbenennen, indem du auch den Gesellschaftsvertrag änderst.
+Die Namensvergabe ist oft spannend aber auch schnell kräftezehrend. Immerhin wird dich der Unternehmensname lange Zeit begleiten. Denn eine $ug{UG}$gmbh{GmbH} lässt sich nur umbenennen, wenn du den Gesellschaftsvertrag änderst.
 
 Im Zweifelsfall ist das aber natürlich immer möglich solltest du mit dem Namen unglücklich sein, also wähle einfach einen Namen, der dir gefällt und lasse das Thema nicht zu groß werden. Er muss nicht perfekt sein.
 
@@ -12,7 +12,7 @@ Denke aber hier in jedem Fall langfristig und wähle im Zweifelsfall einen seri�
 
 ## Firmennamen prüfen
 
-Außerdem macht es Sinn Namensähnlichkeiten im [Handelsregisters](https://www.handelsregister.de/rp_web/mask.do?Typ=e) zu überprüfen. Denn hat ein anderes Unternehmen den selben oder einen sehr ähnlichen Namen und hat vielleicht sogar Markenrechte darauf angemeldet, kann es nach der Gründung zu unschönen Rechtsstreiten kommen. Deswegen am Besten im Vorhinein Ausschließen dass es zu Verwechslungen kommen kann und im Zweifelsfall nachfragen.
+Außerdem macht es Sinn Namensähnlichkeiten im [Handelsregisters](https://www.handelsregister.de/rp_web/mask.do?Typ=e) zu überprüfen. Denn hat ein anderes Unternehmen den selben oder einen sehr ähnlichen Namen und hat vielleicht sogar Markenrechte darauf angemeldet, kann es nach der Gründung zu unschönen Rechtsstreiten kommen. Deswegen am Besten im Vorhinein Ausschließen, dass es zu Verwechslungen kommen kann und im Zweifelsfall nachfragen.
 
 Um dich doppelt und dreifach abzusichern checke am Besten ebenfalls die Seite des [Deutschen Patent- und Markenamtes (DPMA)](https://register.dpma.de/DPMAregister/marke/basis) und das [European Business Register](https://ebr.bundesanzeiger-verlag.de/european-business-register/unternehmenssuche).
 
