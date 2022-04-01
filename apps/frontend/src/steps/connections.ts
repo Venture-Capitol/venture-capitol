@@ -181,7 +181,7 @@ export const taskGraph: ConnectionsData = {
 		},
 		"400_Ende": {
 			type: "task",
-			name: "Hier gehts dann später zur nächsten Route",
+			name: "Du hast es geschafft!",
 			shortName: "Ende",
 			next: [],
 		},
