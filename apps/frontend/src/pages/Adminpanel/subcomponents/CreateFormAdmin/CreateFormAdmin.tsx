@@ -147,7 +147,7 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 					<label className={s.label_createFormAdmin}>
 						E-Mail Adresse*
 						<input
-							type='text'
+							type='email'
 							className={s.textinput_createFormAdmin}
 							onChange={e => setEmail(e.target.value)}
 							required
@@ -156,7 +156,7 @@ const CreateFormAdmin = ({ returnToAdminpanel, searchAgain }: Props) => {
 					<label className={s.label_createFormAdmin}>
 						Telefon
 						<input
-							type='text'
+							type='tel'
 							className={s.textinput_createFormAdmin}
 							onChange={e => setTelefon(e.target.value)}
 						/>
