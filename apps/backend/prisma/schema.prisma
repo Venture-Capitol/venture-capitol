@@ -10,6 +10,7 @@ generator client {
 model User {
   id        String          @id @unique
   companies UserInCompany[]
+  createdAt DateTime        @default(now())
 }
 
 model UserInCompany {
@@ -28,27 +29,30 @@ model Company {
   legalForm     LegalForm
   completedTask CompletedTask[]
   madeDecision  MadeDecision[]
+  createdAt     DateTime        @default(now())
 }
 
 model CompletedTask {
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId String
   taskId    String
+  createdAt DateTime @default(now())
 
   @@id([companyId, taskId])
 }
 
 model MadeDecision {
   decisionId   String
-  company      Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  company      Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId    String
   selectedPath Int
+  createdAt    DateTime @default(now())
 
   @@id([companyId, decisionId])
 }
 
 enum LegalForm {
-  EINZELUNTERNEHMER  
+  EINZELUNTERNEHMER
   GBR
   FREIBERUFLER
   PARTG
