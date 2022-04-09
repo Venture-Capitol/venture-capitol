@@ -1,6 +1,5 @@
 import Button from "@vc/ui/src/components/Button/Button";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
-import mixpanel from "mixpanel-browser";
 import { Redirect } from "react-router-dom";
 import s from "./Gruendung.module.scss";
 
@@ -39,9 +38,6 @@ export default function () {
 					<div className={s.btnContainer}>
 						<Button
 							onClick={() => {
-								mixpanel.track("Founding process started", {
-									legalForm: "GMBH",
-								});
 								createCompany("GMBH");
 							}}
 						>
@@ -71,9 +67,6 @@ export default function () {
 					<div className={s.btnContainer}>
 						<Button
 							onClick={() => {
-								mixpanel.track("Founding process started", {
-									legalForm: "UG",
-								});
 								createCompany("UG");
 							}}
 						>

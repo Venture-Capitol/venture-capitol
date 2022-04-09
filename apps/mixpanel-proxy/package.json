@@ -1,0 +1,12 @@
+{
+	"private": true,
+	"name": "@vc/mixpanel-proxy",
+	"version": "1.0.0",
+	"description": "Mixpanel proxy as a cloudflare worker",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Malte <hi@malts.me>",
+	"license": "MIT"
+}
