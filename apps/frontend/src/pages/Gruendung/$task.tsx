@@ -1,4 +1,5 @@
 import { ArrowSmLeftIcon, ArrowSmRightIcon } from "@heroicons/react/solid/esm";
+import Feedback from "@vc/frontend/component/Feedback/Feedback";
 import { TaskNodeContainer } from "@vc/frontend/component/TaskList/TaskNode/TaskNode";
 import useMediaQuery from "@vc/frontend/util/useMediaQuery";
 import Button from "@vc/ui/src/components/Button/Button";
@@ -220,6 +221,8 @@ const Gruendung_TaskId = () => {
 									/>
 								</div>
 							)}
+
+						<Feedback currentTask={task} />
 						{/* back / forward navigation */}
 						<div className={s.bottomNav}>
 							{/* if not decision, go forward */}

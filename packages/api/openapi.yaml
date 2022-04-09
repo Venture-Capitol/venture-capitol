@@ -15,7 +15,94 @@ tags:
     description: API for decision information
   - name: decision
     description: API for task information
+  - name: feedback
+    description: API for user feedback
 paths:
+  /api/feedback/message:
+    post:
+      tags:
+        - feedback
+      summary: Post message
+      description: Post message
+      operationId: postFeedbackMessage
+      requestBody:
+        description: message details
+        content:
+          application/json:
+            schema:
+              required:
+                - taskId
+                - name
+                - email
+                - message
+              type: object
+              properties:
+                taskId:
+                  type: string
+                name:
+                  type: string
+                email:
+                  type: string
+                message:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Success
+        500:
+          description: Server error
+      x-codegen-request-body-name: feedback_message
+  /api/feedback/like:
+    post:
+      tags:
+        - feedback
+      summary: Send feedback like
+      description: Send feedback like
+      operationId: sendFeedbackLike
+      requestBody:
+        description: feedback details
+        content:
+          application/json:
+            schema:
+              required:
+                - taskId
+              type: object
+              properties:
+                taskId:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Success
+        500:
+          description: Server error
+      x-codegen-request-body-name: feedback_like
+  /api/feedback/dislike:
+    post:
+      tags:
+        - feedback
+      summary: Send feedback dislike
+      description: Send feedback dislike
+      operationId: sendFeedbackDislike
+      requestBody:
+        description: feedback details
+        content:
+          application/json:
+            schema:
+              required:
+                - taskId
+              type: object
+              properties:
+                taskId:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Success
+        500:
+          description: Server error
+      x-codegen-request-body-name: feedback_dislike
+
   /api/user/{userId}:
     get:
       tags:

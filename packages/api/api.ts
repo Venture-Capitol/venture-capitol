@@ -6,6 +6,9 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
+	PostFeedbackMessageBody,
+	SendFeedbackLikeBody,
+	SendFeedbackDislikeBody,
 	User,
 	Company,
 	CreateCompanyBody,
@@ -14,6 +17,48 @@ import type {
 	MakeDecisionBody,
 } from "./api.schemas";
 import { makeAxiosFn } from "./axios";
+
+/**
+ * Post message
+ * @summary Post message
+ */
+export const postFeedbackMessage = <TData = void>(
+	postFeedbackMessageBody: PostFeedbackMessageBody
+) => {
+	return makeAxiosFn<TData>({
+		url: `/api/feedback/message`,
+		method: "post",
+		data: postFeedbackMessageBody,
+	});
+};
+
+/**
+ * Send feedback like
+ * @summary Send feedback like
+ */
+export const sendFeedbackLike = <TData = void>(
+	sendFeedbackLikeBody: SendFeedbackLikeBody
+) => {
+	return makeAxiosFn<TData>({
+		url: `/api/feedback/like`,
+		method: "post",
+		data: sendFeedbackLikeBody,
+	});
+};
+
+/**
+ * Send feedback dislike
+ * @summary Send feedback dislike
+ */
+export const sendFeedbackDislike = <TData = void>(
+	sendFeedbackDislikeBody: SendFeedbackDislikeBody
+) => {
+	return makeAxiosFn<TData>({
+		url: `/api/feedback/dislike`,
+		method: "post",
+		data: sendFeedbackDislikeBody,
+	});
+};
 
 /**
  * Returns a user with given id

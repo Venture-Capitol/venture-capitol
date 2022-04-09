@@ -271,6 +271,8 @@ jobs:
         working-directory: ./deploy
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
+        env:
+          "TF_VAR_slack_webhook_url": secrets.SLACK_WEBHOOK_URL
 
       # Get Artifact from frontend build
       - name: Get frontend build
@@ -325,6 +327,8 @@ jobs:
         working-directory: ./deploy
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
+        env:
+          "TF_VAR_slack_webhook_url": secrets.SLACK_WEBHOOK_URL
 
       # Get Artifact from frontend build
       - name: Get frontend build
