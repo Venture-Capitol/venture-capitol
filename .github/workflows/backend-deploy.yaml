@@ -357,9 +357,8 @@ jobs:
     name: "Firebase: Production Deploy"
     runs-on: ubuntu-latest
     environment:
-      name: staging
-    needs: [build-be, build-dlr, validate-tf, build-fe]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      name: production
+    needs: [deploy-staging]
     # Prevent two merged pull requests in quick succession overwriting each other
     concurrency:
       group: deploy-firebase
