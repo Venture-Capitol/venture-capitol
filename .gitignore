@@ -5,6 +5,7 @@ dist
 *.local
 *.log
 .vscode
+.firebase
 
 # Cypress
 **/cypress/results/*

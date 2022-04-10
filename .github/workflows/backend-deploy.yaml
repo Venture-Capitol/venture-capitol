@@ -272,17 +272,6 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
 
-      # Get Artifact from frontend build
-      - name: Get frontend build
-        uses: actions/download-artifact@v2
-        with:
-          name: frontend-build
-          path: ./dist
-
-      - name: Upload frontend build
-        run: gsutil -m rsync -d -r ./ $STAGING_BUCKET_NAME
-        working-directory: ./dist
-
   # ------------------------------------------ PROD ------------------------------------------
   deploy-production:
     name: "Deploy to Production"
@@ -325,14 +314,3 @@ jobs:
         working-directory: ./deploy
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
-
-      # Get Artifact from frontend build
-      - name: Get frontend build
-        uses: actions/download-artifact@v2
-        with:
-          name: frontend-build
-          path: ./dist
-
-      - name: Upload frontend build
-        run: gsutil -m rsync -d -r ./ $PROD_BUCKET_NAME
-        working-directory: ./dist
