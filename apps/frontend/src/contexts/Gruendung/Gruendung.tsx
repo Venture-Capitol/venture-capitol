@@ -5,6 +5,7 @@ import * as CompanyService from "./company";
 import { GPF } from "@vc/api";
 import { useAuthContext } from "@vc/auth/src/AuthContext";
 import { useHistory } from "react-router-dom";
+import mixpanel from "mixpanel-browser";
 
 // 🌍 Context
 
@@ -161,6 +162,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 			history.push("/gruendung");
 			return;
 		}
+
 		if (user) {
 			const company = await CompanyService.createCompany(legalForm);
 			if (!company) return;
@@ -176,6 +178,10 @@ const GruendungContextProvider: FC = ({ children }) => {
 			setCurrentCompany(tempCompany);
 			localStorage.setItem("company", JSON.stringify(tempCompany));
 		}
+
+		mixpanel.track("Company created", {
+			legalForm: legalForm,
+		});
 	}
 
 	// Process task graph
@@ -252,11 +258,11 @@ const GruendungContextProvider: FC = ({ children }) => {
 	/**
 	 * Set wheter a task is done or not
 	 * @param taskId id of the task to mark as either done or not
-	 * @param status true if done, false if not
+	 * @param done true if done, false if not
 	 */
-	function setTaskStatus(taskId: string, status: boolean) {
+	function setTaskStatus(taskId: string, done: boolean) {
 		let updatedTasks;
-		if (status) {
+		if (done) {
 			if (!completedTasks.find(task => task == taskId)) {
 				updatedTasks = [...completedTasks, taskId];
 				setCompletedTasks(updatedTasks);
@@ -265,12 +271,14 @@ const GruendungContextProvider: FC = ({ children }) => {
 			if (currentCompany?.id) {
 				GPF.markTaskDone(currentCompany.id, taskId);
 			}
+			mixpanel.people.union("done_tasks", taskId);
 		} else {
 			updatedTasks = completedTasks.filter(task => task !== taskId);
 			setCompletedTasks(updatedTasks);
 			if (currentCompany?.id) {
 				GPF.undoTaskCompletion(currentCompany.id, taskId);
 			}
+			mixpanel.people.remove("done_tasks", taskId);
 		}
 
 		window.localStorage.setItem("tasks", JSON.stringify(updatedTasks));
@@ -296,6 +304,8 @@ const GruendungContextProvider: FC = ({ children }) => {
 					selectedPath: path,
 				});
 			}
+
+			mixpanel.people.union("done_decisions", decisionId);
 		} else {
 			changedDecisions = [
 				...madeDecisions.filter(decision => decision.id !== decisionId),
@@ -304,6 +314,7 @@ const GruendungContextProvider: FC = ({ children }) => {
 			if (currentCompany?.id) {
 				GPF.undoDecision(currentCompany?.id, decisionId);
 			}
+			mixpanel.people.remove("done_decisions", decisionId);
 		}
 		window.localStorage.setItem("decisions", JSON.stringify(changedDecisions));
 	}

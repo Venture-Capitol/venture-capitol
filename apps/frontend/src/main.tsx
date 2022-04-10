@@ -4,6 +4,7 @@ import "./global.scss";
 import App from "./App";
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
+import mixpanel from "mixpanel-browser";
 
 if (import.meta.env.PROD) {
 	Sentry.init({
@@ -15,6 +16,17 @@ if (import.meta.env.PROD) {
 		// We recommend adjusting this value in production
 		tracesSampleRate: 1.0,
 	});
+}
+
+try {
+	mixpanel.init("10f241f69734499fd9ade38e6172637d", {
+		api_host: "https://mix.venturecapitol.de/",
+		debug: !import.meta.env.PROD,
+	});
+
+	mixpanel.track("Page Load");
+} catch (e) {
+	console.log(e);
 }
 
 ReactDOM.render(

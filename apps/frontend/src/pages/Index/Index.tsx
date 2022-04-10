@@ -9,6 +9,7 @@ import { useGruendungContext } from "contexts/Gruendung/Gruendung";
 import DisclaimerPopup from "@vc/frontend/component/Popup/DisclaimerPopup";
 import { checkCookie } from "@vc/frontend/util/DPACK";
 import * as basicScroll from "basicscroll";
+import mixpanel from "mixpanel-browser";
 
 const Landing: React.FunctionComponent = () => {
 	const isMobile = useMediaQuery("(max-width: 900px)");
@@ -79,7 +80,10 @@ const Landing: React.FunctionComponent = () => {
 			<section className={s.header}>
 				<h1>In wenigen Schritten zu deinem eigenen Unternehmen</h1>
 				<div className={s.buttons}>
-					<Link to={"/gesellschaftsform"}>
+					<Link
+						to={"/gesellschaftsform"}
+						onClick={() => mixpanel.track("CTA click")}
+					>
 						<Button variant='secondary'>
 							<div className={s.searchButtonContent}>
 								<span>Jetzt Gründung Starten</span>
