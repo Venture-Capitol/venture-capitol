@@ -1,8 +1,7 @@
 {
 	"hosting": {
 		"site": "venture-capitol",
-		"predeploy": "(cd apps/frontend && npm run build)",
-		"public": "apps/frontend/dist",
+		"public": "dist",
 		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
 		"rewrites": [
 			{

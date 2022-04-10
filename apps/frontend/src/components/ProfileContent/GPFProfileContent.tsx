@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { useState } from "react";
 import AlertDialog from "../Popup/AlertDialog";
 import Button from "@vc/ui/src/components/Button/Button";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
@@ -6,10 +6,11 @@ import { GPF } from "@vc/api";
 
 import s from "./GPFProfileContent.module.scss";
 import { Link } from "react-router-dom";
+import mixpanel from "mixpanel-browser";
 
-const GPFProfileContent: FunctionComponent = ({}) => {
-	const [companyDeleted, showNotice] = useState(false);
-	const [companyDeletedError, showErrorNotice] = useState(false);
+const GPFProfileContent = () => {
+	const [companyWasDeleted, setCompanyWasDeleted] = useState(false);
+	const [companyDeletionError, setCompanyDeletionError] = useState(false);
 
 	const { currentCompany, clearCompany } = useGruendungContext();
 
@@ -17,13 +18,14 @@ const GPFProfileContent: FunctionComponent = ({}) => {
 		try {
 			if (currentCompany?.id) {
 				clearCompany();
-				const company = await GPF.deleteCompany(currentCompany?.id);
-				showNotice(true);
+				await GPF.deleteCompany(currentCompany?.id);
+				mixpanel.track("company_deleted");
+				setCompanyWasDeleted(true);
 				return true;
 			}
 		} catch (e) {
 			console.log(e);
-			showErrorNotice(true);
+			setCompanyDeletionError(true);
 			return undefined;
 		}
 	}
@@ -44,17 +46,19 @@ const GPFProfileContent: FunctionComponent = ({}) => {
 						</Button>
 					}
 					cancel={<Button>Abbrechen</Button>}
-					trigger={
-						<Button disabled={!currentCompany && true}>Firma löschen</Button>
-					}
+					trigger={<Button disabled={!currentCompany}>Firma löschen</Button>}
 				>
 					Das Löschen deiner Daten ist nicht rückgängig machbar.
 				</AlertDialog>
 			</div>
-			<p className={`${s.deletionConfirmation} ${companyDeleted && s.visible}`}>
+			<p
+				className={`${s.deletionConfirmation} ${
+					companyWasDeleted && s.visible
+				}`}
+			>
 				Firma erfolgreich gelöscht.
 			</p>
-			<p className={`${s.deletionError} ${companyDeletedError && s.visible}`}>
+			<p className={`${s.deletionError} ${companyDeletionError && s.visible}`}>
 				Es gab einen Fehler, bitte schick uns eine Email damit wir dir
 				weiterhelfen können.
 			</p>

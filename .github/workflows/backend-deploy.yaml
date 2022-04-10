@@ -201,9 +201,9 @@ jobs:
               body: output
             })
 
-  # ------------------------------------------ STAGING ------------------------------------------
+  # ------------------------------------------ STAGING  GOOGLE CLOUD ------------------------------------------
   deploy-staging:
-    name: "Deploy to Staging"
+    name: "Google Cloud: Staging Deploy"
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -272,9 +272,34 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
 
+  deploy-staging-firebase:
+    name: "Firebase: Staging Deploy"
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    needs: [build-be, build-dlr, validate-tf, build-fe]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
+      group: deploy-staging-firebase
+    steps:
+      - name: Get frontend build
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-build
+          path: ./dist
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VENTURE_CAPITOL }}"
+          channelId: live
+          projectId: venture-capitol
+          # target: vc-staging
+          entryPoint: firebase_staging.json
+
   # ------------------------------------------ PROD ------------------------------------------
   deploy-production:
-    name: "Deploy to Production"
+    name: "Google Cloud: Production Deploy"
     runs-on: ubuntu-latest
     environment:
       name: production
@@ -314,3 +339,57 @@ jobs:
         working-directory: ./deploy
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
+
+      # Get Artifact from frontend build
+      - name: Get frontend build
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-build
+          path: ./dist
+
+      - name: Upload frontend build
+        run: gsutil -m rsync -d -r ./ $PROD_BUCKET_NAME
+        working-directory: ./dist
+
+  # ------------------------------------------ PROD Firebase ------------------------------------------
+
+  deploy-firebase:
+    name: "Firebase: Production Deploy"
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    needs: [build-be, build-dlr, validate-tf, build-fe]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
+      group: deploy-firebase
+    steps:
+      - name: Get frontend build
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-build
+          path: ./dist
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VENTURE_CAPITOL }}"
+          channelId: live
+          projectId: venture-capitol
+          entryPoint: firebase_production.json
+
+  # ------------------------------------------ PROD CLOUDFLARE ------------------------------------------
+
+  deploy-cloudflare:
+    name: "Cloudflare Workers: Production Deploy"
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    needs: [deploy-staging]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: "apps/mixpanel-proxy"
