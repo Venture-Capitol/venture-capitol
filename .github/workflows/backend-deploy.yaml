@@ -298,7 +298,7 @@ jobs:
           channelId: live
           projectId: venture-capitol
           # target: vc-staging
-          entryPoint: firebase_staging.json
+          entryPoint: ./firebase_staging.json
 
   # ------------------------------------------ PROD ------------------------------------------
   deploy-production:
@@ -380,7 +380,7 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VENTURE_CAPITOL }}"
           channelId: live
           projectId: venture-capitol
-          entryPoint: firebase_production.json
+          entryPoint: ./firebase_production.json
 
   # ------------------------------------------ PROD CLOUDFLARE ------------------------------------------
 
