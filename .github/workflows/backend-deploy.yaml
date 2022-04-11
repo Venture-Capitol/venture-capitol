@@ -389,7 +389,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-    needs: [deploy-staging, deploy-staging-firebase2]
+    needs: [deploy-staging, deploy-staging-firebase]
 
     steps:
       - uses: actions/checkout@v2
