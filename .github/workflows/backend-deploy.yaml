@@ -298,7 +298,6 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VENTURE_CAPITOL }}"
           channelId: live
           projectId: venture-capitol
-          # target: vc-staging
 
   # ------------------------------------------ PROD ------------------------------------------
   deploy-production:
@@ -374,6 +373,7 @@ jobs:
         with:
           name: frontend-build
           path: ./dist
+      - run: cp firebase_prod.json firebase.json
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
