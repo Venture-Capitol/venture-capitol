@@ -380,7 +380,6 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VENTURE_CAPITOL }}"
           channelId: live
           projectId: venture-capitol
-          entryPoint: ./firebase_production.json
 
   # ------------------------------------------ PROD CLOUDFLARE ------------------------------------------
 
