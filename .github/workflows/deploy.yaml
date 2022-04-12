@@ -38,8 +38,11 @@ jobs:
       - run: npm run bootstrap
       - run: npx lerna run build
 
+      # Fix this: https://stackoverflow.com/questions/20318852/tar-file-changed-as-we-read-it
+      - run: touch repo.tar.gz
+
       - name: Create a zip file of the built repo
-        run: tar --exclude \*\*/node_modules --exclude .git -czf repo.tar.gz ./
+        run: tar --exclude \*\*/node_modules --exclude .git --exclude repo.tar.gz -czf repo.tar.gz ./
 
       - name: Store build artifact
         uses: actions/upload-artifact@master
