@@ -8,6 +8,7 @@ import {
 	ThumbUpIcon as ThumbUpIconSolid,
 	ThumbDownIcon as ThumbDownIconSolid,
 } from "@heroicons/react/solid/esm";
+import * as Popover from "@radix-ui/react-popover";
 import { sendFeedbackDislike, sendFeedbackLike } from "@vc/api/api";
 import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Feedback.module.scss";
@@ -18,29 +19,11 @@ interface FeedbackProps {
 }
 
 const Feedback: FC<FeedbackProps> = ({ currentTask }) => {
-	const [isFeedbackPopupOpen, setIsFeedbackPopupOpen] = useState(false);
 	const [feedback, setFeedback] = useState<undefined | "like" | "dislike">();
-
-	const popupRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		setFeedback(undefined);
 	}, [currentTask]);
-
-	const handleFeedbackClick = () => {
-		if (!isFeedbackPopupOpen) {
-			document.addEventListener("mousedown", handleOutsideClick, true);
-		}
-		setIsFeedbackPopupOpen(!isFeedbackPopupOpen);
-	};
-
-	function handleOutsideClick(e: MouseEvent) {
-		if (!popupRef.current) return;
-		if (!popupRef.current.contains(e.target as Node)) {
-			setIsFeedbackPopupOpen(false);
-			document.removeEventListener("mousedown", handleOutsideClick, true);
-		}
-	}
 
 	function handleThumbClick(
 		e: React.MouseEvent,
@@ -92,23 +75,22 @@ const Feedback: FC<FeedbackProps> = ({ currentTask }) => {
 					)}
 				</div>
 			</div>
-			<div className={s.questionContainer} ref={popupRef}>
-				<div className={s.item} onClick={handleFeedbackClick}>
-					<AnnotationIcon className={s.icon} />
-					Frage stellen
+			<Popover.Root>
+				<div className={s.questionContainer}>
+					<Popover.Anchor></Popover.Anchor>
+					<Popover.Trigger asChild>
+						<div className={s.item}>
+							<AnnotationIcon className={s.icon} />
+							Frage stellen
+						</div>
+					</Popover.Trigger>
+					<Popover.Content asChild sideOffset={30}>
+						<div className={s.popup}>
+							<FeedbackPopup currentTask={currentTask} />
+						</div>
+					</Popover.Content>
 				</div>
-
-				{isFeedbackPopupOpen && (
-					<div className={s.popup}>
-						<FeedbackPopup
-							currentTask={currentTask}
-							closePopup={() => {
-								setIsFeedbackPopupOpen(false);
-							}}
-						/>
-					</div>
-				)}
-			</div>
+			</Popover.Root>
 		</div>
 	);
 };

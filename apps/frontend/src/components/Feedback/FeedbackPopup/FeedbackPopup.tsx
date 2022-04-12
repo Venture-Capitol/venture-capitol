@@ -1,17 +1,17 @@
 import { CheckIcon, ExclamationCircleIcon } from "@heroicons/react/outline/esm";
 import { ExclamationIcon } from "@heroicons/react/solid/esm";
+import * as Popover from "@radix-ui/react-popover";
 import { API } from "@vc/api";
 import { postFeedbackMessage } from "@vc/api/api";
 import Button from "@vc/ui/src/components/Button/Button";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./FeedbackPopup.module.scss";
 
 interface FeedbackPopupProps {
-	closePopup: () => void;
 	currentTask: string;
 }
 
-const FeedbackPopup: FC<FeedbackPopupProps> = ({ closePopup, currentTask }) => {
+const FeedbackPopup: FC<FeedbackPopupProps> = ({ currentTask }) => {
 	const [loadingState, setLoadingState] = useState<
 		undefined | "loading" | "error" | "success"
 	>();
@@ -23,6 +23,13 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ closePopup, currentTask }) => {
 	const [messageValid, setMessageValid] = useState<undefined | boolean>();
 
 	const submitButtonRef = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		document.body.classList.add(s.bodyPopup);
+		return () => {
+			document.body.classList.remove(s.bodyPopup);
+		};
+	}, []);
 
 	function validateEmail(email: string) {
 		return String(email)
@@ -106,10 +113,6 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ closePopup, currentTask }) => {
 			.catch(err => {
 				setLoadingState("error");
 			});
-	}
-
-	function handleCancel() {
-		closePopup();
 	}
 
 	const validIcon = (
@@ -205,9 +208,9 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ closePopup, currentTask }) => {
 						{messageValid == false && invalidIcon}
 					</div>
 					<div className={s.actionContainer}>
-						<Button variant='primary' onClick={handleCancel}>
-							Abbrechen
-						</Button>
+						<Popover.Close>
+							<Button variant='primary'>Abbrechen</Button>
+						</Popover.Close>
 						<Button
 							variant='secondary'
 							onClick={handleSubmit}

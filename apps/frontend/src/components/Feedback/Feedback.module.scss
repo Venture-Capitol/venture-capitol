@@ -73,13 +73,6 @@
 	}
 }
 
-.popup {
-	position: absolute;
-	bottom: 65px;
-	right: 0;
-	animation: ease-in-out fadeIn 0.2s;
-}
-
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
