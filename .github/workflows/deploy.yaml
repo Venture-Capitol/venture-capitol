@@ -37,6 +37,8 @@ jobs:
       - run: npm install
       - run: npm run bootstrap
       - run: npx lerna run build
+      - run: ls
+      - run: rm -rf **/node_modules
       - name: Store build artifact
         uses: actions/upload-artifact@master
         with:
