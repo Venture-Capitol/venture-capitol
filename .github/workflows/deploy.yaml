@@ -43,14 +43,14 @@ jobs:
           name: repo-build
           path: |
             .
-            !./node_modules
+            !node_modules
 
   ############################
   # 🔬 Validate Terraform 🔬 #
   ############################
 
   validate-tf:
-    name: "Validate Terraform Configuration"
+    name: "Validate Terraform Config"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository Files
@@ -141,7 +141,7 @@ jobs:
   build-gpf-api:
     name: "Build GPF Api Container"
     runs-on: ubuntu-latest
-    needs: [build-repo]
+    needs: [build-repo, validate-tf]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment:
       name: staging
@@ -190,7 +190,7 @@ jobs:
   build-dlr-api:
     name: "Build DLR Container"
     runs-on: ubuntu-latest
-    needs: [build-repo]
+    needs: [build-repo, validate-tf]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment:
       name: staging
