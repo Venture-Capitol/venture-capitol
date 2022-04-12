@@ -37,15 +37,15 @@ jobs:
       - run: npm install
       - run: npm run bootstrap
       - run: npx lerna run build
-      - run: ls
-      - run: rm -rf **/node_modules
+
+      - name: Create a zip file of the built repo
+        run: tar --exclude \*\*/node_modules --exclude .git -czf repo.tar.gz ./
+
       - name: Store build artifact
         uses: actions/upload-artifact@master
         with:
           name: repo-build
-          path: |
-            .
-            !node_modules
+          path: repo.tar.gz
 
   ############################
   # 🔬 Validate Terraform 🔬 #
@@ -156,7 +156,8 @@ jobs:
           name: repo-build
           path: ./
 
-      - run: ls
+      - name: Unzip built repo
+        run: tar -xzf repo.tar.gz
 
       # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Authenticate with Google Cloud
@@ -204,6 +205,9 @@ jobs:
         with:
           name: repo-build
           path: ./
+
+      - name: Unzip built repo
+        run: tar -xzf repo.tar.gz
 
       # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
       - name: Authenticate with Google Cloud
@@ -326,6 +330,10 @@ jobs:
         with:
           name: repo-build
           path: ./
+
+      - name: Unzip built repo
+        run: tar -xzf repo.tar.gz
+
       - run: cp firebase_staging.json firebase.json
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -401,6 +409,10 @@ jobs:
         with:
           name: repo-build
           path: ./
+
+      - name: Unzip built repo
+        run: tar -xzf repo.tar.gz
+
       - run: cp firebase_prod.json firebase.json
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
