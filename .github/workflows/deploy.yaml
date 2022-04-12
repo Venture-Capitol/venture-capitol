@@ -1,0 +1,427 @@
+name: CI/CD
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: backend
+  DLR_IMAGE_NAME: dlr
+  PROJECT_ID: venture-capitol
+  REPO_ID: images
+  GAR_HOSTNAME: europe-west1-docker.pkg.dev
+  PROD_BUCKET_NAME: gs://vc-frontend
+  STAGING_BUCKET_NAME: gs://vc-frontend-staging
+jobs:
+  ########################
+  # 🛠️ Build Monorepo 🛠️ #
+  ########################
+
+  build-repo:
+    name: "Build Monorepo"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Files
+        uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "npm"
+          cache-dependency-path: |
+            apps/**/package-lock.json
+            packages/**/package-lock.json
+      - run: npm install
+      - run: npm run bootstrap
+      - run: npx lerna run build
+      - name: Store build artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: repo-build
+          path: |
+            .
+            !./node_modules
+
+  ############################
+  # 🔬 Validate Terraform 🔬 #
+  ############################
+
+  validate-tf:
+    name: "Validate Terraform Configuration"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Files
+        uses: actions/checkout@v2
+
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Export image names as environment variables
+        id: step_one
+        run: |
+          echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.2.1
+
+      # Checks that all Terraform configuration files adhere to a canonical format
+      - name: Terraform Format
+        id: fmt
+        working-directory: ./deploy
+        run: terraform fmt -check
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        id: init
+        working-directory: ./deploy
+        run: terraform init
+
+      # Terraform validate
+      - name: Terraform Validate
+        id: validate
+        working-directory: ./deploy
+        run: terraform validate -no-color
+
+      # Generates an execution plan for Terraform
+      - name: Terraform Plan
+        if: github.event_name == 'pull_request'
+        id: plan
+        working-directory: ./deploy
+        run: terraform plan -no-color
+
+      - name: Get changed files
+        id: changed-tf-files
+        uses: tj-actions/changed-files@v18.7
+        with:
+          files: deploy/*
+
+      # Show terraform plan as comment in PR
+      - uses: actions/github-script@0.9.0
+        if: github.event_name == 'pull_request' && steps.changed-tf-filesoutputs.any_changed == 'true'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>`;
+              
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+  # ------------------------------------- ✅ PR approved -> STAGING -------------------------------------
+
+  #################################
+  # 📋 Build GPF API Container 📋 #
+  #################################
+
+  build-gpf-api:
+    name: "Build GPF Api Container"
+    runs-on: ubuntu-latest
+    needs: [build-repo]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: staging
+      url: https://staging.venturecapitol.de
+    steps:
+      # Get Artifact from repo build
+      - name: Get Monorepo build
+        uses: actions/download-artifact@v2
+        with:
+          name: repo-build
+          path: ./
+
+      - run: ls
+
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.3.0
+
+      - name: Configure Docker to use Google Artifact Registry
+        run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
+
+      - name: Build the Docker Image
+        run: |-
+          docker build \
+          -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest \
+          -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6} \
+          -f ./apps/backend/Dockerfile .
+
+      - name: Push the Docker Image to Google Artifact Registry
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |-
+          docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:latest
+          docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}
+
+  #################################
+  # 🔎 Build DLR API Container 🔎 #
+  #################################
+
+  build-dlr-api:
+    name: "Build DLR Container"
+    runs-on: ubuntu-latest
+    needs: [build-repo]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: staging
+      url: https://staging.venturecapitol.de
+    steps:
+      # Get Artifact from repo build
+      - name: Get Monorepo build
+        uses: actions/download-artifact@v2
+        with:
+          name: repo-build
+          path: ./
+
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.3.0
+
+      - name: Configure Docker to use Google Artifact Registry
+        run: gcloud auth configure-docker $GAR_HOSTNAME --quiet
+
+      - name: Build the Docker Image
+        run: |-
+          docker build \
+          --cache-from=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest \
+          -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest \
+          -t $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6} \
+          -f ./apps/utr-backend/Dockerfile .
+
+      - name: Push the Docker Image to Google Artifact Registry
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |-
+          docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:latest
+          docker push $GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6}
+
+  ######################################
+  # 🌎 Google Cloud: Staging Deploy 🌎 #
+  ######################################
+
+  deploy-staging:
+    name: "Google Cloud: Staging Deploy"
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.venturecapitol.de
+    needs: [build-gpf-api, build-dlr-api]
+    outputs:
+      currentRevision: ${{ steps.get-current-revision.outputs.json }}
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
+      group: deploy-staging
+
+    steps:
+      - name: Checkout Repository Files
+        uses: actions/checkout@v2
+
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.3.0
+
+      - name: Get the current revision description
+        id: get-current-revision
+        run: |
+          content=`gcloud run services describe vc-backend --region europe-west1 --project $PROJECT_ID --format=json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=json::$content"
+
+      - name: Get the current dlr revision description
+        id: get-current-dlr-revision
+        run: |
+          content=`gcloud run services describe dlr-backend --region europe-west1 --project $PROJECT_ID --format=json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=json::$content"
+
+      - name: Export image names as environment variables
+        run: |
+          echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_dlr_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_image_name=${{fromJson(steps.get-current-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
+          echo "TF_VAR_dlr_image_name=${{fromJson(steps.get-current-dlr-revision.outputs.json).spec.template.spec.containers[0].image}}" >> $GITHUB_ENV
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{steps.auth.outputs.credentials_file_path}}" >> $GITHUB_ENV
+
+      - name: Terraform Init
+        id: init
+        working-directory: ./deploy
+        run: terraform init
+
+      # On push to master, build or change infrastructure according to Terraform configuration files
+      - name: Terraform Apply
+        working-directory: ./deploy
+        run: terraform apply -auto-approve
+
+  ##################################
+  # 🔥 Firebase: Staging Deploy 🔥 #
+  ##################################
+
+  deploy-staging-firebase:
+    name: "Firebase: Staging Deploy"
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    needs: [build-gpf-api, build-dlr-api]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
+      group: deploy-staging-firebase
+    steps:
+      - name: Get Monorepo build
+        uses: actions/download-artifact@v2
+        with:
+          name: repo-build
+          path: ./
+      - run: cp firebase_staging.json firebase.json
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VENTURE_CAPITOL }}"
+          channelId: live
+          projectId: venture-capitol
+
+  # ------------------------------------- ✅ Deploy approved -> PRODUCTION -------------------------------------
+
+  #########################################
+  # 🌎 Google Cloud: Production Deploy 🌎 #
+  #########################################
+
+  deploy-production:
+    name: "Google Cloud: Production Deploy"
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://venturecapitol.de
+    needs: [deploy-staging, deploy-staging-firebase]
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout Repository Files
+        uses: actions/checkout@v2
+
+      # This sets the GOOGLE_APPLICATION_CREDENTIALS environment variable
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.3
+        with:
+          credentials_json: ${{ secrets.DEPLOY_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v0.3.0
+
+      - name: Export image names as environment variables
+        run: |
+          echo "TF_VAR_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_dlr_staging_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "TF_VAR_dlr_image_name=$GAR_HOSTNAME/$PROJECT_ID/$REPO_ID/$DLR_IMAGE_NAME:${GITHUB_SHA::6}" >> $GITHUB_ENV
+
+      - name: Terraform Init
+        id: init
+        working-directory: ./deploy
+        run: terraform init
+
+      # On push to master, build or change infrastructure according to Terraform configuration files
+      - name: Terraform Apply
+        working-directory: ./deploy
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+
+  #####################################
+  # 🔥 Firebase: Production Deploy 🔥 #
+  #####################################
+
+  deploy-production-firebase:
+    name: "Firebase: Production Deploy"
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    needs: [deploy-staging, deploy-staging-firebase]
+    # Prevent two merged pull requests in quick succession overwriting each other
+    concurrency:
+      group: deploy-firebase
+    steps:
+      - name: Get Monorepo build
+        uses: actions/download-artifact@v2
+        with:
+          name: repo-build
+          path: ./
+      - run: cp firebase_prod.json firebase.json
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_VENTURE_CAPITOL }}"
+          channelId: live
+          projectId: venture-capitol
+
+  #####################################
+  # ⚙️ Cloudflare: Production Deploy ⚙️ #
+  #####################################
+
+  deploy-cloudflare:
+    name: "Cloudflare Workers: Production Deploy"
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    needs: [deploy-staging, deploy-staging-firebase]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: "apps/mixpanel-proxy"
