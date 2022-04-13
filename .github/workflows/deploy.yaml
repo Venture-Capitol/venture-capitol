@@ -320,6 +320,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
+      url: https://staging.venturecapitol.de
     needs: [build-gpf-api, build-dlr-api]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     # Prevent two merged pull requests in quick succession overwriting each other
@@ -400,6 +401,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
+      url: https://venturecapitol.de
     needs: [deploy-staging, deploy-staging-firebase]
     # Prevent two merged pull requests in quick succession overwriting each other
     concurrency:
@@ -431,6 +433,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
+      url: https://venturecapitol.de
     needs: [deploy-staging, deploy-staging-firebase]
 
     steps:
