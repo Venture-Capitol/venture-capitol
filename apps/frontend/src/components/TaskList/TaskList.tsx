@@ -137,7 +137,7 @@ const TaskList: FC = () => {
 							`a${r},${r} 0 0 ${left < 0 ? 1 : 0} ${left * r},${r}` + // draw the first quarter circle
 							`h${b.x + b.w / 2 - (a.w / 2 + a.x) - 2 * r * left}` + // draw a horizontal line
 							`a${r},${r} 0 0 ${left > 0 ? 1 : 0} ${left * r},${r}` + // draw the second quarter circle
-							`v${(b.y - (a.h + a.y)) / 2 - r - 5}` // draw the last line down
+							`v${(b.y - (a.h + a.y)) / 2 - r - 4.99}` // draw the last line down
 					)
 					.fill("none")
 					.stroke({
