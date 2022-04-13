@@ -7,7 +7,7 @@
 	padding: 35px;
 	border-radius: 8px;
 	width: 600px;
-	height: 450px;
+	height: 550px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -67,8 +67,8 @@
 
 .input {
 	border-bottom: solid 2px var(--color-grey-300);
-	font-size: 14px;
-	font-weight: var(--font-weight-semi-bold);
+	font-size: var(--size-16px);
+	font-weight: var(--font-weight-medium);
 	&::placeholder {
 		color: var(--color-grey-300);
 	}
@@ -79,9 +79,9 @@
 	padding: 0;
 	border: none;
 	border-bottom: solid 2px var(--color-grey-300);
-	font-size: 14px;
-	font-weight: var(--font-weight-semi-bold);
-	height: 100px;
+	font-size: var(--size-16px);
+	font-weight: var(--font-weight-medium);
+	height: 200px;
 
 	&::placeholder {
 		color: var(--color-grey-300);
@@ -89,7 +89,7 @@
 }
 
 .label {
-	font-size: 12px;
+	font-size: var(--size-16px);
 	font-weight: var(--font-weight-medium);
 	color: var(--color-grey-500);
 }

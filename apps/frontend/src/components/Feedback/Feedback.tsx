@@ -10,7 +10,8 @@ import {
 } from "@heroicons/react/solid/esm";
 import * as Popover from "@radix-ui/react-popover";
 import { sendFeedbackDislike, sendFeedbackLike } from "@vc/api/api";
-import React, { FC, useEffect, useRef, useState } from "react";
+import useMediaQuery from "@vc/frontend/util/useMediaQuery";
+import React, { FC, useEffect, useState } from "react";
 import s from "./Feedback.module.scss";
 import FeedbackPopup from "./FeedbackPopup/FeedbackPopup";
 
@@ -20,10 +21,20 @@ interface FeedbackProps {
 
 const Feedback: FC<FeedbackProps> = ({ currentTask }) => {
 	const [feedback, setFeedback] = useState<undefined | "like" | "dislike">();
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const isMobile = useMediaQuery("(max-width: 950px)");
 
+	// clear feedback state on task change
 	useEffect(() => {
 		setFeedback(undefined);
 	}, [currentTask]);
+
+	// close popup when view changes to mobile
+	useEffect(() => {
+		if (isMobile) {
+			setIsPopupOpen(false);
+		}
+	}, [isMobile]);
 
 	function handleThumbClick(
 		e: React.MouseEvent,
@@ -75,16 +86,21 @@ const Feedback: FC<FeedbackProps> = ({ currentTask }) => {
 					)}
 				</div>
 			</div>
-			<Popover.Root>
+			<Popover.Root
+				open={isPopupOpen}
+				onOpenChange={() => {
+					setIsPopupOpen(!isPopupOpen);
+				}}
+			>
 				<div className={s.questionContainer}>
-					<Popover.Anchor></Popover.Anchor>
+					<Popover.Anchor />
 					<Popover.Trigger asChild>
 						<div className={s.item}>
 							<AnnotationIcon className={s.icon} />
 							Frage stellen
 						</div>
 					</Popover.Trigger>
-					<Popover.Content asChild sideOffset={30}>
+					<Popover.Content asChild sideOffset={30} align={"start"}>
 						<div className={s.popup}>
 							<FeedbackPopup currentTask={currentTask} />
 						</div>

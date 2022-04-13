@@ -24,6 +24,7 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ currentTask }) => {
 
 	const submitButtonRef = useRef<HTMLButtonElement>(null);
 
+	// set body overflow on load to prevent scrollbar
 	useEffect(() => {
 		document.body.classList.add(s.bodyPopup);
 		return () => {
@@ -39,6 +40,7 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ currentTask }) => {
 			);
 	}
 
+	// handles form input changes
 	function handleOnChange(
 		e:
 			| React.ChangeEvent<HTMLInputElement>
@@ -47,6 +49,11 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ currentTask }) => {
 		validateInput(e.currentTarget.name, e.currentTarget.value);
 	}
 
+	/**
+	 * validates input and sets state
+	 * @param name name of the input field
+	 * @param value value of the input field
+	 */
 	function validateInput(name: string, value: string) {
 		switch (name) {
 			case "name":
@@ -78,9 +85,11 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ currentTask }) => {
 		}
 	}
 
+	// handles form submission
 	function handleSubmit(e: any) {
 		e.preventDefault();
 
+		// check if all fields are valid
 		if (!nameValid || !emailValid || !messageValid) {
 			validateInput("name", name);
 			validateInput("email", email);
@@ -95,7 +104,6 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ currentTask }) => {
 		setLoadingState("loading");
 
 		// feedback request
-
 		const body = {
 			taskId: currentTask,
 			name,
@@ -208,7 +216,7 @@ const FeedbackPopup: FC<FeedbackPopupProps> = ({ currentTask }) => {
 						{messageValid == false && invalidIcon}
 					</div>
 					<div className={s.actionContainer}>
-						<Popover.Close>
+						<Popover.Close asChild>
 							<Button variant='primary'>Abbrechen</Button>
 						</Popover.Close>
 						<Button
