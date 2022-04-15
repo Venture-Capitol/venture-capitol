@@ -47,13 +47,18 @@
 
 	li {
 		list-style-position: outside;
+		list-style-type: none;
+		padding-left: 1ch;
+		position: relative;
+
+		&::before {
+			content: "➔";
+			position: absolute;
+			transform: translateX(-2ch);
+		}
 
 		&:not(:last-child) {
 			margin-bottom: 1rem;
-		}
-
-		&::marker {
-			content: "➔ ";
 		}
 	}
 
