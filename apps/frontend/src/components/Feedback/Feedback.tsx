@@ -36,10 +36,7 @@ const Feedback: FC<FeedbackProps> = ({ currentTask }) => {
 		}
 	}, [isMobile]);
 
-	function handleThumbClick(
-		e: React.MouseEvent,
-		feedbackType: "like" | "dislike"
-	) {
+	function handleThumbClick(feedbackType: "like" | "dislike") {
 		if (feedbackType != feedback) {
 			if (feedbackType == "like") {
 				setFeedback("like");
@@ -61,9 +58,7 @@ const Feedback: FC<FeedbackProps> = ({ currentTask }) => {
 				)}
 				<div
 					className={`${s.item} ${s.bubbles} ${feedback == "like" && s.active}`}
-					onClick={e => {
-						handleThumbClick(e, "like");
-					}}
+					onClick={() => handleThumbClick("like")}
 				>
 					{feedback == "like" ? (
 						<ThumbUpIconSolid className={s.icon} />
@@ -75,9 +70,7 @@ const Feedback: FC<FeedbackProps> = ({ currentTask }) => {
 					className={`${s.item} ${s.bubbles} ${
 						feedback == "dislike" && s.active
 					}`}
-					onClick={e => {
-						handleThumbClick(e, "dislike");
-					}}
+					onClick={() => handleThumbClick("dislike")}
 				>
 					{feedback == "dislike" ? (
 						<ThumbDownIconSolid className={s.icon} />
