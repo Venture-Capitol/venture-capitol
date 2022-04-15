@@ -100,10 +100,8 @@ const Feedback: FC<FeedbackProps> = ({ currentTask }) => {
 							Frage stellen
 						</div>
 					</Popover.Trigger>
-					<Popover.Content asChild sideOffset={30} align={"start"}>
-						<div className={s.popup}>
-							<FeedbackPopup currentTask={currentTask} />
-						</div>
+					<Popover.Content sideOffset={30} align={"end"} side='top'>
+						<FeedbackPopup currentTask={currentTask} />
 					</Popover.Content>
 				</div>
 			</Popover.Root>
