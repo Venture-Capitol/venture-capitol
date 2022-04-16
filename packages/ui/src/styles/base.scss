@@ -47,12 +47,15 @@ html,
 	}
 
 	li {
-		list-style: circle;
-		list-style-position: inside;
+		list-style-type: none;
 		margin-bottom: var(--size-04px);
+		position: relative;
+		padding-left: 2ch;
 
-		&::marker {
-			content: "➔ ";
+		&::before {
+			content: "➔";
+			position: absolute;
+			transform: translateX(-2ch);
 		}
 	}
 
