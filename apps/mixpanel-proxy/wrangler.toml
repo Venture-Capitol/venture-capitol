@@ -1,0 +1,8 @@
+name = "mixpanel-proxy"
+type = "javascript"
+
+account_id = "54420ba30a16b43730d589ea398c7629"
+workers_dev = true
+route = "mix.venturecapitol.de"
+zone_id = "a15037ba2919f53ae74d9a2befcba515"
+compatibility_date = "2022-04-09"

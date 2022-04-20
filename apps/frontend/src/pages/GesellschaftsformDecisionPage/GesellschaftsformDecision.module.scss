@@ -1,3 +1,22 @@
+.ctaPage {
+	margin: var(--header-height) 12px 0;
+	main {
+		margin: 0 auto;
+		max-width: 700px;
+	}
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 7vh auto 15vh auto;
+	padding: 7vh 12px 0 12px;
+	max-width: 700px;
+	text-align: center;
+	gap: 2rem;
+}
+
 .buttons {
 	display: flex;
 	align-items: center;

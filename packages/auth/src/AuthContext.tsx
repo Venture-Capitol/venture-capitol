@@ -13,11 +13,16 @@ export const AuthContext = React.createContext<AuthContext>({
 	instances: 0,
 	setInstances: () => {},
 });
+
 export function useAuthContext() {
 	return useContext(AuthContext);
 }
 
-export const AuthProvider: FC = ({ children }) => {
+interface Props {
+	onAuthStateChanged?(newUser: firebase.User | null): void;
+}
+
+export const AuthProvider: FC<Props> = ({ children, onAuthStateChanged }) => {
 	const [currentUser, setCurrentUser] = useState<
 		firebase.User | null | undefined
 	>(undefined);
@@ -27,6 +32,7 @@ export const AuthProvider: FC = ({ children }) => {
 	useEffect(() => {
 		const authObserver = app.auth().onAuthStateChanged(firebaseUser => {
 			setCurrentUser(firebaseUser);
+			if (onAuthStateChanged) onAuthStateChanged(firebaseUser);
 		});
 		return authObserver;
 	}, []);

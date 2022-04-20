@@ -47,6 +47,10 @@ There are some Visual Studio Code Extensions that are not needed but are pretty 
 
 Installing a dependency has to be done through lerna using `npx lerna add <package> --scope @vc/<app>`
 
+## Using Firebase
+
+Use `firebase deploy` to deploy to firebase. To change to environment to which firebase deploys, make a change in the line containing `"site": "preview-vc"`, changing the end to either `preview-vc` or `venture-capitol`.
+
 ## Reserved Ports
 
 Ports reserved for each service, all interchangeable by setting the `PORT` environment variable.

@@ -1,9 +1,0 @@
-Machen wir es nicht unnötig kompliziert. Natürlich kannst du die steuerliche Erfassung selbst vornehmen.
-Aber für deinen Steuerberater ist das Routine. Wenn du den entsprechenden Fachmann gefunden hast schick ihm am besten direkt eine Nachrichtob er die steuerliche Erfassung für dich vornehmen kann.
-
-## Was jetzt passiert
-
-Dein Steuerberater füllt den „Fragebogen zur steuerlichen Erfassung“ aus und gibt ihn bei deinem zuständigen Finanzamt ab.
-
-Das Finanzamt teilt dir dann eine Steuernummer und eine UStID mit.
-Diese solltest du dann zeitnah von deinem Steuerberater oder vom Finanzamt per Post erhalten.

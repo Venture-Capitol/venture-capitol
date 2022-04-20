@@ -1,7 +1,7 @@
 .maindiv_headline {
 	display: flex;
 	justify-content: center;
-	padding-top: 10%;
+	padding-top: var(--header-height);
 }
 
 .headline {

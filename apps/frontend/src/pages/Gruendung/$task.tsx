@@ -8,9 +8,16 @@ import {
 	ProcessedTaskNodes,
 	useGruendungContext,
 } from "contexts/Gruendung/Gruendung";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+	Suspense,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { Link, useParams } from "react-router-dom";
 import TaskList from "../../components/TaskList/TaskList";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import s from "./Gruendung.module.scss";
 import BottomNav from "./subcomponents/BottomNav/BottomNav";
 import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle";
@@ -18,10 +25,6 @@ import { CompletedToggle } from "./subcomponents/CompletedToggle/CompletedToggle
 const Gruendung_TaskId = () => {
 	const { unprocessedNodes, nodes, setDecisionStatus, currentCompany } =
 		useGruendungContext();
-	const [htmlContent, setHtmlContent] = useState<string | undefined>();
-	const [loadingState, setLoadingState] = useState<
-		undefined | "loading" | "error"
-	>();
 	let { task } = useParams<{ task: string }>();
 	const isMobile = useMediaQuery("(max-width: 950px)");
 	const [currentPage, setCurrentPage] = useState<"details" | "overview">(
@@ -30,39 +33,14 @@ const Gruendung_TaskId = () => {
 	const mainRef = useRef<HTMLDivElement>(null);
 	const navRef = useRef<HTMLDivElement>(null);
 
-	async function setMarkDownComponent() {
-		setLoadingState("loading");
-
-		try {
-			const module = await import("../../steps/" + task + ".md");
-
-			let html: string = module.html;
-			if (currentCompany) {
-				const removeCurrLFBrackets = html.replaceAll(
-					new RegExp(
-						"\\$" + currentCompany.legalForm.toLowerCase() + "\\{(.*?)\\}",
-						"gsm"
-					),
-					"$1"
-				);
-				const removeOtherLFBrackets = removeCurrLFBrackets.replaceAll(
-					/\$.*?\{(.*?)\}/gms,
-					""
-				);
-				setHtmlContent(removeOtherLFBrackets);
-				setLoadingState(undefined);
-			}
-		} catch (error) {
-			console.log(error);
-
-			setLoadingState("error");
-			setHtmlContent(undefined);
-		}
-	}
+	const Content = useCallback(
+		React.lazy(() => import("../../steps/" + task + ".mdx")),
+		[task]
+	);
 
 	// scroll viewports to correct positions after navigation
 	useEffect(() => {
-		setMarkDownComponent();
+		// setMarkDownComponent();
 		setCurrentPage("details");
 
 		// scroll details view to top
@@ -143,25 +121,29 @@ const Gruendung_TaskId = () => {
 							)}
 						</div>
 						<h1 className={s.header}>{unprocessedNodes[task].name}</h1>
-						{loadingState == "loading" && (
-							<div className={s.loadingIndicator}>
-								<div></div>
-								<div></div>
-								<div></div>
-								<div></div>
-							</div>
-						)}
-						{loadingState == "error" && (
-							<div>
-								<p>Fehler beim Laden der Seite...</p>
-								<div onClick={() => location.reload()}>
-									<Button>Seite neu Laden</Button>
+						<ErrorBoundary
+							fallback={
+								<div>
+									<p>Fehler beim Laden der Seite...</p>
+									<div onClick={() => location.reload()}>
+										<Button>Seite neu Laden</Button>
+									</div>
 								</div>
-							</div>
-						)}
-						{htmlContent && (
-							<div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-						)}
+							}
+						>
+							<Suspense
+								fallback={
+									<div className={s.loadingIndicator}>
+										<div></div>
+										<div></div>
+										<div></div>
+										<div></div>
+									</div>
+								}
+							>
+								<Content legalForm={currentCompany?.legalForm.toLowerCase()} />
+							</Suspense>
+						</ErrorBoundary>
 
 						{unprocessedNodes[task].type == "task" && (
 							<CompletedToggle taskId={task} />

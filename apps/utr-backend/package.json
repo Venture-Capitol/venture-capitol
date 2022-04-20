@@ -19,8 +19,10 @@
 	},
 	"scripts": {
 		"start": "docker-compose up -d db && ts-node-dev -r dotenv/config src/index.ts",
-		"build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node16",
-		"clean": "rm -rf ./dist",
+		"build": "npm run clean && esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --target=node16 && npm run copy-prisma && npm run copy-openapi",
+		"copy-prisma": "cp node_modules/.prisma/client/schema.prisma dist",
+		"copy-openapi": "cp openapi.yaml ./dist",
+		"clean": "rm -rf ./dist && mkdir -p ./dist/",
 		"compile": "tsc -p tsconfig.build.json",
 		"test": "npm run build"
 	},

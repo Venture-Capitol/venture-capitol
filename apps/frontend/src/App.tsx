@@ -10,7 +10,6 @@ import DemoAuth from "./pages/Demo/DemoAuth";
 import Header from "./components/Header/Header";
 import Gruendung from "./pages/Gruendung/Gruendung";
 import Search from "./pages/SearchDLR/DLRSearch";
-import DienstleisterProfil from "./pages/Profil/subcomponents/DienstleisterProfil";
 import GruendungContextProvider from "contexts/Gruendung/Gruendung";
 import Gesellschaftsform from "./pages/GesellschaftsformDecisionPage/GesellschaftsformDecision";
 import Datenschutzerklaerung from "./pages/Datenschutzerklaerung/Datenschutzerklaerung";
@@ -18,10 +17,16 @@ import Impressum from "./pages/Impressum/Impressum";
 import Adminpanel from "./pages/Adminpanel/Adminpanel";
 import Gruendung_TaskId from "./pages/Gruendung/$task";
 import Profil from "./pages/Profil/Profil";
+import MdxPage from "./pages/MDX/Mdx";
+import mixpanel from "mixpanel-browser";
 
 function App() {
 	return (
-		<AuthProvider>
+		<AuthProvider
+			onAuthStateChanged={user => {
+				if (user?.uid) mixpanel.identify(user.uid);
+			}}
+		>
 			<GruendungContextProvider>
 				<Router>
 					<Header />
@@ -58,6 +63,9 @@ function App() {
 						</Route>
 						<Route path='/profil/:platform'>
 							<Profil />
+						</Route>
+						<Route path='/mdx'>
+							<MdxPage />
 						</Route>
 					</Switch>
 				</Router>

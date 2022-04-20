@@ -1,9 +1,9 @@
 import { useHistory } from "react-router-dom";
-import TextBlock from "@vc/frontend/component/TextBlock/TextBlock";
 import TextParagraph from "@vc/frontend/component/TextBlock/TextParagraph";
 import Button from "@vc/ui/src/components/Button/Button";
 import s from "./GesellschaftsformDecision.module.scss";
 import { useGruendungContext } from "contexts/Gruendung/Gruendung";
+import Footer from "@vc/frontend/component/Footer/Footer";
 
 export default function Gesellschaftsform() {
 	const history = useHistory();
@@ -21,9 +21,40 @@ export default function Gesellschaftsform() {
 	}
 
 	return (
-		<div>
-			<TextBlock title='Rechtsform finden' arrow={true}>
-				<TextParagraph title='Welche Gesellschaftsform eignet sich für dich?'>
+		<div className={s.ctaPage}>
+			<div className={s.header + " content"}>
+				<h1>Weißt du schon, welche Gesellschaftsform du brauchst?</h1>
+
+				<div className={s.buttons}>
+					<Button
+						variant='secondary'
+						onClick={() => {
+							createCompany("UG");
+							history.push("/gruendung/" + findNextNode().id);
+						}}
+					>
+						<div className={s.buttonTitle} data-color='blue'>
+							UG
+						</div>
+						<div className={s.buttonDescription}>Gründen</div>
+					</Button>
+					<Button
+						variant='secondary'
+						onClick={() => {
+							createCompany("GMBH");
+							history.push("/gruendung/" + findNextNode().id);
+						}}
+					>
+						<div className={s.buttonTitle} data-color='purple'>
+							GmbH
+						</div>
+						<div className={s.buttonDescription}>Gründen</div>
+					</Button>
+				</div>
+			</div>
+
+			<main className='content'>
+				<TextParagraph title='Noch nicht? kein Problem.'>
 					Ganz am Anfang deiner Gründung ist es wichtig zu wissen, wie du deine
 					Firma rein rechtlich organisieren willst. Im Folgenden wollen wir dir
 					bei dieser Entscheidung unter die Arme greifen.
@@ -43,15 +74,15 @@ export default function Gesellschaftsform() {
 				<br />
 
 				<TextParagraph title='Gängige Rechtsformen'>
-					Wir beschränken uns auf dieser Plattform auf die gängigsten
-					Rechtsformen für Gründer. Unser Anspruch ist es nicht jeden kleinen
-					Sonderfall zu beleuchten, sondern eher im Gegenteil Informationen zu
-					reuzieren, damit dir die Gründung leichter fällt und du dich auf das
-					Wesentliche konzentrieren kannst.
+					Wir beschränken uns auf dieser Seite auf die gängigsten Rechtsformen
+					für Gründer. Unser Anspruch ist es nicht, jeden kleinen Sonderfall zu
+					beleuchten, sondern erstmal alle Informationen zu reduzieren, damit
+					dir die Gründung leichter fällt und du dich auf das Wesentliche
+					konzentrieren kannst.
 					<br />
 					<br />
-					Im Folgenden zeigen wir dir die haftunngsbeschränkten Gesellschaften
-					UG und GmbH für größere Gründungen, zeigen dir die Vorteile von
+					Im Folgenden zeigen wir dir die haftungsbeschränkten Gesellschaften UG
+					und GmbH für größere Gründungen, zeigen dir die Vorteile von
 					Katalogberufen nach § 18 EStG (Freiberufler und PartG) und
 					thematisieren zuletzt die Gründung als Einzelunternehmer und GbR, zwei
 					Gesellschaftsformen die sich für Freelancer und kleinere Projekte
@@ -66,8 +97,7 @@ export default function Gesellschaftsform() {
 					verbunden ist. Dafür musst du hier vor der Existenzgründung
 					Stammkapital einzahlen. Das hindert jedoch wenige. Die GmbH ist nach
 					wie vor die mit Abstand die beliebteste Rechtsform. Außerdem kann man
-					mit einer UG auch mit weniger Stammkapital starten. Auch wir haben
-					übrigens diese Gesellschaftsform gewählt.
+					mit einer UG auch mit weniger Stammkapital starten.
 					<br />
 					<br />
 					Vorteile einer haftungsbeschränkten Gesellschaft:
@@ -77,8 +107,8 @@ export default function Gesellschaftsform() {
 				<ul>
 					<li>Du als Gesellschafter haftest nicht mit deinem Privatvermögen</li>
 					<li>
-						Gründung mit 1 Person möglich, denn der Gesellschafter der das
-						Unternehmen besitzt, kann gleichzeitig auch Geschäftsführer sein und
+						Gründung mit einer Person möglich, denn der Gesellschafter der das
+						Unternehmen besitzt kann gleichzeitig auch Geschäftsführer sein und
 						das Unternehmen führen
 					</li>
 					<li>
@@ -86,14 +116,14 @@ export default function Gesellschaftsform() {
 						gegenüber allen anderen Rechtsformen
 					</li>
 					<li>
-						Komplexere Geschäfte können abgeschlossen werden, zum Beispiel der
+						Komplexere Geschäfte können abgeschlossen werden, z.B. der
 						Anteilerwerb an anderen Unternehmen
 					</li>
 					<li>
-						Bei der UG reicht für eine Unternehmensgründung bereits ein
-						Stammkapital von 1€ aus, ist ein Kapital von 25.000 Euro aus den
-						Gewinnen angespart, kann dieses in Stammkapital umgewandelt und die
-						UG zu einer GmbH geupgraded werden
+						Bei der UG reicht für eine Gründung bereits ein Stammkapital von 1€
+						aus. Ist ein Kapital von 25.000 Euro aus den Gewinnen angespart,
+						kann dieses in Stammkapital umgewandelt und die UG zu einer GmbH
+						umgewandelt werden
 					</li>
 					<li>
 						Du als Gesellschafter haftest in der Regel nicht mit deinem
@@ -169,7 +199,7 @@ export default function Gesellschaftsform() {
 				<TextParagraph title='Freiberufler und PartG'>
 					Wenn irgendwie möglich versucht man hier rein zu kommen. Denn
 					Freiberufler haben sehr viel weniger Pflichten, vereinfachte
-					Buchführung und man spart sich einen Haufen Gelder.
+					Buchführung und man spart sich einen haufen Gebühren.
 					<br />
 					<br />
 					Aber wer ist denn jetzt Freiberufler? In diese Kategorie fällst du,
@@ -316,7 +346,8 @@ export default function Gesellschaftsform() {
 				</div>
 				<br />
 				<br />
-			</TextBlock>
+			</main>
+			<Footer />
 		</div>
 	);
 }

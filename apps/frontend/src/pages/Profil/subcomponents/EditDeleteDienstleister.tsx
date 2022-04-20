@@ -189,7 +189,7 @@ const EditDeleteDienstleister = ({
 					<label className={s.label_editForm}>
 						E-Mail Adresse*
 						<input
-							type='text'
+							type='email'
 							className={s.textinput_editForm}
 							defaultValue={email}
 							onChange={e => setEmail(e.target.value)}
@@ -199,7 +199,7 @@ const EditDeleteDienstleister = ({
 					<label className={s.label_editForm}>
 						Telefon
 						<input
-							type='text'
+							type='tel'
 							className={s.textinput_editForm}
 							defaultValue={telefon}
 							onChange={e => setTelefon(e.target.value)}

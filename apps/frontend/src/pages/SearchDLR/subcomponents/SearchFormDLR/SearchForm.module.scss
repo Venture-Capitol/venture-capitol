@@ -12,6 +12,15 @@
 	flex-flow: column nowrap;
 	justify-content: flex-start;
 	padding: 0px 25px;
+	width: 100%;
+}
+
+.addressAndSearch {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	margin-top: 30px;
+	width: 70%;
 }
 
 select:focus {
@@ -22,26 +31,9 @@ input:focus {
 	outline: none;
 }
 
-.joboption {
-	border-bottom: 0.5px solid var(--color-grey-700);
-	font-family: "Space Grotesk";
-	font-weight: bold;
-	font-size: var(--size-18px);
-	margin: 0;
-	padding: 0;
-	padding: 2px 4px 2px 0px;
-	margin: 12px 20px 4px 0px;
-	background-color: transparent;
-}
-
-.joboption:focus {
-	border: none;
-	border-bottom: 0.5px solid var(--color-grey-700);
-}
-
 .form {
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: column nowrap;
 	align-items: center;
 }
 
@@ -49,7 +41,22 @@ input:focus {
 	color: var(--color-grey-600);
 }
 
-@media only screen and (max-width: 750px) {
+.selectError {
+	color: #ff8f8f;
+	font-size: var(--size-18px);
+}
+
+.searchIcon {
+	margin-right: 5px;
+}
+
+.IconAndText {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+
+@media only screen and (max-width: 900px) {
 	.form {
 		display: flex;
 		flex-flow: column nowrap;
@@ -59,5 +66,15 @@ input:focus {
 	.input_block {
 		margin: 6% 0%;
 		padding: 0;
+	}
+
+	.addressAndSearch {
+		flex-flow: column nowrap;
+		margin-bottom: 12px;
+	}
+
+	.input_block input {
+		padding: 3px 4px 0px 1px;
+		margin: 0px 0px 6px 0px;
 	}
 }

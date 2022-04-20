@@ -1,0 +1,27 @@
+{
+	"hosting": {
+		"site": "vc-staging",
+		"public": "apps/frontend/dist",
+		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+		"rewrites": [
+			{
+				"source": "/api/**",
+				"run": {
+					"serviceId": "vc-backend-staging",
+					"region": "europe-west1"
+				}
+			},
+			{
+				"source": "/dlr/**",
+				"run": {
+					"serviceId": "dlr-backend-staging",
+					"region": "europe-west1"
+				}
+			},
+			{
+				"source": "**",
+				"destination": "/index.html"
+			}
+		]
+	}
+}
