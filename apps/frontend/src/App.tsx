@@ -19,6 +19,7 @@ import Gruendung_TaskId from "./pages/Gruendung/$task";
 import Profil from "./pages/Profil/Profil";
 import MdxPage from "./pages/MDX/Mdx";
 import mixpanel from "mixpanel-browser";
+import LegalFormFinder from "./pages/LegalFormFinder/LegalFormFinder";
 
 function App() {
 	return (
@@ -57,6 +58,9 @@ function App() {
 						</Route>
 						<Route path='/gesellschaftsform'>
 							<Gesellschaftsform />
+						</Route>
+						<Route path='/gesellschaftsform-finder'>
+							<LegalFormFinder />
 						</Route>
 						<Route path='/profil' exact>
 							<Redirect to='/profil/gruender'></Redirect>
