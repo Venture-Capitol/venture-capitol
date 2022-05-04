@@ -49,7 +49,8 @@ variable "staging_image_name" {
 }
 
 variable "slack_webhook_url" {
-  type = string
+  type    = string
+  default = ""
 }
 
 # DLR Service Configuration
