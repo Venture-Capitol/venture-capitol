@@ -8,6 +8,7 @@ import { companyRouter } from "./endpoints/company/CompanyRoute";
 import { taskRouter } from "./endpoints/task/TaskRoute";
 import { decisionRouter } from "./endpoints/decision/DecisionRoute";
 import { HttpError } from "express-openapi-validator/dist/framework/types";
+import { feedbackRouter } from "./endpoints/feedback/FeedbackRoute";
 
 initializeApp();
 export const app = express();
@@ -32,6 +33,7 @@ app.use("/api/user", userRouter);
 app.use("/api/company", companyRouter);
 app.use("/api/company", taskRouter);
 app.use("/api/company", decisionRouter);
+app.use("/api/feedback", feedbackRouter);
 
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
 	// 7. Customize errors

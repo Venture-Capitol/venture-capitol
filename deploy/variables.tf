@@ -48,6 +48,10 @@ variable "staging_image_name" {
   default = "us-docker.pkg.dev/cloudrun/container/hello"
 }
 
+variable "slack_webhook_url" {
+  type    = string
+  default = ""
+}
 
 # DLR Service Configuration
 

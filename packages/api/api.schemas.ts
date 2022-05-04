@@ -14,6 +14,21 @@ export type CreateCompanyBody = {
 	name?: string;
 };
 
+export type SendFeedbackDislikeBody = {
+	taskId: string;
+};
+
+export type SendFeedbackLikeBody = {
+	taskId: string;
+};
+
+export type PostFeedbackMessageBody = {
+	taskId: string;
+	name: string;
+	email: string;
+	message: string;
+};
+
 export type CompanyLegalForm =
 	| "EINZELUNTERNEHMER"
 	| "GBR"
