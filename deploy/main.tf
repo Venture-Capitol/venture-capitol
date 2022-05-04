@@ -159,3 +159,31 @@ resource "google_storage_default_object_access_control" "media_storage_access" {
   role   = "READER"
   entity = "allUsers"
 }
+
+
+#---------------------------------------------------------#
+# -------------------- GENERAL SECRETS -------------------#
+#---------------------------------------------------------# 
+
+
+# Slack Webhook URL Secret
+resource "google_secret_manager_secret" "slack_webhook_url" {
+  secret_id = "slack_webhook_url"
+
+  replication {
+    automatic = true
+  }
+
+  depends_on = [google_project_service.secretmanager]
+}
+
+resource "google_secret_manager_secret_version" "slack_webhook_url" {
+  secret      = google_secret_manager_secret.slack_webhook_url.name
+  secret_data = var.slack_webhook_url
+}
+
+resource "google_secret_manager_secret_iam_binding" "slack_webhook_url" {
+  secret_id = google_secret_manager_secret.slack_webhook_url.id
+  role      = "roles/secretmanager.secretAccessor"
+  members   = [local.backend_serviceaccount]
+}

@@ -62,6 +62,17 @@ resource "google_cloud_run_service" "staging_backend" {
             }
           }
         }
+
+        env {
+          name = "SLACK_WEBHOOK_URL"
+
+          value_from {
+            secret_key_ref {
+              name = google_secret_manager_secret.slack_webhook_url.secret_id
+              key  = "latest"
+            }
+          }
+        }
       }
     }
 
