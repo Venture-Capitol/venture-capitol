@@ -311,7 +311,7 @@ jobs:
         working-directory: ./deploy
         run: terraform apply -auto-approve
         env:
-          "TF_VAR_slack_webhook_url": secrets.SLACK_WEBHOOK_URL
+          "TF_VAR_slack_webhook_url": ${{ secrets.SLACK_WEBHOOK_URL }}
 
   ##################################
   # 🔥 Firebase: Staging Deploy 🔥 #
@@ -394,7 +394,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
         env:
-          "TF_VAR_slack_webhook_url": secrets.SLACK_WEBHOOK_URL
+          "TF_VAR_slack_webhook_url": ${{ secrets.SLACK_WEBHOOK_URL }}
 
   #####################################
   # 🔥 Firebase: Production Deploy 🔥 #
