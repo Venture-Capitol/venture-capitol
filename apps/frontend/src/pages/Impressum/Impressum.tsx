@@ -117,6 +117,13 @@ export default function Impressum() {
 					<br />
 					<br />
 					<a href='mailto:luis.rieke@spacifik.com'>luis.rieke@spacifik.com</a>
+					<br />
+					<br />
+					Streitschlichtungshinweis: Nutze die Möglichkeit der
+					Online-Streitbeilegung der EU:{" "}
+					<a href='http://ec.europa.eu/consumers/odr'>
+						http://ec.europa.eu/consumers/odr
+					</a>
 				</TextParagraph>
 			</TextBlock>
 		</div>
