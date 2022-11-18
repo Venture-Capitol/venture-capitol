@@ -15,9 +15,6 @@ export default function Impressum() {
 					<br />
 					Germany
 					<br />
-					<br />
-					Telefon: <a href='tel:+493089636852'>+49 (0) 30 896 368 52</a>
-					<br />
 					E-mail:{" "}
 					<a href='mailto:luis.rieke@spacifik.com'>luis.rieke@spacifik.com</a>
 					<br />
@@ -38,9 +35,6 @@ export default function Impressum() {
 
 				<TextParagraph title='Datenschutzbeauftragter'>
 					Luis Rieke
-					<br />
-					<br />
-					Telefon: <a href='tel:+493089636852'>+49 (0) 30 896 368 52</a>
 					<br />
 					E-mail:{" "}
 					<a href='mailto:luis.rieke@spacifik.com'>luis.rieke@spacifik.com</a>

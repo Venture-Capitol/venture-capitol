@@ -25,8 +25,6 @@ export default function Datenschutz() {
 					<br />
 					Germany
 					<br />
-					Telefon: <a href='tel:+493089636852'>+49 (0) 30 896 368 52</a>
-					<br />
 					E-mail:{" "}
 					<a href='mailto:luis.rieke@spacifik.com'>luis.rieke@spacifik.com</a>
 					<br />
