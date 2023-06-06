@@ -7,7 +7,7 @@ export default function Footer() {
 			<p>
 				&copy; 2021-{new Date().getFullYear()} Venture Capitol - Julian, Kai,
 				Konstantin, <a href='https://spacifik.de'>Luis</a>,{" "}
-				<a href='https://malts.me'>Malte</a> und Paul-Ole
+				<a href='https://malts.me'>Malte</a> und Paul-Ole.
 			</p>
 			<ul>
 				<li>
